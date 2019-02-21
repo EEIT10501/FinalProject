@@ -30,7 +30,7 @@ public class Notification {
 		this.notificationId = notificationId;
 	}
 
-	@Column(columnDefinition = "nvarchar")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getContent() {
 		return content;
 	}
