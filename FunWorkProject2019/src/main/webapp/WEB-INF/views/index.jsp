@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,8 @@ border-radius: 15px;
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-  <img src="/eeit105finalterm/images/LOGO.jpg" width="30" height="30" class="d-inline-block align-top">
+<!--   <img src="/FunWorkProject2019/images/LOGO.jpg" width="30" height="30" class="d-inline-block align-top"> -->
+  <img src="<c:url value='/images/LOGO.jpg'></c:url>" width="30" height="30" class="d-inline-block align-top">
   EEIT趣打工</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -65,13 +67,13 @@ border-radius: 15px;
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="/eeit105finalterm/images/101.jpg" class="d-block w-100" alt="...">
+      <img src="/FunWorkProject2019/images/101.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/eeit105finalterm/images/taichong.jpg" class="d-block w-100" alt="...">
+      <img src="/FunWorkProject2019/images/taichong.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="/eeit105finalterm/images/kaoshong.jpg" class="d-block w-100" alt="...">
+      <img src="/FunWorkProject2019/images/kaoshong.jpg" class="d-block w-100" alt="...">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -87,7 +89,7 @@ border-radius: 15px;
         <div class="row m-3 justify-content-around">
             <div class="col-sm-2">
             <div class="card text-white bg-dark mb-3">
-            <img src="/eeit105finalterm/images/list.jpg" class="card-img-top" alt="...">
+            <img src="/FunWorkProject2019/images/list.jpg" class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title text-center">簡單明瞭</h5>
             <p class="card-text card-text-size">打工趣簡單明瞭的操作介面獲得無數使用者的稱讚，讓你快速找到想要的打工。</p>
@@ -96,7 +98,7 @@ border-radius: 15px;
             </div>
             <div class="col-sm-2">
             <div class="card text-white bg-dark mb-3">
-            <img src="/eeit105finalterm/images/search.jpg" class="card-img-top" alt="...">
+            <img src="/FunWorkProject2019/images/search.jpg" class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title text-center">快速搜尋</h5>
             <p class="card-text card-text-size">只要 30 秒就可以填好履歷，一鍵應徵，節省寶貴的時間。安全可靠</p>
@@ -105,7 +107,7 @@ border-radius: 15px;
             </div>
             <div class="col-sm-2">
             <div class="card text-white bg-dark mb-3">
-            <img src="/eeit105finalterm/images/security.jpg" class="card-img-top" alt="...">
+            <img src="/FunWorkProject2019/images/security.jpg" class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title text-center">安全可靠</h5>
             <p class="card-text card-text-size">嚴格審查工作來源，拒絕八大行業，你可以放心在趣打工上找到最適合的工作。</p>
@@ -114,7 +116,7 @@ border-radius: 15px;
             </div>
             <div class="col-sm-2">
             <div class="card text-white bg-dark mb-3">
-            <img src="/eeit105finalterm/images/cal.jpg" class="card-img-top" alt="...">
+            <img src="/FunWorkProject2019/images/cal.jpg" class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title text-center">精打細算</h5>
             <p class="card-text card-text-size">薪資時數幫您算好好，每月報表輕鬆做！</p>
