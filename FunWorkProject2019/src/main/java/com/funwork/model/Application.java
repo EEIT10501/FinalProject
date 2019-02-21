@@ -4,25 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"User\"")
-public class User {
-
-	private Integer userId;
-
-	public User() {
-	}
+public class Application {
+	private Integer applicationId;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getUserId() {
-		return userId;
+	public Integer getApplicationId() {
+		return applicationId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setApplicationId(Integer applicationId) {
+		this.applicationId = applicationId;
 	}
 
 }
