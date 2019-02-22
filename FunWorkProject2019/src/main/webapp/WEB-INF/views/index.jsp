@@ -27,7 +27,7 @@ border-radius: 15px;
   <a class="navbar-brand" href="#">
 <!--   <img src="/FunWorkProject2019/image/LOGO.jpg" width="30" height="30" class="d-inline-block align-top"> -->
   <img src="<c:url value='/image/LOGO.jpg'></c:url>" width="30" height="30" class="d-inline-block align-top">
-  EEIT趣打工 </a>
+  EEIT趣打工</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
