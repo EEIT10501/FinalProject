@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>${productList}</h1>
+	<h1>produucList = ${productList}</h1>
+	<h1>orderList = ${orderList}</h1>
+	<h1>notificationList = ${notificationList}</h1>
+	<h1>messageList = ${messageList}</h1>
 	<h1>${success}</h1>
 </body>
 </html>
