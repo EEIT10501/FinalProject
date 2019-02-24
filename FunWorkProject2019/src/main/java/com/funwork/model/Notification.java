@@ -2,6 +2,7 @@ package com.funwork.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,9 @@ public class Notification {
 	private Integer type;
 	private User relatedUser;
 	private User user;
+
+	public Notification() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +59,7 @@ public class Notification {
 		this.type = type;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_RelatedUser_Id")
 	public User getRelatedUser() {
 		return relatedUser;
@@ -65,7 +69,7 @@ public class Notification {
 		this.relatedUser = relatedUser;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_User_Id")
 	public User getUser() {
 		return user;
