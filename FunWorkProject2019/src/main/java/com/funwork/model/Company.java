@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 /**
  * @author Yang Cheng
  * User 和 Company 做關聯性 (雙向多對一)
@@ -180,5 +179,4 @@ public class Company {
 				+ notificationTimes + ", coverPic=" + coverPic + ", description=" + description + ", logo=" + logo
 				+ ", siteURL=" + siteURL + ", userId=" + user.getUserId() + "]";
 	}
-
 }

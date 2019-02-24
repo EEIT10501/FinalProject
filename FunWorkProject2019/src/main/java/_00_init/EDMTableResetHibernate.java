@@ -155,14 +155,14 @@ public class EDMTableResetHibernate {
 			jb3.setTitle("資深研究員");
 			
 			//同一人才招募
-			jb.setUser(ub);
-			jb2.setUser(ub);
-			jb3.setUser(ub);
+			jb.setJobOwner(ub);
+			jb2.setJobOwner(ub);
+			jb3.setJobOwner(ub);
 			
 			//代表不同的公司
-			jb.setCompany(cb);
-			jb2.setCompany(cb2);
-			jb3.setCompany(cb2);
+			jb.setJobCompany(cb);
+			jb2.setJobCompany(cb2);
+			jb3.setJobCompany(cb2);
 			
 			session.save(jb);
 			session.save(jb2);
