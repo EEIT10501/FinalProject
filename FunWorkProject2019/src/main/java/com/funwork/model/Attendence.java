@@ -68,8 +68,7 @@ public class Attendence {
 	public void setDailySalary(Integer dailySalary) {
 		this.dailySalary = dailySalary;
 	}
-	
-	
+		
 //	@OneToOne
 //	@JoinColumn
 //	@OneToOne(mappinBy="attendence")

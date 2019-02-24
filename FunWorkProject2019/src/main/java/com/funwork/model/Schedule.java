@@ -81,6 +81,4 @@ public class Schedule {
 				+ ", workDate=" + workDate + ", jobId=" + job.getJobId() + "]";
 	}
 	
-	
-
 }
