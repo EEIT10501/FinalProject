@@ -11,6 +11,7 @@
 	<h1>orderList = ${orderList}</h1>
 	<h1>notificationList = ${notificationList}</h1>
 	<h1>messageList = ${messageList}</h1>
+	<h1>jobList = ${jobList}</h1>
 	<h1>${success}</h1>
 </body>
 </html>
