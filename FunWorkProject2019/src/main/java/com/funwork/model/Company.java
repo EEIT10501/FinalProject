@@ -152,8 +152,8 @@ public class Company {
 		this.siteURL = siteURL;
 	}
 	
-	//Company 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 company 性質中
-	@OneToMany(mappedBy="company",cascade=CascadeType.ALL)
+	//Company 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 jobCompany 性質中
+	@OneToMany(mappedBy="jobCompany",cascade=CascadeType.ALL)
 	public Set<Job> getJobsSet() {
 		return jobsSet;
 	}

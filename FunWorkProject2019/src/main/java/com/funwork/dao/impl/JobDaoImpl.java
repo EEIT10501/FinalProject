@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.JobDao;
 import com.funwork.model.Job;
-import com.funwork.model.Message;
 
 @Repository
 public class JobDaoImpl implements JobDao {

@@ -20,8 +20,8 @@ public class Job {
 	private Integer jobId;
 //	private Integer applicant; //好像跟jobOwner重複
 	private String comment;
-	private String isExposure; //這是什麼??
-	private String isFilled; //這是什麼??
+	private Boolean isExposure; 
+	private Boolean isFilled; 
 	private Timestamp postEndDate;
 	private Integer reviewStatus;
 	private String title;
@@ -73,19 +73,21 @@ public class Job {
 		this.comment = comment;
 	}
 
-	public String getIsExposure() {
+	
+
+	public Boolean getIsExposure() {
 		return isExposure;
 	}
 
-	public void setIsExposure(String isExposure) {
+	public void setIsExposure(Boolean isExposure) {
 		this.isExposure = isExposure;
 	}
 
-	public String getIsFilled() {
+	public Boolean getIsFilled() {
 		return isFilled;
 	}
 
-	public void setIsFilled(String isFilled) {
+	public void setIsFilled(Boolean isFilled) {
 		this.isFilled = isFilled;
 	}
 
