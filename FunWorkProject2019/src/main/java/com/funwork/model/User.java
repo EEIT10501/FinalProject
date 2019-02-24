@@ -64,8 +64,8 @@ public class User {
 		this.companysSet = companysSet;
 	}
 	
-	//User 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 user 性質中
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	//User 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 jobOwner 性質中
+	@OneToMany(mappedBy="jobOwner", cascade=CascadeType.ALL)
 	public Set<Job> getJobsSet() {
 		return jobsSet;
 	}
