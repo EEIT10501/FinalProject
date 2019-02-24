@@ -20,8 +20,8 @@ public class Job {
 	private Integer jobId;
 //	private Integer applicant; //好像跟jobOwner重複
 	private String comment;
-	private Boolean isExposure; //這是什麼??
-	private Boolean isFilled; //這是什麼??
+	private Boolean isExposure; 
+	private Boolean isFilled; 
 	private Timestamp postEndDate;
 	private Integer reviewStatus;
 	private String title;
