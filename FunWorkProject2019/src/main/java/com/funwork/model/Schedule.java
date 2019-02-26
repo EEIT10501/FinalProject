@@ -3,12 +3,15 @@ package com.funwork.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Schedule {
@@ -64,7 +67,7 @@ public class Schedule {
 		this.workDate = workDate;
 	}
 
-	@Column(name="Fk_Job_Id")
+	@OneToOne(cascade = CascadeType.ALL)
 	public Job getJob() {
 		return job;
 	}

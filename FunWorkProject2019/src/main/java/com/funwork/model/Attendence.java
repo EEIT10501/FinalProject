@@ -14,19 +14,18 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Attendence {
-	
+
 	private Integer attendenceId;
 	private Date date;
 	private Timestamp time;
 	private Integer type;
-	private Integer dailySalary;//Jack老師建議新增欄位 日薪欄位
-	private Job job;//外鍵
-	private User user;//外鍵
-
+	private Integer dailySalary;// Jack老師建議新增欄位 日薪欄位
+	private Job job;// 外鍵
+	private User user;// 外鍵
 
 	public Attendence() {
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getAttendenceId() {
@@ -60,7 +59,7 @@ public class Attendence {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	
+
 	public Integer getDailySalary() {
 		return dailySalary;
 	}
@@ -68,11 +67,8 @@ public class Attendence {
 	public void setDailySalary(Integer dailySalary) {
 		this.dailySalary = dailySalary;
 	}
-		
-//	@OneToOne
-//	@JoinColumn
-//	@OneToOne(mappinBy="attendence")
-//	
+
+	@OneToOne(cascade = CascadeType.ALL)
 	public Job getJob() {
 		return job;
 	}
@@ -80,6 +76,7 @@ public class Attendence {
 	public void setJob(Job job) {
 		this.job = job;
 	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
@@ -95,11 +92,5 @@ public class Attendence {
 		return "Attendence [attendenceId=" + attendenceId + ", date=" + date + ", time=" + time + ", type=" + type
 				+ ", dailySalary=" + dailySalary + ", jobId=" + job.getJobId() + ", userId=" + user.getUserId() + "]";
 	}
-
-	
-	
-	
-	
-	
 
 }
