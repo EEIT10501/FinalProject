@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Salary {
@@ -73,6 +74,7 @@ public class Salary {
 		this.rating = rating;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL)
 	public Job getJob() {
 		return Job;
 	}
