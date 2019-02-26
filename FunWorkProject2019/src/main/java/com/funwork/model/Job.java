@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,6 @@ import javax.persistence.OneToMany;
 public class Job {
 	
 	private Integer jobId;
-//	private Application applicant; //好像跟jobOwner重複
 	private String comment;
 	private Boolean isExposure; 
 	private Boolean isFilled; 
@@ -105,6 +105,7 @@ public class Job {
 		this.reviewStatus = reviewStatus;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getTitle() {
 		return title;
 	}
@@ -131,6 +132,7 @@ public class Job {
 		this.city = city;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getAddress() {
 		return address;
 	}
@@ -139,6 +141,7 @@ public class Job {
 		this.address = address;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getAddresssup() {
 		return addresssup;
 	}
@@ -147,6 +150,7 @@ public class Job {
 		this.addresssup = addresssup;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getContact() {
 		return contact;
 	}
@@ -155,6 +159,7 @@ public class Job {
 		this.contact = contact;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getDescription() {
 		return description;
 	}
@@ -171,6 +176,7 @@ public class Job {
 		this.jobEmail = jobEmail;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getIndustry() {
 		return industry;
 	}
