@@ -91,8 +91,13 @@ public class Salary {
 	public void setRating(Float rating) {
 		this.rating = rating;
 	}
+<<<<<<< HEAD
 	
 	
+=======
+
+	@OneToOne(cascade = CascadeType.ALL)
+>>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 	public Job getJob() {
 		return Job;
 	}

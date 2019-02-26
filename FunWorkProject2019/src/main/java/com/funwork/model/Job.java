@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
 public class Job {
 	
 	private Integer jobId;
-//	private Integer applicant; //好像跟jobOwner重複
+//	private Application applicant; //好像跟jobOwner重複
 	private String comment;
 	private Boolean isExposure; 
 	private Boolean isFilled; 
@@ -42,6 +42,7 @@ public class Job {
 	private Integer rateByHour; 
 	private User jobOwner;//通知Hibernate以此參考設定外鍵欄位
 	private Company jobCompany;//通知Hibernate以此參考設定外鍵欄位
+<<<<<<< HEAD
 	private Salary salary; //通知Hibernate以此參考設定外鍵欄位
 //	private Attendence attendence; //通知Hibernate以此參考設定外鍵欄位
 
@@ -49,6 +50,10 @@ public class Job {
 	private Set<Application> applcationsSet = new HashSet<>();
 //	private Set<Salary> salarySet = new HashSet<>();
 //	private Set<Schedule> scheduleSet = new LinkedHashSet<>();
+=======
+	//以下為儲存多方的實例變數
+		Set<Application> applcationsSet = new HashSet<>();
+>>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 	
 	public Job() {
 	}
@@ -63,11 +68,11 @@ public class Job {
 		this.jobId = jobId;
 	}
 
-//	public Integer getApplicant() {
+//	public Application getApplicant() {
 //		return applicant;
 //	}
 //
-//	public void setApplicant(Integer applicant) {
+//	public void setApplicant(Application applicant) {
 //		this.applicant = applicant;
 //	}
 
@@ -78,7 +83,6 @@ public class Job {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
 	
 
 	public Boolean getIsExposure() {
