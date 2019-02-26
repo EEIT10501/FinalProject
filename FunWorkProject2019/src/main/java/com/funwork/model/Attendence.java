@@ -27,6 +27,22 @@ public class Attendence {
 	public Attendence() {
 	}
 	
+	
+	
+	public Attendence(Integer attendenceId, Date date, Timestamp time, Integer type, Integer dailySalary, Job job,
+			User user) {
+		super();
+		this.attendenceId = attendenceId;
+		this.date = date;
+		this.time = time;
+		this.type = type;
+		this.dailySalary = dailySalary;
+		this.job = job;
+		this.user = user;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getAttendenceId() {
@@ -69,10 +85,6 @@ public class Attendence {
 		this.dailySalary = dailySalary;
 	}
 		
-//	@OneToOne
-//	@JoinColumn
-//	@OneToOne(mappinBy="attendence")
-//	
 	public Job getJob() {
 		return job;
 	}
@@ -80,8 +92,7 @@ public class Attendence {
 	public void setJob(Job job) {
 		this.job = job;
 	}
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
+
 	public User getUser() {
 		return user;
 	}

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,11 +25,11 @@ public class User {
 //	private String email;
 	
 	//以下為儲存多方的實例變數
-	Set<Company> companysSet = new HashSet<>();
-	Set<Job> jobsSet = new HashSet<>();
-	Set<Application> applicationsSet = new HashSet<>();
-	Set<Salary> salarySet = new HashSet<>();
-	Set<Attendence> attendenceSet = new HashSet<>();
+	private Set<Company> companysSet = new HashSet<>();
+	private Set<Job> jobsSet = new HashSet<>();
+	private Set<Application> applicationsSet = new HashSet<>();
+//	private Set<Salary> salarySet = new HashSet<>();
+//	private Set<Attendence> attendenceSet = new HashSet<>();
 	public User(Integer userId, String userName) {
 		super();
 		this.userId = userId;
@@ -83,6 +84,24 @@ public class User {
 	public void setApplicationsSet(Set<Application> applicationsSet) {
 		this.applicationsSet = applicationsSet;
 	}
+//	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name="Fk_Salary_Id", referencedColumnName="Salary_Id")
+//	public Set<Salary> getSalarySet() {
+//		return salarySet;
+//	}
+//
+//	public void setSalarySet(Set<Salary> salarySet) {
+//		this.salarySet = salarySet;
+//	}
+//	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name="fk_Attendence_Id", referencedColumnName="Attendence_Id")
+//	public Set<Attendence> getAttendenceSet() {
+//		return attendenceSet;
+//	}
+//
+//	public void setAttendenceSet(Set<Attendence> attendenceSet) {
+//		this.attendenceSet = attendenceSet;
+//	}
 	
 	
 

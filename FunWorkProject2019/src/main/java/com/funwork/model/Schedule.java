@@ -17,12 +17,18 @@ public class Schedule {
 	private Timestamp endTime;
 	private Timestamp startTime;
 	private Date workDate;
-	private Job job;//外鍵
-	
 
 	public Schedule() {
 	}
 
+	public Schedule(Integer scheduleId, Timestamp endTime, Timestamp startTime, Date workDate) {
+		super();
+		this.scheduleId = scheduleId;
+		this.endTime = endTime;
+		this.startTime = startTime;
+		this.workDate = workDate;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getScheduleId() {
@@ -64,21 +70,11 @@ public class Schedule {
 		this.workDate = workDate;
 	}
 
-	@Column(name="Fk_Job_Id")
-	public Job getJob() {
-		return job;
-	}
-
-
-	public void setJob(Job job) {
-		this.job = job;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Schedule [scheduleId=" + scheduleId + ", endTime=" + endTime + ", startTime=" + startTime
-				+ ", workDate=" + workDate + ", jobId=" + job.getJobId() + "]";
+				+ ", workDate=" + workDate + "]";
 	}
+
 	
 }

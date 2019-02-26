@@ -19,10 +19,28 @@ public class Salary {
 	private Float rating; //Jack老師建議新增評分欄位
 	private Job Job;//外鍵
 	private User user;//外鍵
+	
 
 	public Salary() {
 	}
 	
+	
+	
+	public Salary(Integer salaryId, Float hours, String reviewComment, Integer reviewStatus, Integer paymentstatus,
+			Float rating, com.funwork.model.Job job, User user) {
+		super();
+		this.salaryId = salaryId;
+		this.hours = hours;
+		this.reviewComment = reviewComment;
+		this.reviewStatus = reviewStatus;
+		this.paymentstatus = paymentstatus;
+		this.rating = rating;
+		this.Job = job;
+		this.user = user;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getSalaryId() {
@@ -80,8 +98,7 @@ public class Salary {
 	public void setJob(Job job) {
 		Job = job;
 	}
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
+
 	public User getUser() {
 		return user;
 	}

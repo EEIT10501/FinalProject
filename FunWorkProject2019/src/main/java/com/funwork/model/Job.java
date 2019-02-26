@@ -2,6 +2,7 @@ package com.funwork.model;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -40,12 +42,15 @@ public class Job {
 	private Integer rateByHour; 
 	private User jobOwner;//通知Hibernate以此參考設定外鍵欄位
 	private Company jobCompany;//通知Hibernate以此參考設定外鍵欄位
+//	private Salary salary; //通知Hibernate以此參考設定外鍵欄位
+//	private Attendence attendence; //通知Hibernate以此參考設定外鍵欄位
+
+	//以下為儲存多方的實例變數
+	private Set<Application> applcationsSet = new HashSet<>();
+//	private Set<Schedule> scheduleSet = new LinkedHashSet<>();
 	
 	public Job() {
 	}
-
-	//以下為儲存多方的實例變數
-	Set<Application> applcationsSet = new HashSet<>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -250,6 +255,43 @@ public class Job {
 	public void setApplcationsSet(Set<Application> applcationsSet) {
 		this.applcationsSet = applcationsSet;
 	}
+	
+//	@OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name="Fk_Job_Id", referencedColumnName="Job_Id")
+//	public Set<Schedule> getScheduleSet() {
+//		return scheduleSet;
+//	}
+//
+//	public void setScheduleSet(Set<Schedule> scheduleSet) {
+//		this.scheduleSet = scheduleSet;
+//	}
+//
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="FK_Attendence_Id")
+//	public Attendence getAttendence() {
+//		return attendence;
+//	}
+//
+//	public void setAttendence(Attendence attendence) {
+//		this.attendence = attendence;
+//	}
+//	
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="FK_Salary_Id")
+//	public Salary getSalary() {
+//		return salary;
+//	}
+//
+//	public void setSalary(Salary salary) {
+//		this.salary = salary;
+//	}
+	
+	
+	
+	
+
+	
+	
 	
 }
 	
