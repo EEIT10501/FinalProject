@@ -1,5 +1,7 @@
 package com.funwork.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +14,9 @@ import javax.persistence.Table;
 public class Experience {
 	
 	private Integer experienceId;
-	private String industry;
+	private String company;
 	private String position;
+	private Timestamp term;
 	private Reusme reusme;//外鍵
 
 	public Experience() {
@@ -30,14 +33,28 @@ public class Experience {
 		this.experienceId = experienceId;
 	}
 
-	public String getIndustry() {
-		return industry;
+
+	@Column(columnDefinition="nvarchar(255)")
+	public String getCompany() {
+		return company;
 	}
 
-	public void setIndustry(String industry) {
-		this.industry = industry;
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
+
+	public Timestamp getTerm() {
+		return term;
+	}
+
+
+	public void setTerm(Timestamp term) {
+		this.term = term;
+	}
+
+	@Column(columnDefinition="nvarchar(255)")
 	public String getPosition() {
 		return position;
 	}
