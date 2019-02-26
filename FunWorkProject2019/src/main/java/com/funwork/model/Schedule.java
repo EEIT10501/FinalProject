@@ -3,15 +3,12 @@ package com.funwork.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Schedule {
@@ -20,7 +17,6 @@ public class Schedule {
 	private Timestamp endTime;
 	private Timestamp startTime;
 	private Date workDate;
-	private Date workDate1;
 
 	public Schedule() {
 	}
@@ -74,20 +70,6 @@ public class Schedule {
 		this.workDate = workDate;
 	}
 
-<<<<<<< HEAD
-=======
-	@OneToOne(cascade = CascadeType.ALL)
-	public Job getJob() {
-		return job;
-	}
-
-
-	public void setJob(Job job) {
-		this.job = job;
-	}
-
-
->>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 	@Override
 	public String toString() {
 		return "Schedule [scheduleId=" + scheduleId + ", endTime=" + endTime + ", startTime=" + startTime
