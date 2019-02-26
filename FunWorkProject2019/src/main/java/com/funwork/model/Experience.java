@@ -11,25 +11,46 @@ import javax.persistence.Table;
 @Table(name = "\"Experience\"")
 public class Experience {
 	
-	private Integer experienceId;
+	private Integer id;
+	private String experienceId;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	@Column(name="experience_id")
+	public String getExperienceId() {
+		return experienceId;
+	}
+
+
+	public void setExperienceId(String experienceId) {
+		this.experienceId = experienceId;
+	}
+
 	private String industry;
 	private String position;
-	private Reusme reusme;//外鍵
+	//private Reusme reusme;//外鍵
+	private Integer resumeId;
 
 	public Experience() {
 	}
 
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Integer getExperienceId() {
-		return experienceId;
+	@Column(name="FK_Resume_Id")
+	public Integer getResumeId() {
+		return resumeId;
 	}
 
-	public void setExperienceId(Integer experienceId) {
-		this.experienceId = experienceId;
-	}
-
+	
 	public String getIndustry() {
 		return industry;
 	}
@@ -46,23 +67,6 @@ public class Experience {
 		this.position = position;
 	}
 
-	@Column(name="FK_Resume_Id")
-	public Reusme getReusme() {
-		return reusme;
-	}
-
-
-	public void setReusme(Reusme reusme) {
-		this.reusme = reusme;
-	}
-
-
-
-
-
-
-
-	
 	
 	
 }

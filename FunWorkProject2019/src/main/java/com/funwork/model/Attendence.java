@@ -84,7 +84,9 @@ public class Attendence {
 	public void setDailySalary(Integer dailySalary) {
 		this.dailySalary = dailySalary;
 	}
-		
+	
+	@ManyToOne
+	@JoinColumn(name="fk_Job_id",nullable=false)
 	public Job getJob() {
 		return job;
 	}
@@ -92,7 +94,8 @@ public class Attendence {
 	public void setJob(Job job) {
 		this.job = job;
 	}
-
+	@ManyToOne
+	@JoinColumn(name="fk_user_id",nullable=false)
 	public User getUser() {
 		return user;
 	}

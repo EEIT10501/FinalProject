@@ -42,11 +42,12 @@ public class Job {
 	private Integer rateByHour; 
 	private User jobOwner;//通知Hibernate以此參考設定外鍵欄位
 	private Company jobCompany;//通知Hibernate以此參考設定外鍵欄位
-//	private Salary salary; //通知Hibernate以此參考設定外鍵欄位
+	private Salary salary; //通知Hibernate以此參考設定外鍵欄位
 //	private Attendence attendence; //通知Hibernate以此參考設定外鍵欄位
 
 	//以下為儲存多方的實例變數
 	private Set<Application> applcationsSet = new HashSet<>();
+//	private Set<Salary> salarySet = new HashSet<>();
 //	private Set<Schedule> scheduleSet = new LinkedHashSet<>();
 	
 	public Job() {
@@ -276,15 +277,15 @@ public class Job {
 //		this.attendence = attendence;
 //	}
 //	
-//	@OneToOne(cascade=CascadeType.ALL)
-//	@JoinColumn(name="FK_Salary_Id")
-//	public Salary getSalary() {
-//		return salary;
-//	}
-//
-//	public void setSalary(Salary salary) {
-//		this.salary = salary;
-//	}
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="FK_Salary_Id")
+	public Salary getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Salary salary) {
+		this.salary = salary;
+	}
 	
 	
 	

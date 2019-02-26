@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +38,7 @@ public class Reusme {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="resumeId")
 	public Integer getResumeId() {
 		return resumeId;
 	}
@@ -93,7 +95,7 @@ public class Reusme {
 		this.selfIntro = selfIntro;
 	}
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="Fk_User_Id")
+//	@JoinColumn(name="Fk_User_Id")
 	public User getUser() {
 		return user;
 	}
@@ -101,8 +103,8 @@ public class Reusme {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	@OneToMany
-	@JoinColumn(name="Fk_ResumeId_Id")
+	@OneToMany(cascade=CascadeType.ALL )
+	@JoinColumn(name="resumeId", referencedColumnName="resumeId")
 	public Set<Experience> getExperiencesSet() {
 		return experiencesSet;
 	}
