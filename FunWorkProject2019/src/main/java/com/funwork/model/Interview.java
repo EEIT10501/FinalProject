@@ -13,9 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="Interview")
+@Table(name = "Interview")
 public class Interview {
 	private Integer interviewId;
 	private Clob interviewComment;
@@ -23,12 +22,12 @@ public class Interview {
 	private String interviewPlace;
 	private Boolean interviewStatus;
 	private Date interviewTime;
-	
-	//provide info to Hibernate for setting Fk
+
+	// provide info to Hibernate for setting Fk
 	private Application application;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getInterviewId() {
 		return interviewId;
 	}
@@ -36,8 +35,8 @@ public class Interview {
 	public void setInterviewId(Integer interviewId) {
 		this.interviewId = interviewId;
 	}
-	
-	@Column(nullable=false,columnDefinition="nvarchar(MAX)")
+
+	@Column(columnDefinition = "nvarchar(MAX)")
 	public Clob getInterviewComment() {
 		return interviewComment;
 	}
@@ -45,8 +44,8 @@ public class Interview {
 	public void setInterviewComment(Clob interviewComment) {
 		this.interviewComment = interviewComment;
 	}
-	
-	@Column(nullable=false,columnDefinition="int default 0")
+
+	@Column(nullable = false, columnDefinition = "int default 0")
 	public String getInterviewType() {
 		return interviewType;
 	}
@@ -54,8 +53,8 @@ public class Interview {
 	public void setInterviewType(String interviewType) {
 		this.interviewType = interviewType;
 	}
-	
-	@Column(nullable=false,columnDefinition="nvarchar(255)")
+
+	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	public String getInterviewPlace() {
 		return interviewPlace;
 	}
@@ -63,8 +62,8 @@ public class Interview {
 	public void setInterviewPlace(String interviewPlace) {
 		this.interviewPlace = interviewPlace;
 	}
-	
-	@Column(nullable=false,columnDefinition="int default 0")
+
+	@Column(nullable = false, columnDefinition = "int default 0")
 	public Boolean getInterviewStatus() {
 		return interviewStatus;
 	}
@@ -81,9 +80,9 @@ public class Interview {
 		this.interviewTime = interviewTime;
 	}
 
-	//Tell hibernate that application is for association
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fk_applicationId")
+	// Tell hibernate that application is for association
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_applicationId")
 	public Application getApplication() {
 		return application;
 	}
@@ -99,5 +98,4 @@ public class Interview {
 				+ ", interviewTime=" + interviewTime + ", applicationId=" + application.getApplicationId() + "]";
 	}
 
-		
 }

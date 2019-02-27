@@ -1,4 +1,4 @@
-package com.funwork.controller;
+package com.funwork.model;
 
 import java.io.IOException;
 import java.util.HashMap;

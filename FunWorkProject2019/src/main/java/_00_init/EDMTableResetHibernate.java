@@ -26,7 +26,6 @@ import com.funwork.model.Interview;
 import com.funwork.model.Job;
 import com.funwork.model.User;
 
-import _00_init.util.GlobalService;
 import _00_init.util.HibernateUtils;
 import _00_init.util.SystemUtils2018;
 
@@ -40,6 +39,7 @@ public class EDMTableResetHibernate {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
+
 		try {
 			tx = session.beginTransaction();
 
@@ -140,48 +140,47 @@ public class EDMTableResetHibernate {
 //				ex.printStackTrace();
 //			}
 
-			//嘗試新增3份工作
+//		 嘗試新增3份工作
 			Job jb = new Job();
 			Job jb2 = new Job();
 			Job jb3 = new Job();
-			
-			
+
 			User ub = session.get(User.class, 1);
 			Company cb = session.get(Company.class, 1);
 			Company cb2 = session.get(Company.class, 2);
-			
+
 			jb.setTitle("業務經理");
 			jb2.setTitle("專案經理");
 			jb3.setTitle("資深研究員");
-			
-			//同一人才招募
+
+			// 同一人才招募
 			jb.setJobOwner(ub);
 			jb2.setJobOwner(ub);
 			jb3.setJobOwner(ub);
-			
-			//代表不同的公司
+
+			// 代表不同的公司
 			jb.setJobCompany(cb);
 			jb2.setJobCompany(cb2);
 			jb3.setJobCompany(cb2);
-			
+
 			session.save(jb);
 			session.save(jb2);
 			session.save(jb3);
 
 			Application ab = new Application();
-			
-			//嘗試新增一筆投遞紀錄
+
+			// 嘗試新增一筆投遞紀錄
 			ab.setApplicationTime(new Date());
 			ab.setAnswer("沒有問題");
 			ab.setAppliedStatus("已邀約");
 			ab.setJob(jb);
-			//由第四名user投遞
+			// 由第四名user投遞
 			User u4 = session.get(User.class, 4);
 			ab.setUser(u4);
 
 			session.save(ab);
-			
-			//嘗試新增2 筆面試紀錄
+
+			// 嘗試新增2 筆面試紀錄
 			SimpleDateFormat stf = new SimpleDateFormat("yyyy-MM-dd");
 			Interview ib = new Interview();
 			ib.setInterviewPlace("Taipei");
@@ -196,10 +195,10 @@ public class EDMTableResetHibernate {
 			Application app = session.get(Application.class, 1);
 			ib.setApplication(app);
 			ib2.setApplication(app);
-			
+
 			session.save(ib);
 			session.save(ib2);
-			
+
 			tx.commit();
 		} catch (Exception e) {
 			System.err.println("新建表格時發生例外: " + e.getMessage());
@@ -207,6 +206,7 @@ public class EDMTableResetHibernate {
 			tx.rollback();
 		}
 		factory.close();
+
 	}
 
 }

@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Attendence {
@@ -80,8 +79,9 @@ public class Attendence {
 		this.dailySalary = dailySalary;
 	}
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="Fk_Job_Id")
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}

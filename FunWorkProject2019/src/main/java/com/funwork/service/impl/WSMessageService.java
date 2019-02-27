@@ -2,12 +2,13 @@ package com.funwork.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.funwork.controller.WebSocketChat;
+import com.funwork.model.WebSocketChat;
 
 @Service("webSocketMessageService")
 public class WSMessageService {
 
 	private WebSocketChat webSocketChat = new WebSocketChat();
+
 
 	/**
 	 * @Title: sendToAllTerminal
@@ -18,6 +19,7 @@ public class WSMessageService {
 	 */
 	public Boolean sendToAllTerminal(String userId, String message) {
 		System.out.println("向用户{" + userId + "}的消息：{" + message + "}");
+		// 不論對方是否在線，都將訊息存到資料庫
 		if (webSocketChat.sendMessageToUser(userId, message)) {
 			return true;
 		} else {

@@ -13,7 +13,6 @@ public class City {
 	private String cityArea;
 
 	public City() {
-
 	}
 
 	@Id
@@ -41,6 +40,5 @@ public class City {
 	public void setCityArea(String cityArea) {
 		this.cityArea = cityArea;
 	}
-	
 
 }

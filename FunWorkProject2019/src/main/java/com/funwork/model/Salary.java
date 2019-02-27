@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Salary {
-	
+
 	private Integer salaryId;
 	private Float hours;
 	private String reviewComment;
@@ -20,6 +20,7 @@ public class Salary {
 	private Float rating; //Jack老師建議新增評分欄位
 	private Job job;  //通知Hibernate以此參考設定外鍵欄位
 	private User user;  //通知Hibernate以此參考設定外鍵欄位
+
 
 	public Salary() {}
 	
@@ -87,7 +88,8 @@ public class Salary {
 		this.rating = rating;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -95,7 +97,7 @@ public class Salary {
 	public void setJob(Job job) {
 		job = job;
 	}
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
@@ -113,8 +115,4 @@ public class Salary {
 				+ ", JobId=" + job.getJobId() + ", userId=" + user.getUserId() + "]";
 	}
 
-	
 }
-
-			  
-			  
