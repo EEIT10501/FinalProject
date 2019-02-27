@@ -3,12 +3,14 @@ package com.funwork.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Schedule {
@@ -17,18 +19,20 @@ public class Schedule {
 	private Timestamp endTime;
 	private Timestamp startTime;
 	private Date workDate;
+	private Job job;  //通知Hibernate以此參考設定外鍵欄位
+	
+	public Schedule() {}
 
-	public Schedule() {
-	}
-
-	public Schedule(Integer scheduleId, Timestamp endTime, Timestamp startTime, Date workDate) {
+	public Schedule(Integer scheduleId, Timestamp endTime, Timestamp startTime, Date workDate, Job job) {
 		super();
 		this.scheduleId = scheduleId;
 		this.endTime = endTime;
 		this.startTime = startTime;
 		this.workDate = workDate;
+		this.job = job;
 	}
-	
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getScheduleId() {
@@ -69,12 +73,26 @@ public class Schedule {
 	public void setWorkDate(Date workDate) {
 		this.workDate = workDate;
 	}
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="Fk_Job_Id")
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Schedule [scheduleId=" + scheduleId + ", endTime=" + endTime + ", startTime=" + startTime
-				+ ", workDate=" + workDate + "]";
+				+ ", workDate=" + workDate + ", jobId=" + job.getJobId() + "]";
 	}
 
+	
+	
+	
 	
 }
