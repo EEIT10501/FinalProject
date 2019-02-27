@@ -40,6 +40,8 @@ public class User {
 	Set<Salary> salarySet = new HashSet<>();
 	Set<Attendence> attendenceSet = new HashSet<>();
 
+	public User() {
+	}
 	public User(Integer userId, String userName) {
 
 		this.userId = userId;

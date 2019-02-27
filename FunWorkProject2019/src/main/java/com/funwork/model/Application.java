@@ -36,6 +36,9 @@ public class Application {
 	private User user;
 	private Job job;
 
+	public Application() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getApplicationId() {
