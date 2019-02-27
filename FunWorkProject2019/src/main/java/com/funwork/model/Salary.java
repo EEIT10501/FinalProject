@@ -10,19 +10,19 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Salary {
-	
+
 	private Integer salaryId;
 	private Float hours;
 	private String reviewComment;
 	private Integer reviewStatus;
-	private Integer paymentstatus; //Jack老師建議新增付款狀態欄位
-	private Float rating; //Jack老師建議新增評分欄位
-	private Job Job;//外鍵
-	private User user;//外鍵
+	private Integer paymentstatus; // Jack老師建議新增付款狀態欄位
+	private Float rating; // Jack老師建議新增評分欄位
+	private Job Job;// 外鍵
+	private User user;// 外鍵
 
 	public Salary() {
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getSalaryId() {
@@ -73,6 +73,8 @@ public class Salary {
 		this.rating = rating;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return Job;
 	}
@@ -80,6 +82,7 @@ public class Salary {
 	public void setJob(Job job) {
 		Job = job;
 	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
@@ -97,8 +100,4 @@ public class Salary {
 				+ ", JobId=" + Job.getJobId() + ", userId=" + user.getUserId() + "]";
 	}
 
-	
 }
-
-			  
-			  

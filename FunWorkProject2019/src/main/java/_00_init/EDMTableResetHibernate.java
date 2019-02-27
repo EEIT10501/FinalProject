@@ -26,7 +26,6 @@ import com.funwork.model.Interview;
 import com.funwork.model.Job;
 import com.funwork.model.User;
 
-import _00_init.util.GlobalService;
 import _00_init.util.HibernateUtils;
 import _00_init.util.SystemUtils2018;
 

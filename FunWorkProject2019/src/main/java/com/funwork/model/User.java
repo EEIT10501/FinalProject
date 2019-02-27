@@ -29,8 +29,9 @@ public class User {
 	Set<Application> applicationsSet = new HashSet<>();
 	Set<Salary> salarySet = new HashSet<>();
 	Set<Attendence> attendenceSet = new HashSet<>();
+	
 	public User(Integer userId, String userName) {
-		super();
+		
 		this.userId = userId;
 		this.userName = userName;
 	}

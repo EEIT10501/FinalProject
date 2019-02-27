@@ -10,18 +10,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "\"Experience\"")
 public class Experience {
-	
+
 	private Integer experienceId;
 	private String industry;
 	private String position;
-	private Reusme reusme;//外鍵
+	private Reusme reusme;// 外鍵
 
 	public Experience() {
 	}
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getExperienceId() {
 		return experienceId;
 	}
@@ -46,24 +45,13 @@ public class Experience {
 		this.position = position;
 	}
 
-	@Column(name="FK_Resume_Id")
+	@Column(name = "FK_Resume_Id")
 	public Reusme getReusme() {
 		return reusme;
 	}
-
 
 	public void setReusme(Reusme reusme) {
 		this.reusme = reusme;
 	}
 
-
-
-
-
-
-
-	
-	
-	
 }
-				  
