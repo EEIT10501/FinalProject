@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 
 import com.funwork.model.Application;
 import com.funwork.model.Message;
-import com.funwork.model.Product;
 import com.funwork.model.User;
 
 public class MessageTableInit {

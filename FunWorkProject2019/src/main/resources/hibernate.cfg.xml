@@ -39,6 +39,7 @@
 		<mapping class="com.funwork.model.Product" />
 		<mapping class="com.funwork.model.Salary" />
 		<mapping class="com.funwork.model.Schedule" />
+		<mapping class="com.funwork.model.Resume" />
 
 	</session-factory>
 </hibernate-configuration>
