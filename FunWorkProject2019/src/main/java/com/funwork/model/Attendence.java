@@ -67,9 +67,6 @@ public class Attendence {
 		this.dailySalary = dailySalary;
 	}
 
-//	@OneToOne
-//	@JoinColumn
-//	@OneToOne(mappinBy="attendence")
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,6 @@ import javax.persistence.OneToMany;
 public class Job {
 	
 	private Integer jobId;
-//	private Integer applicant; //好像跟jobOwner重複
 	private String comment;
 	private Boolean isExposure; 
 	private Boolean isFilled; 
@@ -40,12 +40,11 @@ public class Job {
 	private Integer rateByHour; 
 	private User jobOwner;//通知Hibernate以此參考設定外鍵欄位
 	private Company jobCompany;//通知Hibernate以此參考設定外鍵欄位
+	//以下為儲存多方的實例變數
+		Set<Application> applcationsSet = new HashSet<>();
 	
 	public Job() {
 	}
-
-	//以下為儲存多方的實例變數
-	Set<Application> applcationsSet = new HashSet<>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,11 +56,11 @@ public class Job {
 		this.jobId = jobId;
 	}
 
-//	public Integer getApplicant() {
+//	public Application getApplicant() {
 //		return applicant;
 //	}
 //
-//	public void setApplicant(Integer applicant) {
+//	public void setApplicant(Application applicant) {
 //		this.applicant = applicant;
 //	}
 
@@ -72,7 +71,6 @@ public class Job {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
 	
 
 	public Boolean getIsExposure() {
@@ -107,6 +105,7 @@ public class Job {
 		this.reviewStatus = reviewStatus;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getTitle() {
 		return title;
 	}
@@ -133,6 +132,7 @@ public class Job {
 		this.city = city;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getAddress() {
 		return address;
 	}
@@ -141,6 +141,7 @@ public class Job {
 		this.address = address;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getAddresssup() {
 		return addresssup;
 	}
@@ -149,6 +150,7 @@ public class Job {
 		this.addresssup = addresssup;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getContact() {
 		return contact;
 	}
@@ -157,6 +159,7 @@ public class Job {
 		this.contact = contact;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getDescription() {
 		return description;
 	}
@@ -173,6 +176,7 @@ public class Job {
 		this.jobEmail = jobEmail;
 	}
 
+	@Column(columnDefinition="nvarchar(255)")
 	public String getIndustry() {
 		return industry;
 	}

@@ -86,7 +86,7 @@ border-radius: 15px;
 </div>
     <div class="container-fluid">
         <div class="row m-3 justify-content-around">
-            <div class="col-sm-2">
+            <div class="col-md-2 col-sm-3">
             <div class="card text-white bg-dark mb-3">
             <img src="/FunWorkProject2019/image/list.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -95,7 +95,7 @@ border-radius: 15px;
             </div>
             </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-md-2 col-sm-3">
             <div class="card text-white bg-dark mb-3">
             <img src="/FunWorkProject2019/image/search.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -104,7 +104,7 @@ border-radius: 15px;
             </div>
             </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-md-2 col-sm-3">
             <div class="card text-white bg-dark mb-3">
             <img src="/FunWorkProject2019/image/security.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -113,7 +113,7 @@ border-radius: 15px;
             </div>
             </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-md-2 col-sm-3">
             <div class="card text-white bg-dark mb-3">
             <img src="/FunWorkProject2019/image/cal.jpg" class="card-img-top" alt="...">
             <div class="card-body">

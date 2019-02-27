@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,7 +45,7 @@ public class Reusme {
 	public void setResumeId(Integer resumeId) {
 		this.resumeId = resumeId;
 	}
-
+	@Column(columnDefinition="nvarchar(255)")
 	public String getName() {
 		return name;
 	}
@@ -52,7 +53,7 @@ public class Reusme {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+    
 	public Integer getPhoneNum() {
 		return phoneNum;
 	}

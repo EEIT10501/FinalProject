@@ -1,10 +1,18 @@
 package com.funwork.model;
 
+
+import java.sql.Timestamp;
+
+
+import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,9 +20,11 @@ import javax.persistence.Table;
 public class Experience {
 
 	private Integer experienceId;
-	private String industry;
+	private String company;
 	private String position;
-	private Reusme reusme;// 外鍵
+	private Timestamp term;
+	private Reusme reusme;//外鍵
+
 
 	public Experience() {
 	}
@@ -29,14 +39,28 @@ public class Experience {
 		this.experienceId = experienceId;
 	}
 
-	public String getIndustry() {
-		return industry;
+
+	@Column(columnDefinition="nvarchar(255)")
+	public String getCompany() {
+		return company;
 	}
 
-	public void setIndustry(String industry) {
-		this.industry = industry;
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
+
+	public Timestamp getTerm() {
+		return term;
+	}
+
+
+	public void setTerm(Timestamp term) {
+		this.term = term;
+	}
+
+	@Column(columnDefinition="nvarchar(255)")
 	public String getPosition() {
 		return position;
 	}
@@ -45,7 +69,9 @@ public class Experience {
 		this.position = position;
 	}
 
-	@Column(name = "FK_Resume_Id")
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_Resume_Id")
 	public Reusme getReusme() {
 		return reusme;
 	}
