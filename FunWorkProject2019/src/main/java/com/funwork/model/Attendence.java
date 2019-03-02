@@ -2,7 +2,6 @@ package com.funwork.model;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,14 +21,13 @@ public class Attendence {
 	private Time time;
 	private Integer type;
 	private Float dailySalary;// Jack老師建議新增欄位 日薪欄位
-	private Job job;  //通知Hibernate以此參考設定外鍵欄位
-	private User user;  //通知Hibernate以此參考設定外鍵欄位
+	private Job job; // 通知Hibernate以此參考設定外鍵欄位
+	private User user; // 通知Hibernate以此參考設定外鍵欄位
 
-	public Attendence() {}
-	
-	public Attendence(Integer attendenceId, Date date, Time time, Integer type, Float dailySalary, Job job,
-			User user) {
-		super();
+	public Attendence() {
+	}
+
+	public Attendence(Integer attendenceId, Date date, Time time, Integer type, Float dailySalary, Job job, User user) {
 		this.attendenceId = attendenceId;
 		this.date = date;
 		this.time = time;
@@ -38,7 +36,6 @@ public class Attendence {
 //		this.job = job;
 //		this.user = user;
 	}
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

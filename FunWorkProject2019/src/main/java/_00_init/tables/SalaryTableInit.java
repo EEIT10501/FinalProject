@@ -2,21 +2,14 @@ package _00_init.tables;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.funwork.model.Job;
-import com.funwork.model.Notification;
 import com.funwork.model.Salary;
-import com.funwork.model.Schedule;
-import com.funwork.model.User;
-
 
 public class SalaryTableInit {
 
@@ -46,21 +39,21 @@ public class SalaryTableInit {
 				String paymentStatus = token[3];
 				String rating = token[4];
 				String jobId = token[5];
-				String UserId = token[6];
-				
-				Salary salary  = new Salary();	
-				
+				String userId = token[6];
+
+				Salary salary = new Salary();
+
 				salary.setHours(Float.parseFloat(hours));
 				salary.setReviewComment(reviewComment);
 				salary.setReviewStatus(Integer.parseInt(reviewStatus));
 				salary.setPaymentstatus(Integer.parseInt(paymentStatus));
 				salary.setRating(Float.parseFloat(rating));
-				
+
 //				Job job = session.get(Job.class, Integer.valueOf(jobId));
-//				User user = session.get(User.class, Integer.valueOf(jobId));
+//				User user = session.get(User.class, Integer.valueOf(userId));
 //				salary.setJob(job);
 //				salary.setUser(user);
-				
+
 				session.save(salary);
 			}
 			tx.commit();
@@ -70,8 +63,9 @@ public class SalaryTableInit {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		
+
 	}
+
 	public java.sql.Date strToDate(String strDate) {
 		String str = strDate;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -84,17 +78,17 @@ public class SalaryTableInit {
 		java.sql.Date date = new java.sql.Date(d.getTime());
 		return date;
 	}
-	
-		public java.sql.Time strToTime(String strDate) {
-			 String str = strDate;
-			 SimpleDateFormat format =new SimpleDateFormat("hh:mm:ss");
-			 java.util.Date d =null;
-			 try{
-			  d = format.parse(str);
-			 }catch(Exception e) {
-			  e.printStackTrace();
-			 }
-			 Time date =new java.sql.Time(d.getTime());
-			 return date;
-			}
+
+	public java.sql.Time strToTime(String strDate) {
+		String str = strDate;
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+		java.util.Date d = null;
+		try {
+			d = format.parse(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Time date = new java.sql.Time(d.getTime());
+		return date;
+	}
 }

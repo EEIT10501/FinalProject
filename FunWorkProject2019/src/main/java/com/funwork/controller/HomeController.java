@@ -41,16 +41,15 @@ public class HomeController {
 
 	@Autowired
 	JobService jobService;
-	
+
 	@Autowired
 	ScheuleService scheduleService;
-	
+
 	@Autowired
 	SalaryService salaryService;
-	
+
 	@Autowired
 	AttendenceService attendenceService;
-	
 
 	public HomeController() {
 	}
@@ -73,20 +72,19 @@ public class HomeController {
 		List<Notification> notificationList = notificationService.getAllNotifications();
 		List<Message> messageList = messageService.getAllMessages();
 		List<Job> jobList = jobService.getAllJobs();
-		List<Schedule> sheduleList = scheduleService.getAllSchedules();
+		List<Schedule> scheduleList = scheduleService.getAllSchedules();
 		List<Salary> salaryList = salaryService.getAllSalarys();
 		List<Attendence> attendenceList = attendenceService.getAllAttendences();
 
-		
 		model.addAttribute("productList", productList);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("notificationList", notificationList);
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("jobList", jobList);
 		model.addAttribute("success", "dao&service呼叫成功");
-		model.addAttribute("scheduleList",sheduleList);
-		model.addAttribute("salaryList",salaryList);
-		model.addAttribute("attendenceList",attendenceList);
+		model.addAttribute("scheduleList", scheduleList);
+		model.addAttribute("salaryList", salaryList);
+		model.addAttribute("attendenceList", attendenceList);
 		return "test";
 	}
 
