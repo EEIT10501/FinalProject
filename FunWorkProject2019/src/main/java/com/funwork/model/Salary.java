@@ -8,9 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Salary ")
 public class Salary {
 
 	private Integer salaryId;
@@ -91,7 +92,7 @@ public class Salary {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_Job_Id")
+	@JoinColumn(name = "fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -101,7 +102,7 @@ public class Salary {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
+	@JoinColumn(name = "fk_User_Id")
 	public User getUser() {
 		return user;
 	}
@@ -110,11 +111,5 @@ public class Salary {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "Salary [salaryId=" + salaryId + ", hours=" + hours + ", reviewComment=" + reviewComment
-				+ ", reviewStatus=" + reviewStatus + ", paymentstatus=" + paymentStatus + ", rating=" + rating
-				+ ", JobId=" + job.getJobId() + ", userId=" + user.getUserId() + "]";
-	}
 
 }

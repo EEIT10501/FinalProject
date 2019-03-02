@@ -27,7 +27,7 @@ public class User {
 	private Integer exposureLimit;
 	private Integer jobPostLimit;
 	private Integer jobPostPeriod;
-	private Integer rating;
+	private Double rating;
 	private Integer role;
 	private Integer abscence;
 	private String facebook;
@@ -42,6 +42,7 @@ public class User {
 
 	public User() {
 	}
+
 	public User(Integer userId, String userName) {
 
 		this.userId = userId;
@@ -124,11 +125,11 @@ public class User {
 		this.jobPostPeriod = jobPostPeriod;
 	}
 
-	public Integer getRating() {
+	public Double getRating() {
 		return rating;
 	}
 
-	public void setRating(Integer rating) {
+	public void setRating(Double rating) {
 		this.rating = rating;
 	}
 

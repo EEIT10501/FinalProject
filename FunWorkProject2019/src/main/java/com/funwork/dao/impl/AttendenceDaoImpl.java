@@ -8,29 +8,28 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.funwork.dao.ScheduleDao;
-import com.funwork.model.Schedule;
+import com.funwork.dao.AttendenceDao;
+import com.funwork.model.Attendence;
 
 @Repository
-public class ScheduleDaoImpl implements ScheduleDao {
+public class AttendenceDaoImpl implements AttendenceDao {
 
 	@Autowired
 	SessionFactory factory;
 
-	public ScheduleDaoImpl() {
+	public AttendenceDaoImpl() {
+
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Schedule> getAllSchedules() {
-		String hql = "FROM Schedule";
+	@SuppressWarnings("unchecked")
+	public List<Attendence> getAllAttendences() {
+		String hql = "FROM Attendence";
 		Session session = null;
-		List<Schedule> list = new ArrayList<>();
+		List<Attendence> list = new ArrayList<>();
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
-	
 
 }

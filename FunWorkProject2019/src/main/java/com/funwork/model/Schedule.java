@@ -11,8 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Schedule")
 public class Schedule {
 
 	private Integer scheduleId;
@@ -77,10 +79,5 @@ public class Schedule {
 		this.job = job;
 	}
 
-	@Override
-	public String toString() {
-		return "Schedule [scheduleId=" + scheduleId + ", endTime=" + endTime + ", startTime=" + startTime
-				+ ", workDate=" + workDate + ", jobId=" + job.getJobId() + "]";
-	}
 
 }

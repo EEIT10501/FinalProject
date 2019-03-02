@@ -11,8 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Attendence")
 public class Attendence {
 
 	private Integer attendenceId;
@@ -33,8 +35,8 @@ public class Attendence {
 		this.time = time;
 		this.type = type;
 		this.dailySalary = dailySalary;
-		this.job = job;
-		this.user = user;
+//		this.job = job;
+//		this.user = user;
 	}
 
 
@@ -80,9 +82,8 @@ public class Attendence {
 		this.dailySalary = dailySalary;
 	}
 
-
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_Job_Id")
+	@JoinColumn(name = "fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -92,19 +93,13 @@ public class Attendence {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
+	@JoinColumn(name = "fk_User_Id")
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "Attendence [attendenceId=" + attendenceId + ", date=" + date + ", time=" + time + ", type=" + type
-				+ ", dailySalary=" + dailySalary + ", jobId=" + job.getJobId() + ", userId=" + user.getUserId() + "]";
 	}
 
 }

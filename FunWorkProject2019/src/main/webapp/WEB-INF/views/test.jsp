@@ -14,5 +14,8 @@
 	<h1>jobList = ${jobList}</h1>
 	<h1>${success}</h1>
 	<h1>scheduleList = ${scheduleList}</h1>
+	<h1>salaryList = ${salaryList}</h1>
+	<h1>attendenceList = ${attendenceList}</h1>
+	
 </body>
 </html>

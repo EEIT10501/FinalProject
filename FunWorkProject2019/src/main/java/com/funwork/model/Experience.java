@@ -14,14 +14,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"Experience\"")
 public class Experience {
 
 	private Integer experienceId;
 	private String company;
 	private String position;
 	private Timestamp term;
-	private Reusme reusme;// 外鍵
+	private Resume resume;// 外鍵
 
 	public Experience() {
 	}
@@ -64,12 +63,12 @@ public class Experience {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Fk_Resume_Id")
-	public Reusme getReusme() {
-		return reusme;
+	public Resume getResume() {
+		return resume;
 	}
 
-	public void setReusme(Reusme reusme) {
-		this.reusme = reusme;
+	public void setResume(Resume resume) {
+		this.resume = resume;
 	}
 
 }

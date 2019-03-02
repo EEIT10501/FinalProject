@@ -8,29 +8,28 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.funwork.dao.ScheduleDao;
-import com.funwork.model.Schedule;
+import com.funwork.dao.SalaryDao;
+import com.funwork.model.Salary;
 
 @Repository
-public class ScheduleDaoImpl implements ScheduleDao {
+public class SalaryDaoImpl implements SalaryDao {
 
 	@Autowired
 	SessionFactory factory;
 
-	public ScheduleDaoImpl() {
+	public SalaryDaoImpl() {
+
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Schedule> getAllSchedules() {
-		String hql = "FROM Schedule";
+	@SuppressWarnings("unchecked")
+	public List<Salary> getAllSalarys() {
+		String hql = "FROM Salary";
 		Session session = null;
-		List<Schedule> list = new ArrayList<>();
+		List<Salary> list = new ArrayList<>();
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
-	
 
 }

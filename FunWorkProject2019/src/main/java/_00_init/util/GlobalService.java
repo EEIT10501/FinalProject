@@ -25,15 +25,15 @@ public class GlobalService {
 	public static final String JNDI_DB_NAME = "java:comp/env/jdbc/BookDataSQLver";
 	public static final String KEY = "KittySnoopyMicky"; // 16, 24, 32
 	public static final int ORDER_AMOUNT_LIMIT = 10000;
-	public String getSystemName() { // systemName  ${SYSTEM.systemName}
+
+	public String getSystemName() { // systemName ${SYSTEM.systemName}
 		return SYSTEM_NAME;
 	}
 
 	/**
 	 * 依MD5演算法將參數字串message轉換為128位元(16個位元組)的資料。
 	 * 
-	 * @param message
-	 *            : 要加密的字串
+	 * @param message : 要加密的字串
 	 * @return : 128位元資料的16進位表示法所構成的字串
 	 */
 
@@ -56,7 +56,7 @@ public class GlobalService {
 //		}
 //		return buffer.toString();
 //	}
-	
+
 	public static String getMD5Endocing(String message) {
 		final StringBuffer buffer = new StringBuffer();
 		try {
@@ -76,7 +76,7 @@ public class GlobalService {
 		}
 		return buffer.toString();
 	}
-	
+
 	public static String getSHA1Endocing(String message) {
 		final StringBuffer buffer = new StringBuffer();
 		try {
@@ -100,8 +100,7 @@ public class GlobalService {
 	/**
 	 * 依MD5演算法將檔案file轉換為128位元(16個位元組)的資料。
 	 * 
-	 * @param message
-	 *            : 要加密的字串
+	 * @param message : 要加密的字串
 	 * @return : 128位元資料的16進位表示法所構成的字串
 	 */
 	public static String getMD5Endocing(File file) throws NoSuchAlgorithmException, IOException {
@@ -125,8 +124,7 @@ public class GlobalService {
 		}
 		return buffer.toString();
 	}
-	
-	
+
 	public static String getSHA1Endocing(File file) throws NoSuchAlgorithmException, IOException {
 		MessageDigest md = MessageDigest.getInstance("SHA-512");
 		try (FileInputStream fis = new FileInputStream(file);) {
@@ -148,8 +146,9 @@ public class GlobalService {
 		}
 		return buffer.toString();
 	}
-	//d0ea71ac4fd61c62e393d493fff442f83c4f780e
-	//d0ea71ac4fd61c62e393d493fff442f83c4f780e
+
+	// d0ea71ac4fd61c62e393d493fff442f83c4f780e
+	// d0ea71ac4fd61c62e393d493fff442f83c4f780e
 	// 為了測試本類別的其他方法而準備的main()方法。
 	public static void main(String[] args) throws Exception {
 		File file = new File("C:\\Users\\user\\Downloads\\apache-tomcat-8.0.52-windows-x64.zip");
@@ -191,7 +190,7 @@ public class GlobalService {
 				String contentType = part.getContentType();
 				String value = "";
 				long size = part.getSize(); // 上傳資料的大小，即上傳資料的位元組數
-				//InputStream is = part.getInputStream();
+				// InputStream is = part.getInputStream();
 				if (contentType != null) { // 表示該part為檔案
 					// 取出上傳檔案的檔名
 					String filename = GlobalService.getFileName(part);
@@ -216,10 +215,8 @@ public class GlobalService {
 	/**
 	 * 本方法可對字串message(Plaintext, 明文)加密，然後將加密後的字串 (Ciphertext, 密文)傳回。
 	 * 
-	 * @param key
-	 *            : 加密金鑰
-	 * @param message
-	 *            : 明文，即要加密的字串
+	 * @param key     : 加密金鑰
+	 * @param message : 明文，即要加密的字串
 	 * @return 加密後的
 	 * @throws NoSuchPaddingException
 	 * @throws NoSuchAlgorithmException
