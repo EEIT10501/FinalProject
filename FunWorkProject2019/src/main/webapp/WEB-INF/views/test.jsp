@@ -13,5 +13,6 @@
 	<h1>messageList = ${messageList}</h1>
 	<h1>jobList = ${jobList}</h1>
 	<h1>${success}</h1>
+	<h1>scheduleList = ${scheduleList}</h1>
 </body>
 </html>

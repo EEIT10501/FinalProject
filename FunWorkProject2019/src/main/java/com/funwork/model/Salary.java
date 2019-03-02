@@ -1,6 +1,7 @@
 package com.funwork.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class Salary {
 	private Float hours;
 	private String reviewComment;
 	private Integer reviewStatus;
-	private Integer paymentstatus; //Jack老師建議新增付款狀態欄位
+	private Integer paymentStatus; //Jack老師建議新增付款狀態欄位
 	private Float rating; //Jack老師建議新增評分欄位
 	private Job job;  //通知Hibernate以此參考設定外鍵欄位
 	private User user;  //通知Hibernate以此參考設定外鍵欄位
@@ -24,14 +25,14 @@ public class Salary {
 
 	public Salary() {}
 	
-	public Salary(Integer salaryId, Float hours, String reviewComment, Integer reviewStatus, Integer paymentstatus,
+	public Salary(Integer salaryId, Float hours, String reviewComment, Integer reviewStatus, Integer paymentStatus,
 			Float rating, Job job, User user) {
 		super();
 		this.salaryId = salaryId;
 		this.hours = hours;
 		this.reviewComment = reviewComment;
 		this.reviewStatus = reviewStatus;
-		this.paymentstatus = paymentstatus;
+		this.paymentStatus = paymentStatus;
 		this.rating = rating;
 		this.job = job;
 		this.user = user;
@@ -55,7 +56,8 @@ public class Salary {
 	public void setHours(Float hours) {
 		this.hours = hours;
 	}
-
+	
+	@Column(columnDefinition="nvarchar(255)")
 	public String getReviewComment() {
 		return reviewComment;
 	}
@@ -73,11 +75,11 @@ public class Salary {
 	}
 
 	public Integer getPaymentstatus() {
-		return paymentstatus;
+		return paymentStatus;
 	}
 
 	public void setPaymentstatus(Integer paymentstatus) {
-		this.paymentstatus = paymentstatus;
+		this.paymentStatus = paymentstatus;
 	}
 
 	public Float getRating() {
@@ -111,7 +113,7 @@ public class Salary {
 	@Override
 	public String toString() {
 		return "Salary [salaryId=" + salaryId + ", hours=" + hours + ", reviewComment=" + reviewComment
-				+ ", reviewStatus=" + reviewStatus + ", paymentstatus=" + paymentstatus + ", rating=" + rating
+				+ ", reviewStatus=" + reviewStatus + ", paymentstatus=" + paymentStatus + ", rating=" + rating
 				+ ", JobId=" + job.getJobId() + ", userId=" + user.getUserId() + "]";
 	}
 

@@ -1,6 +1,7 @@
 package com.funwork.model;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -15,14 +16,14 @@ import javax.persistence.ManyToOne;
 public class Schedule {
 
 	private Integer scheduleId;
-	private Timestamp endTime;
-	private Timestamp startTime;
+	private Time endTime;
+	private Time startTime;
 	private Date workDate;
 	private Job job;  //通知Hibernate以此參考設定外鍵欄位
 	
 	public Schedule() {}
 
-	public Schedule(Integer scheduleId, Timestamp endTime, Timestamp startTime, Date workDate, Job job) {
+	public Schedule(Integer scheduleId, Time endTime, Time startTime, Date workDate, Job job) {
 		super();
 		this.scheduleId = scheduleId;
 		this.endTime = endTime;
@@ -42,19 +43,19 @@ public class Schedule {
 		this.scheduleId = scheduleId;
 	}
 
-	public Timestamp getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 
-	public Timestamp getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
@@ -67,7 +68,7 @@ public class Schedule {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_Job_Id")
+	@JoinColumn(name = "fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}

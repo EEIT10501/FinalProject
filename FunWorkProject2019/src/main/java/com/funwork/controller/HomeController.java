@@ -12,11 +12,13 @@ import com.funwork.model.Message;
 import com.funwork.model.Notification;
 import com.funwork.model.Order;
 import com.funwork.model.Product;
+import com.funwork.model.Schedule;
 import com.funwork.service.JobService;
 import com.funwork.service.MessageService;
 import com.funwork.service.NotificationService;
 import com.funwork.service.OrderService;
 import com.funwork.service.ProductService;
+import com.funwork.service.ScheuleService;
 
 @Controller
 public class HomeController {
@@ -35,6 +37,9 @@ public class HomeController {
 
 	@Autowired
 	JobService jobService;
+	
+	@Autowired
+	ScheuleService scheduleService;
 
 	public HomeController() {
 	}
@@ -57,12 +62,16 @@ public class HomeController {
 		List<Notification> notificationList = notificationService.getAllNotifications();
 		List<Message> messageList = messageService.getAllMessages();
 		List<Job> jobList = jobService.getAllJobs();
+		List<Schedule> sheduleList = scheduleService.getAllSchedules();
+		System.out.println(sheduleList);
+		
 		model.addAttribute("productList", productList);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("notificationList", notificationList);
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("jobList", jobList);
 		model.addAttribute("success", "dao&service呼叫成功");
+		model.addAttribute("scheduleList",sheduleList);
 		return "test";
 	}
 	

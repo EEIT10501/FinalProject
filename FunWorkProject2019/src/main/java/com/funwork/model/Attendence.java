@@ -1,6 +1,7 @@
 package com.funwork.model;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -16,15 +17,15 @@ public class Attendence {
 
 	private Integer attendenceId;
 	private Date date;
-	private Timestamp time;
+	private Time time;
 	private Integer type;
-	private Integer dailySalary;// Jack老師建議新增欄位 日薪欄位
+	private Float dailySalary;// Jack老師建議新增欄位 日薪欄位
 	private Job job;  //通知Hibernate以此參考設定外鍵欄位
 	private User user;  //通知Hibernate以此參考設定外鍵欄位
 
 	public Attendence() {}
 	
-	public Attendence(Integer attendenceId, Date date, Timestamp time, Integer type, Integer dailySalary, Job job,
+	public Attendence(Integer attendenceId, Date date, Time time, Integer type, Float dailySalary, Job job,
 			User user) {
 		super();
 		this.attendenceId = attendenceId;
@@ -55,11 +56,11 @@ public class Attendence {
 		this.date = date;
 	}
 
-	public Timestamp getTime() {
+	public Time getTime() {
 		return time;
 	}
 
-	public void setTime(Timestamp time) {
+	public void setTime(Time time) {
 		this.time = time;
 	}
 
@@ -71,11 +72,11 @@ public class Attendence {
 		this.type = type;
 	}
 
-	public Integer getDailySalary() {
+	public Float getDailySalary() {
 		return dailySalary;
 	}
 
-	public void setDailySalary(Integer dailySalary) {
+	public void setDailySalary(Float dailySalary) {
 		this.dailySalary = dailySalary;
 	}
 
