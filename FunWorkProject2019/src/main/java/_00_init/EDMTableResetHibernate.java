@@ -53,8 +53,8 @@ public class EDMTableResetHibernate {
 					String[] token = line.split("\\|");
 					String name = token[0];
 					System.out.println(name);
-					User ub = new User(null, name);
-					session.save(ub);
+//					User ub = new User(null, name);
+//					session.save(ub);
 				}
 			} catch (IOException e) {
 				System.err.println("新建User表格時發生IO例外: " + e.getMessage());

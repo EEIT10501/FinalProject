@@ -65,18 +65,18 @@ public class HomeController {
 		model.addAttribute("success", "dao&service呼叫成功");
 		return "test";
 	}
-	
+
 	@RequestMapping("/chat")
 	public String Chat(Model model) {
 		// 在這邊抓當前User的歷史訊息傳到訊息頁面
-		model.addAttribute("oldMessage","54321 : 嗨 ( 2019 年 2 月 23 日 )");
+		model.addAttribute("oldMessage", "54321 : 嗨 ( 2019 年 2 月 23 日 )");
 		return "pages/chat";
 	}
-	
+
 	// chat2 是測試頁面，之後可以刪掉
 	@RequestMapping("/chat2")
 	public String Chat2(Model model) {
-		model.addAttribute("oldMessage","54321 : 嗨 ( 2019 年 2 月 23 日 )");
+		model.addAttribute("oldMessage", "54321 : 嗨 ( 2019 年 2 月 23 日 )");
 		return "pages/chat2";
 	}
 
