@@ -1,27 +1,44 @@
 package com.funwork.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Salary ")
 public class Salary {
 
 	private Integer salaryId;
 	private Float hours;
 	private String reviewComment;
 	private Integer reviewStatus;
-	private Integer paymentstatus; // Jack老師建議新增付款狀態欄位
-	private Float rating; // Jack老師建議新增評分欄位
-	private Job Job;// 外鍵
-	private User user;// 外鍵
+	private Integer paymentStatus; //Jack老師建議新增付款狀態欄位
+	private Float rating; //Jack老師建議新增評分欄位
+	private Job job;  //通知Hibernate以此參考設定外鍵欄位
+	private User user;  //通知Hibernate以此參考設定外鍵欄位
 
-	public Salary() {
+
+	public Salary() {}
+	
+	public Salary(Integer salaryId, Float hours, String reviewComment, Integer reviewStatus, Integer paymentStatus,
+			Float rating, Job job, User user) {
+		super();
+		this.salaryId = salaryId;
+		this.hours = hours;
+		this.reviewComment = reviewComment;
+		this.reviewStatus = reviewStatus;
+		this.paymentStatus = paymentStatus;
+		this.rating = rating;
+		this.job = job;
+		this.user = user;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +57,8 @@ public class Salary {
 	public void setHours(Float hours) {
 		this.hours = hours;
 	}
-
+	
+	@Column(columnDefinition="nvarchar(255)")
 	public String getReviewComment() {
 		return reviewComment;
 	}
@@ -58,11 +76,11 @@ public class Salary {
 	}
 
 	public Integer getPaymentstatus() {
-		return paymentstatus;
+		return paymentStatus;
 	}
 
 	public void setPaymentstatus(Integer paymentstatus) {
-		this.paymentstatus = paymentstatus;
+		this.paymentStatus = paymentstatus;
 	}
 
 	public Float getRating() {
@@ -74,17 +92,17 @@ public class Salary {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_Job_Id")
+	@JoinColumn(name = "fk_Job_Id")
 	public Job getJob() {
-		return Job;
+		return job;
 	}
 
 	public void setJob(Job job) {
-		Job = job;
+		job = job;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
+	@JoinColumn(name = "fk_User_Id")
 	public User getUser() {
 		return user;
 	}
@@ -93,11 +111,5 @@ public class Salary {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "Salary [salaryId=" + salaryId + ", hours=" + hours + ", reviewComment=" + reviewComment
-				+ ", reviewStatus=" + reviewStatus + ", paymentstatus=" + paymentstatus + ", rating=" + rating
-				+ ", JobId=" + Job.getJobId() + ", userId=" + user.getUserId() + "]";
-	}
 
 }

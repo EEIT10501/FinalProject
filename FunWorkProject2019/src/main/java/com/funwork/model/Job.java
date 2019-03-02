@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -40,6 +41,7 @@ public class Job {
 	private Integer rateByHour; 
 	private User jobOwner;//通知Hibernate以此參考設定外鍵欄位
 	private Company jobCompany;//通知Hibernate以此參考設定外鍵欄位
+	private Salary salary;//通知Hibernate以此參考設定外鍵欄位
 	//以下為儲存多方的實例變數
 		Set<Application> applcationsSet = new HashSet<>();
 	
@@ -254,6 +256,18 @@ public class Job {
 	public void setApplcationsSet(Set<Application> applcationsSet) {
 		this.applcationsSet = applcationsSet;
 	}
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="FK_School_id")
+	public Salary getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Salary salary) {
+		this.salary = salary;
+	}
+	
+	
 	
 }
 	
