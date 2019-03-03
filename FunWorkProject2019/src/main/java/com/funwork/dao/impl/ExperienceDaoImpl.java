@@ -24,7 +24,7 @@ public class ExperienceDaoImpl implements ExperienceDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Experience> getAllExperiences() {
-		String hql = "FROM Attendence";
+		String hql = "FROM Experience";
 		Session session = null;
 		List<Experience> list = new ArrayList<>();
 		session = factory.getCurrentSession();

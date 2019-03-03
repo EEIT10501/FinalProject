@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.funwork.dao.ResumeDao;
 import com.funwork.model.Resume;
 
-
 @Repository
 public class ResumeDaoImpl implements ResumeDao {
 
@@ -25,7 +24,7 @@ public class ResumeDaoImpl implements ResumeDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Resume> getAllResumes() {
-		String hql = "FROM Attendence";
+		String hql = "FROM Resume";
 		Session session = null;
 		List<Resume> list = new ArrayList<>();
 		session = factory.getCurrentSession();

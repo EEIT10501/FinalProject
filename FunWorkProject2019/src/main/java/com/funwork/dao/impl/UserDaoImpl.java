@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.funwork.dao.UserDao;
 import com.funwork.model.User;
 
-
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -25,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> getAllUsers() {
-		String hql = "FROM Attendence";
+		String hql = "FROM User";
 		Session session = null;
 		List<User> list = new ArrayList<>();
 		session = factory.getCurrentSession();

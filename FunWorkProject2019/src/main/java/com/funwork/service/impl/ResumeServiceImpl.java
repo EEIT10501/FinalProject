@@ -10,9 +10,6 @@ import com.funwork.dao.ResumeDao;
 import com.funwork.model.Resume;
 import com.funwork.service.ResumeService;
 
-
-
-
 @Service
 public class ResumeServiceImpl implements ResumeService {
 
