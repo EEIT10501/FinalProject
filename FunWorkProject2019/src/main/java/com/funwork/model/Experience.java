@@ -1,6 +1,6 @@
 package com.funwork.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +17,7 @@ public class Experience {
 	private Integer experienceId;
 	private String company;
 	private String position;
-	private Timestamp term;
+	private Date term;
 	private Resume resume;// 外鍵
 
 	public Experience() {
@@ -42,11 +42,11 @@ public class Experience {
 		this.company = company;
 	}
 
-	public Timestamp getTerm() {
+	public Date getTerm() {
 		return term;
 	}
 
-	public void setTerm(Timestamp term) {
+	public void setTerm(Date term) {
 		this.term = term;
 	}
 
@@ -68,5 +68,7 @@ public class Experience {
 	public void setResume(Resume resume) {
 		this.resume = resume;
 	}
+
+
 
 }
