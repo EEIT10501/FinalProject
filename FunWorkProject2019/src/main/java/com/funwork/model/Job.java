@@ -14,7 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
+/**
+ * @author user
+ *
+ */
 @Entity
+
 public class Job {
 	
 	private Integer jobId;
@@ -45,8 +50,10 @@ public class Job {
 	}
 
 	//以下為儲存多方的實例變數
-	Set<Application> applcationsSet = new HashSet<>();
+	private Set<Application> applcationsSet = new HashSet<>();
+	private Set<Schedule> schedulesSet = new HashSet<>();
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getJobId() {
@@ -238,6 +245,16 @@ public class Job {
 	public void setJobCompany(Company jobCompany) {
 		this.jobCompany = jobCompany;
 	}
+	
+//	@OneToMany
+//	@JoinColumn(name="fk_jobId", referencedColumnName="jobId")
+//	public Set<Schedule> getSchedulesSet() {
+//		return schedulesSet;
+//	}
+	
+//	public void setSchedulesSet(Set<Schedule> schedulesSet) {
+//		this.schedulesSet = schedulesSet;
+//	}
 	
 	//Job 類別並沒有表示關聯的資訊 , 此資訊位於 Application 的 job 性質中
 	@OneToMany(mappedBy="job",cascade=CascadeType.ALL)

@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
 
+@DynamicInsert
 @Entity
 @Table(name="Interview")
 public class Interview {
@@ -26,7 +28,7 @@ public class Interview {
 	
 	//provide info to Hibernate for setting Fk
 	private Application application;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getInterviewId() {
@@ -37,7 +39,7 @@ public class Interview {
 		this.interviewId = interviewId;
 	}
 	
-	@Column(nullable=false,columnDefinition="nvarchar(MAX)")
+	@Column(nullable=true,columnDefinition="nvarchar(MAX) default '無'")
 	public Clob getInterviewComment() {
 		return interviewComment;
 	}
@@ -46,7 +48,7 @@ public class Interview {
 		this.interviewComment = interviewComment;
 	}
 	
-	@Column(nullable=false,columnDefinition="int default 0")
+	@Column(nullable=false,columnDefinition="nvarchar(MAX) default '無'")
 	public String getInterviewType() {
 		return interviewType;
 	}

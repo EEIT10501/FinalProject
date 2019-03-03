@@ -40,7 +40,7 @@ border-radius: 15px;
         <a class="nav-link" href="#">想找打工</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">想要徵人</a>
+        <a class="nav-link" href="employerPortal">想要徵人</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">聯絡我們</a>

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+
 
 /**
  * @author Yang Cheng
@@ -25,6 +27,7 @@ import javax.persistence.Table;
  * One job corresponds to multiple applications
  * while one application corresponds to one job.
  */
+
 @Entity
 @Table(name="Application")
 public class Application {
@@ -57,7 +60,7 @@ public class Application {
 		this.answer = answer;
 	}
 	
-	@Column(nullable=false,columnDefinition="int default 0")
+	@Column(nullable=false,columnDefinition="datetime2(7) default '1900-01-01'")
 	public java.util.Date getApplicationTime() {
 		return applicationTime;
 	}
@@ -65,7 +68,7 @@ public class Application {
 		this.applicationTime = applicationTime;
 	}
 	
-	@Column(nullable=false,columnDefinition="int default 0")
+	@Column(nullable=false,columnDefinition="varchar(50) default '等待資訊中'")
 	public String getAppliedStatus() {
 		return appliedStatus;
 	}

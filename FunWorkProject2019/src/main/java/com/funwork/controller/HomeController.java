@@ -12,6 +12,7 @@ import com.funwork.model.Message;
 import com.funwork.model.Notification;
 import com.funwork.model.Order;
 import com.funwork.model.Product;
+import com.funwork.service.CompanyService;
 import com.funwork.service.JobService;
 import com.funwork.service.MessageService;
 import com.funwork.service.NotificationService;
@@ -35,7 +36,7 @@ public class HomeController {
 
 	@Autowired
 	JobService jobService;
-
+	
 	public HomeController() {
 	}
 
@@ -65,5 +66,5 @@ public class HomeController {
 		model.addAttribute("success", "dao&service呼叫成功");
 		return "test";
 	}
-
+	
 }

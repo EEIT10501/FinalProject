@@ -29,6 +29,10 @@ public class User {
 	Set<Application> applicationsSet = new HashSet<>();
 
 	
+	private User() {
+		super();
+	}
+
 	public User(Integer userId, String userName) {
 		super();
 		this.userId = userId;
