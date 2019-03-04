@@ -2,6 +2,7 @@ package _00_init.tables;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.hibernate.Session;
@@ -74,7 +75,7 @@ public class JobTableInit {
 				job.setJobEmail(jobEmail);
 				job.setIndustry(industry);
 				job.setOther(other);
-				job.setPaidDate(Timestamp.valueOf(paidDate));
+				job.setPaidDate(Date.valueOf(paidDate));
 				job.setJobPhone(jobPhone);
 				job.setPositionNum(Integer.valueOf(positionNum));
 				job.setRateByHour(Integer.valueOf(rateByHour));

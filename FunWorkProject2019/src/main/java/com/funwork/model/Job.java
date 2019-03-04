@@ -1,5 +1,6 @@
 package com.funwork.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Job {
 	private String jobEmail;
 	private String industry;
 	private String other;
-	private Timestamp paidDate;
+	private Date paidDate;
 	private String jobPhone;
 	private Integer positionNum;
 	private Integer rateByHour;
@@ -194,11 +195,11 @@ public class Job {
 		this.other = other;
 	}
 
-	public Timestamp getPaidDate() {
+	public Date getPaidDate() {
 		return paidDate;
 	}
 
-	public void setPaidDate(Timestamp paidDate) {
+	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}
 
