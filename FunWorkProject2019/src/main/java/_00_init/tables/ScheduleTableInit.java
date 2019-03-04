@@ -10,9 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.funwork.model.Job;
 import com.funwork.model.Schedule;
-
 
 public class ScheduleTableInit {
 
@@ -24,7 +22,7 @@ public class ScheduleTableInit {
 		this.factory = factory;
 	}
 
-	public void initSchedul() {
+	public void initSchedule() {
 
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
@@ -40,13 +38,13 @@ public class ScheduleTableInit {
 				String startime = token[1];
 				String workdate = token[2];
 				String jobId = token[3];
-				
-				Schedule schedule  = new Schedule();
+
+				Schedule schedule = new Schedule();
 
 				Date workdate1 = strToDate(workdate);
 				Time endtime1 = strToTime(endtime);
 				Time startime1 = strToTime(startime);
-								
+
 				schedule.setEndTime(endtime1);
 				schedule.setStartTime(startime1);
 				schedule.setWorkDate(workdate1);
@@ -63,8 +61,9 @@ public class ScheduleTableInit {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		
+
 	}
+
 	public Date strToDate(String strDate) {
 		String str = strDate;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -77,17 +76,17 @@ public class ScheduleTableInit {
 		java.sql.Date date = new java.sql.Date(d.getTime());
 		return date;
 	}
-	
-		public Time strToTime(String strDate) {
-			 String str = strDate;
-			 SimpleDateFormat format =new SimpleDateFormat("hh:mm:ss");
-			 java.util.Date d =null;
-			 try{
-			  d = format.parse(str);
-			 }catch(Exception e) {
-			  e.printStackTrace();
-			 }
-			 Time date =new java.sql.Time(d.getTime());
-			 return date;
-			}
+
+	public Time strToTime(String strDate) {
+		String str = strDate;
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+		java.util.Date d = null;
+		try {
+			d = format.parse(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Time date = new java.sql.Time(d.getTime());
+		return date;
+	}
 }

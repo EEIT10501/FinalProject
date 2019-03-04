@@ -10,9 +10,6 @@ import com.funwork.dao.UserDao;
 import com.funwork.model.User;
 import com.funwork.service.UserService;
 
-
-
-
 @Service
 public class UserServiceImpl implements UserService {
 

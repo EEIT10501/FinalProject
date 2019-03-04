@@ -44,9 +44,21 @@ public class EDMTableResetHibernate {
 
 		try (FileReader fr = new FileReader("data/Experience.dat"); BufferedReader br = new BufferedReader(fr);) {
 			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				if (line.startsWith(UTF8_BOM)) {
-					line = line.substring(1);
+
+
+			// 1. 由"data/user.dat"逐筆讀入User表格內的初始資料，
+			// 然後依序新增到User表格中
+			try (FileReader f = new FileReader("data/user_Bom.dat"); BufferedReader b = new BufferedReader(fr);) {
+				while ((line = br.readLine()) != null) {
+					if (line.startsWith(UTF8_BOM)) {
+						line = line.substring(1);
+					}
+					String[] token = line.split("\\|");
+					String name = token[0];
+					System.out.println(name);
+//					User ub = new User(null, name);
+//					session.save(ub);
+
 				}
 				String[] token = line.split("\\|");
 				String company = token[0];

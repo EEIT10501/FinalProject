@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import org.hibernate.Session;
@@ -12,11 +11,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.funwork.model.Attendence;
-import com.funwork.model.Job;
-import com.funwork.model.Notification;
-import com.funwork.model.Schedule;
-import com.funwork.model.User;
-
 
 public class AttendenceTableInit {
 
@@ -46,12 +40,12 @@ public class AttendenceTableInit {
 				String dailySalary = token[3];
 				String jobId = token[4];
 				String userId = token[5];
-								
-				Attendence attendence  = new Attendence();
-				
+
+				Attendence attendence = new Attendence();
+
 				Date date1 = strToDate(date);
 				Time time1 = strToTime(time);
-				
+
 				attendence.setDate(date1);
 				attendence.setTime(time1);
 				attendence.setType(Integer.parseInt(type));
@@ -71,8 +65,9 @@ public class AttendenceTableInit {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		
+
 	}
+
 	public Date strToDate(String strDate) {
 		String str = strDate;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -85,17 +80,17 @@ public class AttendenceTableInit {
 		java.sql.Date date = new java.sql.Date(d.getTime());
 		return date;
 	}
-	
-		public Time strToTime(String strDate) {
-			 String str = strDate;
-			 SimpleDateFormat format =new SimpleDateFormat("hh:mm:ss");
-			 java.util.Date d =null;
-			 try{
-			  d = format.parse(str);
-			 }catch(Exception e) {
-			  e.printStackTrace();
-			 }
-			 Time date =new java.sql.Time(d.getTime());
-			 return date;
-			}
+
+	public Time strToTime(String strDate) {
+		String str = strDate;
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+		java.util.Date d = null;
+		try {
+			d = format.parse(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Time date = new java.sql.Time(d.getTime());
+		return date;
+	}
 }

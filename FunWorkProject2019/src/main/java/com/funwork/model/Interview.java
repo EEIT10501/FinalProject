@@ -25,7 +25,7 @@ public class Interview {
 
 	// provide info to Hibernate for setting Fk
 	private Application application;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getInterviewId() {
@@ -44,8 +44,8 @@ public class Interview {
 	public void setInterviewComment(Clob interviewComment) {
 		this.interviewComment = interviewComment;
 	}
-
-	@Column(nullable = false, columnDefinition = "int default 0")
+	
+	@Column(nullable=false,columnDefinition="nvarchar(MAX) default '無'")
 	public String getInterviewType() {
 		return interviewType;
 	}

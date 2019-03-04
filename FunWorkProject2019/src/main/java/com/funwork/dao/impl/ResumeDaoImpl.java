@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.funwork.dao.ResumeDao;
 import com.funwork.model.Resume;
 
-
 @Repository
 public class ResumeDaoImpl implements ResumeDao {
 

@@ -6,13 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Yang Cheng User 和 Company 做關聯性 (雙向多對一) One user corresponds to
@@ -27,13 +25,32 @@ public class Company {
 	private String name;
 	private String taxId;
 	private String address;
+	@JsonIgnore
 	private Blob licensure;
 	private Integer reviewStatus;
 	private Integer notificationTimes;
+	@JsonIgnore
 	private Blob logo;
+	@JsonIgnore
 	private Blob coverPic;
 	private Clob description;
 	private String siteURL;
+	private String fileName;
+	
+	@JsonIgnore
+	private MultipartFile companylicensure;
+	
+    @XmlTransient
+    @Transient
+	public MultipartFile getcompanylicensure() {
+		return companylicensure;
+	}
+
+	public void setProductImage(MultipartFile companylicensure) {
+		this.companylicensure = companylicensure;
+	}
+	
+	//以下為儲存多方的實例變數
 
 	// 以下為儲存多方的實例變數
 	Set<Job> jobsSet = new HashSet<>();
@@ -154,6 +171,15 @@ public class Company {
 	public void setSiteURL(String siteURL) {
 		this.siteURL = siteURL;
 	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 
 	// Company 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 jobCompany 性質中
 	@OneToMany(mappedBy = "jobCompany", cascade = CascadeType.ALL)

@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.funwork.model.Experience;
 
-public interface ExperienceDao  {
-
-	
+public interface ExperienceDao {
 
 	List<Experience> getAllExperiences();
 }

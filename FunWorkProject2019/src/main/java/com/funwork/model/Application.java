@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 /**
  * @author Yang Cheng User 和 Application (雙向多對一) 做關聯性 One user corresponds to
  *         multiple applications while one application corresponds to one user.
@@ -21,6 +22,7 @@ import javax.persistence.Table;
  *         Job 和 Application (雙向多對一) 做關聯性 One job corresponds to multiple
  *         applications while one application corresponds to one job.
  */
+
 @Entity
 @Table(name = "Application")
 public class Application {
@@ -57,8 +59,8 @@ public class Application {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
-	@Column(nullable = false)
+	
+	@Column(nullable=false,columnDefinition="datetime2(7) default '1900-01-01'")
 	public java.util.Date getApplicationTime() {
 		return applicationTime;
 	}
@@ -66,6 +68,7 @@ public class Application {
 	public void setApplicationTime(java.util.Date applicationTime) {
 		this.applicationTime = applicationTime;
 	}
+	
 
 	@Column(nullable = false)
 	public String getAppliedStatus() {
