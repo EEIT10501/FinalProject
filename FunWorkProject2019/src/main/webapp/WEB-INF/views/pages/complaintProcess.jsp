@@ -12,7 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
-<title>工作審核</title>
+<title>申訴處理</title>
 </head>
 <style>
 .card-text-size {
@@ -85,7 +85,7 @@
 					<fieldset>
 						<section
 							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-							<h1>工作審核</h1>
+							<h1>申訴工作</h1>
 							<hr>
 							<div class="form-group">
 								<label class="control-label col-lg-2 col-lg-2" for='title'>工作名稱</label>

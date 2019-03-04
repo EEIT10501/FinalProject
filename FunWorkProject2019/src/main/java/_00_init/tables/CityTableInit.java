@@ -33,16 +33,16 @@ public class CityTableInit {
 				if (line.startsWith(UTF8_BOM)) {
 					line = line.substring(1);
 				}
-				
+
 				String[] token = line.split("\\|");
-					
+
 				String cityName = token[0];
 				String cityArea = token[1];
 
 				City city = new City();
 				city.setCityName(cityName);
 				city.setCityArea(cityArea);
-				
+
 				session.save(city);
 			}
 			tx.commit();

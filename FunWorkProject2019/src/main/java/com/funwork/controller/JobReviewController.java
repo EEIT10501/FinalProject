@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,14 +24,7 @@ public class JobReviewController {
 	}
 
 	@RequestMapping(value = "/job/1", method = RequestMethod.POST)
-	public String processAddNewProductForm(@ModelAttribute("jobBean") Job job, BindingResult result,
-			HttpServletRequest request) {
-
-		String[] suppressedFields = result.getSuppressedFields();
-
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位:" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-		}
+	public String processAddNewProductForm(@ModelAttribute("jobBean") Job job, HttpServletRequest request) {
 
 		System.out.println(job.getTitle());
 		System.out.println(job.getComment());

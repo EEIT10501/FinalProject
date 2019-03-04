@@ -29,13 +29,13 @@ public class DatabaseInit {
 		new UserTableInit(factory).initUser();
 		// 需要先有User
 		new CompanyTableInit(factory).initCompany();
-
+		// 需要先有User
 		new ResumeTableInit(factory).initResume();
 		// 需要先有User
 		new NotificationTableInit(factory).initNotificaion();
 
 		new CityTableInit(factory).initCity(); // City資料
-
+		// 需要先有City、Company、User
 		new JobTableInit(factory).initJob(); // Job假資料
 
 		// 需要先有Job
