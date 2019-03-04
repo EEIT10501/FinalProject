@@ -48,9 +48,9 @@ public class EmployerController {
 
 	@Autowired
 	CompanyService companyService;
-	
+
 	@Autowired
-	JobService jobService; 
+	JobService jobService;
 
 	@Autowired
 	ServletContext context;
@@ -59,30 +59,27 @@ public class EmployerController {
 	public String accessCompanyMain() {
 		return "employerPortal";
 	}
-	
-	
-	
+
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model) {
 		List<Job> list = jobService.getAllJobs();
 		model.addAttribute("jobs", list);
 		return "manageJobPage";
 	}
-	
+
 	@RequestMapping("/manageCompanyPage")
 	public String list(Model model) {
 		List<Company> list = companyService.findAllCompanys();
 		model.addAttribute("companys", list);
 		return "manageCompanyPage";
 	}
-	
+
 	@RequestMapping("/jobManCond")
 	public String jobManCond(Model model) {
 		List<Company> list = companyService.findAllCompanys();
 		model.addAttribute("companys", list);
 		return "test";
 	}
-
 
 //	@RequestMapping("/postJob")
 //	public String jobPost(Model model) {
@@ -122,7 +119,7 @@ public class EmployerController {
 		model.addAttribute("jobBean", jb);
 		return "addJob";
 	}
-	
+
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model) {
 		Company cb = new Company();
@@ -131,13 +128,12 @@ public class EmployerController {
 	}
 
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
-	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result) 
-	{
+	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result) {
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
-		
+
 		System.out.println(cb.getAddress());
 
 		MultipartFile companyLicensure = cb.getcompanylicensure();
@@ -158,11 +154,11 @@ public class EmployerController {
 			}
 		}
 		companyService.saveCompany(cb);
-		
+
 		File imageFolder = new File(rootDirectory, "images");
 		if (!imageFolder.exists()) {
 			imageFolder.mkdirs();
-			File file = new File(imageFolder, cb.getCompanyId()+ext);
+			File file = new File(imageFolder, cb.getCompanyId() + ext);
 			try {
 				companyLicensure.transferTo(file);
 			} catch (IllegalStateException e) {
@@ -171,9 +167,10 @@ public class EmployerController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return "redirect:/companys";
 	}
+
 //
 //	@RequestMapping(value = "/getPicture/{bookId}", method = RequestMethod.GET)
 //	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer bookId) {
@@ -219,14 +216,15 @@ public class EmployerController {
 //	}
 //	
 	@ExceptionHandler(CompanyNotFoundException.class)
-	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception){
+	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("invalidCompanyId", exception.getCompanyId());
 		mv.addObject("exception", exception);
-		mv.addObject("url", request.getRequestURL()+"?"+request.getQueryString());
+		mv.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
 		mv.setViewName("companyNotFound");
 		return mv;
 	}
+
 //
 //	private byte[] toByteArray(String filePath) {
 //		String root = context.getRealPath("/");
