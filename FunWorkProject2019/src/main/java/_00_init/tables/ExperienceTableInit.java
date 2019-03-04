@@ -41,10 +41,10 @@ public class ExperienceTableInit {
 				Experience experience = new Experience();
 				experience.setCompany(company);
 				experience.setPosition(position);
-				experience.setTerm(Date.valueOf(term));
+				experience.setTerm(term);
 				Resume resume = session.get(Resume.class, Integer.valueOf(resumeId));
 				experience.setResume(resume);
-				session.save(resume);
+				session.save(experience);
 			}
 			tx.commit();
 			System.out.println("Experience資料新增成功");

@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> getAllUsers() {
-		String hql = "FROM Attendence";
+		String hql = "FROM Users";
 		Session session = null;
 		List<User> list = new ArrayList<>();
 		session = factory.getCurrentSession();

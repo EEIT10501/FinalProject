@@ -25,7 +25,7 @@ public class ResumeDaoImpl implements ResumeDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Resume> getAllResumes() {
-		String hql = "FROM Attendence";
+		String hql = "FROM Resume";
 		Session session = null;
 		List<Resume> list = new ArrayList<>();
 		session = factory.getCurrentSession();
