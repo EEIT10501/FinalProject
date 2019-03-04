@@ -2,7 +2,9 @@ package _00_init;
 
 import org.hibernate.SessionFactory;
 import _00_init.tables.AttendenceTableInit;
+import _00_init.tables.CityTableInit;
 import _00_init.tables.CompanyTableInit;
+import _00_init.tables.JobTableInit;
 import _00_init.tables.MessageTableInit;
 import _00_init.tables.NotificationTableInit;
 import _00_init.tables.SalaryTableInit;
@@ -22,10 +24,15 @@ public class DatabaseInit {
 		new UserTableInit(factory).initUser();
 		// 需要先有User
 		new CompanyTableInit(factory).initCompany();
-		
+
 		new ResumeTableInit(factory).initResume();
 		// 需要先有User
 		new NotificationTableInit(factory).initNotificaion();
+
+		new CityTableInit(factory).initCity(); // City資料
+
+		new JobTableInit(factory).initJob(); // Job假資料
+
 		// 需要先有Job
 		new ScheduleTableInit(factory).initSchedule();
 		// 需要先有User、Job
