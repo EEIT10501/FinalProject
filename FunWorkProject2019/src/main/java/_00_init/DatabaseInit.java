@@ -1,6 +1,8 @@
 package _00_init;
 
 import org.hibernate.SessionFactory;
+
+import _00_init.tables.ApplicationTableInit;
 import _00_init.tables.AttendenceTableInit;
 import _00_init.tables.CompanyTableInit;
 import _00_init.tables.MessageTableInit;
@@ -31,6 +33,8 @@ public class DatabaseInit {
 		// 需要先有User、Job
 		new SalaryTableInit(factory).initSalary();
 		// 需要先有User、Job
+		new ApplicationTableInit(factory).initApplicatoin();
+		
 		new AttendenceTableInit(factory).initAttendence();
 
 		new ProductTableInit(factory).initProduct();

@@ -14,9 +14,9 @@ import com.funwork.model.Attendence;
 
 public class AttendenceTableInit {
 
+	public static final String UTF8_BOM = "\uFEFF";
 	SessionFactory factory;
 	String line = "";
-	public static final String UTF8_BOM = "\uFEFF";
 
 	public AttendenceTableInit(SessionFactory factory) {
 		this.factory = factory;

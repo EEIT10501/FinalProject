@@ -4,12 +4,12 @@ import java.sql.Blob;
 import java.sql.Clob;
 import java.util.HashSet;
 import java.util.Set;
+import java.io.Serializable;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -17,10 +17,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *         multiple companies while one company corresponds to one user
  */
 
-//@DynamicInsert(value=true)
 @Entity
 @Table(name = "Company")
-public class Company {
+public class Company implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer companyId;
 	private String name;
 	private String taxId;
@@ -38,19 +38,18 @@ public class Company {
 	private String fileName;
 	
 	@JsonIgnore
-	private MultipartFile companylicensure;
+	private MultipartFile companyLicensureImage;
 	
     @XmlTransient
     @Transient
-	public MultipartFile getcompanylicensure() {
-		return companylicensure;
+	public MultipartFile getcompanyLicensureImage() {
+		return companyLicensureImage;
 	}
 
-	public void setProductImage(MultipartFile companylicensure) {
-		this.companylicensure = companylicensure;
+	public void setcompanyLicensureImage(MultipartFile companyLicensureImage) {
+		this.companyLicensureImage = companyLicensureImage;
 	}
 	
-	//以下為儲存多方的實例變數
 
 	// 以下為儲存多方的實例變數
 	Set<Job> jobsSet = new HashSet<>();

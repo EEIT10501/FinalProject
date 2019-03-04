@@ -123,24 +123,30 @@ public class EmployerController {
 		return "addJob";
 	}
 	
-	@RequestMapping(value = "/registerCompany", method = RequestMethod.GET)
+	@RequestMapping(value = "/registerCompany/1", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model) {
 		Company cb = new Company();
+		cb.setName("中天");
+		cb.setTaxId("12345678");
+		cb.setAddress("Taipei");
 		model.addAttribute("companyBean", cb);
 		return "registerCompany";
 	}
 
-	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
-	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result) 
+	@RequestMapping(value = "/registerCompany/1", method = RequestMethod.POST)
+	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,HttpServletRequest request) 
 	{
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
 		
+		System.out.println(cb.getName());
+		System.out.println(cb.getTaxId());
 		System.out.println(cb.getAddress());
-
-		MultipartFile companyLicensure = cb.getcompanylicensure();
+		
+		MultipartFile companyLicensure = cb.getcompanyLicensureImage();
+		
 		String originalFilename = companyLicensure.getOriginalFilename();
 		cb.setFileName(originalFilename);
 
@@ -174,60 +180,6 @@ public class EmployerController {
 		
 		return "redirect:/companys";
 	}
-//
-//	@RequestMapping(value = "/getPicture/{bookId}", method = RequestMethod.GET)
-//	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer bookId) {
-//
-//		System.out.println("Enter controller");
-//
-//		String filePath = "/resources/images/NoImage.jpg";
-//		byte[] media = null;
-//		HttpHeaders headers = new HttpHeaders();
-//		String filename = "";
-//		int len = 0;
-//		BookBean bean = service.getcompanyById(bookId);
-//
-////		System.out.println(bean.);
-//		if (bean != null) {
-//			Blob blob = bean.getCoverImage();
-//			filename = bean.getFileName();
-//			if (blob != null) {
-//				try {
-//					len = (int) blob.length();
-//					media = blob.getBytes(1, len);
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//					throw new RuntimeException("companyController的getPicture()發生SQLException: " + e.getMessage());
-//				}
-//			} else {
-//				media = toByteArray(filePath);
-//				filename = filePath;
-//			}
-//		} else {
-//			media = toByteArray(filePath);
-//			filename = filePath;
-//		}
-//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-//		System.out.println(filename);
-//		String mimeType = context.getMimeType(filename);
-//
-//		MediaType mediatype = MediaType.valueOf(mimeType);
-//		System.out.println("mediaType: " + mediatype);
-//		headers.setContentType(mediatype);
-//		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-//		return responseEntity;
-//	}
-//	
-	@ExceptionHandler(CompanyNotFoundException.class)
-	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception){
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("invalidCompanyId", exception.getCompanyId());
-		mv.addObject("exception", exception);
-		mv.addObject("url", request.getRequestURL()+"?"+request.getQueryString());
-		mv.setViewName("companyNotFound");
-		return mv;
-	}
-//
 //	private byte[] toByteArray(String filePath) {
 //		String root = context.getRealPath("/");
 //		root = root.substring(0, root.length()-1);
@@ -247,7 +199,7 @@ public class EmployerController {
 //		return b;
 //	}
 //
-//	@ModelAttribute("companyList")
+//	@ModelAttribute("companyBean")
 //	public Map<Integer, String> getCompanyList() {
 //		Map<Integer, String> companyMap = new HashMap<>();
 //		List<Company> list = companyService.findAllCompanys();
@@ -264,6 +216,6 @@ public class EmployerController {
 //
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
-		binder.setAllowedFields("author", "bookNo", "category", "price", "title", "companyId");
+		binder.setAllowedFields("name", "taxId", "address", "companyLicensureImage");
 	}
 }
