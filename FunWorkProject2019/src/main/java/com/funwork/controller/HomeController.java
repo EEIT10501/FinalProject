@@ -64,6 +64,17 @@ public class HomeController {
 	public String Form() {
 		return "pages/form";
 	}
+	
+	@RequestMapping("/calendar")
+	public String calendar() {
+		return "schedule/calendar";
+	}
+	
+	@RequestMapping("/calendar2")
+	public String calendar2() {
+		return "schedule/calendar2";
+	}
+
 
 	@RequestMapping("/test")
 	public String Test(Model model) {
