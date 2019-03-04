@@ -1,6 +1,7 @@
 package com.funwork.model;
 
 import java.sql.Blob;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ public class Suggestion {
 	private Integer suggestionId;
 	private String comment;
 	private String email;
+	private Timestamp submitTime;
 	private Blob attachment;
 
 	public Suggestion() {
@@ -43,6 +45,14 @@ public class Suggestion {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Timestamp getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(Timestamp submitTime) {
+		this.submitTime = submitTime;
 	}
 
 	public Blob getAttachment() {

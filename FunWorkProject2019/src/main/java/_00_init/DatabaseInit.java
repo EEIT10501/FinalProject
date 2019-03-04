@@ -2,13 +2,18 @@ package _00_init;
 
 import org.hibernate.SessionFactory;
 import _00_init.tables.AttendenceTableInit;
+
 import _00_init.tables.CityTableInit;
+
+import _00_init.tables.ComplaintTableInit;
+
 import _00_init.tables.CompanyTableInit;
 import _00_init.tables.JobTableInit;
 import _00_init.tables.MessageTableInit;
 import _00_init.tables.NotificationTableInit;
 import _00_init.tables.SalaryTableInit;
 import _00_init.tables.ScheduleTableInit;
+import _00_init.tables.SuggestionTableInit;
 import _00_init.tables.OrderTableInit;
 import _00_init.tables.ProductTableInit;
 import _00_init.tables.ResumeTableInit;
@@ -35,6 +40,8 @@ public class DatabaseInit {
 
 		// 需要先有Job
 		new ScheduleTableInit(factory).initSchedule();
+		// 需要先有Job
+		new ComplaintTableInit(factory).initSuggestion();
 		// 需要先有User、Job
 		new SalaryTableInit(factory).initSalary();
 		// 需要先有User、Job
@@ -45,6 +52,8 @@ public class DatabaseInit {
 		new OrderTableInit(factory).initOrder();
 		// 需要先有User、Application
 //		new MessageTableInit(factory).initMessage();
+
+		new SuggestionTableInit(factory).initSuggestion();
 
 		factory.close();
 	}
