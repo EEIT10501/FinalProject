@@ -10,19 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Attendence")
 public class Attendence {
 
 	private Integer attendenceId;
 	private Date date;
 	private Time time;
 	private Integer type;
-	private Float dailySalary;// Jack老師建議新增欄位 日薪欄位
-	private Job job; // 通知Hibernate以此參考設定外鍵欄位
-	private User user; // 通知Hibernate以此參考設定外鍵欄位
+	private Float dailySalary;
+	private Job job;
+	private User user;
 
 	public Attendence() {
 	}
@@ -33,8 +31,8 @@ public class Attendence {
 		this.time = time;
 		this.type = type;
 		this.dailySalary = dailySalary;
-//		this.job = job;
-//		this.user = user;
+		this.job = job;
+		this.user = user;
 	}
 
 	@Id
@@ -80,7 +78,7 @@ public class Attendence {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_Job_Id")
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -90,7 +88,7 @@ public class Attendence {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_User_Id")
+	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
 		return user;
 	}

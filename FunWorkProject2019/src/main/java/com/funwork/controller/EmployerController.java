@@ -1,26 +1,15 @@
 package com.funwork.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -29,13 +18,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.funwork.exception.CompanyNotFoundException;
 import com.funwork.model.Company;
@@ -48,9 +34,9 @@ public class EmployerController {
 
 	@Autowired
 	CompanyService companyService;
-	
+
 	@Autowired
-	JobService jobService; 
+	JobService jobService;
 
 	@Autowired
 	ServletContext context;
@@ -59,30 +45,27 @@ public class EmployerController {
 	public String accessCompanyMain() {
 		return "employerPortal";
 	}
-	
-	
-	
+
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model) {
 		List<Job> list = jobService.getAllJobs();
 		model.addAttribute("jobs", list);
 		return "manageJobPage";
 	}
-	
+
 	@RequestMapping("/manageCompanyPage")
 	public String list(Model model) {
 		List<Company> list = companyService.findAllCompanys();
 		model.addAttribute("companys", list);
 		return "manageCompanyPage";
 	}
-	
+
 	@RequestMapping("/jobManCond")
 	public String jobManCond(Model model) {
 		List<Company> list = companyService.findAllCompanys();
 		model.addAttribute("companys", list);
 		return "test";
 	}
-
 
 //	@RequestMapping("/postJob")
 //	public String jobPost(Model model) {
@@ -122,23 +105,23 @@ public class EmployerController {
 		model.addAttribute("jobBean", jb);
 		return "addJob";
 	}
-	
+
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model) {
 		Company cb = new Company();
+		cb.setName("中天");
 		model.addAttribute("companyBean", cb);
 		return "registerCompany";
 	}
 
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
-	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result) 
-	{
+	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result) {
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
-		
-		System.out.println(cb.getAddress());
+
+		System.out.println(cb.getName());
 
 		MultipartFile companyLicensure = cb.getcompanylicensure();
 		String originalFilename = companyLicensure.getOriginalFilename();
@@ -158,11 +141,11 @@ public class EmployerController {
 			}
 		}
 		companyService.saveCompany(cb);
-		
+
 		File imageFolder = new File(rootDirectory, "images");
 		if (!imageFolder.exists()) {
 			imageFolder.mkdirs();
-			File file = new File(imageFolder, cb.getCompanyId()+ext);
+			File file = new File(imageFolder, cb.getCompanyId() + ext);
 			try {
 				companyLicensure.transferTo(file);
 			} catch (IllegalStateException e) {
@@ -171,9 +154,10 @@ public class EmployerController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return "redirect:/companys";
 	}
+
 //
 //	@RequestMapping(value = "/getPicture/{bookId}", method = RequestMethod.GET)
 //	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer bookId) {
@@ -219,14 +203,15 @@ public class EmployerController {
 //	}
 //	
 	@ExceptionHandler(CompanyNotFoundException.class)
-	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception){
+	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("invalidCompanyId", exception.getCompanyId());
 		mv.addObject("exception", exception);
-		mv.addObject("url", request.getRequestURL()+"?"+request.getQueryString());
+		mv.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
 		mv.setViewName("companyNotFound");
 		return mv;
 	}
+
 //
 //	private byte[] toByteArray(String filePath) {
 //		String root = context.getRealPath("/");

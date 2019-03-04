@@ -1,8 +1,7 @@
 package com.funwork.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Job {
@@ -25,7 +23,7 @@ public class Job {
 	private Integer reviewStatus;
 	private String title;
 	private Integer viewTimes;
-	private City city; // 多做一張城市的Table
+	private City city;
 	private String address;
 	private String addresssup;
 	private String contact;
@@ -33,20 +31,15 @@ public class Job {
 	private String jobEmail;
 	private String industry;
 	private String other;
-	private Timestamp paidDate;
+	private Date paidDate;
 	private String jobPhone;
 	private Integer positionNum;
 	private Integer rateByHour;
-	private User jobOwner;// 通知Hibernate以此參考設定外鍵欄位
-	private Company jobCompany;// 通知Hibernate以此參考設定外鍵欄位
-	// 以下為儲存多方的實例變數
+	private User jobOwner;
+	private Company jobCompany;
 
 	public Job() {
 	}
-
-	//以下為儲存多方的實例變數
-	private Set<Application> applcationsSet = new HashSet<>();
-	private Set<Schedule> schedulesSet = new HashSet<>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,14 +50,6 @@ public class Job {
 	public void setJobId(Integer jobId) {
 		this.jobId = jobId;
 	}
-
-//	public Application getApplicant() {
-//		return applicant;
-//	}
-//
-//	public void setApplicant(Application applicant) {
-//		this.applicant = applicant;
-//	}
 
 	public String getComment() {
 		return comment;
@@ -124,7 +109,7 @@ public class Job {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_jobCity_Id")
+	@JoinColumn(name = "Fk_City_Id")
 	public City getCity() {
 		return city;
 	}
@@ -194,11 +179,11 @@ public class Job {
 		this.other = other;
 	}
 
-	public Timestamp getPaidDate() {
+	public Date getPaidDate() {
 		return paidDate;
 	}
 
-	public void setPaidDate(Timestamp paidDate) {
+	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}
 
@@ -227,7 +212,7 @@ public class Job {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_jobOwner_Id")
+	@JoinColumn(name = "Fk_JobOwner_Id")
 	public User getJobOwner() {
 		return jobOwner;
 	}
@@ -237,23 +222,13 @@ public class Job {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_jobCompany_Id")
+	@JoinColumn(name = "Fk_Company_Id")
 	public Company getJobCompany() {
 		return jobCompany;
 	}
 
 	public void setJobCompany(Company jobCompany) {
 		this.jobCompany = jobCompany;
-	}
-
-	// Job 類別並沒有表示關聯的資訊 , 此資訊位於 Application 的 job 性質中
-	@OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
-	public Set<Application> getApplcationsSet() {
-		return applcationsSet;
-	}
-
-	public void setApplcationsSet(Set<Application> applcationsSet) {
-		this.applcationsSet = applcationsSet;
 	}
 
 }

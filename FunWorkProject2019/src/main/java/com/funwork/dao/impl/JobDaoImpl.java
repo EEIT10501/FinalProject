@@ -32,4 +32,10 @@ public class JobDaoImpl implements JobDao {
 		return list;
 	}
 
+	@Override
+	public List<Job> getJobNeedReview() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

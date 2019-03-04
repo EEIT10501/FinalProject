@@ -16,8 +16,8 @@ public class Experience {
 	private String company;
 	private String position;
 	private String term;
-	private Resume resume;// 外鍵
 
+	private Resume resume;
 	public Experience() {
 	}
 
@@ -40,6 +40,8 @@ public class Experience {
 		this.company = company;
 	}
 
+
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getTerm() {
 		return term;
 	}
@@ -66,7 +68,5 @@ public class Experience {
 	public void setResume(Resume resume) {
 		this.resume = resume;
 	}
-
-
 
 }

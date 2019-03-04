@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.funwork.model.Job;
 import com.funwork.model.Schedule;
 
 public class ScheduleTableInit {
@@ -49,9 +50,8 @@ public class ScheduleTableInit {
 				schedule.setStartTime(startime1);
 				schedule.setWorkDate(workdate1);
 
-//				Job job = session.get(Job.class, Integer.valueOf(jobId));
-//				System.out.println(job);
-//				schedule.setJob(job);
+				Job job = session.get(Job.class, Integer.valueOf(jobId));
+				schedule.setJob(job);
 				session.save(schedule);
 			}
 			tx.commit();

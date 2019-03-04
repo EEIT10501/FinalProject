@@ -1,7 +1,6 @@
 package com.funwork.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,30 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-
-/**
- * @author Yang Cheng User 和 Application (雙向多對一) 做關聯性 One user corresponds to
- *         multiple applications while one application corresponds to one user.
- * 
- *         Job 和 Application (雙向多對一) 做關聯性 One job corresponds to multiple
- *         applications while one application corresponds to one job.
- */
 
 @Entity
-@Table(name = "Application")
 public class Application {
 	private Integer applicationId;
 	private String answer;
-	private java.util.Date applicationTime;
+	private Timestamp applicationTime;
 	private String appliedStatus;
-
-	// 以下為儲存多方的實例變數
-	Set<Interview> interviewsSet = new HashSet<>();
-
-	// 以下兩行讓Hibernate設定外鍵欄位
 	private User user;
 	private Job job;
 
@@ -59,16 +41,14 @@ public class Application {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
-	@Column(nullable=false,columnDefinition="datetime2(7) default '1900-01-01'")
-	public java.util.Date getApplicationTime() {
+
+	public Timestamp getApplicationTime() {
 		return applicationTime;
 	}
 
-	public void setApplicationTime(java.util.Date applicationTime) {
+	public void setApplicationTime(Timestamp applicationTime) {
 		this.applicationTime = applicationTime;
 	}
-	
 
 	@Column(nullable = false)
 	public String getAppliedStatus() {
@@ -79,17 +59,8 @@ public class Application {
 		this.appliedStatus = appliedStatus;
 	}
 
-	@OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
-	public Set<Interview> getInterviewsSet() {
-		return interviewsSet;
-	}
-
-	public void setInterviewsSet(Set<Interview> interviewsSet) {
-		this.interviewsSet = interviewsSet;
-	}
-
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_userId")
+	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
 		return user;
 	}
@@ -99,7 +70,7 @@ public class Application {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_jobId")
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
