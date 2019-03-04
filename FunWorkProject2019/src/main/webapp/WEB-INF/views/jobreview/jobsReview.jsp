@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,56 +68,37 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
+					<a href="<c:url value='/jobsreview'/>"
+						class="list-group-item list-group-item-action">工作審核</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<form:form method='POST' modelAttribute="jobBean"
-					class='form-horizontal'>
-					<fieldset>
-						<section
-							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-							<h1>工作審核</h1>
-							<hr>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='title'>工作名稱</label>
-								<div class="col-lg-6">
-									<form:input id="title" path="title" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='comment'>
-									工作內容 </label>
-								<div class="col-lg-10">
-									<form:input id="comment" path="comment" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='address'>
-									工作地址 </label>
-								<div class="col-lg-10">
-									<form:input id="address" path="address" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-							<div class="form-group">
-								<div class='col-lg-offset-2 col-lg-10'>
-									<input id="btnAdd" type='submit' class='btn btn-primary'
-										value="送出" />
-								</div>
-							</div>
-						</section>
-					</fieldset>
-				</form:form>
+				<h1>待審核工作</h1>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>職缺編號</th>
+							<th>職缺名稱</th>
+							<th>職缺類型</th>
+							<th>時薪</th>
+							<th>雇主姓名</th>
+							<th>提交時間</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="job" items="${jobList}">
+							<tr>
+								<td>${job.jobId}</td>
+								<td><a href="<c:url value='/jobReview/${job.jobId}'/>">${job.title}</a></td>
+								<td>${job.industry}</td>
+								<td>$${job.rateByHour}</td>
+								<td>${job.jobOwner.userName}</td>
+								<td><fmt:formatDate value="${job.submitTime}"
+										pattern="yyyy/MM/dd HH:mm" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

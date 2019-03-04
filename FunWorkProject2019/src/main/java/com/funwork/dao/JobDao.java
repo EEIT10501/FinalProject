@@ -7,7 +7,9 @@ import com.funwork.model.Job;
 public interface JobDao {
 
 	List<Job> getAllJobs();
-	
-	List<Job> getJobNeedReview();
+
+	List<Job> getJobReviewList();
+
+	Job getJobById(Integer jobId);
 
 }

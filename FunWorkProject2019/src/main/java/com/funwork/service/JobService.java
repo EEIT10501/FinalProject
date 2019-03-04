@@ -8,4 +8,7 @@ public interface JobService {
 
 	List<Job> getAllJobs();
 
+	List<Job> getJobReviewList();
+	
+	Job getJobById(Integer jobId);
 }

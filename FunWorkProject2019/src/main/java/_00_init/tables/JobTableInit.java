@@ -57,6 +57,8 @@ public class JobTableInit {
 				String rateByHour = token[18];
 				String jobOwner = token[19];
 				String jobCompany = token[20];
+				String submitTime = token[21];
+				String reviewTime = token[22];
 
 				Job job = new Job();
 				job.setAddress(address);
@@ -83,6 +85,8 @@ public class JobTableInit {
 				job.setJobOwner(userid);
 				Company companyid = session.get(Company.class, Integer.valueOf(jobCompany));
 				job.setJobCompany(companyid);
+				job.setSubmitTime(Timestamp.valueOf(submitTime));
+				job.setReviewTime(Timestamp.valueOf(reviewTime));
 				session.save(job);
 			}
 			tx.commit();
