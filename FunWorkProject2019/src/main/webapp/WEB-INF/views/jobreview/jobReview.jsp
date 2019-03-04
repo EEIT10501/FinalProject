@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,50 +69,76 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="<c:url value='/jobsreview'/>"
+					<a href="<c:url value='/jobsReview'/>"
 						class="list-group-item list-group-item-action">工作審核</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<form:form method='POST' modelAttribute="jobBean"
-					class='form-horizontal'>
-					<fieldset>
-						<section
-							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-							<h1>工作審核</h1>
-							<hr>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='title'>工作名稱</label>
-								<div class="col-lg-6">
-									<form:input id="title" path="title" type='text'
-										class='form:input-large' />
+				<h1>工作審核</h1>
+				<hr>
+				<p>職缺編號 : ${jobBean.jobId}</p>
+				<p>職缺名稱 : ${jobBean.title}</p>
+				<p>工作類型 : ${jobBean.industry}</p>
+				<p>工作內容 : ${jobBean.description}</p>
+				<p>工作地址 : ${jobBean.address}</p>
+				<p>地址補充說明 : ${jobBean.addresssup}</p>
+				<p>時薪 : ${jobBean.rateByHour}</p>
+				<p>發薪日期 : ${jobBean.paidDate}</p>
+				<p>需求人數 : ${jobBean.positionNum}</p>
+				<p>詢問應徵者的問題 : ${jobBean.other}</p>
+				<p>聯絡人 : ${jobBean.contact}</p>
+				<p>聯絡電話 : ${jobBean.jobPhone}</p>
+				<p>聯絡信箱 : ${jobBean.jobEmail}</p>
+				<p>
+					張貼期限 :
+					<fmt:formatDate value="${jobBean.postEndDate}"
+						pattern="yyyy/MM/dd HH:mm" />
+				</p>
+				<p>
+					提交時間 :
+					<fmt:formatDate value="${jobBean.submitTime}"
+						pattern="yyyy/MM/dd HH:mm" />
+				</p>
+				<p>雇主姓名 : ${jobBean.jobOwner.userName}</p>
+				<p>公司名稱 : ${jobBean.jobCompany.name}</p>
+				<p>審核備註 : ${jobBean.comment}</p>
+				<form action="<c:url value='/jobReview/${jobBean.jobId}'/>"
+					method="post" id="isPassForm">
+					<input type="hidden" id="isPass" name="isPass" value=""> <input
+						type="button" class="btn btn-info btn-lg" id="pass" value="審核通過" />
+					<button type="button" class="btn btn-danger btn-lg"
+						data-toggle="modal" data-target="#myModal">審核失敗</button>		
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">請輸入審核失敗原因</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>審核失敗原因</p>
+									<input type="text" name="failReason">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" id="fail">送出</button>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">關閉</button>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='comment'>
-									工作內容 </label>
-								<div class="col-lg-10">
-									<form:input id="comment" path="comment" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='address'>
-									工作地址 </label>
-								<div class="col-lg-10">
-									<form:input id="address" path="address" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-							<div class="form-group">
-								<div class='col-lg-offset-2 col-lg-10'>
-									<input id="btnAdd" type='submit' class='btn btn-primary'
-										value="送出" />
-								</div>
-							</div>
-						</section>
-					</fieldset>
-				</form:form>
+						</div>
+					</div>
+				</form>
+				<script>
+					$("#pass").click(function() {
+						$("#isPass").attr("value", "pass");
+						$("#isPassForm").submit();
+					});
+					$("#fail").click(function() {
+						$("#isPass").attr("value", "fail");
+						$("#isPassForm").submit();
+					});
+				</script>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

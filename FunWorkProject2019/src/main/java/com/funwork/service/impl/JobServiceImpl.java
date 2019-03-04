@@ -36,4 +36,16 @@ public class JobServiceImpl implements JobService {
 		return dao.getJobById(jobId);
 	}
 
+	@Override
+	@Transactional
+	public void jobReviewPass(Integer jobId) {
+		dao.jobReviewPass(jobId);
+	}
+
+	@Override
+	@Transactional
+	public void jobReviewFail(Integer jobId, String failReason) {
+		dao.jobReviewFail(jobId, failReason);
+	}
+
 }

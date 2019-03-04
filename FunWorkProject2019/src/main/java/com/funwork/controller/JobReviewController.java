@@ -1,25 +1,28 @@
 package com.funwork.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.funwork.model.Job;
+import com.funwork.model.Notification;
 import com.funwork.service.JobService;
+import com.funwork.service.NotificationService;
 
 @Controller
 public class JobReviewController {
 
 	@Autowired
 	JobService jobService;
+	@Autowired
+	NotificationService notificationService;
 
 	@RequestMapping(value = "/jobsReview", method = RequestMethod.GET)
 	public String reviewJobList(Model model) {
@@ -36,11 +39,28 @@ public class JobReviewController {
 	}
 
 	@RequestMapping(value = "/jobReview/{jobId}", method = RequestMethod.POST)
-	public String processAddNewProductForm(@ModelAttribute("jobBean") Job job, HttpServletRequest request) {
+	public String processAddNewProductForm(@PathVariable Integer jobId, @RequestParam(name = "isPass") String isPass,
+			@RequestParam(name = "failReason", required = false) String failReason) {
 
-		System.out.println(job.getTitle());
-		System.out.println(job.getComment());
-
+		if (isPass.equals("pass")) {
+			jobService.jobReviewPass(jobId);
+			Job job = jobService.getJobById(jobId);
+			Notification notification = new Notification();
+			notification.setContent("您的工作(" + job.getTitle() + ")已通過審核");
+			notification.setTime(new Timestamp(System.currentTimeMillis()));
+			notification.setType(2);
+			notification.setUser(job.getJobOwner());
+			notificationService.insertNotification(notification);
+		} else if (isPass.equals("fail")) {
+			jobService.jobReviewFail(jobId,failReason);
+			Job job = jobService.getJobById(jobId);
+			Notification notification = new Notification();
+			notification.setContent("您的工作(" + job.getTitle() + ")審核失敗");
+			notification.setTime(new Timestamp(System.currentTimeMillis()));
+			notification.setType(2);
+			notification.setUser(job.getJobOwner());
+			notificationService.insertNotification(notification);
+		}
 		return "redirect:/jobsReview";
 	}
 }

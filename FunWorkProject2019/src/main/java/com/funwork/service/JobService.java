@@ -9,6 +9,10 @@ public interface JobService {
 	List<Job> getAllJobs();
 
 	List<Job> getJobReviewList();
-	
+
 	Job getJobById(Integer jobId);
+
+	void jobReviewPass(Integer jobId);
+
+	void jobReviewFail(Integer jobId, String failReason);
 }

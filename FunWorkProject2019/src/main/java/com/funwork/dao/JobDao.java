@@ -12,4 +12,8 @@ public interface JobDao {
 
 	Job getJobById(Integer jobId);
 
+	void jobReviewPass(Integer jobId);
+
+	void jobReviewFail(Integer jobId, String failReason);
+
 }

@@ -37,6 +37,7 @@ public class Job {
 	private Integer rateByHour;
 	private Timestamp submitTime;
 	private Timestamp reviewTime;
+	private String failReason;
 	private User jobOwner;
 	private Company jobCompany;
 
@@ -247,6 +248,14 @@ public class Job {
 
 	public void setReviewTime(Timestamp reviewTime) {
 		this.reviewTime = reviewTime;
+	}
+
+	public String getFailReason() {
+		return failReason;
+	}
+
+	public void setFailReason(String failReason) {
+		this.failReason = failReason;
 	}
 
 }
