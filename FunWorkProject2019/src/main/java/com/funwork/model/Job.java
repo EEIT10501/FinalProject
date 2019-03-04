@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,25 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
-/**
- * @author user
- *
- */
 @Entity
-
 public class Job {
-	
+
 	private Integer jobId;
-//	private Integer applicant; //好像跟jobOwner重複
 	private String comment;
-	private String isExposure; //這是什麼??
-	private String isFilled; //這是什麼??
+	private Boolean isExposure;
+	private Boolean isFilled;
 	private Timestamp postEndDate;
 	private Integer reviewStatus;
 	private String title;
 	private Integer viewTimes;
-	private City city; //多做一張城市的Table
+	private City city; // 多做一張城市的Table
 	private String address;
 	private String addresssup;
 	private String contact;
@@ -42,17 +36,17 @@ public class Job {
 	private Timestamp paidDate;
 	private String jobPhone;
 	private Integer positionNum;
-	private Integer rateByHour; 
-	private User jobOwner;//通知Hibernate以此參考設定外鍵欄位
-	private Company jobCompany;//通知Hibernate以此參考設定外鍵欄位
-	
+	private Integer rateByHour;
+	private User jobOwner;// 通知Hibernate以此參考設定外鍵欄位
+	private Company jobCompany;// 通知Hibernate以此參考設定外鍵欄位
+	// 以下為儲存多方的實例變數
+
 	public Job() {
 	}
 
 	//以下為儲存多方的實例變數
 	private Set<Application> applcationsSet = new HashSet<>();
 	private Set<Schedule> schedulesSet = new HashSet<>();
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,11 +58,11 @@ public class Job {
 		this.jobId = jobId;
 	}
 
-//	public Integer getApplicant() {
+//	public Application getApplicant() {
 //		return applicant;
 //	}
 //
-//	public void setApplicant(Integer applicant) {
+//	public void setApplicant(Application applicant) {
 //		this.applicant = applicant;
 //	}
 
@@ -80,19 +74,19 @@ public class Job {
 		this.comment = comment;
 	}
 
-	public String getIsExposure() {
+	public Boolean getIsExposure() {
 		return isExposure;
 	}
 
-	public void setIsExposure(String isExposure) {
+	public void setIsExposure(Boolean isExposure) {
 		this.isExposure = isExposure;
 	}
 
-	public String getIsFilled() {
+	public Boolean getIsFilled() {
 		return isFilled;
 	}
 
-	public void setIsFilled(String isFilled) {
+	public void setIsFilled(Boolean isFilled) {
 		this.isFilled = isFilled;
 	}
 
@@ -112,6 +106,7 @@ public class Job {
 		this.reviewStatus = reviewStatus;
 	}
 
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getTitle() {
 		return title;
 	}
@@ -138,6 +133,7 @@ public class Job {
 		this.city = city;
 	}
 
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getAddress() {
 		return address;
 	}
@@ -146,6 +142,7 @@ public class Job {
 		this.address = address;
 	}
 
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getAddresssup() {
 		return addresssup;
 	}
@@ -154,6 +151,7 @@ public class Job {
 		this.addresssup = addresssup;
 	}
 
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getContact() {
 		return contact;
 	}
@@ -162,6 +160,7 @@ public class Job {
 		this.contact = contact;
 	}
 
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getDescription() {
 		return description;
 	}
@@ -178,6 +177,7 @@ public class Job {
 		this.jobEmail = jobEmail;
 	}
 
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getIndustry() {
 		return industry;
 	}
@@ -245,19 +245,9 @@ public class Job {
 	public void setJobCompany(Company jobCompany) {
 		this.jobCompany = jobCompany;
 	}
-	
-//	@OneToMany
-//	@JoinColumn(name="fk_jobId", referencedColumnName="jobId")
-//	public Set<Schedule> getSchedulesSet() {
-//		return schedulesSet;
-//	}
-	
-//	public void setSchedulesSet(Set<Schedule> schedulesSet) {
-//		this.schedulesSet = schedulesSet;
-//	}
-	
-	//Job 類別並沒有表示關聯的資訊 , 此資訊位於 Application 的 job 性質中
-	@OneToMany(mappedBy="job",cascade=CascadeType.ALL)
+
+	// Job 類別並沒有表示關聯的資訊 , 此資訊位於 Application 的 job 性質中
+	@OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
 	public Set<Application> getApplcationsSet() {
 		return applcationsSet;
 	}
@@ -265,7 +255,5 @@ public class Job {
 	public void setApplcationsSet(Set<Application> applcationsSet) {
 		this.applcationsSet = applcationsSet;
 	}
-	
-}
-	
 
+}

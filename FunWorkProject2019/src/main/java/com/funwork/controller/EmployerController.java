@@ -247,15 +247,15 @@ public class EmployerController {
 //		return b;
 //	}
 //
-	@ModelAttribute("companyList")
-	public Map<Integer, String> getCompanyList() {
-		Map<Integer, String> companyMap = new HashMap<>();
-		List<Company> list = companyService.findAllCompanys();
-		for (Company cb : list) {
-			companyMap.put(cb.getCompanyId(), cb.getName());
-		}
-		return companyMap;
-	}
+//	@ModelAttribute("companyList")
+//	public Map<Integer, String> getCompanyList() {
+//		Map<Integer, String> companyMap = new HashMap<>();
+//		List<Company> list = companyService.findAllCompanys();
+//		for (Company cb : list) {
+//			companyMap.put(cb.getCompanyId(), cb.getName());
+//		}
+//		return companyMap;
+//	}
 //
 //	@ModelAttribute("categoryList")
 //	public List<String> getCategoryList() {

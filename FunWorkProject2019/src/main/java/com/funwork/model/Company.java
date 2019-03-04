@@ -13,15 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * @author Yang Cheng
- * User 和 Company 做關聯性 (雙向多對一)
- * One user corresponds to multiple companies
- * while one company corresponds to one user
+ * @author Yang Cheng User 和 Company 做關聯性 (雙向多對一) One user corresponds to
+ *         multiple companies while one company corresponds to one user
  */
 
 //@DynamicInsert(value=true)
 @Entity
-@Table(name="Company")
+@Table(name = "Company")
 public class Company {
 	private Integer companyId;
 	private String name;
@@ -53,18 +51,18 @@ public class Company {
 	}
 	
 	//以下為儲存多方的實例變數
+
+	// 以下為儲存多方的實例變數
 	Set<Job> jobsSet = new HashSet<>();
 
-	//通知Hibernate以此參考設定外鍵欄位
+	// 通知Hibernate以此參考設定外鍵欄位
 	private User user;
-	
+
 	public Company() {
-		super();
 	}
 
 	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, Integer reviewStatus,
 			User user) {
-		super();
 		this.companyId = companyId;
 		this.name = name;
 		this.taxId = taxId;
@@ -83,7 +81,8 @@ public class Company {
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
-	@Column(nullable = false,columnDefinition="nvarchar(255)")
+
+	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	public String getName() {
 		return name;
 	}
@@ -91,9 +90,8 @@ public class Company {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	@Column(nullable=false,unique=true)
+
+	@Column(nullable = false, unique = true)
 	public String getTaxId() {
 		return taxId;
 	}
@@ -101,8 +99,8 @@ public class Company {
 	public void setTaxId(String taxId) {
 		this.taxId = taxId;
 	}
-	
-	@Column(nullable=false,columnDefinition="nvarchar(255)")
+
+	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	public String getAddress() {
 		return address;
 	}
@@ -110,7 +108,8 @@ public class Company {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	public Blob getLicensure() {
 		return licensure;
 	}
@@ -118,7 +117,8 @@ public class Company {
 	public void setLicensure(Blob licensure) {
 		this.licensure = licensure;
 	}
-	@Column(nullable=false,columnDefinition="int default 0")
+
+	@Column(nullable = false, columnDefinition = "int default 0")
 	public Integer getReviewStatus() {
 		return reviewStatus;
 	}
@@ -126,7 +126,8 @@ public class Company {
 	public void setReviewStatus(Integer reviewStatus) {
 		this.reviewStatus = reviewStatus;
 	}
-	@Column(nullable=false,columnDefinition="int default 3")
+
+	@Column(nullable = false, columnDefinition = "int default 3")
 	public Integer getNotificationTimes() {
 		return notificationTimes;
 	}
@@ -134,7 +135,8 @@ public class Company {
 	public void setNotificationTimes(Integer notificationTimes) {
 		this.notificationTimes = notificationTimes;
 	}
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	public Blob getCoverPic() {
 		return coverPic;
 	}
@@ -142,7 +144,8 @@ public class Company {
 	public void setCoverPic(Blob coverPic) {
 		this.coverPic = coverPic;
 	}
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	public Clob getDescription() {
 		return description;
 	}
@@ -150,7 +153,8 @@ public class Company {
 	public void setDescription(Clob description) {
 		this.description = description;
 	}
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	public Blob getLogo() {
 		return logo;
 	}
@@ -158,7 +162,8 @@ public class Company {
 	public void setLogo(Blob logo) {
 		this.logo = logo;
 	}
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	public String getSiteURL() {
 		return siteURL;
 	}
@@ -175,8 +180,9 @@ public class Company {
 		this.fileName = fileName;
 	}
 
-	//Company 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 jobCompany 性質中
-	@OneToMany(mappedBy="jobCompany",cascade=CascadeType.ALL)
+
+	// Company 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 jobCompany 性質中
+	@OneToMany(mappedBy = "jobCompany", cascade = CascadeType.ALL)
 	public Set<Job> getJobsSet() {
 		return jobsSet;
 	}
