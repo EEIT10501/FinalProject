@@ -20,7 +20,7 @@ public class Job {
 	private Boolean isExposure;
 	private Boolean isFilled;
 	private Timestamp postEndDate;
-	private Integer reviewStatus;
+	private String reviewStatus;
 	private String title;
 	private Integer viewTimes;
 	private City city;
@@ -83,11 +83,11 @@ public class Job {
 		this.postEndDate = postEndDate;
 	}
 
-	public Integer getReviewStatus() {
+	public String getReviewStatus() {
 		return reviewStatus;
 	}
 
-	public void setReviewStatus(Integer reviewStatus) {
+	public void setReviewStatus(String reviewStatus) {
 		this.reviewStatus = reviewStatus;
 	}
 
