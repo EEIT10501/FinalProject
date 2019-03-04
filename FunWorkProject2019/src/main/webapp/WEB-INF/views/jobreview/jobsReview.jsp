@@ -93,7 +93,8 @@
 								<td>${job.industry}</td>
 								<td>$${job.rateByHour}</td>
 								<td>${job.jobOwner.userName}</td>
-								<td><fmt:formatDate value="${job.submitTime}" pattern="yyyy/MM/dd HH:mm" /></td>
+								<td><fmt:formatDate value="${job.submitTime}"
+										pattern="yyyy/MM/dd HH:mm" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>

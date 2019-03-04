@@ -102,12 +102,10 @@
 				<p>雇主姓名 : ${jobBean.jobOwner.userName}</p>
 				<p>公司名稱 : ${jobBean.jobCompany.name}</p>
 				<p>審核備註 : ${jobBean.comment}</p>
-				<form action="<c:url value='/jobReview/${jobBean.jobId}'/>"
-					method="post" id="isPassForm">
-					<input type="hidden" id="isPass" name="isPass" value=""> <input
-						type="button" class="btn btn-info btn-lg" id="pass" value="審核通過" />
-					<button type="button" class="btn btn-danger btn-lg"
-						data-toggle="modal" data-target="#myModal">審核失敗</button>		
+				<form action="<c:url value='/jobReview/${jobBean.jobId}'/>" method="post" id="isPassForm">
+					<input type="hidden" id="isPass" name="isPass" value=""> 
+					<input type="button" class="btn btn-info btn-lg" id="pass" value="審核通過" />
+					<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">審核失敗</button>
 					<div class="modal fade" id="myModal" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -117,13 +115,11 @@
 								</div>
 								<div class="modal-body">
 									<p>審核失敗原因</p>
-									<input type="text" name="failReason">
+									<input type="text" name="failReason" class="form-control">
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal" id="fail">送出</button>
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">關閉</button>
+									<button type="button" class="btn btn-info" data-dismiss="modal" id="fail">送出</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
 								</div>
 							</div>
 						</div>
