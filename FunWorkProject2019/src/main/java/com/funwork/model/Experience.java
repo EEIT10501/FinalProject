@@ -1,7 +1,5 @@
 package com.funwork.model;
 
-import java.sql.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +15,8 @@ public class Experience {
 	private Integer experienceId;
 	private String company;
 	private String position;
-	private Date term;
-	private Resume resume;// 外鍵
+	private String term;
+	private Resume resume;
 
 	public Experience() {
 	}
@@ -42,11 +40,12 @@ public class Experience {
 		this.company = company;
 	}
 
-	public Date getTerm() {
+	@Column(columnDefinition = "nvarchar(255)")
+	public String getTerm() {
 		return term;
 	}
 
-	public void setTerm(Date term) {
+	public void setTerm(String term) {
 		this.term = term;
 	}
 
@@ -68,7 +67,5 @@ public class Experience {
 	public void setResume(Resume resume) {
 		this.resume = resume;
 	}
-
-
 
 }

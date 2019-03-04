@@ -2,22 +2,23 @@ package com.funwork.model;
 
 import java.sql.Blob;
 import java.sql.Clob;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * @author Yang Cheng User 和 Company 做關聯性 (雙向多對一) One user corresponds to
- *         multiple companies while one company corresponds to one user
- */
-
-//@DynamicInsert(value=true)
 @Entity
 @Table(name = "Company")
 public class Company {
@@ -36,12 +37,12 @@ public class Company {
 	private Clob description;
 	private String siteURL;
 	private String fileName;
-	
+
 	@JsonIgnore
 	private MultipartFile companylicensure;
-	
-    @XmlTransient
-    @Transient
+
+	@XmlTransient
+	@Transient
 	public MultipartFile getcompanylicensure() {
 		return companylicensure;
 	}
@@ -49,13 +50,7 @@ public class Company {
 	public void setProductImage(MultipartFile companylicensure) {
 		this.companylicensure = companylicensure;
 	}
-	
-	//以下為儲存多方的實例變數
 
-	// 以下為儲存多方的實例變數
-	Set<Job> jobsSet = new HashSet<>();
-
-	// 通知Hibernate以此參考設定外鍵欄位
 	private User user;
 
 	public Company() {
@@ -109,7 +104,6 @@ public class Company {
 		this.address = address;
 	}
 
-	@Column(nullable = true)
 	public Blob getLicensure() {
 		return licensure;
 	}
@@ -136,7 +130,6 @@ public class Company {
 		this.notificationTimes = notificationTimes;
 	}
 
-	@Column(nullable = true)
 	public Blob getCoverPic() {
 		return coverPic;
 	}
@@ -145,7 +138,6 @@ public class Company {
 		this.coverPic = coverPic;
 	}
 
-	@Column(nullable = true)
 	public Clob getDescription() {
 		return description;
 	}
@@ -154,7 +146,6 @@ public class Company {
 		this.description = description;
 	}
 
-	@Column(nullable = true)
 	public Blob getLogo() {
 		return logo;
 	}
@@ -163,7 +154,6 @@ public class Company {
 		this.logo = logo;
 	}
 
-	@Column(nullable = true)
 	public String getSiteURL() {
 		return siteURL;
 	}
@@ -171,7 +161,7 @@ public class Company {
 	public void setSiteURL(String siteURL) {
 		this.siteURL = siteURL;
 	}
-	
+
 	public String getFileName() {
 		return fileName;
 	}
@@ -180,19 +170,8 @@ public class Company {
 		this.fileName = fileName;
 	}
 
-
-	// Company 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 jobCompany 性質中
-	@OneToMany(mappedBy = "jobCompany", cascade = CascadeType.ALL)
-	public Set<Job> getJobsSet() {
-		return jobsSet;
-	}
-
-	public void setJobsSet(Set<Job> jobsSet) {
-		this.jobsSet = jobsSet;
-	}
-
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_user_Id")
+	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
 		return user;
 	}

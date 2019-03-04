@@ -2,16 +2,12 @@ package _00_init.tables;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Timestamp;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.funwork.model.City;
-import com.funwork.model.Company;
-import com.funwork.model.Job;
-import com.funwork.model.User;
 
 public class CityTableInit {
 

@@ -21,7 +21,7 @@ public class Schedule {
 	private Time endTime;
 	private Time startTime;
 	private Date workDate;
-	private Job job; // 通知Hibernate以此參考設定外鍵欄位
+	private Job job;
 
 	public Schedule() {
 	}
@@ -69,7 +69,7 @@ public class Schedule {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_Job_Id")
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}

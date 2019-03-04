@@ -13,9 +13,9 @@ import com.funwork.model.Message;
 import com.funwork.model.Notification;
 import com.funwork.model.Order;
 import com.funwork.model.Product;
-import com.funwork.service.CompanyService;
 import com.funwork.model.Salary;
 import com.funwork.model.Schedule;
+import com.funwork.service.AttendenceService;
 import com.funwork.service.JobService;
 import com.funwork.service.MessageService;
 import com.funwork.service.NotificationService;
@@ -23,7 +23,6 @@ import com.funwork.service.OrderService;
 import com.funwork.service.ProductService;
 import com.funwork.service.SalaryService;
 import com.funwork.service.ScheuleService;
-import com.funwork.service.AttendenceService;
 
 @Controller
 public class HomeController {

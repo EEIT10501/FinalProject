@@ -22,7 +22,7 @@ public class Resume {
 	private String educationLevel;
 	private Blob profilePic;
 	private String selfIntro;
-	private User user;// 外鍵
+	private User user;
 
 	public Resume() {
 	}

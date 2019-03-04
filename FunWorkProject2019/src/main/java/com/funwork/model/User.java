@@ -26,11 +26,6 @@ public class User {
 	private String facebook;
 	private String google;
 
-	public User(Integer userId, String userName) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-	}
 	public User() {
 	}
 

@@ -1,27 +1,17 @@
 package _00_init.tables;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Blob;
 import java.sql.Clob;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.funwork.model.Application;
 import com.funwork.model.Company;
-import com.funwork.model.Interview;
-import com.funwork.model.Job;
 import com.funwork.model.User;
 
-import _00_init.util.HibernateUtils;
 import _00_init.util.SystemUtils2018;
 
 public class CompanyTableInit {
@@ -39,7 +29,7 @@ public class CompanyTableInit {
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 
-		try (FileReader fr = new FileReader("data/company.dat"); BufferedReader br = new BufferedReader(fr);) {
+		try (FileReader fr = new FileReader("data/Company.dat"); BufferedReader br = new BufferedReader(fr);) {
 			tx = session.beginTransaction();
 			while ((line = br.readLine()) != null) {
 				if (line.startsWith(UTF8_BOM)) {
