@@ -9,6 +9,10 @@ public interface JobDao {
 	List<Job> getAllJobs();
 
 	List<Job> getJobReviewList();
+	
+	List<Job> getJobPassed();
+	
+	List<Job> getJobByCity(Integer cityId);
 
 	Job getJobById(Integer jobId);
 

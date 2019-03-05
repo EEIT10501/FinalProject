@@ -3,6 +3,8 @@ package com.funwork.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,27 @@ public class JobDaoImpl implements JobDao {
 		List<Job> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getJobPassed() {
+		String hql = "FROM Job WHERE reviewStatus = '發布中' ORDER BY submitTime ASC";
+		List<Job> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getJobByCity(Integer cityId) {
+		String hql = "FROM Job WHERE Fk_City_Id = :cityId ORDER BY submitTime ASC"; 
+		List<Job> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		Query query = session.createQuery(hql).setParameter("cityId",cityId);
+		list = query.getResultList();
 		return list;
 	}
 
