@@ -64,4 +64,10 @@ public class CompanyServiceImp implements CompanyService {
 		return dao.findByName(name);
 	}
 
+	@Transactional
+	@Override
+	public List<Company> findAllCompanys(String reviewStatus) {
+		return dao.getAllCompanysByReviewStatus(reviewStatus);
+	}
+
 }

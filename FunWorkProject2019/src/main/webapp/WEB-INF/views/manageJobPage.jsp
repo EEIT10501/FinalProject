@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous"/>
+	crossorigin="anonymous" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
@@ -37,7 +38,7 @@
 				}
 			});
 		});
-		
+
 	});
 </script>
 <style>
@@ -77,7 +78,7 @@
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
+				<li class="nav-item"><a class="nav-link" href="employerPortal">想要徵人</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 			</ul>
 			<form class="form-inline">
@@ -117,32 +118,37 @@
 							<option>草稿</option>
 						</select> &nbsp; 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
 						<button id="butt1" style="width: auto;">確定送出</button>
-						<button id="jobPostBut" style="width: auto;" onclick="window.location='postJob'">張貼工作</button>
+						<button id="jobPostBut" style="width: auto;"
+							onclick="window.location='postJob'">張貼工作</button>
 					</nav>
 				</section>
 				<div id="content1"></div>
 				<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>公司單位</th>
-									<th>職缺編號</th>
-									<th>職位</th>
-									<th>產業性質</th>
-									<th>選取</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="job" items="${jobs}" >
-								<tr>
-									<td>${job.jobCompany.name}</td>
-									<td>${job.jobId}</td>
-									<td>${job.title}</td>
-									<td>${job.isFilled}</td>
-									<td><input type="radio"/></td>
-								</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+					<thead>
+						<tr>
+							<th>公司單位</th>
+							<th>職缺編號</th>
+							<th>職位</th>
+							<th>產業性質</th>
+							<th>職缺內容</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="job" items="${jobs}">
+							<tr>
+								<td>${job.jobCompany.name}</td>
+								<td>${job.jobId}</td>
+								<td>${job.title}</td>
+								<td>${job.isFilled}</td>
+								<td><a
+									href='<spring:url value="job?id=${job.jobId}"/>'
+									class="btn btn-primary"> <span
+										class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+								</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>

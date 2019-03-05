@@ -21,4 +21,6 @@ public interface CompanyService {
 	public boolean isCompanyExist(Company company);
 
 	Company findByName(String name);
+	
+	List<Company> findAllCompanys(String reviewStatus);
 }

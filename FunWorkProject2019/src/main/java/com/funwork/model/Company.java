@@ -27,7 +27,7 @@ public class Company implements Serializable{
 	private String address;
 	@JsonIgnore
 	private Blob licensure;
-	private Integer reviewStatus;
+	private String reviewStatus;
 	private Integer notificationTimes;
 	@JsonIgnore
 	private Blob logo;
@@ -60,7 +60,7 @@ public class Company implements Serializable{
 	public Company() {
 	}
 
-	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, Integer reviewStatus,
+	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
 			User user) {
 		this.companyId = companyId;
 		this.name = name;
@@ -118,11 +118,11 @@ public class Company implements Serializable{
 	}
 
 	@Column(nullable = false, columnDefinition = "int default 0")
-	public Integer getReviewStatus() {
+	public String getReviewStatus() {
 		return reviewStatus;
 	}
 
-	public void setReviewStatus(Integer reviewStatus) {
+	public void setReviewStatus(String reviewStatus) {
 		this.reviewStatus = reviewStatus;
 	}
 

@@ -80,7 +80,7 @@ public class EDMTableResetHibernate {
 					cb.setAddress(token[2]);
 					Blob licBlob = SystemUtils2018.fileToBlob(token[3].trim());
 					cb.setLicensure(licBlob);
-					cb.setReviewStatus(Integer.parseInt(token[4].trim()));
+					cb.setReviewStatus(token[4].trim());
 					cb.setTaxId(token[1]);
 					cb.setNotificationTimes(Integer.parseInt(token[6]));
 					Blob covBlob = SystemUtils2018.fileToBlob(token[8].trim());

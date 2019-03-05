@@ -34,7 +34,7 @@ border-radius: 15px;
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">首頁 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="">首頁 <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">想找打工</a>
@@ -51,7 +51,7 @@ border-radius: 15px;
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
      <span class="navbar-text">
-     <a class="nav-link" href="#">登入</a>
+     <a class="nav-link" href="pages/indexTest">登入</a>
     </span>
     <span class="navbar-text">
     <a class="nav-link" href="#">註冊</a>

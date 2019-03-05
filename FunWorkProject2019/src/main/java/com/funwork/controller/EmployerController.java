@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +61,10 @@ public class EmployerController {
 		return "employerPortal";
 	}
 	
+	@RequestMapping("/pages/indexTest")
+	public String login() {
+		return "pages/indexTest";
+	}
 	
 	
 	@RequestMapping("/manageJob")
@@ -109,13 +114,20 @@ public class EmployerController {
 //		model.addAttribute("companys", companys);
 //		return "companys";
 //	}
-//
-//	@RequestMapping("/company")
-//	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
-//		model.addAttribute("company", service.getcompanyById(id));
-//		return "company";
-//	}
-//
+
+	@RequestMapping(value="/searchResultByReviewStatus",method=RequestMethod.POST)
+	public String getcompanysByReviewStatus(@RequestParam("filterCompanys") String status, Model model) {
+		List<Company> companys = companyService.findAllCompanys(status);
+		model.addAttribute("companys", companys);
+		return "manageCompanyPage";
+	}
+	
+	@RequestMapping("/company")
+	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
+		model.addAttribute("company", companyService.findByPrimaryKey(id));
+		return "companyProfile";
+	}
+
 	@RequestMapping(value = "/postJob", method = RequestMethod.GET)
 	public String getAddNewcompanyForm(Model model) {
 		Job jb = new Job();
@@ -123,7 +135,7 @@ public class EmployerController {
 		return "addJob";
 	}
 	
-	@RequestMapping(value = "/registerCompany/1", method = RequestMethod.GET)
+	@RequestMapping(value = "/registerCompany", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model) {
 		Company cb = new Company();
 		cb.setName("中天");
@@ -133,7 +145,7 @@ public class EmployerController {
 		return "registerCompany";
 	}
 
-	@RequestMapping(value = "/registerCompany/1", method = RequestMethod.POST)
+	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
 	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,HttpServletRequest request) 
 	{
 		String[] suppressedFields = result.getSuppressedFields();
