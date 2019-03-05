@@ -6,4 +6,6 @@ import com.funwork.model.Notification;
 
 public interface NotificationDao {
 	List<Notification> getAllNotifications();
+	
+	void insertNotification(Notification notification);
 }

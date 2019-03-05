@@ -9,11 +9,10 @@ import javax.persistence.Id;
 public class City {
 
 	private Integer cityId;
-	private String cityName;
-	private String cityArea;
+	private String cityName; //行政區
+	private String cityArea; //台北市、新北市
 
 	public City() {
-
 	}
 
 	@Id
@@ -41,6 +40,5 @@ public class City {
 	public void setCityArea(String cityArea) {
 		this.cityArea = cityArea;
 	}
-	
 
 }

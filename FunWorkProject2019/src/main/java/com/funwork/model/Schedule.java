@@ -1,29 +1,37 @@
 package com.funwork.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+
+import java.sql.Time;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Schedule")
 public class Schedule {
-	
+
 	private Integer scheduleId;
-	private Timestamp endTime;
-	private Timestamp startTime;
+	private Time endTime;
+	private Time startTime;
 	private Date workDate;
-	private Job job;//外鍵
-	
+	private Job job;
 
 	public Schedule() {
+	}
+
+	public Schedule(Integer scheduleId, Time endTime, Time startTime, Date workDate, Job job) {
+		this.scheduleId = scheduleId;
+		this.endTime = endTime;
+		this.startTime = startTime;
+		this.workDate = workDate;
+		this.job = job;
 	}
 
 	@Id
@@ -32,56 +40,42 @@ public class Schedule {
 		return scheduleId;
 	}
 
-
 	public void setScheduleId(Integer scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 
-
-	public Timestamp getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 
-
-	public Timestamp getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
-
 
 	public Date getWorkDate() {
 		return workDate;
 	}
 
-
 	public void setWorkDate(Date workDate) {
 		this.workDate = workDate;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
-
 
 	public void setJob(Job job) {
 		this.job = job;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Schedule [scheduleId=" + scheduleId + ", endTime=" + endTime + ", startTime=" + startTime
-				+ ", workDate=" + workDate + ", jobId=" + job.getJobId() + "]";
-	}
-	
 }

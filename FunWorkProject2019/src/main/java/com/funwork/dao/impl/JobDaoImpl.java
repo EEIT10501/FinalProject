@@ -18,7 +18,6 @@ public class JobDaoImpl implements JobDao {
 	SessionFactory factory;
 
 	public JobDaoImpl() {
-
 	}
 
 	@Override
@@ -30,6 +29,38 @@ public class JobDaoImpl implements JobDao {
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getJobReviewList() {
+		String hql = "FROM Job WHERE reviewStatus = '待審核' ORDER BY submitTime ASC";
+		List<Job> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
+	@Override
+	public Job getJobById(Integer jobId) {
+		Session session = factory.getCurrentSession();
+		Job job = session.get(Job.class, jobId);
+		return job;
+	}
+
+	@Override
+	public void jobReviewPass(Integer jobId) {
+		Session session = factory.getCurrentSession();
+		Job job = session.get(Job.class, jobId);
+		job.setReviewStatus("發布中");
+	}
+
+	@Override
+	public void jobReviewFail(Integer jobId, String failReason) {
+		Session session = factory.getCurrentSession();
+		Job job = session.get(Job.class, jobId);
+		job.setReviewStatus("審核失敗");
+		job.setFailReason(failReason);
 	}
 
 }

@@ -1,53 +1,32 @@
 package com.funwork.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-
-//雙向多對一中的一方
 
 @Entity
 @Table(name = "\"User\"")
 public class User {
 
 	private Integer userId;
-	private String  userName;
-	private String  password;
+	private String userName;
+	private String password;
 	private Integer phoneNum;
-	private String 	email;
+	private String email;
 	private Integer mebershipLevel;
 	private Integer exposureLimit;
 	private Integer jobPostLimit;
 	private Integer jobPostPeriod;
-	private Integer rating;
+	private Double rating;
 	private Integer role;
 	private Integer abscence;
-	private String 	facebook;
-	private String 	google;
-	
+	private String facebook;
+	private String google;
 
-	//以下為儲存多方的實例變數
-	Set<Company> companysSet = new HashSet<>();
-	Set<Job> jobsSet = new HashSet<>();
-	Set<Application> applicationsSet = new HashSet<>();
-	Set<Salary> salarySet = new HashSet<>();
-	Set<Attendence> attendenceSet = new HashSet<>();
-	Set<Reusme> reusme = new HashSet<>();
-	
-	
-	public User(Integer userId, String userName) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
+	public User() {
 	}
 
 	@Id
@@ -59,17 +38,16 @@ public class User {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	
-	@Column(nullable=false,columnDefinition="nvarchar(255)")
+
+	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -85,7 +63,8 @@ public class User {
 	public void setPhoneNum(Integer phoneNum) {
 		this.phoneNum = phoneNum;
 	}
-	@Column(nullable=false,unique=true)
+
+	@Column(nullable = false, unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -126,11 +105,11 @@ public class User {
 		this.jobPostPeriod = jobPostPeriod;
 	}
 
-	public Integer getRating() {
+	public Double getRating() {
 		return rating;
 	}
 
-	public void setRating(Integer rating) {
+	public void setRating(Double rating) {
 		this.rating = rating;
 	}
 
@@ -165,49 +144,5 @@ public class User {
 	public void setGoogle(String google) {
 		this.google = google;
 	}
-
-
-	
-	
-	//User 類別並沒有表示關聯的資訊 , 此資訊位於 Company 的 user 性質中
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
-	public Set<Company> getCompanysSet() {
-		return companysSet;
-	}
-
-	public void setCompanysSet(Set<Company> companysSet) {
-		this.companysSet = companysSet;
-	}
-	
-	//User 類別並沒有表示關聯的資訊 , 此資訊位於 Job 的 jobOwner 性質中
-	@OneToMany(mappedBy="jobOwner", cascade=CascadeType.ALL)
-	public Set<Job> getJobsSet() {
-		return jobsSet;
-	}
-
-	public void setJobsSet(Set<Job> jobsSet) {
-		this.jobsSet = jobsSet;
-	}
-
-	//User 類別並沒有表示關聯的資訊 , 此資訊位於 Application 的 user 性質中
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	public Set<Application> getApplicationsSet() {
-		return applicationsSet;
-	}
-
-	public void setApplicationsSet(Set<Application> applicationsSet) {
-		this.applicationsSet = applicationsSet;
-	}
-	//User 類別並沒有表示關聯的資訊 , 此資訊位於 Reusme 的 user 性質中
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	public Set<Reusme> getReusme() {
-		return reusme;
-	}
-
-	public void setReusme(Set<Reusme> reusme) {
-		this.reusme = reusme;
-	}
-
-	
 
 }

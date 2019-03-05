@@ -1,8 +1,7 @@
 package com.funwork.model;
 
-import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Blob;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,31 +10,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"Reusme\"")
-public class Reusme {
+public class Resume {
 
 	private Integer resumeId;
 	private String name;
-	private Integer phoneNum;
-	private Timestamp bitrh;
+	private String phoneNum;
+	private Date bitrh;
 	private String educationLevel;
-	private String profilePic;
+	private Blob profilePic;
 	private String selfIntro;
-	private User user;//外鍵
+	private User user;
 
-	
-	//以下為儲存多方的實例變數
-	Set<Experience> experiencesSet = new HashSet<>();
-	
-	
-	public Reusme() {
+	public Resume() {
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getResumeId() {
@@ -45,7 +36,8 @@ public class Reusme {
 	public void setResumeId(Integer resumeId) {
 		this.resumeId = resumeId;
 	}
-	@Column(columnDefinition="nvarchar(255)")
+
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getName() {
 		return name;
 	}
@@ -53,20 +45,20 @@ public class Reusme {
 	public void setName(String name) {
 		this.name = name;
 	}
-    
-	public Integer getPhoneNum() {
+
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(Integer phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 
-	public Timestamp getBitrh() {
+	public Date getBitrh() {
 		return bitrh;
 	}
 
-	public void setBitrh(Timestamp bitrh) {
+	public void setBitrh(Date bitrh) {
 		this.bitrh = bitrh;
 	}
 
@@ -78,11 +70,11 @@ public class Reusme {
 		this.educationLevel = educationLevel;
 	}
 
-	public String getProfilePic() {
+	public Blob getProfilePic() {
 		return profilePic;
 	}
 
-	public void setProfilePic(String profilePic) {
+	public void setProfilePic(Blob profilePic) {
 		this.profilePic = profilePic;
 	}
 
@@ -93,8 +85,9 @@ public class Reusme {
 	public void setSelfIntro(String selfIntro) {
 		this.selfIntro = selfIntro;
 	}
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="Fk_User_Id")
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
 		return user;
 	}
@@ -102,18 +95,5 @@ public class Reusme {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	@OneToMany
-	@JoinColumn(name="Fk_ResumeId_Id")
-	public Set<Experience> getExperiencesSet() {
-		return experiencesSet;
-	}
-
-	public void setExperiencesSet(Set<Experience> experiencesSet) {
-		this.experiencesSet = experiencesSet;
-	}
-
-
-
-
 
 }

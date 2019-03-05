@@ -1,7 +1,6 @@
 package com.funwork.model;
 
-import java.sql.Clob;
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,24 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 
 @Entity
-@Table(name="Interview")
 public class Interview {
 	private Integer interviewId;
-	private Clob interviewComment;
+	private String interviewComment;
 	private String interviewType;
 	private String interviewPlace;
-	private Boolean interviewStatus;
-	private Date interviewTime;
-	
-	//provide info to Hibernate for setting Fk
+	private String interviewStatus;
+	private Timestamp interviewTime;
 	private Application application;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getInterviewId() {
 		return interviewId;
 	}
@@ -36,17 +30,17 @@ public class Interview {
 	public void setInterviewId(Integer interviewId) {
 		this.interviewId = interviewId;
 	}
-	
-	@Column(nullable=false,columnDefinition="nvarchar(MAX)")
-	public Clob getInterviewComment() {
+
+	@Column(columnDefinition = "nvarchar(MAX)")
+	public String getInterviewComment() {
 		return interviewComment;
 	}
 
-	public void setInterviewComment(Clob interviewComment) {
+	public void setInterviewComment(String interviewComment) {
 		this.interviewComment = interviewComment;
 	}
-	
-	@Column(nullable=false,columnDefinition="int default 0")
+
+	@Column(nullable = false, columnDefinition = "nvarchar(MAX) default '無'")
 	public String getInterviewType() {
 		return interviewType;
 	}
@@ -54,8 +48,8 @@ public class Interview {
 	public void setInterviewType(String interviewType) {
 		this.interviewType = interviewType;
 	}
-	
-	@Column(nullable=false,columnDefinition="nvarchar(255)")
+
+	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	public String getInterviewPlace() {
 		return interviewPlace;
 	}
@@ -63,27 +57,25 @@ public class Interview {
 	public void setInterviewPlace(String interviewPlace) {
 		this.interviewPlace = interviewPlace;
 	}
-	
-	@Column(nullable=false,columnDefinition="int default 0")
-	public Boolean getInterviewStatus() {
+
+	public String getInterviewStatus() {
 		return interviewStatus;
 	}
 
-	public void setInterviewStatus(Boolean interviewStatus) {
+	public void setInterviewStatus(String interviewStatus) {
 		this.interviewStatus = interviewStatus;
 	}
 
-	public Date getInterviewTime() {
+	public Timestamp getInterviewTime() {
 		return interviewTime;
 	}
 
-	public void setInterviewTime(Date interviewTime) {
+	public void setInterviewTime(Timestamp interviewTime) {
 		this.interviewTime = interviewTime;
 	}
 
-	//Tell hibernate that application is for association
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fk_applicationId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_applicationId")
 	public Application getApplication() {
 		return application;
 	}
@@ -99,5 +91,4 @@ public class Interview {
 				+ ", interviewTime=" + interviewTime + ", applicationId=" + application.getApplicationId() + "]";
 	}
 
-		
 }

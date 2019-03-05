@@ -1,7 +1,7 @@
 package com.funwork.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.sql.Time;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,20 +10,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Attendence {
 
 	private Integer attendenceId;
 	private Date date;
-	private Timestamp time;
+	private Time time;
 	private Integer type;
-	private Integer dailySalary;// Jack老師建議新增欄位 日薪欄位
-	private Job job;// 外鍵
-	private User user;// 外鍵
+	private Float dailySalary;
+	private Job job;
+	private User user;
 
 	public Attendence() {
+	}
+
+	public Attendence(Integer attendenceId, Date date, Time time, Integer type, Float dailySalary, Job job, User user) {
+		this.attendenceId = attendenceId;
+		this.date = date;
+		this.time = time;
+		this.type = type;
+		this.dailySalary = dailySalary;
+		this.job = job;
+		this.user = user;
 	}
 
 	@Id
@@ -44,11 +53,11 @@ public class Attendence {
 		this.date = date;
 	}
 
-	public Timestamp getTime() {
+	public Time getTime() {
 		return time;
 	}
 
-	public void setTime(Timestamp time) {
+	public void setTime(Time time) {
 		this.time = time;
 	}
 
@@ -60,15 +69,16 @@ public class Attendence {
 		this.type = type;
 	}
 
-	public Integer getDailySalary() {
+	public Float getDailySalary() {
 		return dailySalary;
 	}
 
-	public void setDailySalary(Integer dailySalary) {
+	public void setDailySalary(Float dailySalary) {
 		this.dailySalary = dailySalary;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -85,12 +95,6 @@ public class Attendence {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "Attendence [attendenceId=" + attendenceId + ", date=" + date + ", time=" + time + ", type=" + type
-				+ ", dailySalary=" + dailySalary + ", jobId=" + job.getJobId() + ", userId=" + user.getUserId() + "]";
 	}
 
 }

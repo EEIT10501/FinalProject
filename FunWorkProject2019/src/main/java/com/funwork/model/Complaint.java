@@ -16,24 +16,22 @@ public class Complaint {
 
 	private Integer complaintId;
 	private String content;
-	private Timestamp process_time;
-	private Timestamp submitted_time;
-	private Integer type;
+	private Timestamp submitTime;
+	private Timestamp processTime;
+	private String type;
 	private Integer status;
-
 	private Job job;
-	private User user;
 
 	public Complaint() {
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getComplaint() {
+	public Integer getComplaintId() {
 		return complaintId;
 	}
 
-	public void setComplaint(Integer complaintId) {
+	public void setComplaintId(Integer complaintId) {
 		this.complaintId = complaintId;
 	}
 
@@ -46,6 +44,31 @@ public class Complaint {
 		this.content = content;
 	}
 
+	public Timestamp getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(Timestamp submitTime) {
+		this.submitTime = submitTime;
+	}
+
+	public Timestamp getProcessTime() {
+		return processTime;
+	}
+
+	public void setProcessTime(Timestamp processTime) {
+		this.processTime = processTime;
+	}
+
+	@Column(columnDefinition = "nvarchar(255)")
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -54,32 +77,8 @@ public class Complaint {
 		this.status = status;
 	}
 
-	public Timestamp getProcess_time() {
-		return process_time;
-	}
-
-	public void setProcess_time(Timestamp process_time) {
-		this.process_time = process_time;
-	}
-
-	public Timestamp getSubmitted_time() {
-		return submitted_time;
-	}
-
-	public void setSubmitted_time(Timestamp submitted_time) {
-		this.submitted_time = submitted_time;
-	}
-
-	public Integer getType() {
-		return type;
-	}
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_job_Id")
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -88,13 +87,4 @@ public class Complaint {
 		this.job = job;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_user_Id")
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 }
