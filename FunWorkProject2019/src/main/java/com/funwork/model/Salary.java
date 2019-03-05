@@ -18,10 +18,10 @@ public class Salary {
 	private Float hours;
 	private String reviewComment;
 	private Integer reviewStatus;
-	private Integer paymentStatus; // Jack老師建議新增付款狀態欄位
-	private Float rating; // Jack老師建議新增評分欄位
-	private Job job; // 通知Hibernate以此參考設定外鍵欄位
-	private User user; // 通知Hibernate以此參考設定外鍵欄位
+	private Integer paymentStatus;
+	private Float rating;
+	private Job job;
+	private User user;
 
 	public Salary() {
 	}
@@ -90,7 +90,7 @@ public class Salary {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_Job_Id")
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -100,7 +100,7 @@ public class Salary {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_User_Id")
+	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
 		return user;
 	}

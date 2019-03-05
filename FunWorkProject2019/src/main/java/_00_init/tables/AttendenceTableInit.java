@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.funwork.model.Attendence;
+import com.funwork.model.Job;
+import com.funwork.model.User;
 
 public class AttendenceTableInit {
 
@@ -51,11 +53,11 @@ public class AttendenceTableInit {
 				attendence.setType(Integer.parseInt(type));
 				attendence.setDailySalary(Float.parseFloat(dailySalary));
 
-//				Job job = session.get(Job.class, Integer.valueOf(jobId));
-//				User user = session.get(User.class, Integer.valueOf(userId));
-//
-//				attendence.setJob(job);
-//				attendence.setUser(user);
+				Job job = session.get(Job.class, Integer.valueOf(jobId));
+				User user = session.get(User.class, Integer.valueOf(userId));
+
+				attendence.setJob(job);
+				attendence.setUser(user);
 				session.save(attendence);
 			}
 			tx.commit();

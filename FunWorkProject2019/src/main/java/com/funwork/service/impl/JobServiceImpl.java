@@ -10,7 +10,6 @@ import com.funwork.dao.JobDao;
 import com.funwork.model.Job;
 import com.funwork.service.JobService;
 
-
 @Service
 public class JobServiceImpl implements JobService {
 	@Autowired
@@ -18,11 +17,35 @@ public class JobServiceImpl implements JobService {
 
 	public JobServiceImpl() {
 	}
-	
+
 	@Override
 	@Transactional
 	public List<Job> getAllJobs() {
 		return dao.getAllJobs();
+	}
+
+	@Override
+	@Transactional
+	public List<Job> getJobReviewList() {
+		return dao.getJobReviewList();
+	}
+
+	@Override
+	@Transactional
+	public Job getJobById(Integer jobId) {
+		return dao.getJobById(jobId);
+	}
+
+	@Override
+	@Transactional
+	public void jobReviewPass(Integer jobId) {
+		dao.jobReviewPass(jobId);
+	}
+
+	@Override
+	@Transactional
+	public void jobReviewFail(Integer jobId, String failReason) {
+		dao.jobReviewFail(jobId, failReason);
 	}
 
 }

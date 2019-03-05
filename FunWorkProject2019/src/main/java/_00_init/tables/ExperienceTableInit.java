@@ -2,7 +2,6 @@ package _00_init.tables;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,14 +36,14 @@ public class ExperienceTableInit {
 				String position = token[1];
 				String term = token[2];
 				String resumeId = token[3];
-	
+
 				Experience experience = new Experience();
 				experience.setCompany(company);
 				experience.setPosition(position);
-				experience.setTerm(Date.valueOf(term));
+				experience.setTerm(term);
 				Resume resume = session.get(Resume.class, Integer.valueOf(resumeId));
 				experience.setResume(resume);
-				session.save(resume);
+				session.save(experience);
 			}
 			tx.commit();
 			System.out.println("Experience資料新增成功");
