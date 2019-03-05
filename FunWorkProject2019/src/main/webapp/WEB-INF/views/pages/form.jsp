@@ -64,10 +64,14 @@ height:600px;
         <div class="row m-3 justify-content-around">
             <div class="col-sm-2 asideblock">
             <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action">自定義標籤1</a>
-  <a href="#" class="list-group-item list-group-item-action">自定義標籤2</a>
-  <a href="#" class="list-group-item list-group-item-action">自定義標籤3</a>
-  <a href="#" class="list-group-item list-group-item-action">自定義標籤4</a>
+  <a href="#" class="list-group-item list-group-item-action">基本資訊</a>
+  <a href="#" class="list-group-item list-group-item-action">工作管理</a>
+  <a href="#" class="list-group-item list-group-item-action">邀約管理</a>
+  <a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
+  <a href="#" class="list-group-item list-group-item-action">加值服務</a>
+  <a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
+  <a href="#" class="list-group-item list-group-item-action">訂單管理</a>
+  <a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
   </div>
             </div>
             <div class="col-sm-8">

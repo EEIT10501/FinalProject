@@ -1,8 +1,8 @@
 package com.funwork.model;
 
 import java.sql.Date;
+
 import java.sql.Time;
-import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,19 +21,18 @@ public class Schedule {
 	private Time endTime;
 	private Time startTime;
 	private Date workDate;
-	private Job job;  //通知Hibernate以此參考設定外鍵欄位
-	
-	public Schedule() {}
+	private Job job;
+
+	public Schedule() {
+	}
 
 	public Schedule(Integer scheduleId, Time endTime, Time startTime, Date workDate, Job job) {
-		super();
 		this.scheduleId = scheduleId;
 		this.endTime = endTime;
 		this.startTime = startTime;
 		this.workDate = workDate;
 		this.job = job;
 	}
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,7 +69,7 @@ public class Schedule {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_Job_Id")
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
@@ -78,6 +77,5 @@ public class Schedule {
 	public void setJob(Job job) {
 		this.job = job;
 	}
-
 
 }

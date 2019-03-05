@@ -18,17 +18,16 @@ public class Salary {
 	private Float hours;
 	private String reviewComment;
 	private Integer reviewStatus;
-	private Integer paymentStatus; //Jack老師建議新增付款狀態欄位
-	private Float rating; //Jack老師建議新增評分欄位
-	private Job job;  //通知Hibernate以此參考設定外鍵欄位
-	private User user;  //通知Hibernate以此參考設定外鍵欄位
+	private Integer paymentStatus;
+	private Float rating;
+	private Job job;
+	private User user;
 
+	public Salary() {
+	}
 
-	public Salary() {}
-	
 	public Salary(Integer salaryId, Float hours, String reviewComment, Integer reviewStatus, Integer paymentStatus,
 			Float rating, Job job, User user) {
-		super();
 		this.salaryId = salaryId;
 		this.hours = hours;
 		this.reviewComment = reviewComment;
@@ -38,7 +37,6 @@ public class Salary {
 		this.job = job;
 		this.user = user;
 	}
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,8 +55,8 @@ public class Salary {
 	public void setHours(Float hours) {
 		this.hours = hours;
 	}
-	
-	@Column(columnDefinition="nvarchar(255)")
+
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getReviewComment() {
 		return reviewComment;
 	}
@@ -92,17 +90,17 @@ public class Salary {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_Job_Id")
+	@JoinColumn(name = "Fk_Job_Id")
 	public Job getJob() {
 		return job;
 	}
 
 	public void setJob(Job job) {
-		job = job;
+		this.job = job;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_User_Id")
+	@JoinColumn(name = "Fk_User_Id")
 	public User getUser() {
 		return user;
 	}
@@ -110,6 +108,5 @@ public class Salary {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 }

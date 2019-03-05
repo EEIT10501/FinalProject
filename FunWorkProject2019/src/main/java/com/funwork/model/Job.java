@@ -1,8 +1,7 @@
 package com.funwork.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,42 +11,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
 
 @Entity
 public class Job {
-	
+
 	private Integer jobId;
-	private String comment;
-	private Boolean isExposure; 
-	private Boolean isFilled; 
+	private String comment; // 要提供管理員審核時的備註
+	private Boolean isExposure;
+	private Boolean isFilled;
 	private Timestamp postEndDate;
-	private Integer reviewStatus;
+	private String reviewStatus;
 	private String title;
 	private Integer viewTimes;
-	private City city; //多做一張城市的Table
+	private City city;
 	private String address;
 	private String addresssup;
 	private String contact;
-	private String description;
+	private String description; // 工作內容
 	private String jobEmail;
 	private String industry;
 	private String other;
-	private Timestamp paidDate;
+	private Date paidDate;
 	private String jobPhone;
 	private Integer positionNum;
-	private Integer rateByHour; 
-	private User jobOwner;//通知Hibernate以此參考設定外鍵欄位
-	private Company jobCompany;//通知Hibernate以此參考設定外鍵欄位
-	private Salary salary;//通知Hibernate以此參考設定外鍵欄位
-	//以下為儲存多方的實例變數
-		Set<Application> applcationsSet = new HashSet<>();
-	
+	private Integer rateByHour;
+	private Timestamp submitTime;
+	private Timestamp reviewTime;
+	private String failReason;
+	private User jobOwner;
+	private Company jobCompany;
+
 	public Job() {
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getJobId() {
@@ -58,14 +54,6 @@ public class Job {
 		this.jobId = jobId;
 	}
 
-//	public Application getApplicant() {
-//		return applicant;
-//	}
-//
-//	public void setApplicant(Application applicant) {
-//		this.applicant = applicant;
-//	}
-
 	public String getComment() {
 		return comment;
 	}
@@ -73,7 +61,6 @@ public class Job {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
 
 	public Boolean getIsExposure() {
 		return isExposure;
@@ -99,15 +86,15 @@ public class Job {
 		this.postEndDate = postEndDate;
 	}
 
-	public Integer getReviewStatus() {
+	public String getReviewStatus() {
 		return reviewStatus;
 	}
 
-	public void setReviewStatus(Integer reviewStatus) {
+	public void setReviewStatus(String reviewStatus) {
 		this.reviewStatus = reviewStatus;
 	}
 
-	@Column(columnDefinition="nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getTitle() {
 		return title;
 	}
@@ -125,7 +112,7 @@ public class Job {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_jobCity_Id")
+	@JoinColumn(name = "Fk_City_Id")
 	public City getCity() {
 		return city;
 	}
@@ -134,7 +121,7 @@ public class Job {
 		this.city = city;
 	}
 
-	@Column(columnDefinition="nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getAddress() {
 		return address;
 	}
@@ -143,7 +130,7 @@ public class Job {
 		this.address = address;
 	}
 
-	@Column(columnDefinition="nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getAddresssup() {
 		return addresssup;
 	}
@@ -152,7 +139,7 @@ public class Job {
 		this.addresssup = addresssup;
 	}
 
-	@Column(columnDefinition="nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getContact() {
 		return contact;
 	}
@@ -161,7 +148,7 @@ public class Job {
 		this.contact = contact;
 	}
 
-	@Column(columnDefinition="nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getDescription() {
 		return description;
 	}
@@ -178,7 +165,7 @@ public class Job {
 		this.jobEmail = jobEmail;
 	}
 
-	@Column(columnDefinition="nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getIndustry() {
 		return industry;
 	}
@@ -195,11 +182,11 @@ public class Job {
 		this.other = other;
 	}
 
-	public Timestamp getPaidDate() {
+	public Date getPaidDate() {
 		return paidDate;
 	}
 
-	public void setPaidDate(Timestamp paidDate) {
+	public void setPaidDate(Date paidDate) {
 		this.paidDate = paidDate;
 	}
 
@@ -228,7 +215,7 @@ public class Job {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_jobOwner_Id")
+	@JoinColumn(name = "Fk_JobOwner_Id")
 	public User getJobOwner() {
 		return jobOwner;
 	}
@@ -238,7 +225,7 @@ public class Job {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_jobCompany_Id")
+	@JoinColumn(name = "Fk_Company_Id")
 	public Company getJobCompany() {
 		return jobCompany;
 	}
@@ -246,29 +233,29 @@ public class Job {
 	public void setJobCompany(Company jobCompany) {
 		this.jobCompany = jobCompany;
 	}
-	
-	//Job 類別並沒有表示關聯的資訊 , 此資訊位於 Application 的 job 性質中
-	@OneToMany(mappedBy="job",cascade=CascadeType.ALL)
-	public Set<Application> getApplcationsSet() {
-		return applcationsSet;
+
+	public Timestamp getSubmitTime() {
+		return submitTime;
 	}
 
-	public void setApplcationsSet(Set<Application> applcationsSet) {
-		this.applcationsSet = applcationsSet;
-	}
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="FK_School_id")
-	public Salary getSalary() {
-		return salary;
+	public void setSubmitTime(Timestamp submitTime) {
+		this.submitTime = submitTime;
 	}
 
-	public void setSalary(Salary salary) {
-		this.salary = salary;
+	public Timestamp getReviewTime() {
+		return reviewTime;
 	}
-	
-	
-	
+
+	public void setReviewTime(Timestamp reviewTime) {
+		this.reviewTime = reviewTime;
+	}
+
+	public String getFailReason() {
+		return failReason;
+	}
+
+	public void setFailReason(String failReason) {
+		this.failReason = failReason;
+	}
+
 }
-	
-

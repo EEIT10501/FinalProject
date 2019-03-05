@@ -1,9 +1,6 @@
 package com.funwork.model;
 
-import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
 public class Experience {
@@ -19,8 +15,8 @@ public class Experience {
 	private Integer experienceId;
 	private String company;
 	private String position;
-	private Timestamp term;
-	private Resume resume;// 外鍵
+	private String term;
+	private Resume resume;
 
 	public Experience() {
 	}
@@ -44,11 +40,12 @@ public class Experience {
 		this.company = company;
 	}
 
-	public Timestamp getTerm() {
+	@Column(columnDefinition = "nvarchar(255)")
+	public String getTerm() {
 		return term;
 	}
 
-	public void setTerm(Timestamp term) {
+	public void setTerm(String term) {
 		this.term = term;
 	}
 
