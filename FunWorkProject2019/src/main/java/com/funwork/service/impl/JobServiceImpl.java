@@ -29,6 +29,18 @@ public class JobServiceImpl implements JobService {
 	public List<Job> getJobReviewList() {
 		return dao.getJobReviewList();
 	}
+	
+	@Override
+	@Transactional
+	public List<Job> getJobPassed() {
+		return dao.getJobPassed();
+	}
+	
+	@Override
+	@Transactional
+	public List<Job> getJobByCity(Integer cityId) {
+		return dao.getJobByCity(cityId);
+	}
 
 	@Override
 	@Transactional

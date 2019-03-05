@@ -17,7 +17,7 @@ public class JobController {
 
 	@Autowired
 	JobService jobService;
-	
+
 	@Autowired
 	ServletContext context;
 
@@ -27,8 +27,10 @@ public class JobController {
 
 	@RequestMapping("jobs")
 	public String Jobs(Model model) {
-		List<Job> joblist = jobService.getAllJobs();
-		model.addAttribute("jobs",joblist);
+//		List<Job> joblist = jobService.getAllJobs();
+		List<Job> joblist = jobService.getJobPassed();
+//		List<Job> joblist = jobService.getJobByCity(5);
+		model.addAttribute("jobs", joblist);
 		return "jobs";
 	}
 
