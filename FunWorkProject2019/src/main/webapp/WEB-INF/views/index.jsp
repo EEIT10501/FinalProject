@@ -42,7 +42,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">首頁
+				<li class="nav-item active"><a class="nav-link" href="">首頁
 						<span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
@@ -55,7 +55,7 @@
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
-			<span class="navbar-text"> <a class="nav-link" href="#">登入</a>
+			<span class="navbar-text"> <a class="nav-link" href="pages/indexTest">登入</a>
 			</span> <span class="navbar-text"> <a class="nav-link" href="#">註冊</a>
 			</span>
 		</div>
@@ -154,5 +154,6 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
+>>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 </body>
 </html>

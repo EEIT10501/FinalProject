@@ -15,20 +15,20 @@ import com.funwork.model.Job;
 import com.funwork.model.User;
 
 public class JobTableInit {
-	
+
 	SessionFactory factory;
 	String line = "";
 	public static final String UTF8_BOM = "\uFEFF";
-	
+
 	public JobTableInit(SessionFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	public void initJob() {
-		
+
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
-		
+
 		try (FileReader fr = new FileReader("data/Job.dat"); BufferedReader br = new BufferedReader(fr);) {
 			tx = session.beginTransaction();
 			while ((line = br.readLine()) != null) {
@@ -57,7 +57,9 @@ public class JobTableInit {
 				String rateByHour = token[18];
 				String jobOwner = token[19];
 				String jobCompany = token[20];
-				
+				String submitTime = token[21];
+				String reviewTime = token[22];
+
 				Job job = new Job();
 				job.setAddress(address);
 				job.setAddresssup(addresssup);
@@ -65,7 +67,7 @@ public class JobTableInit {
 				job.setIsExposure(Boolean.valueOf(isExposure));
 				job.setIsFilled(Boolean.valueOf(isFilled));
 				job.setPostEndDate(Timestamp.valueOf(postEndDate));
-				job.setReviewStatus(Integer.valueOf(reviewStatus));
+				job.setReviewStatus(reviewStatus);
 				job.setTitle(title);
 				job.setViewTimes(Integer.valueOf(viewTimes));
 				City cityname = session.get(City.class, Integer.valueOf(city));
@@ -83,6 +85,8 @@ public class JobTableInit {
 				job.setJobOwner(userid);
 				Company companyid = session.get(Company.class, Integer.valueOf(jobCompany));
 				job.setJobCompany(companyid);
+				job.setSubmitTime(Timestamp.valueOf(submitTime));
+				job.setReviewTime(Timestamp.valueOf(reviewTime));
 				session.save(job);
 			}
 			tx.commit();
@@ -92,7 +96,7 @@ public class JobTableInit {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		
+
 	}
 
 }

@@ -16,18 +16,18 @@ import javax.persistence.ManyToOne;
 public class Job {
 
 	private Integer jobId;
-	private String comment;
+	private String comment; // 要提供管理員審核時的備註
 	private Boolean isExposure;
 	private Boolean isFilled;
 	private Timestamp postEndDate;
-	private Integer reviewStatus;
+	private String reviewStatus;
 	private String title;
 	private Integer viewTimes;
 	private City city;
 	private String address;
 	private String addresssup;
 	private String contact;
-	private String description;
+	private String description; // 工作內容
 	private String jobEmail;
 	private String industry;
 	private String other;
@@ -35,6 +35,9 @@ public class Job {
 	private String jobPhone;
 	private Integer positionNum;
 	private Integer rateByHour;
+	private Timestamp submitTime;
+	private Timestamp reviewTime;
+	private String failReason;
 	private User jobOwner;
 	private Company jobCompany;
 
@@ -83,11 +86,11 @@ public class Job {
 		this.postEndDate = postEndDate;
 	}
 
-	public Integer getReviewStatus() {
+	public String getReviewStatus() {
 		return reviewStatus;
 	}
 
-	public void setReviewStatus(Integer reviewStatus) {
+	public void setReviewStatus(String reviewStatus) {
 		this.reviewStatus = reviewStatus;
 	}
 
@@ -229,6 +232,30 @@ public class Job {
 
 	public void setJobCompany(Company jobCompany) {
 		this.jobCompany = jobCompany;
+	}
+
+	public Timestamp getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(Timestamp submitTime) {
+		this.submitTime = submitTime;
+	}
+
+	public Timestamp getReviewTime() {
+		return reviewTime;
+	}
+
+	public void setReviewTime(Timestamp reviewTime) {
+		this.reviewTime = reviewTime;
+	}
+
+	public String getFailReason() {
+		return failReason;
+	}
+
+	public void setFailReason(String failReason) {
+		this.failReason = failReason;
 	}
 
 }

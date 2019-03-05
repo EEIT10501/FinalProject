@@ -31,4 +31,10 @@ public class NotificationDaoImpl implements NotificationDao {
 		return list;
 	}
 
+	@Override
+	public void insertNotification(Notification notification) {
+		Session session = factory.getCurrentSession();
+		session.save(notification);
+	}
+
 }

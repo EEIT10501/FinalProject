@@ -25,4 +25,10 @@ public class NotificationServiceImpl implements NotificationService {
 		return dao.getAllNotifications();
 	}
 
+	@Transactional
+	@Override
+	public void insertNotification(Notification notification) {
+		dao.insertNotification(notification);
+	}
+
 }
