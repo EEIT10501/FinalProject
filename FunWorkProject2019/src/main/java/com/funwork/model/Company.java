@@ -2,7 +2,7 @@ package com.funwork.model;
 
 import java.sql.Blob;
 import java.sql.Clob;
-
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,19 +16,19 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Company")
-public class Company {
+public class Company implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer companyId;
 	private String name;
 	private String taxId;
 	private String address;
 	@JsonIgnore
 	private Blob licensure;
-	private Integer reviewStatus;
+	private String reviewStatus;
 	private Integer notificationTimes;
 	@JsonIgnore
 	private Blob logo;
@@ -39,16 +39,16 @@ public class Company {
 	private String fileName;
 
 	@JsonIgnore
-	private MultipartFile companylicensure;
-
-	@XmlTransient
-	@Transient
-	public MultipartFile getcompanylicensure() {
-		return companylicensure;
+	private MultipartFile companyLicensureImage;
+	
+    @XmlTransient
+    @Transient
+	public MultipartFile getcompanyLicensureImage() {
+		return companyLicensureImage;
 	}
 
-	public void setProductImage(MultipartFile companylicensure) {
-		this.companylicensure = companylicensure;
+	public void setcompanyLicensureImage(MultipartFile companyLicensureImage) {
+		this.companyLicensureImage = companyLicensureImage;
 	}
 
 	private User user;
@@ -56,7 +56,7 @@ public class Company {
 	public Company() {
 	}
 
-	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, Integer reviewStatus,
+	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
 			User user) {
 		this.companyId = companyId;
 		this.name = name;
@@ -113,11 +113,11 @@ public class Company {
 	}
 
 	@Column(nullable = false, columnDefinition = "int default 0")
-	public Integer getReviewStatus() {
+	public String getReviewStatus() {
 		return reviewStatus;
 	}
 
-	public void setReviewStatus(Integer reviewStatus) {
+	public void setReviewStatus(String reviewStatus) {
 		this.reviewStatus = reviewStatus;
 	}
 

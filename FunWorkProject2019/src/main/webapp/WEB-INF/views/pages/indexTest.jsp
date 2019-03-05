@@ -7,8 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>首頁</title>
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" type="text/css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/topNavBar.css" type="text/css"> --%>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <style>
@@ -36,7 +35,7 @@ border-radius: 15px;
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">首頁 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="">首頁 <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">想找打工</a>
@@ -60,44 +59,45 @@ border-radius: 15px;
     </span>
   </div>
 </nav>
-	<section>
-	<div id="id01" class="modal">
+	<section >
+	<div id="id01" class="modal" style="width: 30%; height: 90%;" >
 		<form class="modal-content animate" action="/action_page.php">
 			<div class="imgcontainer">
 				<span onclick="document.getElementById('id01').style.display='none'"
 					class="close" title="Close Modal">&times;</span> <img
-					src="../images/profile2.png" alt="Avatar" class="avatar">
+					src="<c:url value='/image/profile.jpg'></c:url>" alt="Avatar" class="avatar">
 			</div>
 
 			<div class="container">
-				<label for="uname"><b>Username</b></label> <input type="text"
+				<label for="uname"><b>請輸入使用者名稱</b></label> <input type="text"
 					placeholder="Enter Username" name="uname" required> <label
-					for="psw"><b>Password</b></label> <input type="password"
+					for="psw"><b>請輸入密碼</b></label> <input type="password"
 					placeholder="Enter Password" name="psw" required>
 
-				<button type="submit">Login</button>
-				<label> <input type="checkbox" checked="checked"
-					name="remember"> Remember me
+				<button class="button2" type="submit">登入</button>
+				<button type="button"
+					onclick="document.getElementById('id01').style.display='none'"
+					class="cancelbtn">取消</button>
+				<label> 
+				<input type="checkbox" checked="checked" name="remember"/> Remember me
+				<span class="psw"><a href="#">忘記密碼</a></span>
 				</label>
 			</div>
 
-			<div class="container" style="background-color: #f1f1f1">
-				<button type="button"
-					onclick="document.getElementById('id01').style.display='none'"
-					class="cancelbtn">Cancel</button>
-				<span class="psw">Forgot <a href="#">password?</a></span>
-			</div>
+<!-- 			<div class="container" style="background-color: #f1f1f1"> -->
+<!-- 				<span class="psw"><a href="#">忘記密碼</a></span> -->
+<!-- 			</div> -->
 		</form>
 	</div>
 	<script>
 			// Get the modal
 
-			var modal = document.getElementById('id01');
+			var modal2 = document.getElementById('id01');
 
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
-				if (event.target == modal) {
-					modal.style.display = "none";
+				if (event.target == modal2) {
+					modal2.style.display = "none";
 				}
 			}
 		</script>

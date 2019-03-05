@@ -89,4 +89,14 @@ public class CompanyDaoImp implements CompanyDao {
 		}
 		return exist;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Company> getAllCompanysByReviewStatus(String status) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Company WHERE reviewStatus= :status";
+		List<Company> list = session.createQuery(hql).setParameter(1, status).getResultList();
+		return list;
+	}
+	
 }

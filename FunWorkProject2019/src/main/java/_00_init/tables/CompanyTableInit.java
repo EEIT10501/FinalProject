@@ -42,7 +42,7 @@ public class CompanyTableInit {
 				cb.setAddress(token[2]);
 				Blob licBlob = SystemUtils2018.fileToBlob(token[3].trim());
 				cb.setLicensure(licBlob);
-				cb.setReviewStatus(Integer.parseInt(token[4].trim()));
+				cb.setReviewStatus(token[4].trim());
 				cb.setTaxId(token[1]);
 				cb.setNotificationTimes(Integer.parseInt(token[6]));
 				Blob covBlob = SystemUtils2018.fileToBlob(token[8].trim());
@@ -59,7 +59,6 @@ public class CompanyTableInit {
 			}
 			tx.commit();
 			System.out.println("Company資料新增成功");
-
 		} catch (Exception e) {
 			System.err.println("新建Company表格時發生例外: " + e.getMessage());
 			e.printStackTrace();
