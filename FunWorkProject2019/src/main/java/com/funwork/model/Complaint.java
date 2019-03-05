@@ -18,8 +18,9 @@ public class Complaint {
 	private String content;
 	private Timestamp submitTime;
 	private Timestamp processTime;
+	private String processDescription;
 	private String type;
-	private Integer status;
+	private String status;
 	private Job job;
 
 	public Complaint() {
@@ -69,11 +70,11 @@ public class Complaint {
 		this.type = type;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -85,6 +86,14 @@ public class Complaint {
 
 	public void setJob(Job job) {
 		this.job = job;
+	}
+
+	public String getProcessDescription() {
+		return processDescription;
+	}
+
+	public void setProcessDescription(String processDescription) {
+		this.processDescription = processDescription;
 	}
 
 }

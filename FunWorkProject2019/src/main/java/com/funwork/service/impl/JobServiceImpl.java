@@ -38,14 +38,20 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	@Transactional
-	public void jobReviewPass(Integer jobId) {
-		dao.jobReviewPass(jobId);
+	public Job jobReviewPass(Integer jobId) {
+		return dao.jobReviewPass(jobId);
 	}
 
 	@Override
 	@Transactional
-	public void jobReviewFail(Integer jobId, String failReason) {
-		dao.jobReviewFail(jobId, failReason);
+	public Job jobReviewFail(Integer jobId, String failReason) {
+		return dao.jobReviewFail(jobId, failReason);
+	}
+
+	@Transactional
+	@Override
+	public Job jobRemove(Integer jobId, String removeReason) {
+		return dao.jobRemove(jobId, removeReason);
 	}
 
 }

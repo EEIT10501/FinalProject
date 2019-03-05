@@ -49,18 +49,29 @@ public class JobDaoImpl implements JobDao {
 	}
 
 	@Override
-	public void jobReviewPass(Integer jobId) {
+	public Job jobReviewPass(Integer jobId) {
 		Session session = factory.getCurrentSession();
 		Job job = session.get(Job.class, jobId);
 		job.setReviewStatus("發布中");
+		return job;
 	}
 
 	@Override
-	public void jobReviewFail(Integer jobId, String failReason) {
+	public Job jobReviewFail(Integer jobId, String failReason) {
 		Session session = factory.getCurrentSession();
 		Job job = session.get(Job.class, jobId);
 		job.setReviewStatus("審核失敗");
 		job.setFailReason(failReason);
+		return job;
+	}
+
+	@Override
+	public Job jobRemove(Integer jobId, String removeReason) {
+		Session session = factory.getCurrentSession();
+		Job job = session.get(Job.class, jobId);
+		job.setReviewStatus("下架");
+		job.setFailReason(removeReason);
+		return job;
 	}
 
 }

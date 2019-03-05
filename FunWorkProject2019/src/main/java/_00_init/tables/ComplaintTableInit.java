@@ -46,7 +46,7 @@ public class ComplaintTableInit {
 				complaint.setSubmitTime(Timestamp.valueOf(submitTime));
 				complaint.setProcessTime(Timestamp.valueOf(processTime));
 				complaint.setType(type);
-				complaint.setStatus(Integer.valueOf(status));
+				complaint.setStatus(status);
 				Job job = session.get(Job.class, Integer.valueOf(jobId));
 				complaint.setJob(job);
 
