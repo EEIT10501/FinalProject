@@ -18,7 +18,6 @@
 <script type="text/javascript" src='<c:url value="/js/moment.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/js/jquery.min.js"/>'></script>
 <script type="text/javascript"src='<c:url value="/js/jquery-ui.min.js"/>'></script>
-
 <script type="text/javascript"src='<c:url value="/js/fullcalendar.min.js"/>'></script>
 
 
