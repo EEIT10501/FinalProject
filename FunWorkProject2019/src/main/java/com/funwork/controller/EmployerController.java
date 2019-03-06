@@ -48,12 +48,11 @@ public class EmployerController {
 		return "employerPortal";
 	}
 	
-
-	@RequestMapping("/indexTest")
-	public String indexTest() {
+	@RequestMapping("/pages/indexTest")
+	public String login() {
 		return "pages/indexTest";
 	}
-
+	
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model) {
 		List<Job> list = jobService.getAllJobs();

@@ -58,12 +58,10 @@
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
-
 			<span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" href="pages/indexTest">登入</a>
 			</span> <span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
-
 			</span>
 		</div>
 	</nav>
@@ -161,6 +159,7 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
-
+	>>>>>>> branch 'master' of
+	https://github.com/EEIT10501/FinalProject.git
 </body>
 </html>
