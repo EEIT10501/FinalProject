@@ -55,7 +55,7 @@ public class JobDaoImpl implements JobDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Job> getJobByCity(Integer cityId) {
+	public List<Job> getJobByCityName(Integer cityId) {
 		String hql = "FROM Job WHERE Fk_City_Id = :cityId ORDER BY submitTime ASC";
 		List<Job> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();

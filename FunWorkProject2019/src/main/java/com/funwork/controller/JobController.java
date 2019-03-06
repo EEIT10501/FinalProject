@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.funwork.model.City;
 import com.funwork.model.Job;
 import com.funwork.service.JobService;
 
@@ -31,6 +32,8 @@ public class JobController {
 		List<Job> joblist = jobService.getJobPassed();
 //		List<Job> joblist = jobService.getJobByCity(5);      //依城市搜尋
 //		List<Job> joblist = jobService.getJobByCityArea(13); //依地區搜尋
+		List<City> citylist = jobService.getCityName(15);
+		model.addAttribute("citys",citylist);
 		model.addAttribute("jobs", joblist);
 		return "jobs";
 	}
@@ -40,6 +43,15 @@ public class JobController {
 		Job job = jobService.getJobById(jobId);
 		model.addAttribute("jobBean", job);
 		return "jobDetail";
+	}
+	
+	@RequestMapping("/cityName/{cityId}")
+	public String cityJob(Model model,@PathVariable("cityId") Integer cityId) {
+		List<Job> joblist = jobService.getJobByCityName(cityId);      //依城市搜尋
+		model.addAttribute("jobs", joblist);
+		List<City> citylist = jobService.getCityName(15);
+		model.addAttribute("citys",citylist);
+		return "jobs";
 	}
 
 }
