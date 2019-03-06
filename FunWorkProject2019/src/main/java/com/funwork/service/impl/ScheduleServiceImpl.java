@@ -25,10 +25,5 @@ public class ScheduleServiceImpl implements ScheuleService {
 		return dao.getAllSchedules();
 	}
 
-	@Transactional
-	@Override
-	public List<Schedule> findSchedulesGreaterThan(String time) {
-		return dao.findSchedulesGreaterThan(time);
-	}
 
 }

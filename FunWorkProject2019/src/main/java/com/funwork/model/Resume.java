@@ -22,6 +22,7 @@ public class Resume {
 	private String educationLevel;
 	private Blob profilePic;
 	private String selfIntro;
+	private String fileName;
 	private User user;
 
 	public Resume() {
@@ -94,6 +95,14 @@ public class Resume {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

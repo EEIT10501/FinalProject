@@ -77,9 +77,10 @@
 			<div class="col-sm-8">
 				<h1>訊息</h1>
 				<table class="table table-hover">
-					<tbody id="msg">
+					<tbody>
 						<c:forEach var="oldMessage" items="${oldMessageList}">
 							<tr>
+								<td><img width="50" height="50" src='<c:url value="/getPicture/${oldMessage.sender.userId}"/>'/></td>
 								<td>${oldMessage.sender.userName} : ${oldMessage.content}</td>
 								<td><fmt:formatDate value="${oldMessage.time}"
 										pattern="yyyy 年 MM 月 dd 日  HH:mm" /></td>
@@ -115,24 +116,6 @@
 		var toUserId = $("#toUserId").attr('value');
 		var apId = $("#apId").attr('value');
 		
-		function getTimeNowStr(){
-			var dateTimeNow = new Date();
-			var year = dateTimeNow.getFullYear();
-			var mouth = (dateTimeNow.getMonth() + 1);
-			if (mouth<10){mouth= "0" + mouth};
-			var date = dateTimeNow.getDate();
-			if(date<10){date = "0" + date}
-			var hours = dateTimeNow.getHours();
-			if(hours<10){hours = "0"+hours};
-			var minutes = dateTimeNow.getMinutes();
-			if(minutes<10){minutes = "0" + minutes};
-			var dateTimeNowStr = year + " 年 "	
-					+ mouth + " 月 " + date
-					+ " 日 " + hours + ":"
-					+ minutes;
-			return dateTimeNowStr;
-		}
-
 		$(function() {
 			var websocket;
 			if ('WebSocket' in window) {
@@ -143,13 +126,16 @@
 			} else {
 				alert("此瀏覽器只支持SockJS");
 			}
+			
+			websocket.onopen = function(evnt) {
+            };
+            
 			websocket.onmessage = function(evnt) {				
-				$("#msg").append("<tr><td>" + userId + " : " + evnt.data + "</td><td>" + getTimeNowStr() + "</td></tr>")			
+				location.reload();
 			};
 			websocket.onerror = function(evnt) {
 			};
 			websocket.onclose = function(evnt) {
-				$("#tou").html("Server連線中斷")
 			}
 
 			$('#send').click(function() {
@@ -161,15 +147,15 @@
 					var message = $("#message").val();
 					message = message;
 					websocket.send(message);
-
+					
 					$.ajax({
 						url : "/FunWorkProject2019/message/TestWS?userId="
 								+ userId + "&toUserId=" + toUserId + "&message=" + message +"&apId=" + apId,
 						type : "GET",
 						success : function(data) {
+							location.reload();
 						}
 					});
-
 					message = $("#message").val("");
 
 				} else {

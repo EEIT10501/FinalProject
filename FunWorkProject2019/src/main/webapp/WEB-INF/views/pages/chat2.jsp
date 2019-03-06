@@ -77,12 +77,13 @@
 			<div class="col-sm-8">
 				<h1>訊息</h1>
 				<table class="table table-hover">
-					<tbody id="msg">
+					<tbody>
 						<c:forEach var="oldMessage" items="${oldMessageList}">
 							<tr>
-								<td>${oldMessage.sender.userName}:${oldMessage.content}</td>
+								<td><img width="50" height="50" src='<c:url value="/getPicture/${oldMessage.sender.userId}"/>'/></td>
+								<td>${oldMessage.sender.userName} : ${oldMessage.content}</td>
 								<td><fmt:formatDate value="${oldMessage.time}"
-										pattern="yyyy年MM月dd日 HH:mm" /></td>
+										pattern="yyyy 年 MM 月 dd 日  HH:mm" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -90,7 +91,9 @@
 				<div class="col-lg">
 					<div class="input-group">
 						<input type="hidden" id="userId" value="2"> <input
-							type="hidden" id="toUserId" value="1"> <input type="text"
+							type="hidden" id="toUserId" value="1"> 
+							<input type="hidden" id="apId" value="${apId}"> 
+							<input type="text"
 							class="form-control" placeholder="傳送訊息..." id="message">
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button" id="send">發送</button>
@@ -111,15 +114,7 @@
 		var userId = $("#userId").attr('value');
 		var connWsStr = "ws://127.0.0.1:8080/FunWorkProject2019/chat/" + userId;
 		var toUserId = $("#toUserId").attr('value');
-
-		function getTimeNowStr() {
-			var dateTimeNow = new Date();
-			var dateTimeNowStr = dateTimeNow.getFullYear() + " 年 "
-					+ (dateTimeNow.getMonth() + 1) + " 月 "
-					+ dateTimeNow.getDate() + " 日 " + dateTimeNow.getHours()
-					+ ":" + dateTimeNow.getMinutes();
-			return dateTimeNowStr;
-		}
+		var apId = $("#apId").attr('value');
 
 		$(function() {
 			var websocket;
@@ -131,13 +126,13 @@
 			} else {
 				alert("此瀏覽器只支持SockJS");
 			}
-			websocket.onmessage = function(evnt) {
-
-				$("#msg").append(
-						"<tr><td>" + evnt.data + "</td><td>" + getTimeNowStr()
-								+ "</td></tr>")
-				// 				$("#msg").html($("#msg").html() + "<br/>" + evnt.data);
-
+			
+			websocket.onopen = function(evnt) {
+                $("#tou").html("链接服务器成功!")
+            };
+			
+			websocket.onmessage = function(evnt) {				
+				location.reload();
 			};
 			websocket.onerror = function(evnt) {
 			};
@@ -152,17 +147,17 @@
 			function send() {
 				if (websocket != null) {
 					var message = $("#message").val();
-					message = userId + " : " + message;
+					message = message;
 					websocket.send(message);
 
 					$.ajax({
 						url : "/FunWorkProject2019/message/TestWS?userId="
-								+ toUserId + "&message=" + message,
+								+ userId + "&toUserId=" + toUserId + "&message=" + message +"&apId=" + apId,
 						type : "GET",
 						success : function(data) {
+							location.reload();
 						}
 					});
-
 					message = $("#message").val("");
 
 				} else {

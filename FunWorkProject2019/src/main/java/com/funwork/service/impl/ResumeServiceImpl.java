@@ -25,4 +25,10 @@ public class ResumeServiceImpl implements ResumeService {
 		return dao.getAllResumes();
 	}
 
+	@Transactional
+	@Override
+	public Resume getResumeByUserId(Integer userId) {
+		return dao.getResumeByUserId(userId);
+	}
+
 }

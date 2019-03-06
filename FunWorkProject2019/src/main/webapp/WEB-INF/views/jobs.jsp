@@ -109,7 +109,7 @@
 					<div class="dropdown-menu">
 						<c:forEach var="city" items="${citys}">
 							<a class="dropdown-item"
-								href="<c:url value='cityName/${city.cityId}'/>">${city.cityName}</a>
+								href="<c:url value='/cityName/${city.cityId}'/>">${city.cityName}</a>
 						</c:forEach>
 					</div>
 				</div>
