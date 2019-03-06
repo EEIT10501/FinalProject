@@ -107,8 +107,9 @@
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<form:form method='POST' modelAttribute="companyBean"
-					class='form-horizontal' enctype="multipart/form-data">
+
+								<form:form class='form-horizontal' modelAttribute="companyBean" method="POST">
+								<!--  enctype="multipart/form-data" --> 
 					<fieldset>
 						<section
 							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
@@ -145,26 +146,27 @@
 										class='form:input-large' />
 								</div>
 							</div>
-<!-- 							<h4>身份驗證</h4> -->
-<!-- 							<hr> -->
+							<!-- 							<h4>身份驗證</h4> -->
+							<!-- 							<hr> -->
 
-<!-- 							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6> -->
-<!-- 							<ul> -->
-<!-- 								<li>含有本人名字的公司名片 -->
-<!-- 								<li>政府核可的營業登記文件 如你的帳號的 Email 包含公司網址，則可略過此步驟 -->
-<!-- 							</ul> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<label class="control-label col-lg-2 col-lg-2" for='companyLicensureImage'> -->
-<%-- 									<spring:message --%>
-<%-- 										code='spring.registerCompany.form.companyLicensureImage.label' /> --%>
-<!-- 								</label> -->
-<%-- 								<form:input id="companyLicensureImage" path="companyLicensureImage" --%>
-<%-- 									type='file' class='form:input-large' /> --%>
-<!-- 							</div> -->
+							<!-- 							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6> -->
+							<!-- 							<ul> -->
+							<!-- 								<li>含有本人名字的公司名片 -->
+							<!-- 								<li>政府核可的營業登記文件 如你的帳號的 Email 包含公司網址，則可略過此步驟 -->
+							<!-- 							</ul> -->
+							<div class="form-group">
+								<label class="control-label col-lg-2 col-lg-2"
+									for='companyLicensureImage'> <spring:message
+										code='spring.registerCompany.form.companyLicensureImage.label' />
+								</label>
+								<form:input id="companyLicensureImage"
+									path="companyLicensureImage" type='file'
+									class='form:input-large' />
+							</div>
 							<div class="form-group">
 								<div class='col-lg-offset-2 col-lg-10'>
 									<input id="btnAdd" type='submit' class='btn btn-primary'
-<%-- 										value="<spring:message code='spring.addProduct.form.submit.label'/>" /> --%>
+										<%-- 										value="<spring:message code='spring.addProduct.form.submit.label'/>" /> --%>
 										value="Send" />
 								</div>
 							</div>

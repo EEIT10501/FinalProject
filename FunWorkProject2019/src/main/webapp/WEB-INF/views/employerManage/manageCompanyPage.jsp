@@ -37,34 +37,34 @@
 }
 </style>
 <script>
-	$(document).ready(function() {
-		var status = $("#condit1").find(":selected").text();
+// 	$(document).ready(function() {
+// 		var status = $("#condit1").find(":selected").text();
 
-		alert(status);
+// 		alert(status);
 		
-		$("#condit1").change(function() {
-			status = $("#condit1").find(":selected").text();
-			alert(status);
-		});
+// 		$("#condit1").change(function() {
+// 			status = $("#condit1").find(":selected").text();
+// 			alert(status);
+// 		});
 
-		$("#butt1").click(function() {
+// 		$("#butt1").click(function() {
 			
-			alert(status);
+// 			alert(status);
 
-			$.ajax({
-				url : "/searchResultByReviewStatus",
-				data : { "reviewStatus" : status },
-				cache : false,
-				type : "POST",
-				success : function(response) {
-					alert("success");
-				},
-				error : function(xhr) {
-					alert("failure");
-				}
-			});
-		});
-	});
+// 			$.ajax({
+// 				url : "/searchResultByReviewStatus",
+// 				data : { "reviewStatus" : status },
+// 				cache : false,
+// 				type : "POST",
+// 				success : function(response) {
+// 					alert("success");
+// 				},
+// 				error : function(xhr) {
+// 					alert("failure");
+// 				}
+// 			});
+// 		});
+// 	});
 </script>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -120,8 +120,8 @@
 					<nav>
 						<strong>目前篩選條件: 全部</strong> <span class='label label-warning'>
 						</span><br> <br>
-						<form:form method='POST' modelAttribute="filterCompanys"
-							class='form-horizontal' enctype="multipart/form-data">
+<%-- 						<form:form method='POST' modelAttribute="filterCompanys" --%>
+<%--  							class='form-horizontal' enctype="multipart/form-data"> --%>
 						
 						請輸入選擇條件: &nbsp; <select id="condit1">
 								<option>已建立</option>
@@ -129,6 +129,7 @@
 								<option>草稿</option>
 							</select> 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
 							<button id="butt1" style="width: auto;">確定送出</button>
+							
 							<button id="jobPostBut" style="width: auto;"
 								onclick="window.location='registerCompany'">建立公司</button>
 							<br>
@@ -157,7 +158,7 @@
 									</c:forEach>
 								</tbody>
 							</table>
-							</form:form>
+<%--  							</form:form> --%>
 					</nav>
 				</section>
 				<!-- 				<div id="content1"></div> -->
