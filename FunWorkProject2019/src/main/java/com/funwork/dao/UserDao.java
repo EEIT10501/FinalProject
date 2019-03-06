@@ -7,4 +7,6 @@ import com.funwork.model.User;
 public interface UserDao {
 
 	List<User> getAllUsers();
+
+	User getUserById(Integer userId);
 }

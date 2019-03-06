@@ -6,4 +6,6 @@ import com.funwork.model.Schedule;
 
 public interface ScheduleDao {
 	List<Schedule> getAllSchedules();
+
+	List<Schedule> findSchedulesGreaterThan(String time);
 }

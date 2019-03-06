@@ -18,7 +18,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,12 +46,12 @@ public class EmployerController {
 	public String accessCompanyMain() {
 		return "employerPortal";
 	}
-	
+
 	@RequestMapping("/pages/indexTest")
 	public String login() {
 		return "pages/indexTest";
 	}
-	
+
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model) {
 		List<Job> list = jobService.getAllJobs();
@@ -74,13 +73,13 @@ public class EmployerController {
 		return "test";
 	}
 
-	@RequestMapping(value="/searchResultByReviewStatus",method=RequestMethod.POST)
+	@RequestMapping(value = "/searchResultByReviewStatus", method = RequestMethod.POST)
 	public String getcompanysByReviewStatus(@RequestParam("filterCompanys") String status, Model model) {
 		List<Company> companys = companyService.findAllCompanys(status);
 		model.addAttribute("companys", companys);
 		return "manageCompanyPage";
 	}
-	
+
 	@RequestMapping("/company")
 	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
 		model.addAttribute("company", companyService.findByPrimaryKey(id));
@@ -105,17 +104,16 @@ public class EmployerController {
 	}
 
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
-	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,HttpServletRequest request)
-	{
+	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
+			HttpServletRequest request) {
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
-		
+
 		System.out.println(cb.getName());
 		System.out.println(cb.getTaxId());
 		System.out.println(cb.getAddress());
-
 
 		MultipartFile companyLicensure = cb.getcompanyLicensureImage();
 		String originalFilename = companyLicensure.getOriginalFilename();
@@ -151,6 +149,7 @@ public class EmployerController {
 
 		return "redirect:/companys";
 	}
+
 	@ExceptionHandler(CompanyNotFoundException.class)
 	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {
 		ModelAndView mv = new ModelAndView();
@@ -160,7 +159,6 @@ public class EmployerController {
 		mv.setViewName("companyNotFound");
 		return mv;
 	}
-
 
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {

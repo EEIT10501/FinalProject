@@ -30,7 +30,14 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Schedule> findSchedulesGreaterThan(String time) {
+		String hql = "FROM Schedule WHERE endTime > '" + time + "'";
+		Session session = factory.getCurrentSession();
+		List<Schedule> list = session.createQuery(hql).getResultList();
+		return list;
+	}
 
 }
