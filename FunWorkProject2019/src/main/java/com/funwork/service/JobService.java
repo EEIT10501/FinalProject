@@ -2,6 +2,7 @@ package com.funwork.service;
 
 import java.util.List;
 
+import com.funwork.model.City;
 import com.funwork.model.Job;
 
 public interface JobService {
@@ -12,7 +13,9 @@ public interface JobService {
 	
 	List<Job> getJobPassed();
 	
-	List<Job> getJobByCity(Integer cityId);
+	List<Job> getJobByCityName(Integer cityId);
+	
+	List<Job> getJobByCityArea(Integer cityId);
 
 	Job getJobById(Integer jobId);
 
@@ -21,4 +24,8 @@ public interface JobService {
 	Job jobReviewFail(Integer jobId, String failReason);
 	
 	Job jobRemove(Integer jobId, String removeReason);
+	
+	List<City> getAllCitys();
+	
+	List<City> getCityName(Integer cityId);
 }

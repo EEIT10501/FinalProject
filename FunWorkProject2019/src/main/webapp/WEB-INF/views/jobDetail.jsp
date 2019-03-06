@@ -11,22 +11,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
 
-<script type="text/javascript"
-	src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 
-<title>找工作</title>
-<script>
-	$(document).ready(function() {
-		$('#example').DataTable();
-
-	});
-</script>
+<title>首頁</title>
 </head>
 <style>
 .card-text-size {
@@ -68,7 +55,7 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="jobs">想找打工</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 			</ul>
@@ -101,45 +88,23 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
-
-				<div class="btn-group">
-					<button type="button" class="btn btn-secondary dropdown-toggle"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						選擇行政區</button>
-					<div class="dropdown-menu">
-						<c:forEach var="city" items="${citys}">
-							<a class="dropdown-item"
-								href="<c:url value='cityName/${city.cityId}'/>">${city.cityName}</a>
-						</c:forEach>
-					</div>
-				</div>
-
-				<c:if test="${empty jobs}">
-					<h3 style="color: black">該區域目前無工作，請選擇其他區域</h3>
-				</c:if>
-
 				<table class="table table-hover display" id="example">
 					<thead>
 						<tr>
 							<th>職缺名稱</th>
 							<th>所在地區</th>
 							<th>所屬公司</th>
-							<th>是否額滿</th>
-							<th>詳細內容</th>
+							<th>工作地點</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="job" items="${jobs}">
-							<tr>
-								<td>${job.title}</td>
-								<td>${job.city.cityName}</td>
-								<td>${job.jobCompany.name}</td>
-								<td>${job.isFilled}</td>
-								<td><a href="jobDetail/${job.jobId}"
-									class="btn btn-primary"><span
-										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
-							</tr>
-						</c:forEach>
+						<tr>
+							<td>${jobBean.title}</td>
+							<td>${jobBean.city.cityName}</td>
+							<td>${jobBean.jobCompany.name}</td>
+							<td>${jobBean.address}</td>
+						</tr>
+
 					</tbody>
 				</table>
 
@@ -147,14 +112,15 @@
 			<div class="col-sm-2">預留區塊</div>
 		</div>
 	</div>
-
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>
 	</div>
-
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

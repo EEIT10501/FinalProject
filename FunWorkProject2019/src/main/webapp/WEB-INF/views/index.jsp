@@ -10,7 +10,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
 <style>
@@ -26,6 +25,10 @@
 .nav-item:hover {
 	background-color: gray;
 	border-radius: 15px;
+}
+
+.btn {
+	margin-right: 5px;
 }
 </style>
 <body>
@@ -55,8 +58,10 @@
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
-			<span class="navbar-text"> <a class="nav-link" href="pages/indexTest">登入</a>
-			</span> <span class="navbar-text"> <a class="nav-link" href="#">註冊</a>
+			<span class="navbar-text my-2 my-sm-0"> <a
+				class="nav-link btn btn-outline-secondary" href="pages/indexTest">登入</a>
+			</span> <span class="navbar-text my-2 my-sm-0"> <a
+				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
 			</span>
 		</div>
 	</nav>
@@ -154,6 +159,5 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
->>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 </body>
 </html>
