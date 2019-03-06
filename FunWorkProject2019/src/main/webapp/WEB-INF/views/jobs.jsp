@@ -101,6 +101,23 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-secondary dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						選擇行政區</button>
+					<div class="dropdown-menu">
+						<c:forEach var="city" items="${citys}">
+							<a class="dropdown-item"
+								href="<c:url value='cityName/${city.cityId}'/>">${city.cityName}</a>
+						</c:forEach>
+					</div>
+				</div>
+
+				<c:if test="${empty jobs}">
+					<h3 style="color: black">該區域目前無工作，請選擇其他區域</h3>
+				</c:if>
+
 				<table class="table table-hover display" id="example">
 					<thead>
 						<tr>

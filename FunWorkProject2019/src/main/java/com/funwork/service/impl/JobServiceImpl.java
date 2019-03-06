@@ -6,14 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.funwork.dao.CityDao;
 import com.funwork.dao.JobDao;
+import com.funwork.model.City;
 import com.funwork.model.Job;
 import com.funwork.service.JobService;
 
 @Service
 public class JobServiceImpl implements JobService {
+	
 	@Autowired
 	JobDao dao;
+	
+	@Autowired
+	CityDao citydao;
 
 	public JobServiceImpl() {
 	}
@@ -38,8 +44,8 @@ public class JobServiceImpl implements JobService {
 	
 	@Override
 	@Transactional
-	public List<Job> getJobByCity(Integer cityId) {
-		return dao.getJobByCity(cityId);
+	public List<Job> getJobByCityName(Integer cityId) {
+		return dao.getJobByCityName(cityId);
 	}
 	
 	@Transactional
@@ -70,6 +76,20 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public Job jobRemove(Integer jobId, String removeReason) {
 		return dao.jobRemove(jobId, removeReason);
+	}
+	
+	@Transactional
+	@Override
+	public List<City> getAllCitys(){
+		return citydao.getAllCitys();
+		
+	}
+	
+	@Transactional
+	@Override
+	public List<City> getCityName(Integer cityId){
+		return citydao.getCityName(cityId);
+				
 	}
 
 }
