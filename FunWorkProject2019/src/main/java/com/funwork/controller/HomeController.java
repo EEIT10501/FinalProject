@@ -27,30 +27,6 @@ import com.funwork.service.ScheuleService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	ProductService productService;
-
-	@Autowired
-	OrderService orderService;
-
-	@Autowired
-	NotificationService notificationService;
-
-	@Autowired
-	MessageService messageService;
-
-	@Autowired
-	JobService jobService;
-
-	@Autowired
-	ScheuleService scheduleService;
-
-	@Autowired
-	SalaryService salaryService;
-
-	@Autowired
-	AttendenceService attendenceService;
-
 	public HomeController() {
 	}
 
@@ -89,30 +65,6 @@ public class HomeController {
 		return "schedule/editWorker";
 	}
 
-
-	@RequestMapping("/test")
-	public String Test(Model model) {
-
-		List<Product> productList = productService.getAllProducts();
-		List<Order> orderList = orderService.getAllOrders();
-		List<Notification> notificationList = notificationService.getAllNotifications();
-		List<Message> messageList = messageService.getAllMessages();
-		List<Job> jobList = jobService.getAllJobs();
-		List<Schedule> scheduleList = scheduleService.getAllSchedules();
-		List<Salary> salaryList = salaryService.getAllSalarys();
-		List<Attendence> attendenceList = attendenceService.getAllAttendences();
-
-		model.addAttribute("productList", productList);
-		model.addAttribute("orderList", orderList);
-		model.addAttribute("notificationList", notificationList);
-		model.addAttribute("messageList", messageList);
-		model.addAttribute("jobList", jobList);
-		model.addAttribute("success", "dao&service呼叫成功");
-		model.addAttribute("scheduleList", scheduleList);
-		model.addAttribute("salaryList", salaryList);
-		model.addAttribute("attendenceList", attendenceList);
-		return "test";
-	}
 
 	@RequestMapping("/chat")
 	public String Chat(Model model) {

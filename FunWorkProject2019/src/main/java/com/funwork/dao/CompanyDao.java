@@ -6,7 +6,7 @@ import com.funwork.model.Company;
 
 public interface CompanyDao {
 	Company findByPrimaryKey(int key);
-
+	
 	void saveCompany(Company company);
 
 	void updateCompany(Company company);
@@ -21,4 +21,5 @@ public interface CompanyDao {
 
 	Company findByName(String name);
 
+	List<Company> getAllCompanysByReviewStatus(String reviewStatus);
 }

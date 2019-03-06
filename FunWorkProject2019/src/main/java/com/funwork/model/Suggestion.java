@@ -61,6 +61,7 @@ public class Suggestion {
 
 	public void setAttachment(Blob attachment) {
 		this.attachment = attachment;
+
 	}
 
 }

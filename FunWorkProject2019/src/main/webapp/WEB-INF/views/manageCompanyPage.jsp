@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,36 @@
 	height: 600px;
 }
 </style>
+<script>
+	$(document).ready(function() {
+		var status = $("#condit1").find(":selected").text();
+
+		alert(status);
+		
+		$("#condit1").change(function() {
+			status = $("#condit1").find(":selected").text();
+			alert(status);
+		});
+
+		$("#butt1").click(function() {
+			
+			alert(status);
+
+			$.ajax({
+				url : "/searchResultByReviewStatus",
+				data : { "reviewStatus" : status },
+				cache : false,
+				type : "POST",
+				success : function(response) {
+					alert("success");
+				},
+				error : function(xhr) {
+					alert("failure");
+				}
+			});
+		});
+	});
+</script>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
 		<a class="navbar-brand" href="#"> <img
@@ -53,7 +84,7 @@
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
+				<li class="nav-item"><a class="nav-link" href="employerPortal">想要徵人</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 			</ul>
 			<form class="form-inline">
@@ -87,51 +118,49 @@
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
 					<hr>
 					<nav>
+						<strong>目前篩選條件: 全部</strong> <span class='label label-warning'>
+						</span><br> <br>
+						<form:form method='POST' modelAttribute="filterCompanys"
+							class='form-horizontal' enctype="multipart/form-data">
+						
 						請輸入選擇條件: &nbsp; <select id="condit1">
-							<option>已建立</option>
-							<option>待審核</option>
-							<option>草稿</option>
-						</select>
-						或是輸入關鍵字: &nbsp; <input placeholder="please enter">
-						<button id="butt1" style="width: auto;">確定送出</button>
-						
-						<button id="jobPostBut" style="width: auto;"
-							onclick="window.location='registerCompany'">建立公司</button>
-						
-						<hr>
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>公司名稱</th>
-									<th>統一編號</th>
-									<th>公司登記地址</th>
-									<th>選取</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="company" items="${companys}" >
-								<tr>
-									<td>${company.name}</td>
-									<td>${company.taxId}</td>
-									<td>${company.address}</td>
-									<td><input type="radio"/></td>
-								</tr>
-<!-- 								<tr> -->
-<!-- 									<td>Mary</td> -->
-<!-- 									<td>Moe</td> -->
-<!-- 									<td>mary@example.com</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td>July</td> -->
-<!-- 									<td>Dooley</td> -->
-<!-- 									<td>july@example.com</td> -->
-<!-- 								</tr> -->
-								</c:forEach>
-							</tbody>
-						</table>
+								<option>已建立</option>
+								<option>待審核</option>
+								<option>草稿</option>
+							</select> 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
+							<button id="butt1" style="width: auto;">確定送出</button>
+							<button id="jobPostBut" style="width: auto;"
+								onclick="window.location='registerCompany'">建立公司</button>
+							<br>
+							<hr>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>公司名稱</th>
+										<th>統一編號</th>
+										<th>登記地址</th>
+										<th>登錄資料</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="company" items="${companys}">
+										<tr>
+											<td>${company.name}</td>
+											<td>${company.taxId}</td>
+											<td>${company.address}</td>
+											<td><a
+												href='<spring:url value="company?id=${company.companyId}"/>'
+												class="btn btn-info btn-sm"> <span
+													class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+											</a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+							</form:form>
 					</nav>
 				</section>
-				<div id="content1"></div>
+				<!-- 				<div id="content1"></div> -->
 				<!--             程式寫在這 -->
 
 			</div>
