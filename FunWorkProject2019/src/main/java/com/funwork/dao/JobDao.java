@@ -13,6 +13,8 @@ public interface JobDao {
 	List<Job> getJobPassed();
 	
 	List<Job> getJobByCity(Integer cityId);
+	
+	List<Job> getJobByCityArea(Integer cityId);
 
 	Job getJobById(Integer jobId);
 

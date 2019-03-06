@@ -42,7 +42,7 @@ public class JobDaoImpl implements JobDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getJobPassed() {
@@ -52,15 +52,31 @@ public class JobDaoImpl implements JobDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getJobByCity(Integer cityId) {
-		String hql = "FROM Job WHERE Fk_City_Id = :cityId ORDER BY submitTime ASC"; 
+		String hql = "FROM Job WHERE Fk_City_Id = :cityId ORDER BY submitTime ASC";
 		List<Job> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
-		Query query = session.createQuery(hql).setParameter("cityId",cityId);
+		Query query = session.createQuery(hql).setParameter("cityId", cityId);
 		list = query.getResultList();
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getJobByCityArea(Integer cityId) {
+		String hql = "";
+		if (cityId <= 12) {
+			hql = "FROM Job WHERE Fk_City_Id <= 12 ORDER BY submitTime ASC";
+		}
+		if (cityId >= 13 && cityId < 42) {
+			hql = "FROM Job WHERE Fk_City_Id BETWEEN 13 AND 41 ORDER BY submitTime ASC";
+		}
+		List<Job> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
 		return list;
 	}
 

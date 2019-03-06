@@ -28,9 +28,9 @@ public class JobController {
 
 	@RequestMapping("/jobs")
 	public String Jobs(Model model) {
-//		List<Job> joblist = jobService.getAllJobs();
 		List<Job> joblist = jobService.getJobPassed();
-//		List<Job> joblist = jobService.getJobByCity(5);
+//		List<Job> joblist = jobService.getJobByCity(5);      //依城市搜尋
+//		List<Job> joblist = jobService.getJobByCityArea(13); //依地區搜尋
 		model.addAttribute("jobs", joblist);
 		return "jobs";
 	}

@@ -46,6 +46,10 @@
 .asideblock {
 	height: 600px;
 }
+
+.btn {
+	margin-right: 5px;
+}
 </style>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -73,8 +77,10 @@
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
-			<span class="navbar-text"> <a class="nav-link" href="#">登入</a>
-			</span> <span class="navbar-text"> <a class="nav-link" href="#">註冊</a>
+			<span class="navbar-text my-2 my-sm-0"> <a
+				class="nav-link btn btn-outline-secondary" href="#">登入</a>
+			</span> <span class="navbar-text my-2 my-sm-0"> <a
+				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
 			</span>
 		</div>
 	</nav>
@@ -83,14 +89,14 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action"></a> <a
-						href="#" class="list-group-item list-group-item-action">工作管理</a> <a
-						href="#" class="list-group-item list-group-item-action">邀約管理</a> <a
-						href="#" class="list-group-item list-group-item-action">公司單位管理</a>
+					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
+					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
+					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
+					<a href="#" class="list-group-item list-group-item-action">公司管理</a>
 					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
+					<a href="#" class="list-group-item list-group-item-action">黃金會員</a>
 					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
+					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
@@ -112,7 +118,8 @@
 								<td>${job.city.cityName}</td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.isFilled}</td>
-								<td><a href="jobDetail/${job.jobId}" class="btn btn-primary"><span
+								<td><a href="jobDetail/${job.jobId}"
+									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
 							</tr>
 						</c:forEach>

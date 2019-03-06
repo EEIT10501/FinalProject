@@ -33,6 +33,10 @@
 .asideblock {
 	height: 600px;
 }
+
+.btn {
+	margin-right: 5px;
+}
 </style>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -60,8 +64,10 @@
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
-			<span class="navbar-text"> <a class="nav-link" href="#">登入</a>
-			</span> <span class="navbar-text"> <a class="nav-link" href="#">註冊</a>
+			<span class="navbar-text my-2 my-sm-0"> <a
+				class="nav-link btn btn-outline-secondary" href="#">登入</a>
+			</span> <span class="navbar-text my-2 my-sm-0"> <a
+				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
 			</span>
 		</div>
 	</nav>
@@ -73,11 +79,11 @@
 					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
 					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
 					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
+					<a href="#" class="list-group-item list-group-item-action">公司管理</a>
 					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
+					<a href="#" class="list-group-item list-group-item-action">黃金會員</a>
 					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
+					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
@@ -89,18 +95,16 @@
 							<th>所在地區</th>
 							<th>所屬公司</th>
 							<th>工作地點</th>
-						
 						</tr>
 					</thead>
 					<tbody>
-							<tr <a href="jobDetail/${jobBean.jobId}"></a>>
-								<td>${jobBean.title}</td>
-								<td>${jobBean.city.cityName}</td>
-								<td>${jobBean.jobCompany.name}</td>
-								<td>${jobBean.address}</td>
-								
-							</tr>
-						
+						<tr>
+							<td>${jobBean.title}</td>
+							<td>${jobBean.city.cityName}</td>
+							<td>${jobBean.jobCompany.name}</td>
+							<td>${jobBean.address}</td>
+						</tr>
+
 					</tbody>
 				</table>
 

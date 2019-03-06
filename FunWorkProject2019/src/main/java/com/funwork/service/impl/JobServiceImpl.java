@@ -41,6 +41,12 @@ public class JobServiceImpl implements JobService {
 	public List<Job> getJobByCity(Integer cityId) {
 		return dao.getJobByCity(cityId);
 	}
+	
+	@Transactional
+	@Override
+	public List<Job> getJobByCityArea(Integer cityId) {
+		return dao.getJobByCityArea(cityId);
+	}
 
 	@Override
 	@Transactional
