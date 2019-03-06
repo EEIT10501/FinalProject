@@ -35,7 +35,6 @@ public class MessageController {
 			@RequestParam(value = "message", required = true) String message,
 			@RequestParam(value = "apId", required = true) String apId, HttpServletRequest req) {
 
-		// 在此取得請求傳來的 applicationId 訊息內容 時間 傳送人及接收人id 存到資料庫
 //		HttpSession session = req.getSession();
 		
 		messageService.insertMessage(message, userId, toUserId, apId);

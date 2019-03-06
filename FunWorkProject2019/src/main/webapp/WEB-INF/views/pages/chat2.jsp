@@ -80,8 +80,9 @@
 					<tbody>
 						<c:forEach var="oldMessage" items="${oldMessageList}">
 							<tr>
-								<td><img width="50" height="50" src='<c:url value="/getPicture/${oldMessage.sender.userId}"/>'/></td>
-								<td>${oldMessage.sender.userName} : ${oldMessage.content}</td>
+								<td><img width="50" height="50"
+									src='<c:url value="/getPicture/${oldMessage.sender.userId}"/>' /></td>
+								<td>${oldMessage.sender.userName}:${oldMessage.content}</td>
 								<td><fmt:formatDate value="${oldMessage.time}"
 										pattern="yyyy 年 MM 月 dd 日  HH:mm" /></td>
 							</tr>
@@ -91,11 +92,10 @@
 				<div class="col-lg">
 					<div class="input-group">
 						<input type="hidden" id="userId" value="2"> <input
-							type="hidden" id="toUserId" value="1"> 
-							<input type="hidden" id="apId" value="${apId}"> 
-							<input type="text"
-							class="form-control" placeholder="傳送訊息..." id="message">
-						<span class="input-group-btn">
+							type="hidden" id="toUserId" value="1"> <input
+							type="hidden" id="apId" value="${apId}"> <input
+							type="text" class="form-control" placeholder="傳送訊息..."
+							id="message"> <span class="input-group-btn">
 							<button class="btn btn-default" type="button" id="send">發送</button>
 						</span>
 					</div>
@@ -126,12 +126,15 @@
 			} else {
 				alert("此瀏覽器只支持SockJS");
 			}
-			
+
 			websocket.onopen = function(evnt) {
-                $("#tou").html("链接服务器成功!")
-            };
-			
-			websocket.onmessage = function(evnt) {				
+				$("#tou").html("链接服务器成功!")
+			};
+
+			websocket.onmessage = function(evnt) {
+				for (i = 0; i < 10000000; i++) {
+
+				}
 				location.reload();
 			};
 			websocket.onerror = function(evnt) {
@@ -152,7 +155,8 @@
 
 					$.ajax({
 						url : "/FunWorkProject2019/message/TestWS?userId="
-								+ userId + "&toUserId=" + toUserId + "&message=" + message +"&apId=" + apId,
+								+ userId + "&toUserId=" + toUserId
+								+ "&message=" + message + "&apId=" + apId,
 						type : "GET",
 						success : function(data) {
 							location.reload();
