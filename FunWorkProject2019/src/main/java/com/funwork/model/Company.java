@@ -15,9 +15,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@DynamicInsert
 @Entity
 @Table(name = "Company")
 public class Company implements Serializable{
@@ -95,7 +97,8 @@ public class Company implements Serializable{
 		this.taxId = taxId;
 	}
 
-	@Column(nullable = false, columnDefinition = "nvarchar(255)")
+	
+	@Column(nullable = false)
 	public String getAddress() {
 		return address;
 	}
@@ -112,7 +115,7 @@ public class Company implements Serializable{
 		this.licensure = licensure;
 	}
 
-	@Column(nullable = false, columnDefinition = "int default 0")
+	@Column(columnDefinition = "nvarchar(255) default '審查中' ")
 	public String getReviewStatus() {
 		return reviewStatus;
 	}
@@ -121,7 +124,7 @@ public class Company implements Serializable{
 		this.reviewStatus = reviewStatus;
 	}
 
-	@Column(nullable = false, columnDefinition = "int default 3")
+	@Column(nullable = true, columnDefinition = "int default 3")
 	public Integer getNotificationTimes() {
 		return notificationTimes;
 	}
