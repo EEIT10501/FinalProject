@@ -55,7 +55,7 @@
 					placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
-			<span class="navbar-text"> <a class="nav-link" href="#">登入</a>
+			<span class="navbar-text"> <a class="nav-link" href="indexTest">登入</a>
 			</span> <span class="navbar-text"> <a class="nav-link" href="#">註冊</a>
 			</span>
 		</div>

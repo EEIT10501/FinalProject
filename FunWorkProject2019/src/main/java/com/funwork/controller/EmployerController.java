@@ -45,6 +45,11 @@ public class EmployerController {
 	public String accessCompanyMain() {
 		return "employerPortal";
 	}
+	
+	@RequestMapping("/indexTest")
+	public String indexTest() {
+		return "pages/indexTest";
+	}
 
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model) {

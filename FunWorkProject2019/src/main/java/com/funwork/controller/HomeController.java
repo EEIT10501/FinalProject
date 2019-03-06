@@ -69,9 +69,24 @@ public class HomeController {
 		return "schedule/calendar";
 	}
 	
-	@RequestMapping("/calendar2")
+	@RequestMapping("/calendarDemo")
+	public String calendarDemo() {
+		return "schedule/calendarDemo";
+	}
+	
+	@RequestMapping("/groupManage")
 	public String calendar2() {
-		return "schedule/calendar2";
+		return "schedule/groupManage";
+	}
+	
+	@RequestMapping("/addWorker")
+	public String addWorker() {
+		return "schedule/addWorker";
+	}
+	
+	@RequestMapping("/editWorker")
+	public String editWorker() {
+		return "schedule/editWorker";
 	}
 
 
