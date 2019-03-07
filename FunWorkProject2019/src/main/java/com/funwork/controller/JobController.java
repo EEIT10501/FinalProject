@@ -12,13 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.funwork.model.City;
 import com.funwork.model.Job;
+import com.funwork.model.Schedule;
 import com.funwork.service.JobService;
+import com.funwork.service.ScheuleService;
 
 @Controller
 public class JobController {
 
 	@Autowired
 	JobService jobService;
+	
+	@Autowired
+	ScheuleService scheduleService;
 
 	@Autowired
 	ServletContext context;
@@ -41,7 +46,9 @@ public class JobController {
 	@RequestMapping("/jobDetail/{jobId}")
 	public String JobDetail(Model model,@PathVariable("jobId") Integer jobId) {
 		Job job = jobService.getJobById(jobId);
+		List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
 		model.addAttribute("jobBean", job);
+		model.addAttribute("schedules",schedulelist);
 		return "jobDetail";
 	}
 	
