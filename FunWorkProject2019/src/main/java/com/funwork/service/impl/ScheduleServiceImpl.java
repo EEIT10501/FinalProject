@@ -24,6 +24,12 @@ public class ScheduleServiceImpl implements ScheuleService {
 	public List<Schedule> getAllSchedules() {
 		return dao.getAllSchedules();
 	}
+	
+	@Transactional
+	@Override
+	public List<Schedule> getSchedulesByJobId(Integer jobId) {
+		return dao.getSchedulesByJobId(jobId);
+	}
 
 
 }

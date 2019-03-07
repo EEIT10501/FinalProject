@@ -37,6 +37,14 @@
 .btn {
 	margin-right: 5px;
 }
+
+.showjobdetail h5 {
+	font-weight:bolder;
+}
+
+.showjobdetail h3 {
+	font-weight:900;
+}
 </style>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -55,7 +63,7 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'/>">想找打工</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 			</ul>
@@ -86,27 +94,64 @@
 					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a>
 				</div>
 			</div>
-			<div class="col-sm-8">
+			<div class="col-sm-6 showjobdetail">
 				<!--             程式寫在這 -->
-				<table class="table table-hover display" id="example">
-					<thead>
-						<tr>
-							<th>職缺名稱</th>
-							<th>所在地區</th>
-							<th>所屬公司</th>
-							<th>工作地點</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>${jobBean.title}</td>
-							<td>${jobBean.city.cityName}</td>
-							<td>${jobBean.jobCompany.name}</td>
-							<td>${jobBean.address}</td>
-						</tr>
+				<div class="row">
+					<div class="col-sm-12">
+						<h3>${jobBean.title}</h3>
+						<p>時薪：${jobBean.rateByHour}</p>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>工作內容</h5></div>
+					<div class="col-sm-5">${jobBean.description}</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>工作時間</h5></div>
+					<div class="col-sm-5">
+						<c:forEach var="schedules" items="${schedules}">
+							<h6>${schedules.workDate}</h6>
+				${schedules.startTime}-${schedules.endTime}
+				</c:forEach>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>需求人數</h5></div>
+					<div class="col-sm-5">${jobBean.positionNum}</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>給薪日期</h5></div>
+					<div class="col-sm-5">${jobBean.paidDate}</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>其他條件</h5></div>
+					<div class="col-sm-5">${jobBean.other}</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>工作地點</h5></div>
+					<div class="col-sm-5">${jobBean.city.cityName}</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>詳細地址</h5></div>
+					<div class="col-sm-5">${jobBean.address}</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>地點說明</h5></div>
+					<div class="col-sm-5">${jobBean.addresssup}</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>聯絡資訊</h5></div>
+					<div class="col-sm-5">
+						<p>聯絡人：${jobBean.contact}</p>
+						<p>聯絡人：${jobBean.jobPhone}</p>
+						<p>聯絡人：${jobBean.jobEmail}</p>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-sm-3"><h5>所屬公司</h5></div>
+					<div class="col-sm-5">${jobBean.jobCompany.name}</div>
+				</div>
 
-					</tbody>
-				</table>
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>
