@@ -43,9 +43,25 @@ public class EmployerController {
 		return "employerManage/employerPortal";
 	}
 	
+	@RequestMapping("/mainHub")
+	public String accessMain() {
+		return "employerManage/mainHub";
+	}
+	
+	
 	@RequestMapping("/pages/indexTest")
 	public String login() {
 		return "pages/indexTest";
+	}
+	
+	@RequestMapping("/addJobProfile")
+	public String buildCorpProfile() {
+		return "employerManage/addJobProfile";
+	}
+	
+	@RequestMapping("/addCorpProfile")
+	public String addCorpProfile() {
+		return "employerManage/addCorpProfile";
 	}
 	
 	@RequestMapping("/manageJob")
@@ -57,6 +73,7 @@ public class EmployerController {
 
 	@RequestMapping("/manageCompanyPage")
 	public String list(Model model) {
+		System.out.println("enter manageCompanyPage");
 		List<Company> list = companyService.findAllCompanys();
 		model.addAttribute("companys", list);
 		return "employerManage/manageCompanyPage";
@@ -69,12 +86,31 @@ public class EmployerController {
 		return "test";
 	}
 
-	@RequestMapping(value="/searchResultByReviewStatus",method=RequestMethod.POST)
-	public String getcompanysByReviewStatus(@RequestParam("filterCompanys") String status, Model model) {
+	@RequestMapping(value="/searchResultByReviewStatus")
+	public String getcompanysByReviewStatus(@RequestParam("qstr")String status, Model model) {
+		System.out.println("received AJAX request and qstr is "+status);
+		System.out.println("new request model content before service called: "+model.containsAttribute("companys"));
 		List<Company> companys = companyService.findAllCompanys(status);
+		System.out.println("companys list contains element(T:Empty): "+companys.isEmpty());
+		System.out.println("list element number is "+companys.size());
+		for(Company c:companys) {
+			System.out.println(c.toString());
+		}
 		model.addAttribute("companys", companys);
-		return "employerManage/manageCompanyPage";
+		model.addAttribute("flag", companys);
+//		return "redirect:/employerManage/manageCompanyPage";
+//		return "redirect:employerManage/manageCompanyPage";
+//		return "redirect:/manageCompanyPage";
+		return "employerManage/manageCompanyPage"
+				+ "";
 	}
+	
+//	//Test
+//	@RequestMapping("/employerManage/manageCompanyPage2")
+//	public String followAjaxSelection(Model model) {
+//		System.out.println("enter followAjaxSelection()");
+//		return "employerManage/manageCompanyPage";
+//	}
 	
 	@RequestMapping("/company")
 	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
@@ -99,22 +135,22 @@ public class EmployerController {
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
 	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,HttpServletRequest request)
 	{
+		System.out.println("Enter controller");
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
 		
-//		cb.setReviewStatus("test");
+		cb.setReviewStatus("test");
 		
 //		System.out.println(cb.getName());
 //		System.out.println(cb.getTaxId());
 //		System.out.println(cb.getAddress());
 
-
-//		MultipartFile companyLicensure = cb.getcompanyLicensureImage();
-//		System.out.println(companyLicensure.getClass());
-//		String originalFilename = companyLicensure.getOriginalFilename();
-//		cb.setFileName(originalFilename);
+		MultipartFile image = cb.getCompanyLicensureImage();
+		System.out.println(image.getClass());
+		String originalFilename = image.getOriginalFilename();
+		cb.setFileName(originalFilename);
 //
 //		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 //		String rootDirectory = context.getRealPath("/");

@@ -45,11 +45,11 @@ public class Company implements Serializable{
 	
     @XmlTransient
     @Transient
-	public MultipartFile getcompanyLicensureImage() {
+	public MultipartFile getCompanyLicensureImage() {
 		return companyLicensureImage;
 	}
 
-	public void setcompanyLicensureImage(MultipartFile companyLicensureImage) {
+	public void setCompanyLicensureImage(MultipartFile companyLicensureImage) {
 		this.companyLicensureImage = companyLicensureImage;
 	}
 
