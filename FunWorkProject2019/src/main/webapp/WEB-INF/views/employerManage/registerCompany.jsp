@@ -9,38 +9,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
-<script>
-	$(document).ready(function() {
-		var text1;
-
-		$("#condit1").change(function() {
-			text1 = $("#condit1").find(":selected").text();
-		});
-
-		$("#butt1").click(function() {
-
-			$.ajax({
-				url : 'jobManCond',
-				data : {
-					condition1 : text1
-				},
-				type : 'post',
-				cache : false,
-				success : function(data) {
-					$('#content1').text(data);
-				}
-			});
-		});
-
-	});
-</script>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -107,9 +80,8 @@
 				</div>
 			</div>
 			<div class="col-sm-8">
-
-				<form:form class='form-horizontal' modelAttribute="companyBean" method="POST" enctype="multipart/form-data">
-								<!--  enctype="multipart/form-data" --> 
+				<form:form class='form-horizontal' modelAttribute="companyBean"
+					method="POST" enctype="multipart/form-data">
 					<fieldset>
 						<section
 							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
@@ -184,16 +156,10 @@
 				reserved.</div>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"
-		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

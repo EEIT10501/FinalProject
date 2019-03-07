@@ -1,9 +1,11 @@
 package com.funwork.controller;
 
+import java.sql.Blob;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -85,6 +88,7 @@ public class EmployerController {
 		return "test";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/searchResultByReviewStatus")
 	public String getcompanysByReviewStatus(@RequestParam("qstr") String status, Model model) {
 		System.out.println("received AJAX request and qstr is " + status);
@@ -100,7 +104,8 @@ public class EmployerController {
 //		return "redirect:/employerManage/manageCompanyPage";
 //		return "redirect:employerManage/manageCompanyPage";
 //		return "redirect:/manageCompanyPage";
-		return "employerManage/manageCompanyPage" + "";
+//		return "employerManage/manageCompanyPage" + "";
+		return "OK";
 	}
 
 //	//Test
@@ -134,39 +139,39 @@ public class EmployerController {
 
 	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
 			HttpServletRequest request) {
-		System.out.println("Enter controller");
+//		System.out.println("Enter controller");
 
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-		}
+//		String[] suppressedFields = result.getSuppressedFields();
+//		if (suppressedFields.length > 0) {
+//			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+//		}
 
-		cb.setReviewStatus("test");
+//		cb.setReviewStatus("test");
 
 //		System.out.println(cb.getName());
 //		System.out.println(cb.getTaxId());
 //		System.out.println(cb.getAddress());
 
 		MultipartFile image = cb.getCompanyLicensureImage();
-		System.out.println(image.getClass());
+//		System.out.println(image.getClass());
 		String originalFilename = image.getOriginalFilename();
 
 		cb.setFileName(originalFilename);
 
-//
-//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-//		String rootDirectory = context.getRealPath("/");
-//
-//		if (companyLicensure != null && !companyLicensure.isEmpty()) {
-//			try {
-//				byte[] b = companyLicensure.getBytes();
-//				Blob blob = new SerialBlob(b);
-//				cb.setLicensure(blob);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
-//			}
-//		}
+
+		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+		String rootDirectory = context.getRealPath("/");
+
+		if (image != null && !image.isEmpty()) {
+			try {
+				byte[] b = image.getBytes();
+				Blob blob = new SerialBlob(b);
+				cb.setLicensure(blob);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
+			}
+		}
 
 		companyService.saveCompany(cb);
 

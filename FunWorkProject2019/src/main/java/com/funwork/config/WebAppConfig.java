@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -44,5 +45,13 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
 		resource.setBasename("messages");
 		return resource;
+	}
+	
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setDefaultEncoding("UTF-8");
+		resolver.setMaxUploadSize(81920000);
+		return resolver;
 	}
 }

@@ -39,7 +39,7 @@ public class Company implements Serializable{
 	private Clob description;
 	private String siteURL;
 	private String fileName;
-
+	
 	@JsonIgnore
 	private MultipartFile companyLicensureImage;
 	
