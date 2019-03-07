@@ -2,7 +2,6 @@ package com.funwork.controller;
 
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.funwork.model.Message;
 import com.funwork.model.Resume;
 import com.funwork.service.MessageService;
 import com.funwork.service.ResumeService;
@@ -48,23 +45,6 @@ public class HomeController {
 	@RequestMapping("/form")
 	public String Form() {
 		return "pages/form";
-	}
-
-	@RequestMapping("/chat/{applicationId}")
-	public String Chat(Model model, @PathVariable("applicationId") Integer applicationId) {
-		List<Message> list = messageService.getOldMessageByApplicationId(applicationId);
-		model.addAttribute("oldMessageList", list);
-		model.addAttribute("apId", applicationId);
-		return "pages/chat";
-	}
-
-	// chat2 是測試頁面，之後可以刪掉
-	@RequestMapping("/chat2/{applicationId}")
-	public String Chat2(Model model, @PathVariable("applicationId") Integer applicationId) {
-		List<Message> list = messageService.getOldMessageByApplicationId(applicationId);
-		model.addAttribute("oldMessageList", list);
-		model.addAttribute("apId", applicationId);
-		return "pages/chat2";
 	}
 
 	@RequestMapping(value = "/getPicture/{userId}", method = RequestMethod.GET)

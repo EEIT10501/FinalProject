@@ -119,8 +119,8 @@ public class EmployerController {
 		String originalFilename = companyLicensure.getOriginalFilename();
 		cb.setFileName(originalFilename);
 
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		String rootDirectory = context.getRealPath("/");
+//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+//		String rootDirectory = context.getRealPath("/");
 
 		if (companyLicensure != null && !companyLicensure.isEmpty()) {
 			try {
@@ -134,18 +134,18 @@ public class EmployerController {
 		}
 		companyService.saveCompany(cb);
 
-		File imageFolder = new File(rootDirectory, "images");
-		if (!imageFolder.exists()) {
-			imageFolder.mkdirs();
-			File file = new File(imageFolder, cb.getCompanyId() + ext);
-			try {
-				companyLicensure.transferTo(file);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		File imageFolder = new File(rootDirectory, "images");
+//		if (!imageFolder.exists()) {
+//			imageFolder.mkdirs();
+//			File file = new File(imageFolder, cb.getCompanyId() + ext);
+//			try {
+//				companyLicensure.transferTo(file);
+//			} catch (IllegalStateException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 		return "redirect:/companys";
 	}

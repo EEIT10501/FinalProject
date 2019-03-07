@@ -9,38 +9,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
-<script>
-	$(document).ready(function() {
-		var text1;
-
-		$("#condit1").change(function() {
-			text1 = $("#condit1").find(":selected").text();
-		});
-
-		$("#butt1").click(function() {
-
-			$.ajax({
-				url : 'jobManCond',
-				data : {
-					condition1 : text1
-				},
-				type : 'post',
-				cache : false,
-				success : function(data) {
-					$('#content1').text(data);
-				}
-			});
-		});
-
-	});
-</script>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -145,27 +118,27 @@
 										class='form:input-large' />
 								</div>
 							</div>
-<!-- 							<h4>身份驗證</h4> -->
-<!-- 							<hr> -->
+							<h4>身份驗證</h4>
+							<hr>
 
-<!-- 							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6> -->
-<!-- 							<ul> -->
-<!-- 								<li>含有本人名字的公司名片 -->
-<!-- 								<li>政府核可的營業登記文件 如你的帳號的 Email 包含公司網址，則可略過此步驟 -->
-<!-- 							</ul> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<label class="control-label col-lg-2 col-lg-2" for='companyLicensureImage'> -->
-<%-- 									<spring:message --%>
-<%-- 										code='spring.registerCompany.form.companyLicensureImage.label' /> --%>
-<!-- 								</label> -->
-<%-- 								<form:input id="companyLicensureImage" path="companyLicensureImage" --%>
-<%-- 									type='file' class='form:input-large' /> --%>
-<!-- 							</div> -->
+							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6>
+							<ul>
+								<li>含有本人名字的公司名片
+								<li>政府核可的營業登記文件 如你的帳號的 Email 包含公司網址，則可略過此步驟
+							</ul>
+							<div class="form-group">
+								<label class="control-label col-lg-2 col-lg-2"
+									for='companyLicensureImage'> <spring:message
+										code='spring.registerCompany.form.companyLicensureImage.label' />
+								</label>
+								<form:input id="companyLicensureImage"
+									path="companyLicensureImage" type='file'
+									class='form:input-large' />
+							</div>
 							<div class="form-group">
 								<div class='col-lg-offset-2 col-lg-10'>
 									<input id="btnAdd" type='submit' class='btn btn-primary'
-<%-- 										value="<spring:message code='spring.addProduct.form.submit.label'/>" /> --%>
-										value="Send" />
+										value="<spring:message code='spring.addProduct.form.submit.label'/>" />
 								</div>
 							</div>
 						</section>
@@ -182,16 +155,10 @@
 				reserved.</div>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"
-		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
