@@ -45,11 +45,20 @@ public class JobController {
 		return "jobDetail";
 	}
 	
+	@RequestMapping("/cityArea/{cityId}")
+	public String cityAreaJob(Model model,@PathVariable("cityId") Integer cityId) {
+		List<Job> joblist = jobService.getJobByCityArea(cityId);      //依縣市搜尋
+		model.addAttribute("jobs", joblist);
+		List<City> citylist = jobService.getCityName(cityId);
+		model.addAttribute("citys",citylist);
+		return "jobs";
+	}
+	
 	@RequestMapping("/cityName/{cityId}")
 	public String cityJob(Model model,@PathVariable("cityId") Integer cityId) {
 		List<Job> joblist = jobService.getJobByCityName(cityId);      //依城市搜尋
 		model.addAttribute("jobs", joblist);
-		List<City> citylist = jobService.getCityName(15);
+		List<City> citylist = jobService.getCityName(cityId);
 		model.addAttribute("citys",citylist);
 		return "jobs";
 	}

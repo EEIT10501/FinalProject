@@ -50,6 +50,10 @@
 .btn {
 	margin-right: 5px;
 }
+
+.btn-group {
+	margin-bottom: 5px;
+}
 </style>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -101,6 +105,17 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-secondary dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						選擇縣市</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="<c:url value='/cityArea/5'/>">台北市</a>
+						<a class="dropdown-item" href="<c:url value='/cityArea/15'/>">新北市</a>
+
+					</div>
+				</div>
 
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
