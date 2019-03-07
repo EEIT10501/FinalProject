@@ -43,19 +43,17 @@ public class JobReviewController {
 			@RequestParam(name = "failReason", required = false) String failReason) {
 
 		if (isPass.equals("pass")) {
-			jobService.jobReviewPass(jobId);
-			Job job = jobService.getJobById(jobId);
+			Job job = jobService.jobReviewPass(jobId);
 			Notification notification = new Notification();
-			notification.setContent("您的工作(" + job.getTitle() + ")已通過審核");
+			notification.setContent("您的職缺(" + job.getTitle() + ")已通過審核");
 			notification.setTime(new Timestamp(System.currentTimeMillis()));
 			notification.setType(2);
 			notification.setUser(job.getJobOwner());
 			notificationService.insertNotification(notification);
 		} else if (isPass.equals("fail")) {
-			jobService.jobReviewFail(jobId,failReason);
-			Job job = jobService.getJobById(jobId);
+			Job job = jobService.jobReviewFail(jobId, failReason);
 			Notification notification = new Notification();
-			notification.setContent("您的工作(" + job.getTitle() + ")審核失敗");
+			notification.setContent("您的職缺(" + job.getTitle() + ")審核失敗");
 			notification.setTime(new Timestamp(System.currentTimeMillis()));
 			notification.setType(2);
 			notification.setUser(job.getJobOwner());

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,31 @@
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
+<script>
+	$(document).ready(function() {
+		var text1;
 
+		$("#condit1").change(function() {
+			text1 = $("#condit1").find(":selected").text();
+		});
+
+		$("#butt1").click(function() {
+			// 			alert(text1);
+			$.ajax({
+				url : 'jobManCond',
+				data : {
+					condition1 : text1
+				},
+				type : 'post',
+				cache : false,
+				success : function(data) {
+					$('#content1').text(data);
+				}
+			});
+		});
+
+	});
+</script>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -36,36 +60,6 @@
 	height: 600px;
 }
 </style>
-<script>
-	$(document).ready(function() {
-		var status = $("#condit1").find(":selected").text();
-
-		alert(status);
-		
-		$("#condit1").change(function() {
-			status = $("#condit1").find(":selected").text();
-			alert(status);
-		});
-
-		$("#butt1").click(function() {
-			
-			alert(status);
-
-			$.ajax({
-				url : "/searchResultByReviewStatus",
-				data : { "reviewStatus" : status },
-				cache : false,
-				type : "POST",
-				success : function(response) {
-					alert("success");
-				},
-				error : function(xhr) {
-					alert("failure");
-				}
-			});
-		});
-	});
-</script>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
 		<a class="navbar-brand" href="#"> <img
@@ -103,7 +97,22 @@
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
 					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
+					<div>
+						<ul>
+							<li><a href="#">會員資訊</a></li>
+							<li><a href="#">數據資訊</a></li>
+							<li><a href="#">圖形表單</a></li>
+
+						</ul>
+					</div>
 					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
+					<div>
+						<ul>
+							<li><a href="manageJob">管理已刊登職缺</a></li>
+							<li><a href="addJobProfile">新增工作職缺</a></li>
+
+						</ul>
+					</div>
 					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
 					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
 					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
@@ -112,56 +121,48 @@
 					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
 				</div>
 			</div>
-			<div style="border: 1px solid black" class="col-sm-8">
-				<h1>公司單位管理</h1>
+			<div class="col-sm-8">
+				<h1>我張貼的工作</h1>
 				<section
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-					<hr>
 					<nav>
-						<strong>目前篩選條件: 全部</strong> <span class='label label-warning'>
-						</span><br> <br>
-						<form:form method='POST' modelAttribute="filterCompanys"
-							class='form-horizontal' enctype="multipart/form-data">
-						
 						請輸入選擇條件: &nbsp; <select id="condit1">
-								<option>已建立</option>
-								<option>待審核</option>
-								<option>草稿</option>
-							</select> 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
-							<button id="butt1" style="width: auto;">確定送出</button>
-							<button id="jobPostBut" style="width: auto;"
-								onclick="window.location='registerCompany'">建立公司</button>
-							<br>
-							<hr>
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>公司名稱</th>
-										<th>統一編號</th>
-										<th>登記地址</th>
-										<th>登錄資料</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="company" items="${companys}">
-										<tr>
-											<td>${company.name}</td>
-											<td>${company.taxId}</td>
-											<td>${company.address}</td>
-											<td><a
-												href='<spring:url value="company?id=${company.companyId}"/>'
-												class="btn btn-info btn-sm"> <span
-													class="glyphicon-info-sigh glyphicon"></span> 詳細資料
-											</a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							</form:form>
+							<option>發布中</option>
+							<option>待審核</option>
+							<option>已到期</option>
+							<option>草稿</option>
+						</select> &nbsp; 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
+						<button id="butt1" style="width: auto;">確定送出</button>
+						<button id="jobPostBut" style="width: auto;"
+							onclick="window.location='postJob'">張貼工作</button>
 					</nav>
 				</section>
-				<!-- 				<div id="content1"></div> -->
-				<!--             程式寫在這 -->
+				<div id="content1"></div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>公司單位</th>
+							<th>職缺編號</th>
+							<th>職位</th>
+							<th>產業性質</th>
+							<th>職缺內容</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="job" items="${jobs}">
+							<tr>
+								<td>${job.jobCompany.name}</td>
+								<td>${job.jobId}</td>
+								<td>${job.title}</td>
+								<td>${job.isFilled}</td>
+								<td><a href='<spring:url value="job?id=${job.jobId}"/>'
+									class="btn btn-primary"> <span
+										class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+								</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>

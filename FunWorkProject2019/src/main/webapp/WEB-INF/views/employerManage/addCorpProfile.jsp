@@ -14,7 +14,7 @@
 	crossorigin="anonymous" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
-<title>首頁</title>
+<title>公司詳細資料頁面</title>
 </head>
 <script>
 	$(document).ready(function() {
@@ -107,67 +107,96 @@
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<form:form method='POST' modelAttribute="companyBean"
-					class='form-horizontal' enctype="multipart/form-data">
-					<fieldset>
-						<section
-							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-							<h1>
-								<spring:message
-									code="spring.registerCompany.form.registerCompanyData.label" />
-							</h1>
-							<hr>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='name'>
-									<spring:message code='spring.registerCompany.form.name.label' />
-								</label>
-								<div class="col-lg-6">
-									<form:input id="name" path="name" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='taxId'>
-									<spring:message code='spring.registerCompany.form.taxId.label' />
-								</label>
-								<div class="col-lg-10">
-									<form:input id="taxId" path="taxId" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='address'>
-									<spring:message
-										code='spring.registerCompany.form.address.label' />
-								</label>
-								<div class="col-lg-10">
-									<form:input id="address" path="address" type='text'
-										class='form:input-large' />
-								</div>
-							</div>
-<!-- 							<h4>身份驗證</h4> -->
-<!-- 							<hr> -->
 
-<!-- 							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6> -->
-<!-- 							<ul> -->
-<!-- 								<li>含有本人名字的公司名片 -->
-<!-- 								<li>政府核可的營業登記文件 如你的帳號的 Email 包含公司網址，則可略過此步驟 -->
-<!-- 							</ul> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<label class="control-label col-lg-2 col-lg-2" for='companyLicensureImage'> -->
-<%-- 									<spring:message --%>
-<%-- 										code='spring.registerCompany.form.companyLicensureImage.label' /> --%>
-<!-- 								</label> -->
-<%-- 								<form:input id="companyLicensureImage" path="companyLicensureImage" --%>
-<%-- 									type='file' class='form:input-large' /> --%>
-<!-- 							</div> -->
-							<div class="form-group">
-								<div class='col-lg-offset-2 col-lg-10'>
-									<input id="btnAdd" type='submit' class='btn btn-primary'
-<%-- 										value="<spring:message code='spring.addProduct.form.submit.label'/>" /> --%>
-										value="Send" />
-								</div>
-							</div>
+								<form:form class='form-horizontal' modelAttribute="companyBean" method="POST">
+								<!--  enctype="multipart/form-data" --> 
+					<fieldset>
+						<section style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
+<!-- demo page started -->							
+    <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start" data-scrollax-parent="true">
+<!--           <div class="col-md-8 ftco-animate text-center text-md-left mb-5" data-scrollax=" properties: { translateY: '70%' }"> -->
+          	<p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Post a Job</span></p>
+<!--             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Post a Job</h1> -->
+<!--           </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="ftco-section bg-light">
+      <div class="container">
+        <div class="row">
+       
+          <div class="col-md-12 col-lg-8 mb-5">
+          
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">公司營業地址:</label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Professional UI/UX Designer">
+                </div>
+              </div>
+
+              <div class="row form-group mb-5">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">公司簡介:</label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
+                </div>
+              </div>
+			
+			<div class="row form-group mb-5">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">公司名稱:</label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
+                </div>
+              </div>
+
+			<div class="row form-group mb-5">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">未讀訊息:</label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
+                </div>
+              </div>
+			
+			<div class="row form-group mb-5">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">公司審核狀態: </label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
+                </div>
+              </div>
+			
+			<div class="row form-group mb-5">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">公司統一編號: </label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
+                </div>
+              </div>
+              
+              			<div class="row form-group mb-5">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">公司網頁: </label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
+                </div>
+              </div>
+              
+                            			<div class="row form-group mb-5">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">公司管理者:</label>
+                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
+                </div>
+              </div>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+		
+		
+<!-- demo page started -->				
+							
 						</section>
 					</fieldset>
 				</form:form>

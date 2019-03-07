@@ -12,7 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
-<title>工作審核</title>
+<title>申訴處理</title>
 </head>
 <style>
 .card-text-size {
@@ -76,54 +76,53 @@
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1>工作審核</h1>
+				<h1>申訴處理</h1>
 				<hr>
-				<p>職缺編號 : ${jobBean.jobId}</p>
-				<p>職缺名稱 : ${jobBean.title}</p>
-				<p>工作類型 : ${jobBean.industry}</p>
-				<p>工作內容 : ${jobBean.description}</p>
-				<p>工作地址 : ${jobBean.address}</p>
-				<p>地址補充說明 : ${jobBean.addresssup}</p>
-				<p>時薪 : ${jobBean.rateByHour}</p>
-				<p>發薪日期 : ${jobBean.paidDate}</p>
-				<p>需求人數 : ${jobBean.positionNum}</p>
-				<p>詢問應徵者的問題 : ${jobBean.other}</p>
-				<p>聯絡人 : ${jobBean.contact}</p>
-				<p>聯絡電話 : ${jobBean.jobPhone}</p>
-				<p>聯絡信箱 : ${jobBean.jobEmail}</p>
-				<p>
-					張貼期限 :
-					<fmt:formatDate value="${jobBean.postEndDate}"
-						pattern="yyyy/MM/dd HH:mm" />
-				</p>
+				<p>申訴編號 : ${cpBean.complaintId}</p>
+				<p>申訴類別 : ${cpBean.type}</p>
+				<p>申訴內容 : ${cpBean.content}</p>
+				<p>被申訴職缺 : ${cpBean.job.title}</p>
+				<p>雇主姓名 : ${cpBean.job.jobOwner.userName}</p>
+				<p>工作類型 : ${cpBean.job.industry}</p>
+				<p>工作內容 : ${cpBean.job.description}</p>
+				<p>工作地址 : ${cpBean.job.address}</p>
+				<p>地址補充說明 : ${cpBean.job.addresssup}</p>
+				<p>時薪 : ${cpBean.job.rateByHour}</p>
+				<p>發薪日期 : ${cpBean.job.paidDate}</p>
+				<p>需求人數 : ${cpBean.job.positionNum}</p>
+				<p>詢問應徵者的問題 : ${cpBean.job.other}</p>
+				<p>聯絡人 : ${cpBean.job.contact}</p>
+				<p>聯絡電話 : ${cpBean.job.jobPhone}</p>
+				<p>聯絡信箱 : ${cpBean.job.jobEmail}</p>
+				<p>時薪 : ${cpBean.job.rateByHour}</p>
+				<p>公司名稱 : ${cpBean.job.jobCompany.name}</p>
 				<p>
 					提交時間 :
-					<fmt:formatDate value="${jobBean.submitTime}"
+					<fmt:formatDate value="${cpBean.submitTime}"
 						pattern="yyyy/MM/dd HH:mm" />
 				</p>
-				<p>雇主姓名 : ${jobBean.jobOwner.userName}</p>
-				<p>公司名稱 : ${jobBean.jobCompany.name}</p>
-				<p>審核備註 : ${jobBean.comment}</p>
-				<form action="<c:url value='/jobReview/${jobBean.jobId}'/>"
-					method="post" id="isPassForm">
-					<input type="hidden" id="isPass" name="isPass" value=""> <input
-						type="button" class="btn btn-info btn-lg" id="pass" value="審核通過" />
+				<form action="<c:url value='/cpDeal/${cpBean.complaintId}'/>"
+					method="post" id="isRemoveForm">
+					<input type="hidden" id="isRemove" name="isRemove" value="">
+					<input type="hidden" id="jobid" name="jobId" value="${cpBean.job.jobId}">
+					<input type="button" class="btn btn-info btn-lg" id=remove
+						value="職缺下架" />
 					<button type="button" class="btn btn-danger btn-lg"
-						data-toggle="modal" data-target="#myModal">審核失敗</button>
+						data-toggle="modal" data-target="#myModal">結案</button>
 					<div class="modal fade" id="myModal" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h4 class="modal-title">請輸入審核失敗原因</h4>
+									<h4 class="modal-title">請輸入結案原因</h4>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<div class="modal-body">
-									<p>審核失敗原因</p>
-									<input type="text" name="failReason" class="form-control">
+									<p>結案原因</p>
+									<input type="text" name="closeReason" class="form-control">
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-info" data-dismiss="modal"
-										id="fail">送出</button>
+										id="close">送出</button>
 									<button type="button" class="btn btn-danger"
 										data-dismiss="modal">關閉</button>
 								</div>
@@ -132,13 +131,13 @@
 					</div>
 				</form>
 				<script>
-					$("#pass").click(function() {
-						$("#isPass").attr("value", "pass");
-						$("#isPassForm").submit();
+					$("#remove").click(function() {
+						$("#isRemove").attr("value", "remove");
+						$("#isRemoveForm").submit();
 					});
-					$("#fail").click(function() {
-						$("#isPass").attr("value", "fail");
-						$("#isPassForm").submit();
+					$("#close").click(function() {
+						$("#isRemove").attr("value", "close");
+						$("#isRemoveForm").submit();
 					});
 				</script>
 			</div>

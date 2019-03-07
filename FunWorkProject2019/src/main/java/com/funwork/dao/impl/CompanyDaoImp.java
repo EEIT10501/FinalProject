@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -92,10 +93,14 @@ public class CompanyDaoImp implements CompanyDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Company> getAllCompanysByReviewStatus(String status) {
+	public List<Company> getAllCompanysByReviewStatus(String reviewStatus) {
+		System.out.println("parameter received in DaoImp is "+reviewStatus);
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Company WHERE reviewStatus= :status";
-		List<Company> list = session.createQuery(hql).setParameter(1, status).getResultList();
+		String hql = "FROM Company WHERE reviewStatus= :reviewStatus";
+//		Query<?> sqlQuery = session.createQuery(hql).setParameter("reviewStatus", reviewStatus);
+//		System.out.println(sqlQuery.);
+//		List<Company> list = (List<Company>) sqlQuery.getResultList();
+		List<Company> list=  session.createQuery(hql).setParameter("reviewStatus", reviewStatus).getResultList();
 		return list;
 	}
 	
