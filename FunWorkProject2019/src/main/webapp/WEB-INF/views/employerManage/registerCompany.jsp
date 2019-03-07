@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,31 @@
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
+<script>
+	$(document).ready(function() {
+		var text1;
 
+		$("#condit1").change(function() {
+			text1 = $("#condit1").find(":selected").text();
+		});
+
+		$("#butt1").click(function() {
+
+			$.ajax({
+				url : 'jobManCond',
+				data : {
+					condition1 : text1
+				},
+				type : 'post',
+				cache : false,
+				success : function(data) {
+					$('#content1').text(data);
+				}
+			});
+		});
+
+	});
+</script>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -36,36 +60,6 @@
 	height: 600px;
 }
 </style>
-<script>
-	$(document).ready(function() {
-		var status = $("#condit1").find(":selected").text();
-
-		alert(status);
-		
-		$("#condit1").change(function() {
-			status = $("#condit1").find(":selected").text();
-			alert(status);
-		});
-
-		$("#butt1").click(function() {
-			
-			alert(status);
-
-			$.ajax({
-				url : "/searchResultByReviewStatus",
-				data : { "reviewStatus" : status },
-				cache : false,
-				type : "POST",
-				success : function(response) {
-					alert("success");
-				},
-				error : function(xhr) {
-					alert("failure");
-				}
-			});
-		});
-	});
-</script>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
 		<a class="navbar-brand" href="#"> <img
@@ -84,7 +78,7 @@
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="employerPortal">想要徵人</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 			</ul>
 			<form class="form-inline">
@@ -112,57 +106,74 @@
 					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
 				</div>
 			</div>
-			<div style="border: 1px solid black" class="col-sm-8">
-				<h1>公司單位管理</h1>
-				<section
-					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-					<hr>
-					<nav>
-						<strong>目前篩選條件: 全部</strong> <span class='label label-warning'>
-						</span><br> <br>
-						<form:form method='POST' modelAttribute="filterCompanys"
-							class='form-horizontal' enctype="multipart/form-data">
-						
-						請輸入選擇條件: &nbsp; <select id="condit1">
-								<option>已建立</option>
-								<option>待審核</option>
-								<option>草稿</option>
-							</select> 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
-							<button id="butt1" style="width: auto;">確定送出</button>
-							<button id="jobPostBut" style="width: auto;"
-								onclick="window.location='registerCompany'">建立公司</button>
-							<br>
-							<hr>
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>公司名稱</th>
-										<th>統一編號</th>
-										<th>登記地址</th>
-										<th>登錄資料</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="company" items="${companys}">
-										<tr>
-											<td>${company.name}</td>
-											<td>${company.taxId}</td>
-											<td>${company.address}</td>
-											<td><a
-												href='<spring:url value="company?id=${company.companyId}"/>'
-												class="btn btn-info btn-sm"> <span
-													class="glyphicon-info-sigh glyphicon"></span> 詳細資料
-											</a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							</form:form>
-					</nav>
-				</section>
-				<!-- 				<div id="content1"></div> -->
-				<!--             程式寫在這 -->
+			<div class="col-sm-8">
 
+				<form:form class='form-horizontal' modelAttribute="companyBean" method="POST" enctype="multipart/form-data">
+								<!--  enctype="multipart/form-data" --> 
+					<fieldset>
+						<section
+							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
+							<h1>
+								<spring:message
+									code="spring.registerCompany.form.registerCompanyData.label" />
+							</h1>
+							<hr>
+							<div class="form-group">
+								<label class="control-label col-lg-2 col-lg-2" for='name'>
+									<spring:message code='spring.registerCompany.form.name.label' />
+								</label>
+								<div class="col-lg-6">
+									<form:input id="name" path="name" type='text'
+										class='form:input-large' />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-lg-2 col-lg-2" for='taxId'>
+									<spring:message code='spring.registerCompany.form.taxId.label' />
+								</label>
+								<div class="col-lg-10">
+									<form:input id="taxId" path="taxId" type='text'
+										class='form:input-large' />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-lg-2 col-lg-2" for='address'>
+									<spring:message
+										code='spring.registerCompany.form.address.label' />
+								</label>
+								<div class="col-lg-10">
+									<form:input id="address" path="address" type='text'
+										class='form:input-large' />
+								</div>
+							</div>
+							<!-- 							<h4>身份驗證</h4> -->
+							<!-- 							<hr> -->
+
+							<!-- 							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6> -->
+							<!-- 							<ul> -->
+							<!-- 								<li>含有本人名字的公司名片 -->
+							<!-- 								<li>政府核可的營業登記文件 如你的帳號的 Email 包含公司網址，則可略過此步驟 -->
+							<!-- 							</ul> -->
+							<div class="form-group">
+								<label class="control-label col-lg-2 col-lg-2"
+									for='companyLicensureImage'> <spring:message
+										code='spring.registerCompany.form.companyLicensureImage.label' />
+								</label>
+								<form:input id="companyLicensureImage"
+									path="companyLicensureImage" type='file'
+									class='form:input-large' />
+							</div>
+							<div class="form-group">
+								<div class='col-lg-offset-2 col-lg-10'>
+									<input id="btnAdd" type='submit' class='btn btn-primary'
+										<%-- 										value="<spring:message code='spring.addProduct.form.submit.label'/>" /> --%>
+										value="Send" />
+								</div>
+							</div>
+						</section>
+					</fieldset>
+				</form:form>
+				<div id="content1"></div>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
