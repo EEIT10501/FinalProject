@@ -68,8 +68,10 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="<c:url value='/jobsreview'/>"
-						class="list-group-item list-group-item-action">工作審核</a>
+					<a href="<c:url value='/jobsReview'/>"
+						class="list-group-item list-group-item-action">工作審核</a> <a
+						href="<c:url value='/cpsDeal'/>"
+						class="list-group-item list-group-item-action">申訴處理</a>
 				</div>
 			</div>
 			<div class="col-sm-8">

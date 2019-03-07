@@ -9,11 +9,19 @@ public interface JobDao {
 	List<Job> getAllJobs();
 
 	List<Job> getJobReviewList();
+	
+	List<Job> getJobPassed();
+	
+	List<Job> getJobByCityName(Integer cityId);
+	
+	List<Job> getJobByCityArea(Integer cityId);
 
 	Job getJobById(Integer jobId);
 
-	void jobReviewPass(Integer jobId);
+	Job jobReviewPass(Integer jobId);
 
-	void jobReviewFail(Integer jobId, String failReason);
+	Job jobReviewFail(Integer jobId, String failReason);
+
+	Job jobRemove(Integer jobId, String removeReason);
 
 }

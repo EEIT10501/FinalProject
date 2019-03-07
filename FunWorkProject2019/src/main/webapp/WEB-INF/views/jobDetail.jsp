@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+
 
 <title>首頁</title>
 </head>
@@ -85,6 +88,25 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
+				<table class="table table-hover display" id="example">
+					<thead>
+						<tr>
+							<th>職缺名稱</th>
+							<th>所在地區</th>
+							<th>所屬公司</th>
+							<th>工作地點</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${jobBean.title}</td>
+							<td>${jobBean.city.cityName}</td>
+							<td>${jobBean.jobCompany.name}</td>
+							<td>${jobBean.address}</td>
+						</tr>
+
+					</tbody>
+				</table>
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>
