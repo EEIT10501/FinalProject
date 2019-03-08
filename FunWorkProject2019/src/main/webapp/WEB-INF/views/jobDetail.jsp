@@ -21,7 +21,10 @@
 	$(document).ready(function() {
 		$(".addapplication").click(function() {
 			var que = $("#question").val();
-			if(que!=""){
+			if(${resumeBean.user.userId}==${jobBean.jobOwner.userId}){
+				alert("請勿應徵您刊登的工作");
+			}	
+			else if(que!=""){
 				$.ajax({
 					url : "<c:url value='/insertApplication/${resumeBean.user.userId}/${jobBean.jobId}/"+que+"/'></c:url>",
 					type : "GET",
@@ -31,8 +34,11 @@
 						$(".cancel").trigger("click");
 					}
 					});
-			}else
+			}
+			else{
 			window.alert("請回答問題");
+			}
+			
 			
 			});
 		});
@@ -258,7 +264,8 @@
 										</tr>
 										<tr>
 											<td>${jobBean.other}</td>
-											<td><textarea class="form-control" id="question" name="question" rows="3"></textarea></td>
+											<td><textarea class="form-control" id="question"
+													name="question" rows="3"></textarea></td>
 										</tr>
 
 									</tbody>
