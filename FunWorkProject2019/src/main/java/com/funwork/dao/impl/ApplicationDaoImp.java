@@ -37,7 +37,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	}
 	
 	@Override
-	public void insertApplication(Integer userId, Integer jobId) {
+	public void insertApplication(Integer userId, Integer jobId,String question) {
 		Session session = factory.getCurrentSession();
 		Application application = new Application();
 		User user = session.get(User.class, userId);
@@ -45,6 +45,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 		application.setApplicationTime(new Timestamp(System.currentTimeMillis()));
 		application.setUser(user);
 		application.setJob(job);
+		application.setAnswer(question);
 		session.save(application);
 	}
 

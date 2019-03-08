@@ -31,8 +31,8 @@ public class ApplicationServiceImp implements ApplicationService {
 	
 	@Transactional
 	@Override
-	public void insertApplication(Integer userId, Integer jobId) {
-		dao.insertApplication(userId, jobId);
+	public void insertApplication(Integer userId, Integer jobId,String question) {
+		dao.insertApplication(userId, jobId,question);
 	}
 
 	@Transactional

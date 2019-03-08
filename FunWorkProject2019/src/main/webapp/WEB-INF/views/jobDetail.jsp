@@ -19,17 +19,33 @@
 <title>首頁</title>
 <script>
 	$(document).ready(function() {
-		$(".apljob").click(function() {
-			$.ajax({
-				url : "<c:url value='/insertApplication/1/${jobBean.jobId}/'></c:url>",
-				type : "get",
-				success : function(data) {
-					window.alert("success!!");
-				}
+		$(".addapplication").click(function() {
+			var que = $("#question").val();
+			if(que!=""){
+				$.ajax({
+					url : "<c:url value='/insertApplication/${resumeBean.user.userId}/${jobBean.jobId}/"+que+"/'></c:url>",
+					type : "GET",
+					success : function(data) {
+						window.alert("應徵成功!");
+						notification()
+						$(".cancel").trigger("click");
+					}
+					});
+			}else
+			window.alert("請回答問題");
+			
 			});
 		});
-
-	});
+	
+	function notification(){
+		$.ajax({
+			url : "<c:url value='/insertNotification/${resumeBean.user.userId}/${jobBean.jobOwner.userId}'></c:url>",
+			type : "GET",
+			success : function(data) {
+				window.alert("通知成功");
+			}
+			});
+	}
 </script>
 </head>
 <style>
@@ -213,6 +229,10 @@
 								<table class="table table-striped">
 									<tbody>
 										<tr>
+											<td>${resumeBean.profilePic}</td>
+											<td></td>
+										</tr>
+										<tr>
 											<td>姓名</td>
 											<td>${resumeBean.user.userName}</td>
 										</tr>
@@ -236,14 +256,19 @@
 											<td>自我介紹</td>
 											<td>${resumeBean.selfIntro}</td>
 										</tr>
+										<tr>
+											<td>${jobBean.other}</td>
+											<td><textarea class="form-control" id="question" name="question" rows="3"></textarea></td>
+										</tr>
+
 									</tbody>
 								</table>
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
+								<button type="button" class="btn btn-secondary cancel"
 									data-dismiss="modal">取消</button>
-								<button type="button" class="btn btn-primary apljob">送出</button>
+								<button type="button" class="btn btn-primary addapplication">送出</button>
 							</div>
 						</div>
 					</div>

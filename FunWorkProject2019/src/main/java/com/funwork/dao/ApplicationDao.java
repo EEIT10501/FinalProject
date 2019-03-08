@@ -10,7 +10,7 @@ public interface ApplicationDao {
 
 	Application findByDate(Date date);
 	
-	void insertApplication(Integer userId, Integer jobId);
+	void insertApplication(Integer userId, Integer jobId,String question);
 
 	void saveApplication(Application Application);
 

@@ -1,9 +1,11 @@
 package com.funwork.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.funwork.model.City;
 import com.funwork.model.Job;
+import com.funwork.model.Notification;
 import com.funwork.model.Resume;
 import com.funwork.model.Schedule;
 import com.funwork.model.User;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.JobService;
+import com.funwork.service.NotificationService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.ScheuleService;
 import com.funwork.service.UserService;
@@ -28,7 +32,13 @@ public class JobController {
 	JobService jobService;
 
 	@Autowired
+	UserService userService;
+
+	@Autowired
 	ResumeService resumeService;
+
+	@Autowired
+	NotificationService notificationService;
 
 	@Autowired
 	ApplicationService applicationService;
@@ -57,7 +67,9 @@ public class JobController {
 	@RequestMapping("/jobDetail/{jobId}")
 	public String JobDetail(Model model, @PathVariable("jobId") Integer jobId) {
 		Job job = jobService.getJobById(jobId);
-		Resume resume = resumeService.getResumeByUserId(1); // 先寫死測試
+		//注意
+		Resume resume = resumeService.getResumeByUserId(1); // 先寫死測試，之後從session拿值
+
 		List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
 		model.addAttribute("jobBean", job);
 		model.addAttribute("resumeBean", resume);
@@ -83,9 +95,28 @@ public class JobController {
 		return "jobs";
 	}
 
-	@RequestMapping("/insertApplication/{userId}/{jobId}")
-	public String cityJob(Model model, @PathVariable("userId") Integer userId, @PathVariable("jobId") Integer jobId) {
-		applicationService.insertApplication(userId, jobId);
+	@RequestMapping("/insertApplication/{userId}/{jobId}/{question}")
+	public String insertApplication(Model model, @PathVariable("userId") Integer userId,
+			@PathVariable("jobId") Integer jobId, @PathVariable("question") String question) {
+		applicationService.insertApplication(userId, jobId, question);
+		return "jobDetail";
+	}
+
+	@RequestMapping("/insertNotification/{employee}/{master}")
+	public String insertNotification(Model model, @PathVariable("employee") Integer employee,
+			@PathVariable("master") Integer master) {
+
+		User emp = userService.getUserById(employee);
+		User mas = userService.getUserById(master);
+
+		Notification notification = new Notification();
+		notification.setContent(emp.getUserName() + " 應徵了您的工作!");
+		notification.setType(1);
+		notification.setTime(new Timestamp(System.currentTimeMillis()));
+		notification.setUser(emp);
+		notification.setRelatedUser(mas);
+
+		notificationService.insertNotification(notification);
 		return "jobDetail";
 	}
 

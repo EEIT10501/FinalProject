@@ -33,7 +33,7 @@ public class Application {
 		this.applicationId = applicationId;
 	}
 
-	@Column(columnDefinition = "nvarchar(255)")
+	@Column(nullable = false,columnDefinition = "nvarchar(255)")
 	public String getAnswer() {
 		return answer;
 	}
