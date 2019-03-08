@@ -18,18 +18,27 @@ import javax.persistence.Table;
 public class Schedule {
 
 	private Integer scheduleId;
+	private String scheduleName;
+	private String color;
 	private Time endTime;
 	private Time startTime;
+	private Float restHour;
 	private Date workDate;
+	
 	private Job job;
 
 	public Schedule() {
 	}
 
-	public Schedule(Integer scheduleId, Time endTime, Time startTime, Date workDate, Job job) {
+	public Schedule(Integer scheduleId, String scheduleName, String color, Time endTime, Time startTime, Float restHour,
+			Date workDate, Job job) {
+		super();
 		this.scheduleId = scheduleId;
+		this.scheduleName = scheduleName;
+		this.color = color;
 		this.endTime = endTime;
 		this.startTime = startTime;
+		this.restHour = restHour;
 		this.workDate = workDate;
 		this.job = job;
 	}
@@ -77,5 +86,33 @@ public class Schedule {
 	public void setJob(Job job) {
 		this.job = job;
 	}
+
+	public String getScheduleName() {
+		return scheduleName;
+	}
+
+	public void setScheduleName(String scheduleName) {
+		this.scheduleName = scheduleName;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public Float getRestHour() {
+		return restHour;
+	}
+
+	public void setRestHour(Float restHour) {
+		this.restHour = restHour;
+	}
+
+
+	
+	
 
 }
