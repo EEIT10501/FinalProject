@@ -33,7 +33,7 @@ public class Application {
 		this.applicationId = applicationId;
 	}
 
-	@Column(nullable = false, columnDefinition = "nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)")
 	public String getAnswer() {
 		return answer;
 	}
@@ -50,7 +50,7 @@ public class Application {
 		this.applicationTime = applicationTime;
 	}
 
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	public String getAppliedStatus() {
 		return appliedStatus;
 	}

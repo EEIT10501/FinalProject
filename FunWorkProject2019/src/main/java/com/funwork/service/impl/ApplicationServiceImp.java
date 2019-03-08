@@ -28,6 +28,12 @@ public class ApplicationServiceImp implements ApplicationService {
 	public Application findByDate(Date date) {
 		return dao.findByDate(date);
 	}
+	
+	@Transactional
+	@Override
+	public void insertApplication(Integer userId, Integer jobId) {
+		dao.insertApplication(userId, jobId);
+	}
 
 	@Transactional
 	@Override

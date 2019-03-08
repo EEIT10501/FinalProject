@@ -18,7 +18,7 @@ public class Resume {
 	private Integer resumeId;
 	private String name;
 	private String phoneNum;
-	private Date bitrh;
+	private Date birth; 
 	private String educationLevel;
 	private Blob profilePic;
 	private String selfIntro;
@@ -55,12 +55,12 @@ public class Resume {
 		this.phoneNum = phoneNum;
 	}
 
-	public Date getBitrh() {
-		return bitrh;
+	public Date getBirth() {
+		return birth;
 	}
 
-	public void setBitrh(Date bitrh) {
-		this.bitrh = bitrh;
+	public void setBirth(Date bitrh) {
+		this.birth = bitrh;
 	}
 
 	public String getEducationLevel() {

@@ -46,7 +46,7 @@ public class ResumeTableInit {
 				Resume resume = new Resume();
 				resume.setName(name);
 				resume.setPhoneNum(phoneNum);
-				resume.setBitrh(Date.valueOf(bitrh));
+				resume.setBirth(Date.valueOf(bitrh));
 				resume.setEducationLevel(educationLevel);
 				Blob profilePicBlob = SystemUtils2018.fileToBlob(profilePic.trim());
 				resume.setFileName(SystemUtils2018.extractFileName(profilePic.trim()));
