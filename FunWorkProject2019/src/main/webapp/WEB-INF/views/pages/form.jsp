@@ -52,9 +52,9 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'/>">想找打工</a></li>
+				<li class="nav-item"><a class="nav-link" href="#<c:url value='#'/>">想要徵人</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='#'/>">聯絡我們</a></li>
 			</ul>
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"

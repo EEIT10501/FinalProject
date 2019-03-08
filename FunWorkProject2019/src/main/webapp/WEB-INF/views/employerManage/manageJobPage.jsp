@@ -25,7 +25,7 @@
 		});
 
 		$("#butt1").click(function() {
-
+			// 			alert(text1);
 			$.ajax({
 				url : 'jobManCond',
 				data : {
@@ -97,7 +97,22 @@
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
 					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
+					<div>
+						<ul>
+							<li><a href="#">會員資訊</a></li>
+							<li><a href="#">數據資訊</a></li>
+							<li><a href="#">圖形表單</a></li>
+
+						</ul>
+					</div>
 					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
+					<div>
+						<ul>
+							<li><a href="manageJob">管理已刊登職缺</a></li>
+							<li><a href="addJobProfile">新增工作職缺</a></li>
+
+						</ul>
+					</div>
 					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
 					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
 					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
@@ -140,8 +155,7 @@
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
 								<td>${job.isFilled}</td>
-								<td><a
-									href='<spring:url value="job?id=${job.jobId}"/>'
+								<td><a href='<spring:url value="job?id=${job.jobId}"/>'
 									class="btn btn-primary"> <span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料
 								</a></td>

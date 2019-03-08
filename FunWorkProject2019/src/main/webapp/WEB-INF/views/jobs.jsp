@@ -50,6 +50,10 @@
 .btn {
 	margin-right: 5px;
 }
+
+.btn-group {
+	margin-bottom: 5px;
+}
 </style>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -68,9 +72,9 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="jobs">想找打工</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'/>">想找打工</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='#'/>">聯絡我們</a></li>
 			</ul>
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"
@@ -105,11 +109,22 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						選擇縣市</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="<c:url value='/cityArea/5'/>">台北市</a>
+						<a class="dropdown-item" href="<c:url value='/cityArea/15'/>">新北市</a>
+
+					</div>
+				</div>
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-secondary dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						選擇行政區</button>
 					<div class="dropdown-menu">
 						<c:forEach var="city" items="${citys}">
 							<a class="dropdown-item"
-								href="<c:url value='cityName/${city.cityId}'/>">${city.cityName}</a>
+								href="<c:url value='/cityName/${city.cityId}'/>">${city.cityName}</a>
 						</c:forEach>
 					</div>
 				</div>
@@ -135,7 +150,7 @@
 								<td>${job.city.cityName}</td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.isFilled}</td>
-								<td><a href="jobDetail/${job.jobId}"
+								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
 									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
 							</tr>

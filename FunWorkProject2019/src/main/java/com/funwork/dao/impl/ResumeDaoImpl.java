@@ -32,4 +32,12 @@ public class ResumeDaoImpl implements ResumeDao {
 		return list;
 	}
 
+	@Override
+	public Resume getResumeByUserId(Integer userId) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Resume WHERE Fk_User_Id = :userId";
+		Resume resume = (Resume) session.createQuery(hql).setParameter("userId", userId).getSingleResult();
+		return resume;
+	}
+
 }
