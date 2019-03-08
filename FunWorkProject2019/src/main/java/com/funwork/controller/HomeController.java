@@ -40,32 +40,6 @@ public class HomeController {
 		return "pages/form";
 	}
 	
-	@RequestMapping("/calendar")
-	public String calendar() {
-		return "schedule/calendar";
-	}
-	
-	@RequestMapping("/calendarDemo")
-	public String calendarDemo() {
-		return "schedule/calendarDemo";
-	}
-	
-	@RequestMapping("/groupManage")
-	public String calendar2() {
-		return "schedule/groupManage";
-	}
-	
-	@RequestMapping("/addWorker")
-	public String addWorker() {
-		return "schedule/addWorker";
-	}
-	
-	@RequestMapping("/editWorker")
-	public String editWorker() {
-		return "schedule/editWorker";
-	}
-
-
 	@RequestMapping("/chat")
 	public String Chat(Model model) {
 		// 在這邊抓當前User的歷史訊息傳到訊息頁面

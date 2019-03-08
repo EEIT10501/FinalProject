@@ -8,12 +8,36 @@
 <link rel="icon" type="image/png" href="/favicon.ico" />
 
 <link type="text/css" rel="stylesheet" href="/FunWorkProject2019/css/screen.css" media="screen, projection" />
+<!-- <link type="text/css" rel="stylesheet" href="/FunWorkProject2019/css/style.css" media="screen, projection" /> -->
+<script type="text/javascript" src='<c:url value="/js/jquery.avgrund.min.js"/>'></script>
+
 
 <script language="JavaScript" type="text/JavaScript">
 function MM_openBrWindow(theURL,winName,features) {
   window.open(theURL,winName,features);
 }
+
+$('element').avgrund({
+	width: 380, // max is 640px
+	height: 280, // max is 350px
+	showClose: false, // switch to 'true' for enabling close button
+	showCloseText: '', // type your text for close button
+	closeByEscape: true, // enables closing popup by 'Esc'..
+	closeByDocument: true, // ..and by clicking document itself
+	holderClass: '', // lets you name custom class for popin holder..
+	overlayClass: '', // ..and overlay block
+	enableStackAnimation: false, // another animation type
+	onBlurContainer: '', // enables blur filter for specified block
+	openOnEvent: true, // set to 'false' to init on load
+	setEvent: 'click', // use your event like 'mouseover', 'touchmove', etc.
+// 	onLoad: function (elem) { ... }, // set custom call before popin is inited..
+// 	onUnload: function (elem) { ... }, // ..and after it was closed
+	template: 'Your content goes here..' // or function (elem) { ... }
+});
+
 </script>
+
+
 
 <meta charset="UTF-8">
 <title>群組管理</title>
@@ -102,6 +126,9 @@ function MM_openBrWindow(theURL,winName,features) {
 			</tbody>
 		</table>
 	</div>
+	</div>
+	<div id= "element"">
+	<h1>test</h1>
 	</div>
 	
 	
