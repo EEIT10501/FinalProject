@@ -59,12 +59,53 @@
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 			<span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="pages/indexTest">登入</a>
+				class="nav-link btn btn-outline-secondary" data-toggle="modal"
+				data-target="#exampleModal" href="#">登入</a>
 			</span> <span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
 			</span>
 		</div>
+
 	</nav>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">請選擇登入方式</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- 彈出視窗：寫程式的地方 -->
+					<form action="#" method="post">
+						<div class="form-group">
+							<label for="exampleInputEmail1">電子郵件</label> <input type="email"
+								class="form-control" id="exampleInputEmail1"
+								aria-describedby="emailHelp" placeholder="Enter email">
+							<small id="emailHelp" class="form-text text-muted"></small>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">輸入密碼</label> <input
+								type="password" class="form-control" id="exampleInputPassword1"
+								placeholder="Password">
+						</div>
+						<div class="form-group form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1"> <label class="form-check-label"
+								for="exampleCheck1">請記住我</label>
+						</div>
+						<button type="submit" class="btn btn-primary" style="float:right">確認送出</button>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-ride="carousel">
 		<ol class="carousel-indicators">
@@ -75,15 +116,15 @@
 		</ol>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="/FunWorkProject2019/image/101.jpg" class="d-block w-100"
+				<img src="<c:url value='/images/work04.jpg'></c:url>" class="d-block w-100"
 					alt="...">
 			</div>
 			<div class="carousel-item">
-				<img src="/FunWorkProject2019/image/taichong.jpg"
+				<img src="<c:url value='/images/work07.jpg'></c:url>"
 					class="d-block w-100" alt="...">
 			</div>
 			<div class="carousel-item">
-				<img src="/FunWorkProject2019/image/kaoshong.jpg"
+				<img src="<c:url value='/images/work08.jpg'></c:url>"
 					class="d-block w-100" alt="...">
 			</div>
 		</div>

@@ -179,8 +179,8 @@
 					</div>
 					<div class="col-sm-5">
 						<p>聯絡人：${jobBean.contact}</p>
-						<p>聯絡人：${jobBean.jobPhone}</p>
-						<p>聯絡人：${jobBean.jobEmail}</p>
+						<p>手機：${jobBean.jobPhone}</p>
+						<p>信箱：${jobBean.jobEmail}</p>
 					</div>
 				</div>
 				<div class="row justify-content-center">
@@ -195,8 +195,6 @@
 					<button type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#exampleModal">我要應徵</button>
 				</div>
-
-
 
 				<div class="modal fade" id="exampleModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
