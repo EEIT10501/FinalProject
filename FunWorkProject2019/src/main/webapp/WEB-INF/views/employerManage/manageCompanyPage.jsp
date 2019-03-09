@@ -81,7 +81,8 @@
 			alert("send clicked and connection built by AJAX starts");
 
 			$.ajax({
-				url : "searchResultByReviewStatus?qstr=" + status,
+				url : "/FunWorkProject2019/searchResultByReviewStatus?qstr=" + status,
+// 				url : "/FunWorkProject2019/searchResultByReviewStatus?qstr=1",
 				cache : false,
 				type : "GET",
 				success : function(response) {

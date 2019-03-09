@@ -16,7 +16,6 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.web.socket.server.standard.SpringConfigurator;
 
-// websocket連線URL和可被調用配置
 @ServerEndpoint(value = "/chat/{userId}", configurator = SpringConfigurator.class)
 public class WebSocketChat {
 
@@ -30,13 +29,6 @@ public class WebSocketChat {
 	private Session session;
 	private String userId;
 
-	/**
-	 * @Title: onOpen
-	 * @Description: websocekt連線建立時的操作
-	 * @param @param userId
-	 * @param @param session websocket連線的session属性
-	 * @param @throws IOException
-	 */
 	@OnOpen
 	public void onOpen(@PathParam("userId") String userId, Session session) throws IOException {
 		this.session = session;
@@ -56,10 +48,6 @@ public class WebSocketChat {
 		System.out.println("目前在線用戶數為：{" + userSocket.size() + "}，所有終端個數為：{" + onlineCount + "}");
 	}
 
-	/**
-	 * @Title: onClose
-	 * @Description: 連線關閉的操作
-	 */
 	@OnClose
 	public void onClose() {
 		// 移除當前用戶終端登錄的websocket訊息，如果該用戶所有的終端都下線了，則刪除該用戶的紀錄
@@ -72,40 +60,21 @@ public class WebSocketChat {
 		System.out.println("目前在線用戶數為：{" + userSocket.size() + "}，所有終端個數為：{" + onlineCount + "}");
 	}
 
-	/**
-	 * @Title: onMessage
-	 * @Description: 收到訊息後的操作
-	 * @param @param message 收到的訊息
-	 * @param @param session 該連線的session屬性
-	 */
 	@OnMessage
 	public void onMessage(String message, Session session) {
 		System.out.println("收到來自userId：{" + this.userId + "}的訊息：{" + message + "}");
 		if (session == null)
 			System.out.println("session null");
 		// 測試向客戶端發送訊息
-		 sendMessageToUser(this.userId, message);
+		sendMessageToUser(this.userId, message);
 	}
 
-	/**
-	 * @Title: onError
-	 * @Description: 連線發生錯誤時的操作
-	 * @param @param session 該連線的session
-	 * @param @param error 發生的錯誤
-	 */
 	@OnError
 	public void onError(Session session, Throwable error) {
 		System.out.println("userID為：{" + this.userId + "}的連線發生錯誤");
 		error.printStackTrace();
 	}
 
-	/**
-	 * @Title: sendMessageToUser
-	 * @Description: 發送訊息給用戶的所有終端
-	 * @param @param userId 用户id
-	 * @param @param message 發送的訊息
-	 * @param @return 發送成功返回true，失敗返回false
-	 */
 	public Boolean sendMessageToUser(String userId, String message) {
 		if (userSocket.containsKey(userId)) {
 			System.out.println(" 給userId為：{" + userId + "}的所有終端發送訊息：{" + message + "}");
@@ -124,5 +93,4 @@ public class WebSocketChat {
 		System.out.println("發送錯誤：目前連線不包含id：{" + userId + "}的用户");
 		return false;
 	}
-
 }

@@ -34,4 +34,11 @@ public class UserDaoImpl implements UserDao {
 		return list;
 	}
 
+	@Override
+	public User getUserById(Integer userId) {
+		Session session = factory.getCurrentSession();
+		User user = session.get(User.class, userId);
+		return user;
+	}
+
 }
