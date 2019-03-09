@@ -14,16 +14,15 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
+ 
+<script type="text/javascript" src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
 
-<script type="text/javascript"
-	src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 
 <title>找工作</title>
 <script>
 	$(document).ready(function() {
-		$('#example').DataTable();
+		$("#jobtable").DataTable();
 
 	});
 </script>
@@ -40,7 +39,30 @@
 .btn-group {
 	margin-bottom: 5px;
 }
+
+table.dataTable thead .sorting {
+	background-image: url("<c:url value='/datatableimages/sort_both.png'></c:url>")
+}
+
+table.dataTable thead .sorting_asc {
+	background-image: url("<c:url value='/datatableimages/sort_asc.png'></c:url>")
+}
+
+table.dataTable thead .sorting_desc {
+	background-image: url("<c:url value='/datatableimages/sort_desc.png'></c:url>")
+}
+
+table.dataTable thead .sorting_asc_disabled {
+	background-image: url("<c:url value='/datatableimages/sort_asc_disabled.png'></c:url>")
+}
+
+table.dataTable thead .sorting_desc_disabled {
+	background-image: url("<c:url value='/datatableimages/sort_desc_disabled.png'></c:url>")
+}
 </style>
+
+
+
 </head>
 
 <body>
@@ -92,7 +114,7 @@
 					<h3 style="color: black">該區域目前無工作，請選擇其他區域</h3>
 				</c:if>
 
-				<table class="table table-hover display" id="example">
+				<table class="table table-hover dataTable" id="jobtable">
 					<thead>
 						<tr>
 							<th>職缺名稱</th>
