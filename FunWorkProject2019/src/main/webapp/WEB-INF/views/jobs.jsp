@@ -27,67 +27,26 @@
 
 	});
 </script>
-</head>
 <style>
-.card-text-size {
-	font-size: 14px;
-}
-
 .footerbackground {
 	background: #343a40;
 	color: white;
-}
-
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
 }
 
 .asideblock {
 	height: 600px;
 }
 
-.btn {
-	margin-right: 5px;
-}
-
 .btn-group {
 	margin-bottom: 5px;
 }
 </style>
+</head>
+
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<a class="navbar-brand" href="#"> <img
-			src="/FunWorkProject2019/image/LOGO.jpg" width="30" height="30"
-			class="d-inline-block align-top"> EEIT趣打工
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarTogglerDemo03"
-			aria-controls="navbarTogglerDemo03" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'/>">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='#'/>">聯絡我們</a></li>
-			</ul>
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
-			<span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="#">登入</a>
-			</span> <span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
-			</span>
-		</div>
-	</nav>
+	
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
+	
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">

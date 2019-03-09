@@ -9,6 +9,8 @@ public interface ApplicationService {
 	Application findByPrimaryKey(int key);
 
 	Application findByDate(Date date);
+	
+	void insertApplication(Integer userId, Integer jobId,String question);
 
 	void saveApplication(Application Application);
 
