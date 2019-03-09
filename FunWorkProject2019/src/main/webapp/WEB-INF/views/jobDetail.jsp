@@ -172,10 +172,10 @@
 				<div class="row justify-content-center">
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal"
-						data-target="#exampleModal">我要應徵</button>
+						data-target="#resumeModal">我要應徵</button>
 				</div>
 
-				<div class="modal fade" id="exampleModal" tabindex="-1"
+				<div class="modal fade" id="resumeModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
 					<div class="modal-dialog" role="document">

@@ -46,7 +46,7 @@
 			</form>
 			<span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" data-toggle="modal"
-				data-target="#exampleModal" href="#">登入</a>
+				data-target="#loginModal" href="#">登入</a>
 			</span> <span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
 			</span>
@@ -54,7 +54,7 @@
 
 	</nav>
 
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
