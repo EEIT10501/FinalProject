@@ -71,8 +71,8 @@
 				</table>
 				<div class="col-lg">
 					<div class="input-group">
-						<input type="hidden" id="userId" value="1"> 
-						<input type="hidden" id="toUserId" value="2"> 
+						<input type="hidden" id="userId" value="${user.userId}"> 
+						<input type="hidden" id="toUserId" value="${toUser.userId}"> 
 						<input type="hidden" id="apId" value="${application.applicationId}"> 
 						<input type="text" class="form-control" placeholder="傳送訊息..." id="message"> 
 						<span class="input-group-btn">
