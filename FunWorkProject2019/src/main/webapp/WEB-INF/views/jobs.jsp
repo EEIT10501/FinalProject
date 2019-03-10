@@ -14,10 +14,13 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
- 
-<script type="text/javascript" src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
+<script type="text/javascript"
+	src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap" async defer></script>
 
 <title>找工作</title>
 <script>
@@ -25,66 +28,140 @@
 		$("#jobtable").DataTable();
 
 	});
+
+	var map, infoWindow;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById("map"), {
+			center : {
+				lat : 25.052,
+				lng : 121.532
+			},
+			zoom : 12
+		});
+
+		infoWindow = new google.maps.InfoWindow;
+
+		// Try HTML5 geolocation.
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat : position.coords.latitude,
+					lng : position.coords.longitude
+				};
+
+				infoWindow.setPosition(pos);
+				infoWindow.setContent("我的位置");
+				infoWindow.open(map);
+				map.setCenter(pos);
+			}, function() {
+				handleLocationError(true, infoWindow, map.getCenter());
+			});
+		} else {
+			// Browser doesn't support Geolocation
+			handleLocationError(false, infoWindow, map.getCenter());
+		}
+				
+		
+	}
+
+	function addMarker() {
+		<c:forEach var="job" items="${jobs}"> 
+			var latLng = new google.maps.LatLng(${job.jobLat}, ${job.jobLng});
+			var marker${job.jobId} = new google.maps.Marker({
+				position : latLng,
+				map : map,
+				title: "${job.title}"
+			});
+			
+			var contentString = "<div>${job.address}</div>"
+		      
+			var infowindow${job.jobId} = new google.maps.InfoWindow({
+			    content: contentString
+			  });
+			
+			marker${job.jobId}.addListener("click", function() {
+		          infowindow${job.jobId}.open(map, marker${job.jobId});
+		        });
+			</c:forEach>
+		}
+	
+
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+		infoWindow.setPosition(pos);
+		infoWindow
+				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
+						: 'Error: Your browser doesn\'t support geolocation.');
+		infoWindow.open(map);
+	}
 </script>
+
+
 <style>
 .footerbackground {
 	background: #343a40;
 	color: white;
 }
 
-.asideblock {
-	height: 600px;
-}
+/* .asideblock { */
+/* 	height: 600px;  */
 
+/* } */
 .btn-group {
 	margin-bottom: 5px;
 }
 
-/* table.dataTable thead .sorting { */
-/* 	background-image: url("<c:url value='/datatableimages/sort_both.png'></c:url>") */
-/* } */
 
-/* table.dataTable thead .sorting_asc { */
-/* 	background-image: url("<c:url value='/datatableimages/sort_asc.png'></c:url>") */
-/* } */
+table.dataTable thead .sorting {
+	background-image:
+		url("<c:url value='/datatableimages/sort_both.png'></c:url>")
+}
 
-/* table.dataTable thead .sorting_desc { */
-/* 	background-image: url("<c:url value='/datatableimages/sort_desc.png'></c:url>") */
-/* } */
 
-/* table.dataTable thead .sorting_asc_disabled { */
-/* 	background-image: url("<c:url value='/datatableimages/sort_asc_disabled.png'></c:url>") */
-/* } */
 
-/* table.dataTable thead .sorting_desc_disabled { */
-/* 	background-image: url("<c:url value='/datatableimages/sort_desc_disabled.png'></c:url>") */
-/* } */
+table.dataTable thead .sorting_asc {
+	background-image:
+		url("<c:url value='/datatableimages/sort_asc.png'></c:url>")
+}
+
+
+
+table.dataTable thead .sorting_desc {
+	background-image:
+		url("<c:url value='/datatableimages/sort_desc.png'></c:url>")
+}
+
+
+
+table.dataTable thead .sorting_asc_disabled {
+	background-image:
+		url("<c:url value='/datatableimages/sort_asc_disabled.png'></c:url>")
+}
+
+
+
+table.dataTable thead .sorting_desc_disabled {
+	background-image:
+		url("<c:url value='/datatableimages/sort_desc_disabled.png'></c:url>")
+}
+
+#map {
+	height: 400px;
+	margin-bottom: 5px;
+}
+
 </style>
-
-
 
 </head>
 
 <body>
-	
-	<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
-	
+
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
+
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
-		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">黃金會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a>
-				</div>
-			</div>
-			<div class="col-sm-8">
+		<div class="row m-3 justify-content-around align-items-center">
+		
+			<div class="col-sm-7">
 				<!--             程式寫在這 -->
 
 				<div class="btn-group">
@@ -140,12 +217,15 @@
 				</table>
 
 			</div>
-			<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-5">
+				<input type="button" class="btn btn-secondary" style="margin-bottom:5px" onclick="addMarker()" value="在地圖上顯示工作">
+				<div id="map"></div>
+			</div>
 		</div>
 	</div>
 
-	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
+	<div class="container-fluid footerbackground">
+		<div class="row no-gutter">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>
