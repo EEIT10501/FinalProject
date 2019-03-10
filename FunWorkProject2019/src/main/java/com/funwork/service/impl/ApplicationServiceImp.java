@@ -71,4 +71,16 @@ public class ApplicationServiceImp implements ApplicationService {
 		return dao.isApplicationExist(Application);
 	}
 
+	@Transactional
+	@Override
+	public List<Application> getApplicationByUserId(Integer userId) {
+		return dao.getApplicationByUserId(userId);
+	}
+
+	@Transactional
+	@Override
+	public void updateLatestMsg(Integer apId, String msg) {
+		dao.updateLatestMsg(apId, msg);
+	}
+
 }

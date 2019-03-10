@@ -33,25 +33,25 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc,
 	background-position: center right
 }
 
-/* table.dataTable thead .sorting { */
-/* 	background-image: url("../datatableimages/sort_both.png") */
-/* } */
+table.dataTable thead .sorting {
+	background-image: url("../../datatableimages/sort_both.png")
+}
 
-/* table.dataTable thead .sorting_asc { */
-/* 	background-image: url("../datatableimagess/sort_asc.png") */
-/* } */
+table.dataTable thead .sorting_asc {
+	background-image: url("../../datatableimages/sort_asc.png")
+}
 
-/* table.dataTable thead .sorting_desc { */
-/* 	background-image: url("../datatableimages/sort_desc.png") */
-/* } */
+table.dataTable thead .sorting_desc {
+	background-image: url("../../datatableimages/sort_desc.png")
+}
 
-/* table.dataTable thead .sorting_asc_disabled { */
-/* 	background-image: url("../datatableimages/sort_asc_disabled.png") */
-/* } */
+table.dataTable thead .sorting_asc_disabled {
+	background-image: url("../../datatableimages/sort_asc_disabled.png")
+}
 
-/* table.dataTable thead .sorting_desc_disabled { */
-/* 	background-image: url("../datatableimages/sort_desc_disabled.png") */
-/* } */
+table.dataTable thead .sorting_desc_disabled {
+	background-image: url("../../datatableimages/sort_desc_disabled.png")
+}
 
 table.dataTable tbody tr {
 	background-color: #ffffff

@@ -108,25 +108,34 @@
 	margin-bottom: 5px;
 }
 
+
 table.dataTable thead .sorting {
 	background-image:
 		url("<c:url value='/datatableimages/sort_both.png'></c:url>")
 }
+
+
 
 table.dataTable thead .sorting_asc {
 	background-image:
 		url("<c:url value='/datatableimages/sort_asc.png'></c:url>")
 }
 
+
+
 table.dataTable thead .sorting_desc {
 	background-image:
 		url("<c:url value='/datatableimages/sort_desc.png'></c:url>")
 }
 
+
+
 table.dataTable thead .sorting_asc_disabled {
 	background-image:
 		url("<c:url value='/datatableimages/sort_asc_disabled.png'></c:url>")
 }
+
+
 
 table.dataTable thead .sorting_desc_disabled {
 	background-image:
@@ -137,6 +146,7 @@ table.dataTable thead .sorting_desc_disabled {
 	height: 400px;
 	margin-bottom: 5px;
 }
+
 </style>
 
 </head>
