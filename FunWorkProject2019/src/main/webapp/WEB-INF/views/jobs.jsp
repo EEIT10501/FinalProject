@@ -20,7 +20,9 @@
 <script type="text/javascript"
 	src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap" async defer></script>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
+	async defer></script>
 
 <title>找工作</title>
 <script>
@@ -102,10 +104,6 @@
 	color: white;
 }
 
-/* .asideblock { */
-/* 	height: 600px;  */
-
-/* } */
 .btn-group {
 	margin-bottom: 5px;
 }
@@ -150,7 +148,7 @@ table.dataTable thead .sorting_desc_disabled {
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around align-items-center">
-		
+
 			<div class="col-sm-7">
 				<!--             程式寫在這 -->
 
@@ -208,7 +206,8 @@ table.dataTable thead .sorting_desc_disabled {
 
 			</div>
 			<div class="col-sm-5">
-				<input type="button" class="btn btn-secondary" style="margin-bottom:5px" onclick="addMarker()" value="在地圖上顯示工作">
+				<input type="button" class="btn btn-secondary"
+					style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作">
 				<div id="map"></div>
 			</div>
 		</div>
