@@ -63,21 +63,17 @@
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="<c:url value='#'/>" class="list-group-item list-group-item-action">訊息一</a> 
-					<a href="<c:url value='#'/>" class="list-group-item list-group-item-action">訊息二</a>
-				</div>
+				<div class="list-group" id="apList"></div>
 			</div>
 			<div class="col-sm-8">
-				<h1>訊息</h1>
+				<h1>${application.job.title}</h1>
 				<table class="table table-hover" id="msg">
 				</table>
 				<div class="col-lg">
 					<div class="input-group">
 						<input type="hidden" id="userId" value="1"> 
 						<input type="hidden" id="toUserId" value="2"> 
-						<input type="hidden" id="apId" value="${apId}"> 
-						<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" > 
+						<input type="hidden" id="apId" value="${application.applicationId}"> 
 						<input type="text" class="form-control" placeholder="傳送訊息..." id="message"> 
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button" id="send">發送</button>
@@ -94,9 +90,8 @@
 		</div>
 	</div>
 	<script>
-		var contextPath = $("#contextPath").attr('value');
 		var userId = $("#userId").attr('value');
-		var connWsStr = "ws://127.0.0.1:8080/" + contextPath + "/chat/" + userId;
+		var connWsStr = "ws://127.0.0.1:8080/${pageContext.request.contextPath}/chat/" + userId;
 		var toUserId = $("#toUserId").attr('value');
 		var apId = $("#apId").attr('value');
 
@@ -115,9 +110,10 @@
 			};
 
 			websocket.onmessage = function(evnt) {
-				for(i=0;i<10000000;i++){			
+				for(i=0;i<100000000;i++){			
 				}
 				$("#msg").empty();
+				$("#apList").empty();
 				getOldMsg();
 			};
 			websocket.onerror = function(evnt) {
@@ -136,7 +132,7 @@
 					websocket.send(message);
 
 					$.ajax({
-						url : contextPath + "/message/TestWS?userId="
+						url : "${pageContext.request.contextPath}/message/TestWS?userId="
 								+ userId + "&toUserId=" + toUserId
 								+ "&message=" + message + "&apId=" + apId,
 						type : "GET",
@@ -152,7 +148,7 @@
 			// 用ajax抓取歷史訊息
 			function getOldMsg(){
 				$.ajax({
-					url : contextPath + "/chatJSON?apId=1",
+					url : "${pageContext.request.contextPath}/chatJSON?apId=" + apId,
 					type : "GET",
 					success : function(data) {
 						$.each(data, function(index, element) {
@@ -167,6 +163,23 @@
 							.append(imgTr)
 							.append($("<td>").text(element.sender.userName + "：" + element.content))
 							.append($("<td>").text(timeStr));
+						});
+					}
+				});
+				
+				$.ajax({
+					url : "${pageContext.request.contextPath}/apJSON?userId=" + userId,
+					type : "GET",
+					success : function(data) {
+						$.each(data, function(index, element) {
+							var time = new Date(element.latestMsgTime);
+							var timeStr = time.getFullYear() + "年"
+							+ (time.getMonth() + 1) + "月" + time.getDate()
+							+ "日 " + time.getHours() + ":" + time.getMinutes();
+									
+							var a = $("<a>").attr("href", "<c:url value='/chat/"+ element.applicationId +"'/>").attr("class", "list-group-item list-group-item-action");
+							a.html(element.job.title + "<br>應徵人：" +  element.user.userName + "<br>雇主：" + element.job.jobOwner.userName + "<br>" + element.latestMsg + "<br>" + timeStr);						
+							a.appendTo("#apList");	
 						});
 					}
 				});

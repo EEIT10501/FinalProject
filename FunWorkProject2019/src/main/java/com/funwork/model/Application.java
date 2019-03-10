@@ -11,13 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Application {
 	private Integer applicationId;
 	private String answer;
 	private Timestamp applicationTime;
 	private String appliedStatus;
+	private String latestMsg;
+	private Timestamp latestMsgTime;
 	private User user;
+	@JsonIgnoreProperties({"jobCompany"})
 	private Job job;
 
 	public Application() {
@@ -33,7 +38,7 @@ public class Application {
 		this.applicationId = applicationId;
 	}
 
-	@Column(nullable = false,columnDefinition = "nvarchar(255)")
+	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	public String getAnswer() {
 		return answer;
 	}
@@ -77,6 +82,22 @@ public class Application {
 
 	public void setJob(Job job) {
 		this.job = job;
+	}
+
+	public String getLatestMsg() {
+		return latestMsg;
+	}
+
+	public void setLatestMsg(String latestMsg) {
+		this.latestMsg = latestMsg;
+	}
+
+	public Timestamp getLatestMsgTime() {
+		return latestMsgTime;
+	}
+
+	public void setLatestMsgTime(Timestamp latestMsgTime) {
+		this.latestMsgTime = latestMsgTime;
 	}
 
 	@Override

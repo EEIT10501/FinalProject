@@ -18,17 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.funwork.model.Resume;
-import com.funwork.service.MessageService;
 import com.funwork.service.ResumeService;
-import com.funwork.service.ScheuleService;
 
 @Controller
 public class HomeController {
 
-	@Autowired
-	MessageService messageService;
-	@Autowired
-	ScheuleService scheuleService;
 	@Autowired
 	ResumeService resumeService;
 	@Autowired
