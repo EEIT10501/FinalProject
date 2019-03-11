@@ -140,9 +140,13 @@
 					success : function(data) {
 						$.each(data, function(index, element) {
 							var time = new Date(element.time);
+							var min = time.getMinutes();
+							if(min < 10){
+								min = "0" + min;
+							}
 							var timeStr = time.getFullYear() + "年"
 							+ (time.getMonth() + 1) + "月" + time.getDate()
-							+ "日 " + time.getHours() + ":" + time.getMinutes();
+							+ "日 " + time.getHours() + ":" + min;
 							
 							var imgTr = $("<td>").html("<img width='50' height='50' src='<c:url value='/getPicture/" + element.sender.userId + "'/>' />")
 							
@@ -160,9 +164,13 @@
 					success : function(data) {
 						$.each(data, function(index, element) {
 							var time = new Date(element.latestMsgTime);
+							var min = time.getMinutes();
+							if(min < 10){
+								min = "0" + min;
+							}
 							var timeStr = time.getFullYear() + "年"
 							+ (time.getMonth() + 1) + "月" + time.getDate()
-							+ "日 " + time.getHours() + ":" + time.getMinutes();
+							+ "日 " + time.getHours() + ":" + min;
 									
 							var toUserName = "";
 							if(userId != element.user.userId){
