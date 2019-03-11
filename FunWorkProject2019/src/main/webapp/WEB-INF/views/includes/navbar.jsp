@@ -39,6 +39,7 @@
 				<li class="nav-item"><a class="nav-link" href="employerPortal">想要徵人</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">訊息</a></li>
 			</ul>
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"
@@ -132,7 +133,7 @@
 		$.ajax({
 			url : "${pageContext.request.contextPath}/login",
 			type : "POST",
-			data : {"email":email, "password":password, "rememberMe":rememberMe},
+			data : {"email":email, "password":password},
 			success : function(data) {
 				if(data=="OK"){
 					if(rememberMe){
