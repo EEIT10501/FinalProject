@@ -25,6 +25,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	public WebAppConfig() {
+	
 	}
 
 	@Bean
@@ -35,6 +36,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
+
 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/css/");

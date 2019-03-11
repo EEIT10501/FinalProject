@@ -6,10 +6,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>首頁</title>
-<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login.css'></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/topNavBar.css'></c:url>">
+
 </head>
+
 <style>
 .card-text-size{
 font-size:14px;
@@ -35,7 +38,7 @@ border-radius: 15px;
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="">首頁 <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="<c:url value='/'/>">首頁 <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">想找打工</a>
@@ -84,9 +87,6 @@ border-radius: 15px;
 				</label>
 			</div>
 
-<!-- 			<div class="container" style="background-color: #f1f1f1"> -->
-<!-- 				<span class="psw"><a href="#">忘記密碼</a></span> -->
-<!-- 			</div> -->
 		</form>
 	</div>
 	<script>
