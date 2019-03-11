@@ -7,6 +7,8 @@ import com.funwork.model.User;
 public interface UserService {
 
 	List<User> getAllUsers();
+
+	User findByPrimaryKey(int key);
 	
 	User getUserById(Integer userId);
 	

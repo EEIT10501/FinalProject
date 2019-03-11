@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		return dao.getAllUsers();
 	}
+	@Transactional
+	@Override
+	public User findByPrimaryKey(int key) {
+		return dao.findByPrimaryKey(key);
+	}
 
 	@Transactional
 	@Override

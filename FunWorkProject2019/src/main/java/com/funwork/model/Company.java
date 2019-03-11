@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @DynamicInsert
 @Entity
@@ -36,12 +37,17 @@ public class Company implements Serializable{
 	private Blob logo;
 	@JsonIgnore
 	private Blob coverPic;
+	@JsonIgnore
 	private Clob description;
 	private String siteURL;
 	private String fileName;
-	
+
 	@JsonIgnore
 	private MultipartFile companyLicensureImage;
+	@JsonIgnore
+	private MultipartFile companyLogo;
+	@JsonIgnore
+	private MultipartFile companyCoverPic;
 	
     @XmlTransient
     @Transient
@@ -52,20 +58,79 @@ public class Company implements Serializable{
 	public void setCompanyLicensureImage(MultipartFile companyLicensureImage) {
 		this.companyLicensureImage = companyLicensureImage;
 	}
+	
+	@XmlTransient
+    @Transient
+	public MultipartFile getCompanyLogo() {
+		return companyLogo;
+	}
 
+	public void setCompanyLogo(MultipartFile companyLogo) {
+		this.companyLogo = companyLogo;
+	}
+
+	@XmlTransient
+    @Transient
+	public MultipartFile getCompanyCoverPic() {
+		return companyCoverPic;
+	}
+
+	public void setCompanyCoverPic(MultipartFile companyCoverPic) {
+		this.companyCoverPic = companyCoverPic;
+	}
+
+
+
+	@JsonIgnore
 	private User user;
 
 	public Company() {
 	}
+	
+	
 
 	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
-			User user) {
+			Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
+			MultipartFile companyLicensureImage,MultipartFile companyLogo,MultipartFile companyCoverPic,String forRecordColumn) {
+		super();
 		this.companyId = companyId;
 		this.name = name;
 		this.taxId = taxId;
 		this.address = address;
 		this.licensure = licensure;
 		this.reviewStatus = reviewStatus;
+		this.notificationTimes = notificationTimes;
+		this.logo = logo;
+		this.coverPic = coverPic;
+		this.description = description;
+		this.siteURL = siteURL;
+		this.fileName = fileName;
+		this.companyLicensureImage = companyLicensureImage;
+		this.companyLogo = companyLogo;
+		this.coverPic = coverPic;
+	}
+
+
+
+	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
+			Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
+			MultipartFile companyLicensureImage, MultipartFile companyLogo,MultipartFile companyCoverPic, User user) {
+		super();
+		this.companyId = companyId;
+		this.name = name;
+		this.taxId = taxId;
+		this.address = address;
+		this.licensure = licensure;
+		this.reviewStatus = reviewStatus;
+		this.notificationTimes = notificationTimes;
+		this.logo = logo;
+		this.coverPic = coverPic;
+		this.description = description;
+		this.siteURL = siteURL;
+		this.fileName = fileName;
+		this.companyLicensureImage = companyLicensureImage;
+		this.companyLogo = companyLogo;
+		this.coverPic = coverPic;
 		this.user = user;
 	}
 
@@ -172,6 +237,7 @@ public class Company implements Serializable{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Fk_User_Id")

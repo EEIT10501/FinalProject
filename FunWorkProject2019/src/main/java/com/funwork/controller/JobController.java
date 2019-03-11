@@ -23,10 +23,11 @@ import com.funwork.model.Schedule;
 import com.funwork.model.User;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.JobService;
+import com.funwork.service.ScheduleService;
 import com.funwork.service.NotificationService;
 import com.funwork.service.ResumeService;
-import com.funwork.service.ScheuleService;
 import com.funwork.service.UserService;
+
 
 @Controller
 public class JobController {
@@ -47,7 +48,7 @@ public class JobController {
 	ApplicationService applicationService;
 
 	@Autowired
-	ScheuleService scheduleService;
+	ScheduleService scheduleService;
 
 	@Autowired
 	ServletContext context;
