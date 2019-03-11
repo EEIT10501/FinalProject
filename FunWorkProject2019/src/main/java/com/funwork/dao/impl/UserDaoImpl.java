@@ -39,4 +39,26 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	@Override
+	public void insertUser(User user) {
+		Session session = factory.getCurrentSession();
+		session.save(user);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public User loginCheck(String email, String password) {
+		User user = null;
+		String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
+		Session session = factory.getCurrentSession();
+		List<User> list = session.createQuery(hql).setParameter("email", email).setParameter("password", password)
+				.getResultList();
+		if (list.size() == 0) {
+			user = null;
+		} else {
+			user = list.get(0);
+		}
+		return user;
+	}
+
 }

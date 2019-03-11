@@ -9,6 +9,8 @@ public interface ApplicationDao {
 	Application findByPrimaryKey(int key);
 
 	Application findByDate(Date date);
+	
+	void insertApplication(Integer userId, Integer jobId,String question);
 
 	void saveApplication(Application Application);
 
@@ -21,4 +23,8 @@ public interface ApplicationDao {
 	void deleteAllApplications();
 
 	public boolean isApplicationExist(Application Application);
+	
+	List<Application> getApplicationByUserId(Integer userId);
+	
+	void updateLatestMsg(Integer apId, String msg);
 }

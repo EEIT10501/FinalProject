@@ -28,6 +28,12 @@ public class ApplicationServiceImp implements ApplicationService {
 	public Application findByDate(Date date) {
 		return dao.findByDate(date);
 	}
+	
+	@Transactional
+	@Override
+	public void insertApplication(Integer userId, Integer jobId,String question) {
+		dao.insertApplication(userId, jobId,question);
+	}
 
 	@Transactional
 	@Override
@@ -63,6 +69,18 @@ public class ApplicationServiceImp implements ApplicationService {
 	@Override
 	public boolean isApplicationExist(Application Application) {
 		return dao.isApplicationExist(Application);
+	}
+
+	@Transactional
+	@Override
+	public List<Application> getApplicationByUserId(Integer userId) {
+		return dao.getApplicationByUserId(userId);
+	}
+
+	@Transactional
+	@Override
+	public void updateLatestMsg(Integer apId, String msg) {
+		dao.updateLatestMsg(apId, msg);
 	}
 
 }
