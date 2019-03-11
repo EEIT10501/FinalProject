@@ -1,14 +1,20 @@
 package com.funwork.dao.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.PropertyNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.ScheduleDao;
+import com.funwork.model.Interview;
+import com.funwork.model.Job;
+import com.funwork.model.Notification;
 import com.funwork.model.Schedule;
 
 @Repository
@@ -31,15 +37,55 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<Schedule> getSchedulesByJobId(Integer jobId) {
 		String hql = "FROM Schedule where Fk_Job_Id = :jobId";
 		Session session = null;
 		List<Schedule> list = new ArrayList<>();
 		session = factory.getCurrentSession();
-		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
-		return list;
+		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();		
+			return list;
 	}
+	
+	@Override
+	public void insertSchedule(Schedule schedule) {
+		Session session = factory.getCurrentSession();
+		session.save(schedule);
+	}
+	
+	@Override
+	public void deleteScheduleByPrimaryKey(int scheduleId) {
+		Session session = factory.getCurrentSession();
+		Schedule schedule = new Schedule();
+		schedule.setScheduleId(scheduleId);
+		session.delete(schedule);
+	}
+	
+	@Override
+	public void updateScheduleByPrimaryKey(Schedule schedule) {
+		Session session = factory.getCurrentSession();
+		session.update(schedule);
+	}
+	
+	@Override
+	public Schedule getScheduleByPrimaryKey(int scheduleId) {
+		Session session = factory.getCurrentSession();		
+		Schedule schedule = session.get(Schedule.class, scheduleId);
+		System.out.println(schedule.getColor());
+		if(schedule==null)throw new PropertyNotFoundException("scheduleId"+scheduleId+" Not Found:");
+		return schedule;
+		
+	
+		
+//		String hql = "FROM Schedule where scheduleId = :scheduleId";
+//		Session session = null;
+//		Schedule schedule = new Schedule();
+//		session = factory.getCurrentSession();
+//		schedule = (Schedule) session.createQuery(hql).setParameter("scheduleId",scheduleId);	
+//			return schedule;
+	}
+	
+
 
 }

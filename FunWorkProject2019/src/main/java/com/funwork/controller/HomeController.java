@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.funwork.model.Resume;
 import com.funwork.model.User;
 import com.funwork.service.ResumeService;
+import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
 
 @Controller
 public class HomeController {
 
+	@Autowired
+	ScheduleService scheuleService;
 	@Autowired
 	ResumeService resumeService;
 	@Autowired
@@ -39,7 +43,11 @@ public class HomeController {
 	}
 
 	@RequestMapping("/")
-	public String Home() {
+	public String Home(HttpServletResponse res) {
+		res.setHeader("Cache-Control", "no-cache");
+		res.setHeader("Cache-Control", "no-store");
+		res.setDateHeader("Expires", 0);
+		res.setHeader("Pragma", "no-cache");
 		return "index";
 	}
 
@@ -95,6 +103,28 @@ public class HomeController {
 		} else {
 			return "fail";
 		}
+	}
+	
+	@RequestMapping("/login/{email}/{password}")
+	@ResponseBody
+	public String login2(@PathVariable("email") String email, @PathVariable("password") String password,
+			HttpServletRequest req) {
+		User user = userService.loginCheck(email, password);
+
+		if (user != null) {
+			HttpSession session = req.getSession();
+			session.setAttribute("loginUser", user);
+			return "OK";
+		} else {
+			return "fail";
+		}
+	}
+
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("loginUser");
+		return "redirect:/";
 	}
 
 }

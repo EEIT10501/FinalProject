@@ -1,12 +1,12 @@
-package com.funwork.dao;
+package com.funwork.service;
 
 import java.util.List;
 
 import com.funwork.model.Schedule;
 
-public interface ScheduleDao {
+public interface ScheduleService {
 	List<Schedule> getAllSchedules();
-	
+
 	List<Schedule> getSchedulesByJobId(Integer jobId);
 
 	void insertSchedule(Schedule schedule);
@@ -16,5 +16,6 @@ public interface ScheduleDao {
 	Schedule getScheduleByPrimaryKey(int scheduleId);
 
 	void updateScheduleByPrimaryKey(Schedule schedule);
+	
 
 }
