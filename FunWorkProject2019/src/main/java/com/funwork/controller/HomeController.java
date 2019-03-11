@@ -130,5 +130,13 @@ public class HomeController {
 			return "fail";
 		}
 	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("loginUser");
+			
+		return "index";	
+	}
 
 }

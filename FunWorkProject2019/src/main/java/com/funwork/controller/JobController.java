@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,14 +68,21 @@ public class JobController {
 	}
 
 	@RequestMapping("/jobDetail/{jobId}")
-	public String JobDetail(Model model, @PathVariable("jobId") Integer jobId) {
+	public String JobDetail(Model model, @PathVariable("jobId") Integer jobId,HttpServletRequest req, HttpServletResponse res) {
 		Job job = jobService.getJobById(jobId);
+		Resume resume = null;
 		//注意
-		Resume resume = resumeService.getResumeByUserId(1); // 先寫死測試，之後從session拿值
+		HttpSession session = req.getSession(); //取得session物件
+		User user = (User) session.getAttribute("loginUser"); //取的在session裡面名為loginUser的物件
+		
+		if(session.getAttribute("loginUser")!=null) {
+		resume = resumeService.getResumeByUserId(user.getUserId());
+		model.addAttribute("resumeBean", resume);
+		}
 
 		List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
 		model.addAttribute("jobBean", job);
-		model.addAttribute("resumeBean", resume);
+		
 		model.addAttribute("schedules", schedulelist);
 		return "jobDetail";
 	}

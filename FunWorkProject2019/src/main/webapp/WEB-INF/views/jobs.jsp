@@ -17,8 +17,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
-<script type="text/javascript"
-	src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
+
 
 <script type="text/javascript"
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
@@ -109,44 +108,10 @@
 }
 
 
-table.dataTable thead .sorting {
-	background-image:
-		url("<c:url value='/datatableimages/sort_both.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_asc {
-	background-image:
-		url("<c:url value='/datatableimages/sort_asc.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_desc {
-	background-image:
-		url("<c:url value='/datatableimages/sort_desc.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_asc_disabled {
-	background-image:
-		url("<c:url value='/datatableimages/sort_asc_disabled.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_desc_disabled {
-	background-image:
-		url("<c:url value='/datatableimages/sort_desc_disabled.png'></c:url>")
-}
-
 #map {
 	height: 400px;
 	margin-bottom: 5px;
 }
-
 </style>
 
 </head>
@@ -229,7 +194,8 @@ table.dataTable thead .sorting_desc_disabled {
 				reserved.</div>
 		</div>
 	</div>
-
+	<script type="text/javascript"
+		src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
