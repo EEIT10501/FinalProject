@@ -16,6 +16,7 @@
 	margin-right: 5px;
 }
 </style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -67,29 +68,90 @@
 				</div>
 				<div class="modal-body">
 					<!-- 彈出視窗：寫程式的地方 -->
-					<form action="#" method="post">
+					<form action="#" method="post" id="loginForm">
 						<div class="form-group">
 							<label for="exampleInputEmail1">電子郵件</label> <input type="email"
 								class="form-control" id="exampleInputEmail1"
-								aria-describedby="emailHelp" placeholder="Enter email">
+								aria-describedby="emailHelp" placeholder="Enter email" name="email">
 							<small id="emailHelp" class="form-text text-muted"></small>
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">輸入密碼</label> <input
 								type="password" class="form-control" id="exampleInputPassword1"
-								placeholder="Password">
+								placeholder="Password" name="password">
 						</div>
 						<div class="form-group form-check">
 							<input type="checkbox" class="form-check-input"
-								id="exampleCheck1"> <label class="form-check-label"
-								for="exampleCheck1">請記住我</label>
+								id="exampleCheck1"  name="rememberMe"> <label class="form-check-label"
+								for="exampleCheck1">請記住我</label><br>
+								<label id="loginError"></label>
 						</div>
-						<button type="submit" class="btn btn-primary" style="float: right">確認送出</button>
+						<button id="login" type="button" class="btn btn-primary" style="float: right">確認送出</button>
 					</form>
-
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+	function setCookie(cname,cvalue,exdays){
+	    var d = new Date();
+	    d.setTime(d.getTime()+(exdays*24*60*60*1000));
+	    var expires = "expires="+d.toGMTString();
+	    document.cookie = cname+"="+cvalue+"; "+expires;
+	}
+	
+	function getCookie(cname){
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i].trim();
+	        if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+	    }
+	    return "";
+	}
+	
+	$(function(){
+		if(getCookie("rm") == "true"){
+			if(getCookie("user") != ""){
+				$("#exampleInputEmail1").val(getCookie("user"));
+			}
+			if(getCookie("password") != ""){
+				$("#exampleInputPassword1").val(getCookie("password"));
+			}
+			$("#exampleCheck1").prop("checked", true);
+		}
+	});
+	
+	
+	
+	$("#login").click(function(){
+		var email = $("#exampleInputEmail1").val();
+		var password = $("#exampleInputPassword1").val();
+		var rememberMe = $("#exampleCheck1").prop("checked");
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/login",
+			type : "POST",
+			data : {"email":email, "password":password, "rememberMe":rememberMe},
+			success : function(data) {
+				if(data=="OK"){
+					if(rememberMe){
+						setCookie("rm",rememberMe,7);
+						setCookie("user",email,7);
+						setCookie("password",password,7);
+					}else{
+						setCookie("rm",rememberMe,7);
+						setCookie("user","",0);
+						setCookie("password","",0);
+					}
+					$("#loginForm").submit();
+				}else if(data=="fail"){
+					alert("帳號或密碼錯誤!");
+				}
+			}
+		});
+	});
+	
+	</script>
 </body>
 </html>

@@ -23,5 +23,9 @@ public interface ApplicationService {
 	void deleteAllApplications();
 
 	public boolean isApplicationExist(Application Application);
+	
+	List<Application> getApplicationByUserId(Integer userId);
+	
+	void updateLatestMsg(Integer apId, String msg);
 
 }

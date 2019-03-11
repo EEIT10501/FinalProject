@@ -31,4 +31,16 @@ public class UserServiceImpl implements UserService {
 		return dao.getUserById(userId);
 	}
 
+	@Transactional
+	@Override
+	public void insertUser(User user) {
+		dao.insertUser(user);
+	}
+
+	@Transactional
+	@Override
+	public User loginCheck(String email, String password) {
+		return dao.loginCheck(email, password);
+	}
+
 }

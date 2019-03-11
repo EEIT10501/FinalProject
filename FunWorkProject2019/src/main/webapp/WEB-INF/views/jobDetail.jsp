@@ -16,28 +16,28 @@
 	crossorigin="anonymous"></script>
 
 
-<title>首頁</title>
+<title>詳細工作頁面</title>
 <script>
 	$(document).ready(function() {
 		$(".addapplication").click(function() {
 			var que = $("#question").val();
-			if(${resumeBean.user.userId}==${jobBean.jobOwner.userId}){
-				alert("請勿應徵您刊登的工作");
-			}	
-			else if(que!=""){
+			if(${resumeBean.user.userId}==${jobBean.jobOwner.userId})
+				alert("請勿應徵您自己刊登的工作");
+				
+			else if(que!="")
 				$.ajax({
 					url : "<c:url value='/insertApplication/${resumeBean.user.userId}/${jobBean.jobId}/"+que+"/'></c:url>",
 					type : "GET",
 					success : function(data) {
-						window.alert("應徵成功!");
+						window.alert("投遞履歷成功!");
 						notification()
 						$(".cancel").trigger("click");
 					}
 					});
-			}
-			else{
-			window.alert("請回答問題");
-			}
+			
+			else
+			window.alert("請回答問題!");
+			
 			
 			
 			});
@@ -48,7 +48,7 @@
 			url : "<c:url value='/insertNotification/${resumeBean.user.userId}/${jobBean.jobOwner.userId}'></c:url>",
 			type : "GET",
 			success : function(data) {
-				window.alert("通知成功");
+				window.alert("敬請留意廠商通知喔!");
 			}
 			});
 	}
@@ -192,7 +192,7 @@
 								<table class="table table-striped">
 									<tbody>
 										<tr>
-											<td>${resumeBean.profilePic}</td>
+											<td>${resumeBean.profilePic}></td>
 											<td></td>
 										</tr>
 										<tr>

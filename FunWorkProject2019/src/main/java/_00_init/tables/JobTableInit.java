@@ -59,6 +59,8 @@ public class JobTableInit {
 				String jobCompany = token[20];
 				String submitTime = token[21];
 				String reviewTime = token[22];
+				String lat = token[23];
+				String lng = token[24];
 
 				Job job = new Job();
 				job.setAddress(address);
@@ -87,6 +89,8 @@ public class JobTableInit {
 				job.setJobCompany(companyid);
 				job.setSubmitTime(Timestamp.valueOf(submitTime));
 				job.setReviewTime(Timestamp.valueOf(reviewTime));
+				job.setJobLat(lat);
+				job.setJobLng(lng);
 				session.save(job);
 			}
 			tx.commit();
