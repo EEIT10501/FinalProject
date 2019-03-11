@@ -2,6 +2,7 @@ package com.funwork.service.impl;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +31,8 @@ public class CompanyServiceImp implements CompanyService {
 	
 	@Transactional
 	@Override
-	public void updateCompany(Company company) {
-
+	public void updateCompanyById(int id, Company company) {
+		dao.updateCompanyById(id, company);
 	}
 
 	@Transactional

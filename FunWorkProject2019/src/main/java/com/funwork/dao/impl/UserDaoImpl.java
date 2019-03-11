@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.UserDao;
+import com.funwork.model.Company;
 import com.funwork.model.User;
 
 @Repository
@@ -30,6 +31,13 @@ public class UserDaoImpl implements UserDao {
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
 		return list;
+	}
+	
+	@Override
+	public User findByPrimaryKey(int key) {
+		Session session = factory.getCurrentSession();
+		User user= session.get(User.class, key);
+		return user;
 	}
 
 	@Override

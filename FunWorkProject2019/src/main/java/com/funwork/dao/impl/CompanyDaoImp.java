@@ -43,14 +43,21 @@ public class CompanyDaoImp implements CompanyDao {
 	@Override
 	public void saveCompany(Company company) {
 		Session session = factory.getCurrentSession();
+		company.setLicensure(company.getLicensure());
 		session.save(company);
 	}
 	
 
 	@Override
-	public void updateCompany(Company company) {
+	public void updateCompanyById(int id,Company company) {
+		String hql = "UPDATE Company SET siteURL = :url, logo = :logo, coverPic = :coverPic, reviewStatus = :status WHERE companyId = :id";
 		Session session = factory.getCurrentSession();
-		session.update(company);
+		session.createQuery(hql).setParameter("url", company.getSiteURL()).
+		setParameter("logo", company.getLogo()).
+		setParameter("coverPic", company.getCoverPic()).
+		setParameter("status", "公司完成建檔").
+		setParameter("id", id).
+		executeUpdate();
 	}
 
 	@Override
