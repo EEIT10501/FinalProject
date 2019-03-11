@@ -52,6 +52,14 @@ public class MessageController {
 		}
 	}
 
+	@RequestMapping("/chat")
+	public String chatList(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		model.addAttribute("user", loginUser);
+		return "pages/chatList";
+	}
+	
 	@RequestMapping("/chat/{applicationId}")
 	public String Chat(Model model, @PathVariable("applicationId") Integer applicationId, HttpServletRequest req) {
 		HttpSession session = req.getSession();

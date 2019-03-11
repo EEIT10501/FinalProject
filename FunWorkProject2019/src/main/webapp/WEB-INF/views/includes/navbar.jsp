@@ -39,6 +39,7 @@
 				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">想要徵人</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">訊息</a></li>
 			</ul>
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"
@@ -184,13 +185,14 @@
 							setCookie("user", "", 0);
 							setCookie("password", "", 0);
 						}
-						$("#loginForm").submit();
+// 						$("#loginModal").modal('hide');
+						location.reload();
 						// 					$("#loginspan").text("<a class='nav-link btn btn-outline-secondary'>登入</a>");
 					} else if (data == "fail") {
 						alert("帳號或密碼錯誤!");
 					}
 				}
-			});
+			});	
 		});
 	</script>
 </body>
