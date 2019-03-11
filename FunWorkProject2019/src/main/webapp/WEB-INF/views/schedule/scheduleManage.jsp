@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +16,9 @@
 	href="https://shift.ekko.com.tw/asset/css/jquery.fancybox-1.3.4.css"
 	media="screen, projection" />
 
-<!-- <link type="text/css" rel="stylesheet" -->
-<!-- 	href="/FunWorkProject2019/css/screen.css" -->
-<!-- 	media="screen, projection" /> -->
-<!-- <link type="text/css" rel="stylesheet" -->
-<!-- 	href="/FunWorkProject2019/css/print.css" media="print" /> -->
+<link type="text/css" rel="stylesheet"
+	href="/FunWorkProject2019/css/jquery.timepicker.css"
+	media="screen, projection" />
 
 <script type="text/javascript"
 	src='<c:url value="/js/jquery-3.3.1.js"/>'></script>
@@ -32,6 +32,13 @@
 <script type="text/javascript"
 	src='<c:url value="/js/jquery.fancybox-1.3.4.pack.js"/>'></script>
 
+	
+<script type="text/javascript"
+	src='<c:url value="/js/jquery.timepicker.js"/>'></script>	
+<script type="text/javascript"
+	src='<c:url value="/js/datepair.js"/>'></script>
+<script type="text/javascript"
+	src='<c:url value="/js/jquery.datepair.js"/>'></script>
 
 <script type="text/javascript">
 	jQuery132(document).ready(function() {
@@ -45,6 +52,8 @@
 			}
 		});
 	});
+
+	
 </script>
 
 <title>班別管理</title>
@@ -55,8 +64,8 @@
 	<div class="" style="background-color: #FFFFCC">
 		<h2>班別管理</h2>
 		<div class="" style="background-color: #CCFFFF">
-			<a href='<c:url value="/addSchedule"/>' title="新增班表"
-				class="worker span-2 button" id="addSchedule">新增排班人員</a>
+			<a href='<c:url value="/addSchedule"/>' title="新增班別"
+				 id="addSchedule">新增班別</a>
 		</div>
 	</div>
 	<table id="example" class="display" style="width: 100%">
@@ -73,51 +82,29 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>早班</td>
-				<td><div width="20" height="20"
-						style="width: 20px; height: 20px; border: 1px solid #000000; background-color: #FFCCCC; margin: auto;">&nbsp;</div></td>
-				<td>06:00</td>
-				<td>14:30</td>
-				<td>0.5</td>
-				<td>8.0</td>
-				<td><a
-					href="https://shift.ekko.com.tw/group/edit_worker/14118.html"
-					title="編輯" class="image edit span-1" id="edit">編輯</a><a
-					href="https://shift.ekko.com.tw/group/delete_worker/14118.html"
-					title="刪除" class="image delete span-1" id="delete">刪除</a></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>中班</td>
-				<td><div width="20" height="20"
-						style="width: 20px; height: 20px; border: 1px solid #000000; background-color: #000fff; margin: auto;">&nbsp;</div></td>
-				<td>10:00</td>
-				<td>18:30</td>
-				<td>0.5</td>
-				<td>8.0</td>
-				<td><a
-					href="https://shift.ekko.com.tw/group/edit_worker/14118.html"
-					title="編輯" class="image edit span-1" id="edit">編輯</a><a
-					href="https://shift.ekko.com.tw/group/delete_worker/14118.html"
-					title="刪除" class="image delete span-1" id="delete">刪除</a></td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>晚班</td>
-				<td><div width="20" height="20"
-						style="width: 20px; height: 20px; border: 1px solid #000000; background-color: #00f0ff; margin: auto;">&nbsp;</div></td>
-				<td>14:30</td>
-				<td>21:00</td>
-				<td>0.5</td>
-				<td>8.0</td>
-				<td><a
-					href="https://shift.ekko.com.tw/group/edit_worker/14118.html"
-					title="編輯" class="image edit span-1" id="edit">編輯</a><a
-					href="https://shift.ekko.com.tw/group/delete_worker/14118.html"
-					title="刪除" class="image delete span-1" id="delete">刪除</a></td>
-			</tr>
+			<c:forEach var="schedule" items="${schedules}">
+				<tr>
+					<td>${schedule.scheduleId}</td>
+					<td>${schedule.scheduleName}</td>
+					<td><div width="20" height="20"
+							style="width: 20px; height: 20px; border: 1px solid #000000; background-color: ${schedule.color}; margin: auto;">&nbsp;</div></td>
+					<td><fmt:formatDate value="${schedule.startTime}" pattern="HH:mm"/></td>
+					<td><fmt:formatDate value="${schedule.endTime}" pattern="HH:mm"/></td>					
+					<td>${schedule.restHour}</td>
+					<td>${schedule.workingHours}</td>
+					<td><a   
+						href="<spring:url value='/updateSchedule?scheduleId=${schedule.scheduleId}' />"
+						title="編輯" class="image edit span-1" id="updateSchedule"><img src='<c:url value="/image/edit.png"/>' title="編輯" alt="編輯" width="20px"></a>
+						<a
+						href="<spring:url value='/deleteSchedule?scheduleId=${schedule.scheduleId}' />"
+						title="刪除" class="image delete span-1" id="delete"><img src='<c:url value="/image/delete.png"/>' title="刪除" alt="刪除" width="22px"></a>
+						</td>
+				</tr>
+<!-- 						<div class="" style="background-color: #CCFFFF"> -->
+<%-- 			<a href='<c:url value="/addSchedule"/>' title="新增班別" --%>
+<!-- 				class="worker span-2 button" id="addSchedule">新增班別</a> -->
+<!-- 		</div> -->
+			</c:forEach>
 		</tbody>
 		<tfoot>
 			<tr>
@@ -137,7 +124,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("a#addSchedule").live('click', function(e) {
+			$("a#addSchedule,a#updateSchedule").live('click', function(e) {
 				e.preventDefault();
 				$.fancybox(this, {
 					'scrolling' : 'no',
@@ -148,7 +135,7 @@
 					'type' : 'inline'
 				});
 			});
-			;
+
 		})
 	</script>
 </body>

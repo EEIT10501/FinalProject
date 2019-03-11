@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funwork.dao.ScheduleDao;
+import com.funwork.model.Notification;
 import com.funwork.model.Schedule;
-import com.funwork.service.ScheuleService;
+import com.funwork.service.ScheduleService;
 
 @Service
-public class ScheduleServiceImpl implements ScheuleService {
+public class ScheduleServiceImpl implements ScheduleService {
 
 	@Autowired
 	ScheduleDao dao;
@@ -30,6 +31,29 @@ public class ScheduleServiceImpl implements ScheuleService {
 	public List<Schedule> getSchedulesByJobId(Integer jobId) {
 		return dao.getSchedulesByJobId(jobId);
 	}
+	
+	@Transactional
+	@Override
+	public void insertSchedule(Schedule schedule) {
+		dao.insertSchedule(schedule);
+	}
 
+	@Transactional
+	@Override
+	public void deleteScheduleByPrimaryKey(int scheduleId) {
+		dao.deleteScheduleByPrimaryKey(scheduleId);
+	}
+	
+	@Transactional
+	@Override
+	public void updateScheduleByPrimaryKey(Schedule schedule) {
+		dao.updateScheduleByPrimaryKey(schedule);
+	}
+	
+	@Transactional
+	@Override
+	public Schedule getScheduleByPrimaryKey(int scheduleId) {
+		return dao.getScheduleByPrimaryKey(scheduleId);
+	}
 
 }

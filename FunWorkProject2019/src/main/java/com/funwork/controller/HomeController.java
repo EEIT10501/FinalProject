@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.funwork.model.Resume;
 import com.funwork.service.MessageService;
 import com.funwork.service.ResumeService;
-import com.funwork.service.ScheuleService;
+import com.funwork.service.ScheduleService;
 
 @Controller
 public class HomeController {
@@ -29,7 +29,7 @@ public class HomeController {
 	@Autowired
 	MessageService messageService;
 	@Autowired
-	ScheuleService scheuleService;
+	ScheduleService scheuleService;
 	@Autowired
 	ResumeService resumeService;
 	@Autowired
