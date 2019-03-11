@@ -10,8 +10,6 @@ public interface CompanyService {
 
 	void saveCompany(Company company);
 
-	void updateCompany(Company company);
-
 	void deleteCompanyByPrimaryKey(int key);
 
 	List<Company> findAllCompanys();
@@ -23,4 +21,6 @@ public interface CompanyService {
 	Company findByName(String name);
 	
 	List<Company> findAllCompanys(String reviewStatus);
+
+	void updateCompanyById(int id, Company company);
 }
