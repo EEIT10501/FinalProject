@@ -15,95 +15,151 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
 <script type="text/javascript"
-	src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+	src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
+
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
+	async defer></script>
 
 <title>找工作</title>
 <script>
 	$(document).ready(function() {
-		$('#example').DataTable();
+		$("#jobtable").DataTable();
 
 	});
-</script>
-</head>
-<style>
-.card-text-size {
-	font-size: 14px;
-}
 
+	var map, infoWindow;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById("map"), {
+			center : {
+				lat : 25.052,
+				lng : 121.532
+			},
+			zoom : 12
+		});
+
+		infoWindow = new google.maps.InfoWindow;
+
+		// Try HTML5 geolocation.
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat : position.coords.latitude,
+					lng : position.coords.longitude
+				};
+
+				infoWindow.setPosition(pos);
+				infoWindow.setContent("我的位置");
+				infoWindow.open(map);
+				map.setCenter(pos);
+			}, function() {
+				handleLocationError(true, infoWindow, map.getCenter());
+			});
+		} else {
+			// Browser doesn't support Geolocation
+			handleLocationError(false, infoWindow, map.getCenter());
+		}
+				
+		
+	}
+
+	function addMarker() {
+		<c:forEach var="job" items="${jobs}"> 
+			var latLng = new google.maps.LatLng(${job.jobLat}, ${job.jobLng});
+			var marker${job.jobId} = new google.maps.Marker({
+				position : latLng,
+				map : map,
+				title: "${job.title}"
+			});
+			
+			var contentString = "<div>${job.address}</div>"
+		      
+			var infowindow${job.jobId} = new google.maps.InfoWindow({
+			    content: contentString
+			  });
+			
+			marker${job.jobId}.addListener("click", function() {
+		          infowindow${job.jobId}.open(map, marker${job.jobId});
+		        });
+			</c:forEach>
+		}
+	
+
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+		infoWindow.setPosition(pos);
+		infoWindow
+				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
+						: 'Error: Your browser doesn\'t support geolocation.');
+		infoWindow.open(map);
+	}
+</script>
+
+
+<style>
 .footerbackground {
 	background: #343a40;
 	color: white;
 }
 
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
-}
-
-.asideblock {
-	height: 600px;
-}
-
-.btn {
-	margin-right: 5px;
-}
-
 .btn-group {
 	margin-bottom: 5px;
 }
+
+
+table.dataTable thead .sorting {
+	background-image:
+		url("<c:url value='/datatableimages/sort_both.png'></c:url>")
+}
+
+
+
+table.dataTable thead .sorting_asc {
+	background-image:
+		url("<c:url value='/datatableimages/sort_asc.png'></c:url>")
+}
+
+
+
+table.dataTable thead .sorting_desc {
+	background-image:
+		url("<c:url value='/datatableimages/sort_desc.png'></c:url>")
+}
+
+
+
+table.dataTable thead .sorting_asc_disabled {
+	background-image:
+		url("<c:url value='/datatableimages/sort_asc_disabled.png'></c:url>")
+}
+
+
+
+table.dataTable thead .sorting_desc_disabled {
+	background-image:
+		url("<c:url value='/datatableimages/sort_desc_disabled.png'></c:url>")
+}
+
+#map {
+	height: 400px;
+	margin-bottom: 5px;
+}
+
 </style>
+
+</head>
+
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<a class="navbar-brand" href="#"> <img
-			src="/FunWorkProject2019/image/LOGO.jpg" width="30" height="30"
-			class="d-inline-block align-top"> EEIT趣打工
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarTogglerDemo03"
-			aria-controls="navbarTogglerDemo03" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="jobs">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
-			</ul>
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
-			<span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="#">登入</a>
-			</span> <span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
-			</span>
-		</div>
-	</nav>
+
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
+
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
-		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">黃金會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a>
-				</div>
-			</div>
-			<div class="col-sm-8">
+		<div class="row m-3 justify-content-around align-items-center">
+
+			<div class="col-sm-7">
 				<!--             程式寫在這 -->
 
 				<div class="btn-group">
@@ -133,7 +189,7 @@
 					<h3 style="color: black">該區域目前無工作，請選擇其他區域</h3>
 				</c:if>
 
-				<table class="table table-hover display" id="example">
+				<table class="table table-hover dataTable" id="jobtable">
 					<thead>
 						<tr>
 							<th>職缺名稱</th>
@@ -150,7 +206,7 @@
 								<td>${job.city.cityName}</td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.isFilled}</td>
-								<td><a href="jobDetail/${job.jobId}"
+								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
 									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
 							</tr>
@@ -159,12 +215,16 @@
 				</table>
 
 			</div>
-			<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-5">
+				<input type="button" class="btn btn-secondary"
+					style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作">
+				<div id="map"></div>
+			</div>
 		</div>
 	</div>
 
-	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
+	<div class="container-fluid footerbackground">
+		<div class="row no-gutter">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>

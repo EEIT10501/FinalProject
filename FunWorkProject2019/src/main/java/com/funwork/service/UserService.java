@@ -9,4 +9,10 @@ public interface UserService {
 	List<User> getAllUsers();
 
 	User findByPrimaryKey(int key);
+	
+	User getUserById(Integer userId);
+	
+	void insertUser(User user);
+	
+	User loginCheck(String email, String password);
 }

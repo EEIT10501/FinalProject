@@ -18,10 +18,11 @@ public class Resume {
 	private Integer resumeId;
 	private String name;
 	private String phoneNum;
-	private Date bitrh;
+	private Date birth; 
 	private String educationLevel;
 	private Blob profilePic;
 	private String selfIntro;
+	private String fileName;
 	private User user;
 
 	public Resume() {
@@ -54,12 +55,12 @@ public class Resume {
 		this.phoneNum = phoneNum;
 	}
 
-	public Date getBitrh() {
-		return bitrh;
+	public Date getBirth() {
+		return birth;
 	}
 
-	public void setBitrh(Date bitrh) {
-		this.bitrh = bitrh;
+	public void setBirth(Date bitrh) {
+		this.birth = bitrh;
 	}
 
 	public String getEducationLevel() {
@@ -94,6 +95,14 @@ public class Resume {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

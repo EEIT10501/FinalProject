@@ -41,7 +41,6 @@ public class Company implements Serializable{
 	private Clob description;
 	private String siteURL;
 	private String fileName;
-	private String forRecordColumn;
 
 	@JsonIgnore
 	private MultipartFile companyLicensureImage;
@@ -109,14 +108,13 @@ public class Company implements Serializable{
 		this.companyLicensureImage = companyLicensureImage;
 		this.companyLogo = companyLogo;
 		this.coverPic = coverPic;
-		this.forRecordColumn = forRecordColumn;
 	}
 
 
 
 	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
 			Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
-			MultipartFile companyLicensureImage, MultipartFile companyLogo,MultipartFile companyCoverPic, String forRecordColumn,User user) {
+			MultipartFile companyLicensureImage, MultipartFile companyLogo,MultipartFile companyCoverPic, User user) {
 		super();
 		this.companyId = companyId;
 		this.name = name;
@@ -133,7 +131,6 @@ public class Company implements Serializable{
 		this.companyLicensureImage = companyLicensureImage;
 		this.companyLogo = companyLogo;
 		this.coverPic = coverPic;
-		this.forRecordColumn = forRecordColumn;
 		this.user = user;
 	}
 
@@ -241,14 +238,6 @@ public class Company implements Serializable{
 		this.fileName = fileName;
 	}
 	
-	@Column(columnDefinition = "nvarchar(255) default '審查中' ")
-	public String getForRecordColumn() {
-		return forRecordColumn;
-	}
-
-	public void setForRecordColumn(String forRecordColumn) {
-		this.forRecordColumn = forRecordColumn;
-	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Fk_User_Id")

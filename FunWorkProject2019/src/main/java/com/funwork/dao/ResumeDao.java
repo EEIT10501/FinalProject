@@ -7,4 +7,6 @@ import com.funwork.model.Resume;
 public interface ResumeDao {
 
 	List<Resume> getAllResumes();
+
+	Resume getResumeByUserId(Integer userId);
 }

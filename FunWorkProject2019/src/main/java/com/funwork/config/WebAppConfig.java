@@ -37,19 +37,22 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 
-//	@Override
+
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/css/");
 		registry.addResourceHandler("/image/**").addResourceLocations("/WEB-INF/views/images/");
+		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/workimages/");
+		registry.addResourceHandler("/DataTables/**").addResourceLocations("/WEB-INF/views/DataTables/datatables/");
+		registry.addResourceHandler("/datatableimages/**").addResourceLocations("/WEB-INF/views/DataTables/datatableimages/");
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
 		resource.setBasename("messages");
 		return resource;
 	}
-	
+
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -57,13 +60,14 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		resolver.setMaxUploadSize(81920000);
 		return resolver;
 	}
-		
+
 	@Bean
 	public MappingJackson2JsonView jsonView() {
 		MappingJackson2JsonView view = new MappingJackson2JsonView();
 		view.setPrettyPrint(true);
 		return view;
 	}
+
 	@Bean
 	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
 		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();

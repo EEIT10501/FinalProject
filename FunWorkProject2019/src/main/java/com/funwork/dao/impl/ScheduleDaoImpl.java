@@ -30,7 +30,16 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Schedule> getSchedulesByJobId(Integer jobId) {
+		String hql = "FROM Schedule where Fk_Job_Id = :jobId";
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+		return list;
+	}
 
 }

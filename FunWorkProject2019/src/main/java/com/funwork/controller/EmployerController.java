@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,23 +60,27 @@ public class EmployerController {
 	public String accessCompanyMain() {
 		return "employerManage/employerPortal";
 	}
-	
+
 	@RequestMapping("/mainHub")
 	public String accessMain() {
 		return "employerManage/mainHub";
 	}
-	
-	
+
 	@RequestMapping("/pages/indexTest")
 	public String login() {
 		return "pages/indexTest";
 	}
-	
+
 	@RequestMapping("/addJobProfile")
 	public String buildCorpProfile() {
 		return "employerManage/addJobProfile";
 	}
-	
+
+	@RequestMapping("/addCorpProfile")
+	public String addCorpProfile() {
+		return "employerManage/addCorpProfile";
+	}
+
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model) {
 		List<Job> list = jobService.getAllJobs();
@@ -91,13 +96,33 @@ public class EmployerController {
 		return "employerManage/manageCompanyPage";
 	}
 
-//	@RequestMapping(value="/resultCorStatsJSON",method = RequestMethod.GET, produces = { "application/json" })
-//	public ResponseEntity<List<Company>> getcompanysByReviewStatus(Model model, @RequestParam("qstr") String status) {
-//		System.out.println("received AJAX request and qstr is "+status);
-//		List<Company> list = companyService.findAllCompanys(status);
-//		ResponseEntity<List<Company>> re = new ResponseEntity<>(list,HttpStatus.OK);
-//		return re;
-//	}
+	@RequestMapping("/jobManCond")
+	public String jobManCond(Model model) {
+		List<Company> list = companyService.findAllCompanys();
+		model.addAttribute("companys", list);
+		return "test";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/searchResultByReviewStatus")
+	public String getcompanysByReviewStatus(@RequestParam("qstr") String status, Model model) {
+		System.out.println("received AJAX request and qstr is " + status);
+		System.out.println("new request model content before service called: " + model.containsAttribute("companys"));
+		List<Company> companys = companyService.findAllCompanys(status);
+		System.out.println("companys list contains element(T:Empty): " + companys.isEmpty());
+		System.out.println("list element number is " + companys.size());
+		for (Company c : companys) {
+			System.out.println(c.toString());
+		}
+		model.addAttribute("companys", companys);
+		model.addAttribute("flag", companys);
+//		return "redirect:/employerManage/manageCompanyPage";
+//		return "redirect:employerManage/manageCompanyPage";
+//		return "redirect:/manageCompanyPage";
+//		return "employerManage/manageCompanyPage" + "";
+		return "OK";
+	}
+
 	
 	@RequestMapping(value="/resultCorStatsJSON/{qstr}",method = RequestMethod.GET, produces = { "application/json" })
 	public ResponseEntity<List<Company>> getcompanysByReviewStatus(Model model, @PathVariable("qstr") String qstr) {
@@ -107,6 +132,7 @@ public class EmployerController {
 		return re;
 	}
 	
+
 	@RequestMapping("/company")
 	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
 		System.out.println(id);
@@ -136,11 +162,10 @@ public class EmployerController {
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
+
 		MultipartFile image = cb.getCompanyLicensureImage();
-		System.out.println(image.getClass());
 		String originalFilename = image.getOriginalFilename();
 		cb.setFileName(originalFilename);
-
 		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 		String rootDirectory = context.getRealPath("/");
 
@@ -157,8 +182,8 @@ public class EmployerController {
 		companyService.saveCompany(cb);
 		return "redirect:/manageCompanyPage";
 	}
-	
-	@RequestMapping("/addCorpProfile")
+
+	@RequestMapping(value="/addCorpProfile",method=RequestMethod.GET)
 	public String getAddCorpProfileForm(@RequestParam("id") Integer id, Model model) {
 		System.out.println("here");
 		model.addAttribute("companyBean", companyService.findByPrimaryKey(id));
@@ -349,7 +374,7 @@ public class EmployerController {
 		}
 		return b;
 	}
-	
+
 
 	@ExceptionHandler(CompanyNotFoundException.class)
 	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {
@@ -360,4 +385,5 @@ public class EmployerController {
 		mv.setViewName("companyNotFound");
 		return mv;
 	}
+
 }

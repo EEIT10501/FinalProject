@@ -29,5 +29,23 @@ public class UserServiceImpl implements UserService {
 	public User findByPrimaryKey(int key) {
 		return dao.findByPrimaryKey(key);
 	}
-	
+
+	@Transactional
+	@Override
+	public User getUserById(Integer userId) {
+		return dao.getUserById(userId);
+	}
+
+	@Transactional
+	@Override
+	public void insertUser(User user) {
+		dao.insertUser(user);
+	}
+
+	@Transactional
+	@Override
+	public User loginCheck(String email, String password) {
+		return dao.loginCheck(email, password);
+	}
+
 }

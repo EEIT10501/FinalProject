@@ -40,6 +40,8 @@ public class Job {
 	private String failReason;
 	private User jobOwner;
 	private Company jobCompany;
+	private String jobLat;
+	private String jobLng;
 
 	public Job() {
 	}
@@ -256,6 +258,22 @@ public class Job {
 
 	public void setFailReason(String failReason) {
 		this.failReason = failReason;
+	}
+
+	public String getJobLat() {
+		return jobLat;
+	}
+
+	public void setJobLat(String jobLat) {
+		this.jobLat = jobLat;
+	}
+
+	public String getJobLng() {
+		return jobLng;
+	}
+
+	public void setJobLng(String jobLng) {
+		this.jobLng = jobLng;
 	}
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Message {
 
@@ -20,6 +22,7 @@ public class Message {
 	private Integer status;
 	private User receiver;
 	private User sender;
+	@JsonIgnoreProperties({"user", "job"})
 	private Application application;
 
 	public Message() {
