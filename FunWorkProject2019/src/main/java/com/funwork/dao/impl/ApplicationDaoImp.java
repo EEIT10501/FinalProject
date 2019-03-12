@@ -64,7 +64,6 @@ public class ApplicationDaoImp implements ApplicationDao {
 		Session session = factory.getCurrentSession();
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Application> findAllApplicantByJobId(Job job) {
@@ -73,7 +72,6 @@ public class ApplicationDaoImp implements ApplicationDao {
 		List<Application> list = session.createQuery(hql).setParameter("job", job).getResultList();
 		return list;
 	}
-	
 
 	@Override
 	public void deleteAllApplications() {
@@ -102,6 +100,13 @@ public class ApplicationDaoImp implements ApplicationDao {
 		Application ap = session.get(Application.class, apId);
 		ap.setLatestMsg(msg);
 		ap.setLatestMsgTime(new Timestamp(System.currentTimeMillis()));
+	}
+
+	@Override
+	public void refuseUser(Integer apId) {
+		Session session = factory.getCurrentSession();
+		Application ap = session.get(Application.class, apId);
+		ap.setAppliedStatus("已婉拒");
 	}
 
 }

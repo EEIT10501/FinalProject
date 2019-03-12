@@ -5,8 +5,8 @@ import java.util.List;
 import com.funwork.model.Interview;
 
 public interface InterviewService {
-Interview findByPrimaryKey(int key);
-	
+	Interview findByPrimaryKey(int key);
+
 	void saveInterview(Interview interview);
 
 	void updateInterview(Interview interview);

@@ -6,7 +6,6 @@
 
 <!DOCTYPE html>
 <html lang="zh-TW">
-<html>
 <head>
 <meta charset='UTF-8' />
 
