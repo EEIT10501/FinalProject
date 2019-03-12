@@ -38,11 +38,13 @@ public class ScheduleController {
 	public String calendarTest() {
 		return "schedule/calendarTest";
 	}
+
 	
 	@RequestMapping("/calendarTest2")
 	public String calendarTest2() {
 		return "schedule/calendarTest2";
 	}
+
 
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.GET)
 	public String getScheduleForm(Model model) {

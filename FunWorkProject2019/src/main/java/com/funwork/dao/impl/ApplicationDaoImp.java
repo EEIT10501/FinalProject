@@ -84,7 +84,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	@Override
 	public List<Application> getApplicationByUserId(Integer userId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2) and a.latestMsg IS NOT NULL ORDER BY a.latestMsgTime ASC";
+		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2) and a.latestMsg IS NOT NULL ORDER BY a.latestMsgTime DESC";
 		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId)
 				.getResultList();
 		return list;

@@ -54,7 +54,6 @@
 	}
 </script>
 <style>
-
 .footerbackground {
 	background: #343a40;
 	color: white;
@@ -75,7 +74,7 @@
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
@@ -175,9 +174,8 @@
 						data-target="#resumeModal">我要應徵</button>
 				</div>
 
-				<div class="modal fade" id="resumeModal" tabindex="-1"
-					role="dialog" aria-labelledby="exampleModalLabel"
-					aria-hidden="true">
+				<div class="modal fade" id="resumeModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -189,10 +187,13 @@
 							</div>
 							<div class="modal-body">
 								<!-- 彈出視窗：寫程式的地方 -->
+								<c:if test="${empty resumeBean}">
+									<h5 style="color: red">請先登入系統</h5>
+								</c:if>
 								<table class="table table-striped">
 									<tbody>
 										<tr>
-											<td>${resumeBean.profilePic}></td>
+											<td>${resumeBean.profilePic}</td>
 											<td></td>
 										</tr>
 										<tr>
@@ -227,13 +228,16 @@
 
 									</tbody>
 								</table>
+							</div>
+							<c:if test="${resumeBean!=null}">
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary cancel"
+										data-dismiss="modal">取消</button>
 
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary cancel"
-									data-dismiss="modal">取消</button>
-								<button type="button" class="btn btn-primary addapplication">送出</button>
-							</div>
+									<button type="button" class="btn btn-primary addapplication">送出</button>
+
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
