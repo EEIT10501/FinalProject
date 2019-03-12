@@ -64,7 +64,23 @@ var id = 1;
 			editable: true,   //是否可拖曳
 			businessHours: true, //顯示小時
 			eventLimit: true, // when too many events in a day, show the popover
-			events : 'https://fullcalendar.io/demo-events.json'
+			events : 'https://fullcalendar.io/demo-events.json',
+			eventMouseover:function(event,domEvent,view){
+
+			    var el=$(this);
+
+			    var layer='<div id="events-layer" class="fc-transparent"><span id="delbut'+event.id+'" class="btn btn-primary trash btn-xs">刪除</span></div>';
+			    el.append(layer);
+
+			    el.find(".fc-bg").css("pointer-events","none");
+
+			    $("#delbut"+event.id).click(function(){
+			    	$('#calendar').fullCalendar('removeEvents', event._id);
+			    });
+			},
+			eventMouseout:function(event){
+			    $("#events-layer").remove();
+			}
 		});
 
 	});
@@ -94,7 +110,5 @@ html, body {
 <body>
 	<h2>Test Calendar</h2>
 	<div id='calendar'></div>
-<input type="number" placeholder="請輸入欲刪除的編號" id="eventId"> 
-<input type="button" onclick="deleteEvent()" value="DELETE">
 </body>
 </html>
