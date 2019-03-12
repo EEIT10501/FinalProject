@@ -41,7 +41,7 @@
 				<li class="nav-item"><a class="nav-link" href="<c:url value='#'></c:url>">會員專區</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">我的訊息</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">我的訊息<span id="newMsg"></span></a></li>
 			</ul>
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"
@@ -190,7 +190,6 @@
 							setCookie("user", "", 0);
 							setCookie("password", "", 0);
 						}
-// 						$("#loginModal").modal('hide');
 						location.reload();
 						// 					$("#loginspan").text("<a class='nav-link btn btn-outline-secondary'>登入</a>");
 					} else if (data == "fail") {
@@ -199,6 +198,17 @@
 				}
 			});	
 		});
+		
+		$(function() {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/newMsg",
+				type : "GET",
+				success : function(data) {
+					$("#newMsg").html("(" + data + ")");
+				}
+			});	
+		});
+		
 	</script>
 </body>
 </html>

@@ -47,7 +47,19 @@ public class MessageServiceImpl implements MessageService {
 
 	@Transactional
 	@Override
-	public void insertMessage(String message, String userId, String toUserId, String apId) {
-		dao.insertMessage(message, userId, toUserId, apId);
+	public void insertMessage(String message, String userId, String toUserId, String apId, Integer isRead) {
+		dao.insertMessage(message, userId, toUserId, apId, isRead);
+	}
+
+	@Transactional
+	@Override
+	public void changeMsgStatusToRead(Integer userId, Integer adId) {
+		dao.changeMsgStatusToRead(userId, adId);
+	}
+
+	@Transactional
+	@Override
+	public int getNewMsgCount(Integer userId) {
+		return dao.getNewMsgCount(userId);
 	}
 }

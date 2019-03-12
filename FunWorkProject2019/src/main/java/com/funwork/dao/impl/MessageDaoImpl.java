@@ -59,7 +59,7 @@ public class MessageDaoImpl implements MessageDao {
 	}
 
 	@Override
-	public void insertMessage(String message, String userId, String toUserId, String apId) {
+	public void insertMessage(String message, String userId, String toUserId, String apId, Integer isRead) {
 		Session session = factory.getCurrentSession();
 		Application ap = session.get(Application.class, Integer.valueOf(apId));
 		User sender = session.get(User.class, Integer.valueOf(userId));
@@ -70,7 +70,24 @@ public class MessageDaoImpl implements MessageDao {
 		msg.setReceiver(receiver);
 		msg.setSender(sender);
 		msg.setApplication(ap);
+		msg.setStatus(isRead);
 		session.save(msg);
+	}
+
+	@Override
+	public void changeMsgStatusToRead(Integer userId, Integer adId) {
+		Session session = factory.getCurrentSession();
+		String hql = "UPDATE Message m SET m.status = 1 WHERE m.receiver.userId = :userId AND m.application.applicationId = :apId";
+		session.createQuery(hql).setParameter("userId", userId).setParameter("apId", adId).executeUpdate();
+	}
+
+	@Override
+	public int getNewMsgCount(Integer userId) {
+		Session session = factory.getCurrentSession();
+		String hql = "SELECT count(*) FROM Message m where m.receiver.userId = :userId and m.status = 0";
+		Long count = (Long) session.createQuery(hql).setParameter("userId", userId).uniqueResult();
+
+		return count.intValue();
 	}
 
 }

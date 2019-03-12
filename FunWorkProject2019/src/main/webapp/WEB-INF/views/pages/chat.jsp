@@ -46,9 +46,12 @@
 					<c:otherwise>
 						<p>${application.user.userName}於<fmt:formatDate value="${application.applicationTime}" pattern="yyyy/MM/dd" />應徵了此工作</p>
 					</c:otherwise>
-				</c:choose>
-				<table class="table table-hover" id="msg">
-				</table>
+				</c:choose>		
+				<div style="width:100%;height:400px;overflow:auto" id="myDiv">	
+					<table class="table table-hover" id="msgTable">
+						<tbody id="msg"></tbody>
+					</table>		
+				</div>		
 				<div class="col-lg">
 					<div class="input-group">
 						<input type="hidden" id="userId" value="${user.userId}"> 
@@ -115,6 +118,9 @@
 			function send() {
 				if (websocket != null) {
 					var message = $("#message").val();
+					if(message == ""){
+						return;
+					}
 					message = message;
 					websocket.send(message);
 
@@ -152,9 +158,12 @@
 							
 							$("<tr>").appendTo("#msg")
 							.append(imgTr)
-							.append($("<td>").text(element.sender.userName + "：" + element.content))
+							.append($("<td width='50'>"))
+							.append($("<td width='620px'>").text(element.sender.userName + "：" + element.content))
 							.append($("<td>").text(timeStr));
 						});
+						
+						$("#myDiv").scrollTop(10000);
 					}
 				});
 				
@@ -185,8 +194,18 @@
 						});
 					}
 				});
+				
 			}	
 			getOldMsg();
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/newMsg",
+				type : "GET",
+				success : function(data) {
+					$("#newMsg").html("(" + data + ")");
+				}
+			});	
+			
 		});
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
