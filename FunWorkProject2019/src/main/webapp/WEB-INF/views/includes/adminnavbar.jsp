@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>navbar</title>
+<title>adminnavbar</title>
 <style>
 .nav-item:hover {
-	background-color: gray;
+	background-color: skyblue;
 	border-radius: 15px;
 }
 
@@ -19,10 +19,10 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: #e3f2fd;">
 		<a class="navbar-brand" href="#"> <img
 			src="<c:url value='/image/LOGO.jpg'></c:url>" width="30" height="30"
-			class="d-inline-block align-top"> EEIT趣打工
+			class="d-inline-block align-top"> EEIT趣打工管理
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarTogglerDemo03"
@@ -33,23 +33,14 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
-					href="<c:url value='/'></c:url>">首頁 <span class="sr-only">(current)</span>
+					href="<c:url value='/'></c:url>">首頁 <span class="sr-only"></span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'></c:url>">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">想要徵人</a></li>
-				<c:if test="${loginUser!=null}">
-				<li class="nav-item"><a class="nav-link" href="<c:url value='#'></c:url>">會員專區</a></li>
-				</c:if>
-				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
-				<c:if test="${loginUser!=null}">
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">我的訊息<span id="newMsg"></span></a></li>
-				</c:if>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'></c:url>">職缺審核</a></li>
+				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">申訴處理</a></li>			
+				<li class="nav-item"><a class="nav-link" href="<c:url value='#'></c:url>">評核系統</a></li>			
+				<li class="nav-item"><a class="nav-link" href="#">加值服務</a></li>
 			</ul>
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
+			
 			<c:if test="${empty loginUser}">
 				<span class="navbar-text my-2 my-sm-0" id="loginspan"> <a
 					class="nav-link btn btn-outline-secondary" data-toggle="modal"
@@ -63,9 +54,7 @@
 							value="${loginUser.userName} : 您好"></c:out></a>
 				</span>
 			</c:if>
-			<span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
-			</span>
+			
 		</div>
 
 	</nav>

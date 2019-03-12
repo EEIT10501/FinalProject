@@ -17,8 +17,6 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
-
-
 <script type="text/javascript"
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
 	async defer></script>
@@ -74,8 +72,7 @@
 				title: "${job.title}"
 			});
 			
-			var contentString = "<div>${job.address}</div>"
-		      
+			var contentString = "<div><h6>${job.title}<h6></div><div style='margin-bottom:5px'>${job.address}</div><a href='<c:url value='/jobDetail/${job.jobId}'/>' class='btn btn-primary'><span class='glyphicon-info-sigh glyphicon'></span> 詳細資料 </a>"
 			var infowindow${job.jobId} = new google.maps.InfoWindow({
 			    content: contentString
 			  });
