@@ -79,7 +79,7 @@ public class WebSocketChat {
 		if (userSocket.containsKey(userId)) {
 //			System.out.println(" 給userId為：{" + userId + "}的所有終端發送訊息：{" + message + "}");
 			for (WebSocketChat WS : userSocket.get(userId)) {
-				System.out.println("sessionId為:{" + WS.session.getId() + "}");
+//				System.out.println("sessionId為:{" + WS.session.getId() + "}");
 				try {
 					WS.session.getBasicRemote().sendText(message);
 				} catch (IOException e) {
@@ -90,7 +90,7 @@ public class WebSocketChat {
 			}
 			return true;
 		}
-		System.out.println("發送錯誤：目前連線不包含id：{" + userId + "}的用户");
+//		System.out.println("{" + userId + "}不在線上");
 		return false;
 	}
 }

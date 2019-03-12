@@ -3,6 +3,7 @@ package com.funwork.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,28 +43,43 @@ public class MessageController {
 			@RequestParam(value = "message", required = true) String message,
 			@RequestParam(value = "apId", required = true) String apId) {
 
-		messageService.insertMessage(message, userId, toUserId, apId);
 		applicationService.updateLatestMsg(Integer.valueOf(apId), message);
 
 		if (wsMessageService.sendToAllTerminal(toUserId, message)) {
+			messageService.insertMessage(message, userId, toUserId, apId, 1);
 			return "sucess";
 		} else {
+			messageService.insertMessage(message, userId, toUserId, apId, 0);
 			return "fail";
 		}
 	}
 
 	@RequestMapping("/chat")
-	public String chatList(Model model, HttpServletRequest req) {
+	public String chatList(Model model, HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		model.addAttribute("user", loginUser);
+		res.setHeader("Cache-Control", "no-cache");
+		res.setHeader("Cache-Control", "no-store");
+		res.setDateHeader("Expires", 0);
+		res.setHeader("Pragma", "no-cache");
 		return "pages/chatList";
 	}
-	
+
 	@RequestMapping("/chat/{applicationId}")
-	public String Chat(Model model, @PathVariable("applicationId") Integer applicationId, HttpServletRequest req) {
+	public String Chat(Model model, @PathVariable("applicationId") Integer applicationId, HttpServletRequest req,
+			HttpServletResponse res) {
 		HttpSession session = req.getSession();
+		res.setHeader("Cache-Control", "no-cache");
+		res.setHeader("Cache-Control", "no-store");
+		res.setDateHeader("Expires", 0);
+		res.setHeader("Pragma", "no-cache");
+
 		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser == null) {
+			return "redirect:/";
+		}
+
 		User user = null;
 		User toUser = null;
 		List<Message> list = messageService.getOldMessageByApplicationId(applicationId);
@@ -92,7 +108,10 @@ public class MessageController {
 	}
 
 	@RequestMapping(value = "/chatJSON", method = RequestMethod.GET, produces = { "application/json" })
-	public ResponseEntity<List<Message>> getOldMsgByApId(@RequestParam("apId") Integer apId) {
+	public ResponseEntity<List<Message>> getOldMsgByApId(@RequestParam("apId") Integer apId, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		messageService.changeMsgStatusToRead(loginUser.getUserId(), apId);
 		List<Message> list = messageService.getOldMessageByApplicationId(apId);
 		ResponseEntity<List<Message>> re = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
@@ -105,4 +124,17 @@ public class MessageController {
 		return re;
 	}
 
+	@RequestMapping("/newMsg")
+	@ResponseBody
+	public int newMsg(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		int count;
+		if (loginUser == null) {
+			count = 0;
+		} else {
+			count = messageService.getNewMsgCount(loginUser.getUserId());
+		}
+		return count;
+	}
 }
