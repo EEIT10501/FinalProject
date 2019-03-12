@@ -17,8 +17,6 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
-
-
 <script type="text/javascript"
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
 	async defer></script>

@@ -41,7 +41,9 @@
 				<li class="nav-item"><a class="nav-link" href="<c:url value='#'></c:url>">會員專區</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
+				<c:if test="${loginUser!=null}">
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">我的訊息<span id="newMsg"></span></a></li>
+				</c:if>
 			</ul>
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"

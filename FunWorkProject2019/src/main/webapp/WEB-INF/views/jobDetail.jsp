@@ -14,12 +14,19 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
+	
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
+	async defer></script>
 
 <title>詳細工作頁面</title>
 <script>
+
 	$(document).ready(function() {
+		<c:if test="${resumeBean!=null}" >
 		$(".addapplication").click(function() {
 			var que = $("#question").val();
+			
 			if(${resumeBean.user.userId}==${jobBean.jobOwner.userId})
 				alert("請勿應徵您自己刊登的工作");
 				
@@ -37,8 +44,9 @@
 			window.alert("請回答問題!");			
 			
 			});
+		</c:if>
 		});
-	
+
 	function notification(){
 		$.ajax({
 			url : "<c:url value='/insertNotification/${resumeBean.user.userId}/${jobBean.jobOwner.userId}'></c:url>",
@@ -47,6 +55,69 @@
 				window.alert("敬請留意廠商通知喔!");
 			}
 			});
+	}
+	
+	var map, infoWindow;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById("map"), {
+			center : {
+				lat : 25.052,
+				lng : 121.532
+			},
+			zoom : 12
+		});
+
+		infoWindow = new google.maps.InfoWindow;
+
+		// Try HTML5 geolocation.
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat : position.coords.latitude,
+					lng : position.coords.longitude
+				};
+
+				infoWindow.setPosition(pos);
+				infoWindow.setContent("我的位置");
+				infoWindow.open(map);
+				map.setCenter(pos);
+			}, function() {
+				handleLocationError(true, infoWindow, map.getCenter());
+			});
+		} else {
+			// Browser doesn't support Geolocation
+			handleLocationError(false, infoWindow, map.getCenter());
+		}
+		addMarker();	
+		
+	}
+
+	function addMarker() {
+
+			var latLng = new google.maps.LatLng(${jobBean.jobLat}, ${jobBean.jobLng});
+			var marker${jobBean.jobId} = new google.maps.Marker({
+				position : latLng,
+				map : map,
+				title: "${jobBean.title}"
+			});
+			
+			var contentString = "<div><h6>${jobBean.title}<h6></div><div style='margin-bottom:5px'>${jobBean.address}</div>"
+			var infowindow${jobBean.jobId} = new google.maps.InfoWindow({
+			    content: contentString
+			  });
+			
+			marker${jobBean.jobId}.addListener("click", function() {
+		          infowindow${jobBean.jobId}.open(map, marker${jobBean.jobId});
+		        });
+
+		}
+
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+		infoWindow.setPosition(pos);
+		infoWindow
+				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
+						: 'Error: Your browser doesn\'t support geolocation.');
+		infoWindow.open(map);
 	}
 </script>
 <style>
@@ -65,6 +136,11 @@
 
 .showjobdetail h3 {
 	font-weight: 900;
+}
+
+#map {
+	height: 400px;
+	margin-bottom: 5px;
 }
 </style>
 </head>
@@ -294,7 +370,11 @@
 				</div>
 
 			</div>
-			<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-4">
+				
+				<div id="map"></div>
+
+			</div>
 		</div>
 	</div>
 	<div class="container-fluid">
