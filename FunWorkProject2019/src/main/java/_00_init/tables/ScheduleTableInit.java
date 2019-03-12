@@ -34,20 +34,27 @@ public class ScheduleTableInit {
 				if (line.startsWith(UTF8_BOM)) {
 					line = line.substring(1);
 				}
-				String[] token = line.split("\\|");
-				String endtime = token[0];
-				String startime = token[1];
-				String workdate = token[2];
-				String jobId = token[3];
+				String[] token = line.split("\\|");				
+				String scheduleName = token[0];
+				String color = token[1];
+				String endtime = token[2];
+				String startime = token[3];
+				String restHour = token[4];
+				String workdate = token[5];
+				String jobId = token[6];
 
 				Schedule schedule = new Schedule();
 
 				Date workdate1 = strToDate(workdate);
 				Time endtime1 = strToTime(endtime);
 				Time startime1 = strToTime(startime);
+				Float restHour1 = Float.parseFloat(restHour);
 
+				schedule.setScheduleName(scheduleName);
+				schedule.setColor(color);
 				schedule.setEndTime(endtime1);
 				schedule.setStartTime(startime1);
+				schedule.setRestHour(restHour1);
 				schedule.setWorkDate(workdate1);
 
 				Job job = session.get(Job.class, Integer.valueOf(jobId));
