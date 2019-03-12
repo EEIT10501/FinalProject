@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.funwork.model.Application;
+import com.funwork.model.Job;
 
 public interface ApplicationService {
 	Application findByPrimaryKey(int key);
@@ -27,5 +28,7 @@ public interface ApplicationService {
 	List<Application> getApplicationByUserId(Integer userId);
 	
 	void updateLatestMsg(Integer apId, String msg);
+
+	List<Application> findAllApplicantsByJob(Job job);
 
 }

@@ -31,17 +31,6 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 
 <title>首頁</title>
 
-<script>
-// 	 	$(document).ready(function() {
-// 	 			$('#example').DataTable();
-// 	 	});
-	$(function() {
-		$("#accordion").accordion({
-			collapsible : true,
-			heightStyle : "content"
-		});
-	});
-</script>
 
 </head>
 
@@ -75,8 +64,8 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 <script>
 	
 		$(document).ready(function() {
-// 		$.noConflict();
-// 		$('#example').DataTable();
+		$.noConflict();
+		$('#example').DataTable();
 		var contextPath = $("#contextPath").attr('value');
 
 		var status = $("#condit1").find(":selected").text();
@@ -111,9 +100,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 // 					   if($('#example_wrapper').exists()){
 // 					   	$('#example_wrapper').hide();
 // 					   }
-					   if($('#example').exists()){
-					   	$('#example').hide();
-					   }
+					   $('#clearTable').hide();
 					   var rowHead  = '<thead><tr><th>筆數 </th>'+
 							'<th>名稱 </th>'+
 							'<th>統編 </th>'+
@@ -129,13 +116,13 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 					    		 		'<td>'+element.taxId+'</td>'+
 					    		 		'<td>'+element.address+'</td>'+
 					    		 		'<td>'+element.reviewStatus+'</td>'+
-					  "<td><a href='<sp'ring:url value=company?id="+element.companyId+"/> class='btn btn-info btn-sm'>"+
+					  "<td><a href='<spring:url value='company?id="+element.companyId+"'/>' class='btn btn-info btn-sm'>"+
 					  "<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a></td></tr>";
 					    	tableContent += dataRow;
 					   	});
 					   var myTable = rowHead + tableContent+'</tbody>';
 					   	$('#testField').html(myTable);
-// 						$('#testField').DataTable();
+						$('#testField').DataTable();
 				},
 				error : function(xhr) {
 					alert("failure");
@@ -178,45 +165,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<div class="col-sm2 asideblock">
-				<div id="accordion"  class="list-group-item list-group-item-action">
-					<a href="#" class="list-group-item list-group-item-action">雇主後台資訊</a>
-					<ul>
-						<li><a href="#">會員資訊</a></li>
-						<li><a href="mainHub">數據資訊</a></li>
-						<li><a href="#">圖形表單</a></li>
-
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">職缺釋放管理</a>
-					<ul>
-						<li><a href="manageJob">管理職缺</a></li>
-						<li><a href="addJobProfile">新增職缺</a></li>
-
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">邀約面試管理</a>
-					<ul type="disc">
-						<li >管理邀約</li>
-						<li>管理面試</li>
-						<li>智慧招募</li>
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
-					<ul>
-						<li><a href="manageCompanyPage">管理單位</a></li>
-						<li><a href="addCorpProfile">新增單位</a></li>
-
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">時間排程管理</a>
-					<ul>
-						<li>管理排程</li>
-						<li>新增排程</li>
-
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">進階會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-				</div>
-			</div>
+		<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
 			<div class="col-sm-8">
 <!-- 				<h1>公司單位管理</h1> -->
 				<input type="hidden" id="contextPath"
@@ -230,6 +179,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 							<option>已通過</option>
 							<option>未通過</option>
 							<option>草稿</option>
+							<option>公司完成建檔</option>
 						</select> 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
 						<button id="butt1" style="width: auto">確定送出</button>
 
@@ -237,6 +187,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 							onclick="window.location='registerCompany'">建立公司</button>
 						<div class="list-group2"></div>
 						<hr>
+						<div id="clearTable">
 						<table class="table table-hover display" id="example">
 							<thead>
 								<tr>
@@ -278,6 +229,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 								</c:forEach>
 							</tbody>
 						</table>
+						</div>
 
 						<table class="table table-hover display" id="testField">
 						</table>

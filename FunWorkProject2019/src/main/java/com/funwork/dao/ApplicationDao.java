@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.funwork.model.Application;
+import com.funwork.model.Job;
+import com.funwork.model.User;
 
 public interface ApplicationDao {
 	Application findByPrimaryKey(int key);
@@ -18,8 +20,6 @@ public interface ApplicationDao {
 
 	void deleteApplicationByPrimaryKey(int key);
 
-	List<Application> findAllApplications();
-
 	void deleteAllApplications();
 
 	public boolean isApplicationExist(Application Application);
@@ -27,4 +27,7 @@ public interface ApplicationDao {
 	List<Application> getApplicationByUserId(Integer userId);
 	
 	void updateLatestMsg(Integer apId, String msg);
+
+	List<Application> findAllApplicantByJobId(Job job);
+
 }

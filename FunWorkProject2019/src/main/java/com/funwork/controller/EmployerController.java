@@ -80,7 +80,7 @@ public class EmployerController {
 	public String addCorpProfile() {
 		return "employerManage/addCorpProfile";
 	}
-
+	
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model) {
 		List<Job> list = jobService.getAllJobs();
@@ -102,6 +102,8 @@ public class EmployerController {
 		model.addAttribute("companys", list);
 		return "test";
 	}
+	
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/searchResultByReviewStatus")
@@ -135,7 +137,7 @@ public class EmployerController {
 
 	@RequestMapping("/company")
 	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
-		System.out.println(id);
+		System.out.println("getCompanyById");
 		model.addAttribute("company", companyService.findByPrimaryKey(id));
 		return "employerManage/companyProfile";
 	}

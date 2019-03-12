@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.funwork.dao.ApplicationDao;
 import com.funwork.model.Application;
+import com.funwork.model.Job;
 import com.funwork.service.ApplicationService;
 
 @Service
@@ -55,8 +56,8 @@ public class ApplicationServiceImp implements ApplicationService {
 
 	@Transactional
 	@Override
-	public List<Application> findAllApplications() {
-		return dao.findAllApplications();
+	public List<Application> findAllApplicantsByJob(Job job) {
+		return dao.findAllApplicantByJobId(job);
 	}
 
 	@Transactional
@@ -81,6 +82,11 @@ public class ApplicationServiceImp implements ApplicationService {
 	@Override
 	public void updateLatestMsg(Integer apId, String msg) {
 		dao.updateLatestMsg(apId, msg);
+	}
+
+	@Override
+	public List<Application> findAllApplications() {
+		return null;
 	}
 
 }

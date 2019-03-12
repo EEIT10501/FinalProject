@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,38 +10,10 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+	crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
-<script>
-	$(document).ready(function() {
-		var text1;
-		
-		$("example").dataTable();
-		
-		$("#condit1").change(function() {
-			text1 = $("#condit1").find(":selected").text();
-		});
-
-		$("#butt1").click(function() {
-			// 			alert(text1);
-			$.ajax({
-				url : 'jobManCond',
-				data : {
-					condition1 : text1
-				},
-				type : 'post',
-				cache : false,
-				success : function(data) {
-					$('#content1').text(data);
-				}
-			});
-		});
-
-	});
-</script>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -80,7 +51,7 @@
 					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="employerPortal">想要徵人</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 			</ul>
 			<form class="form-inline">
@@ -96,48 +67,58 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
+			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			<div class="col-sm-8">
-				<section
-					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-					<nav>
-						請輸入選擇條件: &nbsp; <select id="condit1">
-							<option>發布中</option>
-							<option>待審核</option>
-							<option>已到期</option>
-							<option>草稿</option>
-						</select> &nbsp; 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
-						<button id="butt1" style="width: auto;">確定送出</button>
-						<button id="jobPostBut" style="width: auto;"
-							onclick="window.location='postJob'">張貼工作</button>
-					</nav>
+				<br>
+				<section>
+					<div>
+						<div class="container" style="text-align: center">
+							<h1>
+								<strong>所有應徵紀錄</strong>
+							</h1>
+						</div>
+					</div>
 				</section>
-				<div id="content1"></div>
-				<table class="table table-hover" id="example">
-					<thead>
-						<tr>
-							<th>公司單位</th>
-							<th>職缺編號</th>
-							<th>職位</th>
-							<th>截止時間</th>
-							<th>職缺內容</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="job" items="${jobs}">
-							<tr>
-								<td>${job.jobCompany.name}</td>
-								<td>${job.jobId}</td>
-								<td>${job.title}</td>
-								<td>${job.postEndDate}</td>
-								<td><a href='<spring:url value="jobProfile?id=${job.jobId}"/>'
-									class="btn btn-primary"> <span
-										class="glyphicon-info-sigh glyphicon"></span> 詳細資料
-								</a></td>
-							</tr>
+				<div style="height: 30px;"></div>
+				<section class="container">
+					<div class="col-sm-12">
+						<c:forEach var="applicant" items="${applicantsByJob}">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="panel panel-default text-left">
+										<div class="panel-body">
+											<h3>
+												<strong><a href="#">${applicant.user.userName}</a></strong>
+											</h3>
+											<p></p>
+											<strong>應徵公司單位:</strong> ${applicant.job.jobCompany.name}<br>
+											<strong>應徵編號:</strong> ${applicant.applicationId}<br>
+											<strong>雇主問題回應:</strong> ${applicant.answer}<br>
+											<strong>應徵送出時間:</strong> ${applicant.applicationTime}
+											<hr>
+											<button type="button" class="btn btn btn-success btn-sm">
+												<span class="glyphicon glyphicon-thumbs-up"></span> 履歷
+											</button>
+											<button type="button" class="btn btn btn-warning btn-sm">
+												<span class="glyphicon glyphicon-thumbs-up"></span> 邀約
+											</button>
+											<button type="button" class="btn btn btn-danger btn-sm">
+												<span class="glyphicon glyphicon-thumbs-up"></span> 婉拒
+											</button>
+											<button type="button" class="btn btn-primary 	 btn-sm"
+												style="float: right">
+												<span class="glyphicon glyphicon-thumbs-up"></span> 傳訊給應徵者
+											</button>
+										</div>
+										<p>
+									</div>
+								</div>
+							</div>
 						</c:forEach>
-					</tbody>
-				</table>
+					</div>
+				</section>
+
+
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>

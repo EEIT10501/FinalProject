@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -63,11 +64,16 @@ public class ApplicationDaoImp implements ApplicationDao {
 		Session session = factory.getCurrentSession();
 	}
 
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Application> findAllApplications() {
+	public List<Application> findAllApplicantByJobId(Job job) {
 		Session session = factory.getCurrentSession();
-		return null;
+		String hql = "FROM Application WHERE job = :job";
+		List<Application> list = session.createQuery(hql).setParameter("job", job).getResultList();
+		return list;
 	}
+	
 
 	@Override
 	public void deleteAllApplications() {
