@@ -12,4 +12,6 @@ public interface ComplaintDao {
 	Complaint getComplaintById(Integer cpId);
 
 	Complaint processComplaint(Integer cpId, String closeReason);
+	
+	void insertCp(Complaint cp);
 }

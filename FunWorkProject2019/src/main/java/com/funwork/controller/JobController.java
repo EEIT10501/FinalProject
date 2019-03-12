@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +23,9 @@ import com.funwork.model.Schedule;
 import com.funwork.model.User;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.JobService;
-import com.funwork.service.ScheduleService;
 import com.funwork.service.NotificationService;
 import com.funwork.service.ResumeService;
+import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
 
 

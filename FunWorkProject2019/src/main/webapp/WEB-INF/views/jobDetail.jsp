@@ -330,7 +330,7 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form action="${pageContext.request.contextPath}/#" method="post">
+							<form action="${pageContext.request.contextPath}/cpApply" method="post">
 							<div class="modal-body">
 								<!-- 彈出視窗：寫程式的地方 -->
 								<%-- <c:if test="${empty resumeBean}"> --%>
@@ -352,7 +352,7 @@
 								        	</div>
 								        	<div class="form-check">
 								       			<input class="form-check-input" type="radio" name="type" id="type3" value="詐騙">
-								  				<label class="form-check-label" for="type3">上工</label>
+								  				<label class="form-check-label" for="type3">詐騙</label>
 								        	</div>
 								        	<div class="form-check">
 								       			<input class="form-check-input" type="radio" name="type" id="type4" value="薪水待遇與實際刊登不符">
@@ -379,11 +379,12 @@
 								</fieldset>
 								<div class="form-group">
 								    <label for="desc">請描述為何舉報此工作</label>
-								    <textarea class="form-control" id="desc" name="processDescriptions" rows="3"></textarea>
+								    <textarea class="form-control" id="desc" name="content" rows="3"></textarea>
 								</div>		
 							</div>
 							<%-- <c:if test="${resumeBean!=null}"> --%>
 							<div class="modal-footer">
+								<input  type="hidden" name="jobId" value="${jobBean.jobId}" >
 								<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">取消</button>
 								<button type="submit" class="btn btn-primary addapplication">送出</button>
 							</div>
