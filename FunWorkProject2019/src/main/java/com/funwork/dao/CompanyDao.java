@@ -22,4 +22,6 @@ public interface CompanyDao {
 	List<Company> getAllCompanysByReviewStatus(String reviewStatus);
 
 	void updateCompanyById(int id, Company company);
+
+	List<Company> findAllCompanyByUserId(Integer userId);
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.funwork.exception.CompanyNotFoundException;
 import com.funwork.model.Company;
 import com.funwork.model.Job;
+import com.funwork.model.User;
 import com.funwork.service.CompanyService;
 import com.funwork.service.JobService;
 import com.funwork.service.UserService;
@@ -48,13 +50,12 @@ public class EmployerController {
 
 	@Autowired
 	JobService jobService;
-	
+
 	@Autowired
 	UserService userService;
 
 	@Autowired
 	ServletContext context;
-	
 
 	@RequestMapping("/employerPortal")
 	public String accessCompanyMain() {
@@ -80,20 +81,32 @@ public class EmployerController {
 	public String addCorpProfile() {
 		return "employerManage/addCorpProfile";
 	}
-	
+
 	@RequestMapping("/manageJob")
-	public String manageJob(Model model) {
-		List<Job> list = jobService.getAllJobs();
-		model.addAttribute("jobs", list);
-		return "employerManage/manageJobPage";
+	public String manageJob(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+
+		if (user != null) {
+			List<Job> list = jobService.findJobByUserId(user.getUserId());
+			model.addAttribute("jobs", list);
+			return "employerManage/manageJobPage";
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	@RequestMapping("/manageCompanyPage")
-	public String list(Model model) {
-		System.out.println("enter manageCompanyPage");
-		List<Company> list = companyService.findAllCompanys();
-		model.addAttribute("companys", list);
-		return "employerManage/manageCompanyPage";
+	public String list(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+		if (user != null) {
+			List<Company> list = companyService.findAllCompanyByUserId(user.getUserId());
+			model.addAttribute("companys", list);
+			return "employerManage/manageCompanyPage";
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	@RequestMapping("/jobManCond")
@@ -102,8 +115,6 @@ public class EmployerController {
 		model.addAttribute("companys", list);
 		return "test";
 	}
-	
-	
 
 	@ResponseBody
 	@RequestMapping(value = "/searchResultByReviewStatus")
@@ -125,15 +136,13 @@ public class EmployerController {
 		return "OK";
 	}
 
-	
-	@RequestMapping(value="/resultCorStatsJSON/{qstr}",method = RequestMethod.GET, produces = { "application/json" })
+	@RequestMapping(value = "/resultCorStatsJSON/{qstr}", method = RequestMethod.GET, produces = { "application/json" })
 	public ResponseEntity<List<Company>> getcompanysByReviewStatus(Model model, @PathVariable("qstr") String qstr) {
-		System.out.println("received AJAX request and qstr is "+qstr);
+		System.out.println("received AJAX request and qstr is " + qstr);
 		List<Company> list = companyService.findAllCompanys(qstr);
-		ResponseEntity<List<Company>> re = new ResponseEntity<>(list,HttpStatus.OK);
+		ResponseEntity<List<Company>> re = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
 	}
-	
 
 	@RequestMapping("/company")
 	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
@@ -141,7 +150,7 @@ public class EmployerController {
 		model.addAttribute("company", companyService.findByPrimaryKey(id));
 		return "employerManage/companyProfile";
 	}
-	
+
 	@RequestMapping(value = "/postJob", method = RequestMethod.GET)
 	public String getAddNewcompanyForm(Model model) {
 		Job jb = new Job();
@@ -157,8 +166,8 @@ public class EmployerController {
 	}
 
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
-	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,HttpServletRequest request)
-	{
+	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
+			HttpServletRequest request) {
 		System.out.println("Enter controller");
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
@@ -181,20 +190,28 @@ public class EmployerController {
 				throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
 			}
 		}
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+		if (user != null) {
+		cb.setUser(user);
 		companyService.saveCompany(cb);
 		return "redirect:/manageCompanyPage";
+		}else {
+			return "redirect:/";
+		}
 	}
 
-	@RequestMapping(value="/addCorpProfile",method=RequestMethod.GET)
+	@RequestMapping(value = "/addCorpProfile", method = RequestMethod.GET)
 	public String getAddCorpProfileForm(@RequestParam("id") Integer id, Model model) {
 		System.out.println("here");
 		model.addAttribute("companyBean", companyService.findByPrimaryKey(id));
 		return "employerManage/addCorpProfile";
 	}
-	
+
 	@RequestMapping(value = "/addCorpProfile", method = RequestMethod.POST)
-	public String processAddCorpProfileForm(@ModelAttribute("companyBean") Company cb, BindingResult result,HttpServletRequest request)
-	{
+	public String processAddCorpProfileForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
+			HttpServletRequest request) {
 		System.out.println("Enter controller of processAddCorpProfileForm");
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
@@ -202,10 +219,10 @@ public class EmployerController {
 		}
 		MultipartFile logoImage = cb.getCompanyLogo();
 		MultipartFile coverImage = cb.getCompanyCoverPic();
-		System.out.println("coverImage: "+coverImage);
+		System.out.println("coverImage: " + coverImage);
 		String originalFilenameCover = coverImage.getOriginalFilename();
-		
-		if (logoImage != null && !logoImage.isEmpty()&&coverImage != null && !coverImage.isEmpty()) {
+
+		if (logoImage != null && !logoImage.isEmpty() && coverImage != null && !coverImage.isEmpty()) {
 			try {
 				byte[] b = logoImage.getBytes();
 				Blob blob = new SerialBlob(b);
@@ -220,9 +237,9 @@ public class EmployerController {
 		}
 		Integer id = cb.getCompanyId();
 		companyService.updateCompanyById(id, cb);
-		return "redirect:/company?id="+id;
+		return "redirect:/company?id=" + id;
 	}
-	
+
 	@RequestMapping(value = "/getLicPicture/{companyId}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getLicPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
 
@@ -267,7 +284,7 @@ public class EmployerController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
-	
+
 	@RequestMapping(value = "/getCoverPicture/{companyId}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getCoverPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
 
@@ -311,8 +328,7 @@ public class EmployerController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
-		
-	
+
 	@RequestMapping(value = "/getLogoPicture/{companyId}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getLogoPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
 
@@ -357,10 +373,10 @@ public class EmployerController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
-	
+
 	private byte[] toByteArray(String filePath) {
 		String root = context.getRealPath("/");
-		root = root.substring(0, root.length()-1);
+		root = root.substring(0, root.length() - 1);
 		String fileLocation = root + filePath;
 		byte[] b = null;
 		try {
@@ -376,7 +392,6 @@ public class EmployerController {
 		}
 		return b;
 	}
-
 
 	@ExceptionHandler(CompanyNotFoundException.class)
 	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {

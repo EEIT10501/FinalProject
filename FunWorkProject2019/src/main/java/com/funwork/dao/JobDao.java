@@ -3,6 +3,7 @@ package com.funwork.dao;
 import java.util.List;
 
 import com.funwork.model.Job;
+import com.funwork.model.User;
 
 public interface JobDao {
 
@@ -23,5 +24,7 @@ public interface JobDao {
 	Job jobReviewFail(Integer jobId, String failReason);
 
 	Job jobRemove(Integer jobId, String removeReason);
+
+	List<Job> findJobByUserId(Integer userId);
 
 }

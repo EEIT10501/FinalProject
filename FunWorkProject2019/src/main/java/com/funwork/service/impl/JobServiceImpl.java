@@ -10,6 +10,7 @@ import com.funwork.dao.CityDao;
 import com.funwork.dao.JobDao;
 import com.funwork.model.City;
 import com.funwork.model.Job;
+import com.funwork.model.User;
 import com.funwork.service.JobService;
 
 @Service
@@ -91,5 +92,11 @@ public class JobServiceImpl implements JobService {
 		return citydao.getCityName(cityId);
 				
 	}
+	@Transactional
+	@Override
+	public List<Job> findJobByUserId(Integer userId) {
+		return dao.findJobByUserId(userId);
+	}
 
+	
 }
