@@ -129,7 +129,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 					    		 		'<td>'+element.taxId+'</td>'+
 					    		 		'<td>'+element.address+'</td>'+
 					    		 		'<td>'+element.reviewStatus+'</td>'+
-					  "<td><a href='<sp'ring:url value=company?id="+element.companyId+"/> class='btn btn-info btn-sm'>"+
+					  "<td><a href='<spring:url value='company?id="+element.companyId+"'/> class='btn btn-info btn-sm'>"+
 					  "<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a></td></tr>";
 					    	tableContent += dataRow;
 					   	});

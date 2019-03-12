@@ -162,7 +162,8 @@
 							.append($("<td width='620px'>").text(element.sender.userName + "：" + element.content))
 							.append($("<td>").text(timeStr));
 						});
-						$("#myDiv").scrollTop(400);
+						
+						$("#myDiv").scrollTop(10000);
 					}
 				});
 				
@@ -193,8 +194,17 @@
 						});
 					}
 				});
+				
 			}	
 			getOldMsg();
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/newMsg",
+				type : "GET",
+				success : function(data) {
+					$("#newMsg").html("(" + data + ")");
+				}
+			});	
 			
 		});
 	</script>
