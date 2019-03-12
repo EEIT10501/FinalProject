@@ -1,6 +1,7 @@
 package com.funwork.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -60,11 +61,17 @@ public class JobController {
 	@RequestMapping("/jobs")
 	public String Jobs(Model model) {
 		List<Job> joblist = jobService.getJobPassed();
+		List<Job> joblist2 = new ArrayList();
+		for (int i=0;i<joblist.size();i++) {
+			  if(joblist.get(i).getIsFilled()==false) {
+				  joblist2.add(joblist.get(i));
+			  }
+		}
 //		List<Job> joblist = jobService.getJobByCity(5);      //依城市搜尋
 //		List<Job> joblist = jobService.getJobByCityArea(13); //依地區搜尋
 		List<City> citylist = jobService.getCityName(15);
 		model.addAttribute("citys", citylist);
-		model.addAttribute("jobs", joblist);
+		model.addAttribute("jobs", joblist2);
 		return "jobs";
 	}
 
