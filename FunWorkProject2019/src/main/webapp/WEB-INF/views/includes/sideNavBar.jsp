@@ -17,11 +17,11 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 
-<link rel="stylesheet" type="text/css" 
-href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
 
-<script type="text/javascript" 
-src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -41,47 +41,171 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 	});
 </script>
 
+<style type="text/css">
+.card {
+background-color: #e3f2fd;
+}
+
+.card-header {
+background-color: #e3f2fd;
+}
+
+</style>
 </head>
 <body>
-<div class="col-sm2 asideblock">
-				<div id="accordion"  class="list-group-item list-group-item-action">
-					<a href="#" class="list-group-item list-group-item-action">雇主後台資訊</a>
-					<ul>
-						<li><a href="#">會員資訊</a></li>
-						<li><a href="mainHub">數據資訊</a></li>
-						<li><a href="#">圖形表單</a></li>
+	<div class="accordion text-center" id="accordionExample">
+		<div class="card">
+			<div class="card-header" id="heading1">
+				<h2 class="mb-0">
+					<button class="btn collapsed" type="button" data-toggle="collapse"
+						data-target="#collapse1" aria-expanded="true"
+						aria-controls="collapse1">後台資訊</button>
+				</h2>
+			</div>
 
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">職缺釋放管理</a>
-					<ul>
-						<li><a href="manageJob">管理職缺</a></li>
-						<li><a href="addJobProfile">新增職缺</a></li>
-
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">邀約面試管理</a>
-					<ul type="disc">
-						<li >管理邀約</li>
-						<li>管理面試</li>
-						<li>智慧招募</li>
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
-					<ul>
-						<li><a href="manageCompanyPage">管理單位</a></li>
-						<li><a href="registerCompany">新增單位</a></li>
-
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">時間排程管理</a>
-					<ul>
-						<li>管理排程</li>
-						<li>新增排程</li>
-
-					</ul>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">進階會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
+			<div id="collapse1" class="collapse show" aria-labelledby="heading1"
+				data-parent="#accordionExample">
+				<div class="card-body">
+					<a class="btn btn-link" href="<c:url value='/#'></c:url>">會員資訊</a>
+					<a class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據資訊</a>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">圖形表單</a>
 				</div>
 			</div>
-<!-- 			</div> -->
+		</div>
+		<div class="card">
+			<div class="card-header" id="heading2">
+				<h2 class="mb-0">
+					<button class="btn collapsed" type="button"
+						data-toggle="collapse" data-target="#collapse2"
+						aria-expanded="false" aria-controls="collapse2">職缺管理</button>
+				</h2>
+			</div>
+			<div id="collapse2" class="collapse" aria-labelledby="heading2"
+				data-parent="#accordionExample">
+				<div class="card-body">
+					<a class="btn btn-link" href="<c:url value='/manageJob'></c:url>">管理職缺</a>
+					<a class="btn btn-link"
+						href="<c:url value='/addJobProfile'></c:url>">新增職缺</a>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" id="heading3">
+				<h2 class="mb-0">
+					<button class="btn collapsed" type="button"
+						data-toggle="collapse" data-target="#collapse3"
+						aria-expanded="false" aria-controls="collapse3">邀約面試</button>
+				</h2>
+			</div>
+			<div id="collapse3" class="collapse" aria-labelledby="heading3"
+				data-parent="#accordionExample">
+				<div class="card-body">
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">管理邀約</a> <a
+						class="btn btn-link" href="<c:url value='#'></c:url>">管理面試</a>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" id="heading4">
+				<h2 class="mb-0">
+					<button class="btn collapsed" type="button" data-toggle="collapse"
+						data-target="#collapse4" aria-expanded="false"
+						aria-controls="collapse4">公司管理</button>
+				</h2>
+			</div>
+
+			<div id="collapse4" class="collapse" aria-labelledby="heading4"
+				data-parent="#accordionExample">
+				<div class="card-body">
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">公司編輯</a> <a
+						class="btn btn-link" href="<c:url value='#'></c:url>">新增公司</a>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" id="heading5">
+				<h2 class="mb-0">
+					<button class="btn collapsed" type="button" data-toggle="collapse"
+						data-target="#collapse5" aria-controls="collapse5" aria-expanded="false">排班管理</button>
+				</h2>
+			</div>
+
+			<div id="collapse5" class="collapse" aria-labelledby="heading5"
+				data-parent="#accordionExample">
+				<div class="card-body">
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">新增排程</a>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">管理排程</a>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" id="heading6">
+				<h2 class="mb-0">
+					<button class="btn collapsed" type="button" data-toggle="collapse"
+						data-target="#collapse6" aria-controls="collapse6" aria-expanded="false">黃金會員</button>
+				</h2>
+			</div>
+
+			<div id="collapse6" class="collapse" aria-labelledby="heading6"
+				data-parent="#accordionExample">
+				<div class="card-body">
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">加值服務</a>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">訂單管理</a>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">優惠券兌換</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 做錯的 -->
+<!-- 	<button class="btn btn-primary" type="button" data-toggle="collapse" -->
+<!-- 		data-target="#nav01" aria-expanded="false" -->
+<!-- 		aria-controls="collapseExample">後台資訊</button> -->
+<!-- 	<div class="collapse" id="nav01"> -->
+<%-- 		<a class="btn btn-link" href="<c:url value='/#'></c:url>">會員資訊</a> <a --%>
+<%-- 			class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據資訊</a> --%>
+<%-- 		<a class="btn btn-link" href="<c:url value='#'></c:url>">圖形表單</a> --%>
+<!-- 	</div> -->
+
+<!-- 	<button class="btn btn-primary" type="button" data-toggle="collapse" -->
+<!-- 		data-target="#nav02" aria-expanded="false" -->
+<!-- 		aria-controls="collapseExample">職缺管理</button> -->
+<!-- 	<div class="collapse" id="nav02"> -->
+<%-- 		<a class="btn btn-link" href="<c:url value='/manageJob'></c:url>">管理職缺</a> --%>
+<%-- 		<a class="btn btn-link" href="<c:url value='/addJobProfile'></c:url>">新增職缺</a> --%>
+<!-- 	</div> -->
+
+<!-- 	<button class="btn btn-primary" type="button" data-toggle="collapse" -->
+<!-- 		data-target="#nav03" aria-expanded="false" -->
+<!-- 		aria-controls="collapseExample">邀約面試</button> -->
+<!-- 	<div class="collapse" id="nav03"> -->
+<%-- 		<a class="btn btn-link" href="<c:url value='#'></c:url>">管理邀約</a> <a --%>
+<%-- 			class="btn btn-link" href="<c:url value='#'></c:url>">管理面試</a> --%>
+<!-- 	</div> -->
+
+<!-- 	<button class="btn btn-primary" type="button" data-toggle="collapse" -->
+<!-- 		data-target="#nav04" aria-expanded="false" -->
+<!-- 		aria-controls="collapseExample">公司管理</button> -->
+<!-- 	<div class="collapse" id="nav04"> -->
+<%-- 		<a class="btn btn-link" href="<c:url value='#'></c:url>">公司編輯</a> <a --%>
+<%-- 			class="btn btn-link" href="<c:url value='#'></c:url>">新增公司</a> --%>
+<!-- 	</div> -->
+
+<!-- 	<button class="btn btn-primary" type="button" data-toggle="collapse" -->
+<!-- 		data-target="#nav05" aria-expanded="false" -->
+<!-- 		aria-controls="collapseExample">排班管理</button> -->
+<!-- 	<div class="collapse" id="nav05"> -->
+<%-- 		<a class="btn btn-link" href="<c:url value='#'></c:url>">新增排程</a> <a --%>
+<%-- 			class="btn btn-link" href="<c:url value='#'></c:url>">管理排程</a> --%>
+<!-- 	</div> -->
+
+<!-- 	<button class="btn btn-primary" type="button" data-toggle="collapse" -->
+<!-- 		data-target="#nav06" aria-expanded="false" -->
+<!-- 		aria-controls="collapseExample">黃金會員</button> -->
+<!-- 	<div class="collapse" id="nav06"> -->
+<%-- 		<a class="btn btn-link" href="<c:url value='#'></c:url>">加值服務</a> <a --%>
+<%-- 			class="btn btn-link" href="<c:url value='#'></c:url>">訂單管理</a> <a --%>
+<%-- 			class="btn btn-link" href="<c:url value='#'></c:url>">優惠券兌換</a> --%>
+<!-- 	</div> -->
+
 </body>
 </html>

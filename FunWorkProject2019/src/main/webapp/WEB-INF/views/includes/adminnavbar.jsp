@@ -19,7 +19,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: #e3f2fd;"">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: #e3f2fd;">
 		<a class="navbar-brand" href="#"> <img
 			src="<c:url value='/image/LOGO.jpg'></c:url>" width="30" height="30"
 			class="d-inline-block align-top"> EEIT趣打工管理
