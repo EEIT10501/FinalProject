@@ -36,10 +36,12 @@
 					href="<c:url value='/'></c:url>">首頁 <span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'></c:url>">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">想要徵人</a>
-				</li>
+				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">想要徵人</a></li>
+				<c:if test="${loginUser!=null}">
+				<li class="nav-item"><a class="nav-link" href="<c:url value='#'></c:url>">會員專區</a></li>
+				</c:if>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">訊息</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">我的訊息</a></li>
 			</ul>
 			<form class="form-inline">
 				<input class="form-control mr-sm-2" type="search"
@@ -111,7 +113,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">請問是否登出</h5>
+					<h5 class="modal-title" id="exampleModalLabel">您確定要登出嗎？</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -119,11 +121,14 @@
 				</div>
 				<div class="modal-body">
 					<!-- 彈出視窗：寫程式的地方 -->
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">取消</button>
+					<div style="float:right">
+						<span class="navbar-text my-2 my-sm-0" data-dismiss="modal"> <a
+						class="nav-link btn btn-outline-secondary" >取消</a>
+					</span>
 					<span class="navbar-text my-2 my-sm-0"> <a
 						class="nav-link btn btn-outline-secondary" href="<c:url value='/logout'></c:url>">確認</a>
 					</span>
+					</div>
 
 				</div>
 			</div>

@@ -15,7 +15,6 @@
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
 
-
 <title>詳細工作頁面</title>
 <script>
 	$(document).ready(function() {
@@ -33,12 +32,9 @@
 						notification()
 						$(".cancel").trigger("click");
 					}
-					});
-			
+					});		
 			else
-			window.alert("請回答問題!");
-			
-			
+			window.alert("請回答問題!");			
 			
 			});
 		});
@@ -170,10 +166,13 @@
 
 				<div class="row justify-content-center">
 					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-light" data-toggle="modal"
+						data-target="#reportModal" style="margin-right: 30px">檢舉</button>
+					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#resumeModal">我要應徵</button>
 				</div>
-
+				<!--以下是履歷的區塊 -->
 				<div class="modal fade" id="resumeModal" tabindex="-1" role="dialog"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
@@ -191,6 +190,7 @@
 									<h5 style="color: red">請先登入系統</h5>
 								</c:if>
 								<table class="table table-striped">
+
 									<tbody>
 										<tr>
 											<td>${resumeBean.profilePic}</td>
@@ -218,7 +218,7 @@
 										</tr>
 										<tr>
 											<td>自我介紹</td>
-											<td>${resumeBean.selfIntro}</td>
+											<td>${jobBean.jobCompany.name}</td>
 										</tr>
 										<tr>
 											<td>${jobBean.other}</td>
@@ -238,6 +238,57 @@
 
 								</div>
 							</c:if>
+						</div>
+					</div>
+				</div>
+				<!--以下是檢舉的區塊 -->
+				<div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">我要檢舉</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<!-- 彈出視窗：寫程式的地方 -->
+								<%-- <c:if test="${empty resumeBean}"> --%>
+								<!-- <h5 style="color: red">請先登入系統</h5> -->
+								<%-- </c:if> --%>
+								<table class="table table-striped">
+									<tbody>
+										<tr>
+											<td>職務名稱</td>
+											<td>${jobBean.title}</td>
+										</tr>
+										<tr>
+											<td>廠商名稱</td>
+											<td>${jobBean.jobCompany.name}</td>
+										</tr>
+										<tr>
+											<td>檢舉類型</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>問題描述</td>
+											<td><textarea class="form-control" id="report"
+													name="report" rows="3"></textarea></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<%-- <c:if test="${resumeBean!=null}"> --%>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary cancel"
+									data-dismiss="modal">取消</button>
+
+								<button type="button" class="btn btn-primary addapplication">送出</button>
+
+							</div>
+							<%-- </c:if> --%>
 						</div>
 					</div>
 				</div>
