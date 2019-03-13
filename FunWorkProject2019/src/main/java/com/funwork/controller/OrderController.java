@@ -17,11 +17,11 @@ public class OrderController {
 
 	@Autowired
 	UserService userService;
-	
-	public OrderController(){
-		
+
+	public OrderController() {
+
 	}
-	
+
 	@RequestMapping("/order")
 	public String Order(Model model) {
 //		AllInOne capture = new AllInOne(null);
@@ -37,8 +37,7 @@ public class OrderController {
 //		
 //		String captest2 = capture.capture(captest);
 //		model.addAttribute("cattest2", captest2);
-		
-		
+
 		return "order";
 	}
 }

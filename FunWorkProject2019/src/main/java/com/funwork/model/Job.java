@@ -19,7 +19,7 @@ public class Job {
 	private String comment; // 要提供管理員審核時的備註
 	private Boolean isExposure;
 	private Boolean isFilled;
-	private Timestamp postEndDate;
+	private Date postEndDate;
 	private String reviewStatus;
 	private String title;
 	private Integer viewTimes;
@@ -42,6 +42,8 @@ public class Job {
 	private Company jobCompany;
 	private String jobLat;
 	private String jobLng;
+	private String workDate;
+	private String workTime;
 
 	public Job() {
 	}
@@ -80,11 +82,11 @@ public class Job {
 		this.isFilled = isFilled;
 	}
 
-	public Timestamp getPostEndDate() {
+	public Date getPostEndDate() {
 		return postEndDate;
 	}
 
-	public void setPostEndDate(Timestamp postEndDate) {
+	public void setPostEndDate(Date postEndDate) {
 		this.postEndDate = postEndDate;
 	}
 
@@ -274,6 +276,22 @@ public class Job {
 
 	public void setJobLng(String jobLng) {
 		this.jobLng = jobLng;
+	}
+
+	public String getWorkDate() {
+		return workDate;
+	}
+
+	public void setWorkDate(String workDate) {
+		this.workDate = workDate;
+	}
+
+	public String getWorkTime() {
+		return workTime;
+	}
+
+	public void setWorkTime(String workTime) {
+		this.workTime = workTime;
 	}
 
 }
