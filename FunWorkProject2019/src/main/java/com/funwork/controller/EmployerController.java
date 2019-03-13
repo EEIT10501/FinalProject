@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -137,11 +140,27 @@ public class EmployerController {
 	}
 
 	@RequestMapping(value = "/resultCorStatsJSON/{qstr}", method = RequestMethod.GET, produces = { "application/json" })
-	public ResponseEntity<List<Company>> getcompanysByReviewStatus(Model model, @PathVariable("qstr") String qstr) {
+	public ResponseEntity<List<Company>> getcompanysByReviewStatus(Model model, @PathVariable("qstr") String qstr,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+		System.out.println(user.getUserId());
 		System.out.println("received AJAX request and qstr is " + qstr);
 		List<Company> list = companyService.findAllCompanys(qstr);
-		ResponseEntity<List<Company>> re = new ResponseEntity<>(list, HttpStatus.OK);
-		return re;
+		List<Company> arr = new ArrayList<>();
+		if (qstr.equalsIgnoreCase("全部")) {
+			List<Company> listAll = companyService.findAllCompanyByUserId(user.getUserId());
+			ResponseEntity<List<Company>> re = new ResponseEntity<>(listAll, HttpStatus.OK);
+			return re;
+		}else {
+			for (Company com : list) {
+				if (com.getUser().getUserId() == user.getUserId()) {
+					arr.add(com);
+				}
+			} 
+			ResponseEntity<List<Company>> re = new ResponseEntity<>(arr, HttpStatus.OK);
+			return re;
+		}
 	}
 
 	@RequestMapping("/company")

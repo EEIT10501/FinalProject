@@ -27,4 +27,6 @@ public interface JobDao {
 
 	List<Job> findJobByUserId(Integer userId);
 
+	List<Job> findJobByUserIdNJobStatus(Integer userId);
+
 }

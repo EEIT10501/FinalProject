@@ -122,4 +122,14 @@ public class JobDaoImpl implements JobDao {
 		List<Job> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
 		return list;
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Job> findJobByUserIdNJobStatus(Integer userId){
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Job WHERE jobOwner.userId = :userId and reviewStatus =:reviewStatus";
+		List<Job> list = session.createQuery(hql).setParameter("userId", userId).
+				setParameter("reviewStatus","發布中").getResultList();
+		return list;
+	}
 }

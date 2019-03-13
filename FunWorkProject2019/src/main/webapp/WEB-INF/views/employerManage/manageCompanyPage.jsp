@@ -178,7 +178,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 							<option>審查中</option>
 							<option>已通過</option>
 							<option>未通過</option>
-							<option>草稿</option>
+							<option>全部</option>
 							<option>公司完成建檔</option>
 						</select> 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
 						<button id="butt1" style="width: auto">確定送出</button>
@@ -212,17 +212,18 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 										<td><a
 											href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
 											class="btn btn-info btn-sm"> <span
-												class="glyphicon-info-sigh glyphicon"></span> 完成建檔
+												class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
 										</a></td>
 										</c:when >
 										<c:when test="${company.reviewStatus =='公司完成建檔'}">
 										<td><a
 											href='<spring:url value="company?id=${company.companyId}"/>'
 											class="btn btn-success btn-sm"> <span
-												class="glyphicon-info-sigh glyphicon"></span> 查詢
+												class="glyphicon-info-sigh glyphicon"></span> 詳細資料
 										</a></td>
 										</c:when>
 										<c:otherwise>
+										<td></td>
 										</c:otherwise>
 										</c:choose>
 									</tr>
@@ -235,8 +236,6 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 						</table>
 						</nav>
 				</section>
-				<!-- 				<div id="content1"></div> -->
-				<!--             程式寫在這 -->
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>

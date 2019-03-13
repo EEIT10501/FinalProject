@@ -97,6 +97,10 @@ public class JobServiceImpl implements JobService {
 	public List<Job> findJobByUserId(Integer userId) {
 		return dao.findJobByUserId(userId);
 	}
-
 	
+	@Transactional
+	@Override
+	public List<Job> findJobByUserIdNJobStatus(Integer userId){
+		return dao.findJobByUserIdNJobStatus(userId);
+	}
 }
