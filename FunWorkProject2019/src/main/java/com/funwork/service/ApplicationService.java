@@ -30,5 +30,7 @@ public interface ApplicationService {
 	void updateLatestMsg(Integer apId, String msg);
 
 	List<Application> findAllApplicantsByJob(Job job);
+	
+	void refuseUser(Integer apId);
 
 }

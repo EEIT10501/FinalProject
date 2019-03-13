@@ -17,23 +17,23 @@ public class ApplicationServiceImp implements ApplicationService {
 
 	@Autowired
 	ApplicationDao dao;
-	
+
 	@Transactional
 	@Override
 	public Application findByPrimaryKey(int key) {
 		return dao.findByPrimaryKey(key);
 	}
-	
+
 	@Transactional
 	@Override
 	public Application findByDate(Date date) {
 		return dao.findByDate(date);
 	}
-	
+
 	@Transactional
 	@Override
-	public void insertApplication(Integer userId, Integer jobId,String question) {
-		dao.insertApplication(userId, jobId,question);
+	public void insertApplication(Integer userId, Integer jobId, String question) {
+		dao.insertApplication(userId, jobId, question);
 	}
 
 	@Transactional
@@ -84,9 +84,16 @@ public class ApplicationServiceImp implements ApplicationService {
 		dao.updateLatestMsg(apId, msg);
 	}
 
+	@Transactional
 	@Override
 	public List<Application> findAllApplications() {
 		return null;
+	}
+
+	@Transactional
+	@Override
+	public void refuseUser(Integer apId) {
+		dao.refuseUser(apId);
 	}
 
 }

@@ -317,70 +317,91 @@
 						</div>
 					</div>
 				</div>
+
 				<!--以下是檢舉的區塊 -->
 				<div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
+					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">我要檢舉</h5>
+								<h5 class="modal-title" id="exampleModalLabel">舉報此工作</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
+							<form action="${pageContext.request.contextPath}/cpApply" method="post">
 							<div class="modal-body">
 								<!-- 彈出視窗：寫程式的地方 -->
 								<%-- <c:if test="${empty resumeBean}"> --%>
 								<!-- <h5 style="color: red">請先登入系統</h5> -->
 								<%-- </c:if> --%>
-								<table class="table table-striped">
-									<tbody>
-										<tr>
-											<td>職務名稱</td>
-											<td>${jobBean.title}</td>
-										</tr>
-										<tr>
-											<td>廠商名稱</td>
-											<td>${jobBean.jobCompany.name}</td>
-										</tr>
-										<tr>
-											<td>檢舉類型</td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>問題描述</td>
-											<td><textarea class="form-control" id="report"
-													name="report" rows="3"></textarea></td>
-										</tr>
-									</tbody>
-								</table>
+								<div class="form-group">
+									<label for="exampleInputEmail1">請選擇舉報的原因，為保護你的安全，我們不會透露你的個人資訊給雇主。</label>
+								</div>
+								<fieldset class="form-group">
+									<div class="row">
+								    	<div class="col-sm-12">
+								        	<div class="form-check">
+								        		<input class="form-check-input" type="radio" name="type" id="type1" value="八大行業" checked required="required">
+								  				<label class="form-check-label" for="type1">八大行業</label>
+								        	</div>
+								        	<div class="form-check">
+								       			<input class="form-check-input" type="radio" name="type" id="type2" value="傳直銷產業">
+								  				<label class="form-check-label" for="type2">傳直銷產業</label>
+								        	</div>
+								        	<div class="form-check">
+								       			<input class="form-check-input" type="radio" name="type" id="type3" value="詐騙">
+								  				<label class="form-check-label" for="type3">詐騙</label>
+								        	</div>
+								        	<div class="form-check">
+								       			<input class="form-check-input" type="radio" name="type" id="type4" value="薪水待遇與實際刊登不符">
+								  				<label class="form-check-label" for="type4">薪水待遇與實際刊登不符</label>
+								        	</div>
+								        	<div class="form-check">
+								       			<input class="form-check-input" type="radio" name="type" id="type5" value="薪資工時違反勞基法">
+								  				<label class="form-check-label" for="type5">薪資工時違反勞基法</label>
+								        	</div>
+											<div class="form-check">
+								       			<input class="form-check-input" type="radio" name="type" id="type6" value="僱主惡意拖欠薪水">
+								  				<label class="form-check-label" for="type6">僱主惡意拖欠薪水</label>
+								        	</div>
+								        	<div class="form-check">
+								       			<input class="form-check-input" type="radio" name="type" id="type7" value="逾期">
+								  				<label class="form-check-label" for="type7">逾期</label>
+								        	</div>
+								        	<div class="form-check">
+								       			<input class="form-check-input" type="radio" name="type" id="type8" value="其他">
+								  				<label class="form-check-label" for="type8">其他</label>
+								        	</div>
+								    	</div>
+									</div>
+								</fieldset>
+								<div class="form-group">
+								    <label for="desc">請描述為何舉報此工作</label>
+								    <textarea class="form-control" id="desc" name="content" rows="3"></textarea>
+								</div>		
 							</div>
 							<%-- <c:if test="${resumeBean!=null}"> --%>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary cancel"
-									data-dismiss="modal">取消</button>
-
-								<button type="button" class="btn btn-primary addapplication">送出</button>
-
+								<input  type="hidden" name="jobId" value="${jobBean.jobId}" >
+								<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">取消</button>
+								<button type="submit" class="btn btn-primary addapplication">送出</button>
 							</div>
+							</form>
 							<%-- </c:if> --%>
 						</div>
 					</div>
 				</div>
-
 			</div>
-			<div class="col-sm-4">
-				
+			<div class="col-sm-4">			
 				<div id="map"></div>
-
 			</div>
 		</div>
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights
-				reserved.</div>
+			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
 
