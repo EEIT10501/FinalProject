@@ -24,7 +24,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> getAllUsers() {
+
 		String hql = "FROM User";
+
 		Session session = null;
 		List<User> list = new ArrayList<>();
 		session = factory.getCurrentSession();
@@ -66,6 +68,22 @@ public class UserDaoImpl implements UserDao {
 			user = list.get(0);
 		}
 		return user;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean idExists(String email) {
+		Session session = factory.getCurrentSession();
+		boolean exist = false;
+		String hql = "FROM User u WHERE u.email = :email";
+		List<User> list = session.createQuery(hql).setParameter("email", email).getResultList();
+		if (list.size() != 0) {
+			exist = true;
+		} else {
+			exist = false;
+		}
+
+		return exist;
 	}
 
 }
