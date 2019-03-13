@@ -23,5 +23,7 @@ public interface JobDao {
 	Job jobReviewFail(Integer jobId, String failReason);
 
 	Job jobRemove(Integer jobId, String removeReason);
+	
+	List<Job> getCorrectJobs();
 
 }

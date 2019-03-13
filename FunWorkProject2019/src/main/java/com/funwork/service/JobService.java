@@ -28,4 +28,6 @@ public interface JobService {
 	List<City> getAllCitys();
 	
 	List<City> getCityName(Integer cityId);
+	
+	List<Job> getCorrectJobs();
 }

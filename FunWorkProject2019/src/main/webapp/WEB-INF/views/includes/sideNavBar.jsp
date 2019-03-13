@@ -31,16 +31,6 @@
 
 <title>側邊SideBar</title>
 
-<script>
-	$(function() {
-		$.noConflict();
-		$("#accordion").accordion({
-			collapsible : true,
-			heightStyle : "content"
-		});
-	});
-</script>
-
 <style type="text/css">
 .card {
 background-color: #e3f2fd;
@@ -63,7 +53,7 @@ background-color: #e3f2fd;
 				</h2>
 			</div>
 
-			<div id="collapse1" class="collapse show" aria-labelledby="heading1"
+			<div id="collapse1" class="collapse" aria-labelledby="heading1"
 				data-parent="#accordionExample">
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/#'></c:url>">會員資訊</a>

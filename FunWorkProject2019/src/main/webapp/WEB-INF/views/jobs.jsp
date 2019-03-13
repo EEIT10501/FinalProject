@@ -59,8 +59,7 @@
 			// Browser doesn't support Geolocation
 			handleLocationError(false, infoWindow, map.getCenter());
 		}
-				
-		
+		addMarker()
 	}
 
 	function addMarker() {
@@ -164,7 +163,8 @@
 					<tbody>
 						<c:forEach var="job" items="${jobs}">
 							<tr>
-								<td>${job.title}</td>
+								<td><c:if test="${job.isExposure==true}">
+								<span class="text-info" style="margin-right:5px">★推薦</span></c:if>${job.title}</td>
 								<td>${job.city.cityName}</td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.isFilled}</td>
@@ -178,8 +178,7 @@
 
 			</div>
 			<div class="col-sm-5">
-				<input type="button" class="btn btn-secondary"
-					style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作">
+<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
 				<div id="map"></div>
 			</div>
 		</div>
