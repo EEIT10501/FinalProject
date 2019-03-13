@@ -49,7 +49,7 @@
 				class="nav-link btn btn-outline-secondary" data-toggle="modal"
 				data-target="#loginModal" href="#">登入</a>
 			</span> <span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
+				class="nav-link btn btn-outline-secondary" href="register">註冊</a>
 			</span>
 		</div>
 

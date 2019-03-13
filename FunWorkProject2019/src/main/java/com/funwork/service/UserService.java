@@ -12,5 +12,9 @@ public interface UserService {
 	
 	void insertUser(User user);
 	
+	public boolean idExists(String email);
+	
 	User loginCheck(String email, String password);
+	
+	
 }

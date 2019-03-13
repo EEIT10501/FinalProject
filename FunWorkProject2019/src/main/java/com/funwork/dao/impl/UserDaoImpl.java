@@ -63,4 +63,20 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean idExists(String email) {
+		Session session = factory.getCurrentSession();
+		boolean exist = false;
+		String hql = "FROM User u WHERE u.email = :email";
+		List<User> list = session.createQuery(hql).setParameter("email", email).getResultList();
+		if (list.size() != 0) {
+			exist = true;
+		} else {
+			exist = false;
+		}
+
+		return exist;
+	}
+
 }
