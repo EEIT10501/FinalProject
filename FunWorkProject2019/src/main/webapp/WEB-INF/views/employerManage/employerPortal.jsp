@@ -90,11 +90,10 @@ height:600px;
 						<li><a href="addCorpProfile">新增單位</a></li>
 
 					</ul>
-					<a href="#" class="list-group-item list-group-item-action">時間排程管理</a>
+					<a href="#" class="list-group-item list-group-item-action">排班管理</a>
 					<ul>
-						<li>管理排程</li>
-						<li>新增排程</li>
-
+						<li><a href="scheduleManage">新增班別</a></li>
+						<li>管理班表</li>
 					</ul>
 					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
 					<a href="#" class="list-group-item list-group-item-action">進階會員</a>

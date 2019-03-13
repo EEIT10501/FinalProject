@@ -48,20 +48,21 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
-				<h1>確認訂單</h1>
+				<h1>確認訂單01</h1>
 
-				<form method="POST"
-					action="https://payment-stage.opay.tw/Cashier/AioCheckOut/V5">
+				<form method="POST" action="<c:url value='/orderCheck'/>">
 
 					<table>
 						<tr>
 							<td><input type="text" name="MerchantID" value="2000132" /></td>
 						</tr>
 						<tr>
-							<td><input type="text" name="MerchantTradeNo" value="201903130449001" /></td>
+							<td><input type="text" name="MerchantTradeNo"
+								value="201903130449001" /></td>
 						</tr>
 						<tr>
-							<td><input type="text" name="MerchantTradeDate" value="2019/03/13 17:50:00" /></td>
+							<td><input type="text" name="MerchantTradeDate"
+								value="2019/03/13 17:50:00" /></td>
 						</tr>
 						<tr>
 							<td><input type="text" name="TotalAmount" value="100" /></td>
@@ -73,7 +74,8 @@
 							<td><input type="text" name="ItemName" value="測試商品" /></td>
 						</tr>
 						<tr>
-							<td><input type="text" name="ReturnURL" value="http://localhost:8081/FunWorkProject2019/" /></td>
+							<td><input type="text" name="ReturnURL"
+								value="http://localhost:8081/FunWorkProject2019/" /></td>
 						</tr>
 						<tr>
 							<td><input type="text" name="ChoosePayment" value="Credit" /></td>
@@ -82,14 +84,12 @@
 							<td><input type="text" name="PaymentType" value="aio" /></td>
 						</tr>
 						<tr>
-							<td><input type="text" name="PaymentType" value="aio" /></td>
+							<td><input type="text" name="CheckMacValue"
+								value="${CheckMacValue}" /></td>
 						</tr>
+
 						<tr>
-							<td><input type="text" name="CheckMacValue" value="${cattest2}" /></td>
-						</tr>
-						
-						<tr>
-							<td><input type="submit" value="確認付款" /></td>
+							<td><input type="submit" value="取CheckMacValue" /></td>
 						</tr>
 					</table>
 				</form>
@@ -101,6 +101,53 @@
 						</tr>
 					</table>
 				</form>
+				<h1>確認訂單02</h1>
+
+				<form method="POST" action="https://payment-stage.opay.tw/Cashier/AioCheckOut/V5">
+
+					<table>
+						<tr>
+							<td><input type="text" name="MerchantID" value="2000132" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="MerchantTradeNo"
+								value="${params.MerchantTradeNo }" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="MerchantTradeDate"
+								value="2019/03/13 17:50:00" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="TotalAmount" value="100" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="TradeDesc" value="測試歐付寶" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="ItemName" value="測試商品" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="ReturnURL"
+								value="http://localhost:8081/FunWorkProject2019/" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="ChoosePayment" value="Credit" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="PaymentType" value="aio" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" name="CheckMacValue"
+								value="${CheckMacValue}" /></td>
+						</tr>
+
+						<tr>
+							<td><input type="submit" value="確認付款" /></td>
+						</tr>
+					</table>
+				</form>
+
+
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

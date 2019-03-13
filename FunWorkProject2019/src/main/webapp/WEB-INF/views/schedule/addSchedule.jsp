@@ -44,7 +44,7 @@
 </script>
 
 <script type="text/javascript">
-	jQuery132(document).ready(
+	$(document).ready(
 			function() {
 				$("input#name").focus();
 				$('input#color').simpleColorPicker(
@@ -147,7 +147,7 @@
 				// 													});
 				// 											return false;
 				// 										});
-				jQuery132("input[name='cancel']").bind('click', function(e) {
+				$("input[name='cancel']").bind('click', function(e) {
 					e.preventDefault();
 					$.fancybox.close();
 				});

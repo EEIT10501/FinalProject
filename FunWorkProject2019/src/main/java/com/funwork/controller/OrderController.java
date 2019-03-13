@@ -1,14 +1,19 @@
 package com.funwork.controller;
 
+import java.util.Hashtable;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.funwork.service.JobService;
 import com.funwork.service.UserService;
-import allPay.payment.integration.AllInOne;
-import allPay.payment.integration.domain.CaptureObj;
+import allPay.payment.integration.*;
+import allPay.payment.integration.allPayOperator.AllPayFunction;
 
 @Controller
 public class OrderController {
@@ -18,25 +23,37 @@ public class OrderController {
 	@Autowired
 	UserService userService;
 
+	AllInOne all;
+
+	AllPayFunction allPay;
+
 	public OrderController() {
 
 	}
 
 	@RequestMapping("/order")
 	public String Order(Model model) {
-//		AllInOne capture = new AllInOne(null);
-//		CaptureObj captest = new CaptureObj();
-//		captest.setMerchantID("2000132");
-//		captest.setMerchantTradeNo("201903130449001");
-//		captest.setPlatformChargeFee("1");
-//		captest.setPlatformID("123");
-//		captest.setRemark("TEST");
-//		captest.setUpdatePlatformChargeFee("N");
-//		captest.setUserRefundAMT("0");
-//		captest.setCaptureAMT("0");
-//		
-//		String captest2 = capture.capture(captest);
-//		model.addAttribute("cattest2", captest2);
+
+		return "order";
+	}
+
+	@RequestMapping(value = "/orderCheck", method = RequestMethod.POST)
+	public String OrderCheck(Model model, HttpServletRequest req) {
+		allPay = new AllPayFunction();
+		Hashtable<String, String> params = new Hashtable<>();
+		String random = Integer.toString((int) (Math.random() * 100));
+		params.put("MerchantID", req.getParameter("MerchantID"));
+		params.put("MerchantTradeNo", req.getParameter("MerchantTradeNo") + random);
+		params.put("MerchantTradeDate", req.getParameter("MerchantTradeDate"));
+		params.put("TotalAmount", req.getParameter("TotalAmount"));
+		params.put("TradeDesc", req.getParameter("TradeDesc"));
+		params.put("ItemName", req.getParameter("ItemName"));
+		params.put("ReturnURL", req.getParameter("ReturnURL"));
+		params.put("ChoosePayment", req.getParameter("ChoosePayment"));
+		params.put("PaymentType", req.getParameter("PaymentType"));
+
+		model.addAttribute("params", params);
+		model.addAttribute("CheckMacValue", allPay.genCheckMacValue("5294y06JbISpM5x9", "v77hoKGq4kWxNNIS", params));
 
 		return "order";
 	}

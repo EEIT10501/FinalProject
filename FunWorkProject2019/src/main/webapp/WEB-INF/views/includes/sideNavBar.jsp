@@ -123,8 +123,8 @@ background-color: #e3f2fd;
 			<div id="collapse5" class="collapse" aria-labelledby="heading5"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">新增排程</a>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">管理排程</a>
+					<a class="btn btn-link" href="<c:url value='scheduleManage'></c:url>">新增班別</a>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">管理班表</a>
 				</div>
 			</div>
 		</div>
