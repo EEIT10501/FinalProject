@@ -14,10 +14,10 @@ import com.funwork.service.JobService;
 
 @Service
 public class JobServiceImpl implements JobService {
-	
+
 	@Autowired
 	JobDao dao;
-	
+
 	@Autowired
 	CityDao citydao;
 
@@ -35,19 +35,19 @@ public class JobServiceImpl implements JobService {
 	public List<Job> getJobReviewList() {
 		return dao.getJobReviewList();
 	}
-	
+
 	@Override
 	@Transactional
 	public List<Job> getJobPassed() {
 		return dao.getJobPassed();
 	}
-	
+
 	@Override
 	@Transactional
 	public List<Job> getJobByCityName(Integer cityId) {
 		return dao.getJobByCityName(cityId);
 	}
-	
+
 	@Transactional
 	@Override
 	public List<Job> getJobByCityArea(Integer cityId) {
@@ -77,25 +77,31 @@ public class JobServiceImpl implements JobService {
 	public Job jobRemove(Integer jobId, String removeReason) {
 		return dao.jobRemove(jobId, removeReason);
 	}
-	
+
 	@Transactional
 	@Override
-	public List<City> getAllCitys(){
+	public List<City> getAllCitys() {
 		return citydao.getAllCitys();
-		
+
 	}
-	
+
 	@Transactional
 	@Override
-	public List<City> getCityName(Integer cityId){
+	public List<City> getCityName(Integer cityId) {
 		return citydao.getCityName(cityId);
-				
+
 	}
-	
+
 	@Transactional
 	@Override
-	public List<Job> getCorrectJobs(){		
+	public List<Job> getCorrectJobs() {
 		return dao.getCorrectJobs();
+	}
+
+	@Transactional
+	@Override
+	public List<Job> getReviewHistory() {
+		return dao.getReviewHistory();
 	}
 
 }

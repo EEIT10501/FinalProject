@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/DataTables/datatables.min.css/' />">
-<title>申訴處理</title>
+<title>工作審核</title>
 </head>
 <style>
 .card-text-size {
@@ -37,31 +37,32 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="<c:url value='/cpsDeal'/>" class="list-group-item list-group-item-action">申訴處理</a>
-					<a href="<c:url value='/cpsHistory'/>" class="list-group-item list-group-item-action">申訴紀錄</a>
+					<a href="<c:url value='/jobsReview'/>" class="list-group-item list-group-item-action">工作審核</a> 
+					<a href="<c:url value='/jobsReviewHistory'/>" class="list-group-item list-group-item-action">審核紀錄</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1>待處理申訴</h1>
-				<br>
-				<table class="table table-hover dataTable" id="cpTable">
+				<h1>工作審核紀錄</h1>
+				<table class="table table-hover dataTable" id="jobTable">
 					<thead>
 						<tr>
-							<th>申訴編號</th>
-							<th>申訴類別</th>
-							<th>被申訴職缺</th>
+							<th>職缺編號</th>
+							<th>職缺名稱</th>
+							<th>職缺類型</th>
+							<th>時薪</th>
 							<th>雇主姓名</th>
-							<th>提交時間</th>
+							<th>處理時間</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="cp" items="${complaintList}">
+						<c:forEach var="job" items="${jobList}">
 							<tr>
-								<td>${cp.complaintId}</td>
-								<td><a href="<c:url value='/cpDeal/${cp.complaintId}'/>">${cp.type}</a></td>
-								<td>${cp.job.title}</td>
-								<td>${cp.job.jobOwner.userName}</td>
-								<td><fmt:formatDate value="${cp.submitTime}" pattern="yyyy/MM/dd HH:mm" /></td>
+								<td>${job.jobId}</td>
+								<td><a href="<c:url value='/jobReviewHistory/${job.jobId}'/>">${job.title}</a></td>
+								<td>${job.industry}</td>
+								<td>$${job.rateByHour}</td>
+								<td>${job.jobOwner.userName}</td>
+								<td><fmt:formatDate value="${job.reviewTime}" pattern="yyyy/MM/dd HH:mm" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -77,7 +78,7 @@
 	</div>
 	<script>
 		$(document).ready(function() {
-			$("#cpTable").DataTable();
+			$("#jobTable").DataTable();
 		});
 	</script>
 	<script src="<c:url value='/DataTables/datatables.min.js/'/>"></script>

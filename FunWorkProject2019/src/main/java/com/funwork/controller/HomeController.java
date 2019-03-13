@@ -43,7 +43,14 @@ public class HomeController {
 	}
 
 	@RequestMapping("/")
-	public String Home(HttpServletResponse res) {
+	public String Home(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser != null) {
+			if (loginUser.getRole() == 1) {
+				return "jobreview/jobsReview";
+			}
+		}
 		return "index";
 	}
 

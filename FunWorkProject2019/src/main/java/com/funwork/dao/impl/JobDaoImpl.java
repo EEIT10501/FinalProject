@@ -112,12 +112,22 @@ public class JobDaoImpl implements JobDao {
 		job.setFailReason(removeReason);
 		return job;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getCorrectJobs() {
 		String hql = "FROM Job WHERE reviewStatus = '發布中' AND isFilled = false ORDER BY submitTime ASC";
 		String hql2 = "FROM Job WHERE reviewStatus = '發布中' AND isFilled = false AND isExposure = false ORDER BY submitTime ASC";
+		List<Job> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getReviewHistory() {
+		String hql = "FROM Job WHERE reviewStatus != '待審核' ORDER BY submitTime ASC";
 		List<Job> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();

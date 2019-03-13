@@ -26,4 +26,5 @@ public interface JobDao {
 	
 	List<Job> getCorrectJobs();
 
+	List<Job> getReviewHistory();
 }
