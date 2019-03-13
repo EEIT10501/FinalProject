@@ -67,6 +67,13 @@ public class ScheduleController {
 		return "schedule/scheduleManage";
 	}
 	
+	@RequestMapping("/scheduleManage2")
+	public String scheduleManage2(Model model) {
+		List<Schedule> schedulelist = scheuleService.getAllSchedules();
+		model.addAttribute("schedules",schedulelist);
+		return "schedule/scheduleManage2";
+	}
+	
 	@RequestMapping("/deleteSchedule")
 	public String deleteScheduleByPrimaryKey(Model model, @RequestParam("scheduleId") Integer scheduleId) {
 		scheuleService.deleteScheduleByPrimaryKey(scheduleId);
@@ -88,73 +95,7 @@ public class ScheduleController {
 		return "redirect:/scheduleManage";
 	}
 	
-//	http://localhost:8080/FunWorkProject2019/scheduleManage/updateSchedule
-//	
-//	@RequestMapping("/scheduleManage")
-//	public String scheduleManage(Model model) {
-//		List<Schedule> schedulelist = scheuleService.getAllSchedules();
-//		model.addAttribute("schedules",schedulelist);
-//		return "schedule/scheduleManage";
-//	}
-	
-//	@RequestMapping("/updateSchedule")
-//	public String updateScheduleByPrimaryKey(Model model, @RequestParam("scheduleId") Integer scheduleId) {
-//		scheuleService.updateScheduleByPrimaryKey(scheduleId);
-//		return "redirect:/scheduleManage";
-//	}
-	
 
-//	@RequestMapping(value = "/products/add", method = RequestMethod.GET) // 空白表單
-//	public String getAddNewProductForm(Model model) {
-//		BookBean bb = new BookBean();
-//		bb.setTitle("美麗人生");// test
-//		bb.setAuthor("溫麗");// test
-//		model.addAttribute("bookBean", bb);
-//		return "addProduct";
-//	}
-
-//	@RequestMapping(value = "/products/add", method = RequestMethod.POST)
-//	public String processAddNewProductForm(@ModelAttribute("bookBean") BookBean bb, BindingResult result,
-//			HttpServletRequest request) {
-//		String[] suppressedFields = result.getSuppressedFields();
-//		if (suppressedFields.length > 0) {
-//			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-//		}
-//		if (bb.getStock() == null) {
-//			bb.setStock(0);
-//		}
-//
-//		MultipartFile productImage = bb.getProductImage();
-//		String originalFilename = productImage.getOriginalFilename();
-//		bb.setFileName(originalFilename);
-//
-//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-//		String rootDirectory = context.getRealPath("/");
-//		// 建立Blob物件，交由 Hibernate 寫入資料庫
-//		if (productImage != null && !productImage.isEmpty()) {
-//			try {
-//				byte[] b = productImage.getBytes();
-//				Blob blob = new SerialBlob(b);
-//				bb.setCoverImage(blob);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//			}
-//		}
-//		service.addProduct(bb);
-//
-//		try {
-//			File imageFolder = new File(rootDirectory, "images");
-//			if (!imageFolder.exists())
-//				imageFolder.mkdirs();
-//			File file = new File(imageFolder, "EEIT_105_BB_" + bb.getBookId() + ext);
-//			productImage.transferTo(file);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//		}
-//		return "redirect:/products";
-//	}
 	
 
 }
