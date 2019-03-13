@@ -29,6 +29,10 @@ public interface JobService {
 
 	List<City> getCityName(Integer cityId);
 
+	List<Job> findJobByUserId(Integer userId);
+
+	List<Job> findJobByUserIdNJobStatus(Integer userId);
+
 	List<Job> getCorrectJobs();
 
 	List<Job> getReviewHistory();
