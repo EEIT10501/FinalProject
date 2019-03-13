@@ -120,7 +120,7 @@
 							<th>公司單位</th>
 							<th>職缺編號</th>
 							<th>職位</th>
-							<th>截止時間</th>
+							<th>狀態</th>
 							<th>職缺內容</th>
 						</tr>
 					</thead>
@@ -130,9 +130,14 @@
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
-								<c:if test="${job.postEndDate > now}">
-								<td>${job.postEndDate}</td>
-								</c:if>
+								<c:choose>
+								<c:when test="${job.postEndDate > now}">
+								<td>刊登中</td>
+								</c:when>
+								<c:when test="${job.postEndDate < now}">
+								<td>到期下架</td>
+								</c:when>
+								</c:choose>
 								<td><a href='<spring:url value="jobProfile?id=${job.jobId}"/>'
 									class="btn btn-primary"> <span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料
