@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<jsp:useBean id="now" class="java.util.Date"/>
 
 <!DOCTYPE html>
 <html>
@@ -129,7 +130,9 @@
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
+								<c:if test="${job.postEndDate > now}">
 								<td>${job.postEndDate}</td>
+								</c:if>
 								<td><a href='<spring:url value="jobProfile?id=${job.jobId}"/>'
 									class="btn btn-primary"> <span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料

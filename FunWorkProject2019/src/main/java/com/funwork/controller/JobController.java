@@ -1,6 +1,7 @@
 package com.funwork.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +23,9 @@ import com.funwork.model.Schedule;
 import com.funwork.model.User;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.JobService;
-import com.funwork.service.ScheduleService;
 import com.funwork.service.NotificationService;
 import com.funwork.service.ResumeService;
+import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
 
 
@@ -59,7 +59,17 @@ public class JobController {
 
 	@RequestMapping("/jobs")
 	public String Jobs(Model model) {
-		List<Job> joblist = jobService.getJobPassed();
+		List<Job> joblist = jobService.getCorrectJobs();
+//		List<Job> jobIsExposure = new ArrayList<Job>();
+//		for (int i=0;i<joblist.size();i++) {
+//			  if(joblist.get(i).getIsExposure()==true) {
+//				  jobIsExposure.add(joblist.get(i));
+//				  joblist.remove(joblist.get(i));
+//			  }
+//		}
+//		for (int i=0;i<joblist.size();i++) {
+//			jobIsExposure.add(joblist.get(i));
+//		}
 //		List<Job> joblist = jobService.getJobByCity(5);      //依城市搜尋
 //		List<Job> joblist = jobService.getJobByCityArea(13); //依地區搜尋
 		List<City> citylist = jobService.getCityName(15);

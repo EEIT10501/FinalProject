@@ -33,4 +33,6 @@ public interface JobService {
 	List<Job> findJobByUserId(Integer userId);
 
 	List<Job> findJobByUserIdNJobStatus(Integer userId);
+	
+	List<Job> getCorrectJobs();
 }

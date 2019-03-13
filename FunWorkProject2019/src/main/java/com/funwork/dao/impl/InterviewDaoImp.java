@@ -14,7 +14,7 @@ import com.funwork.model.Interview;
 
 @Repository
 public class InterviewDaoImp implements InterviewDao {
-	
+
 	@Autowired
 	SessionFactory factory;
 
@@ -67,9 +67,7 @@ public class InterviewDaoImp implements InterviewDao {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Interview WHERE interviewId=:interviewId";
 		try {
-			session.createQuery(hql).setParameter(1, 
-					interview.getInterviewId()).
-					getResultList();
+			session.createQuery(hql).setParameter(1, interview.getInterviewId()).getResultList();
 			exist = true;
 		} catch (NoResultException e) {
 			e.printStackTrace();
