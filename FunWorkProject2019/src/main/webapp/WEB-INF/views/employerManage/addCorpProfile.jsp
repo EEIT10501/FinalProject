@@ -94,116 +94,107 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-				</div>
-			</div>
-			<div class="col-sm-8">
+		 <%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
+			<div class="col-sm-10">
 
-								<form:form class='form-horizontal' modelAttribute="companyBean" method="POST">
-								<!--  enctype="multipart/form-data" --> 
+				<form:form class='form-horizontal' modelAttribute="companyBean"
+					enctype="multipart/form-data" method="POST">
 					<fieldset>
-						<section style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-<!-- demo page started -->							
-    <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start" data-scrollax-parent="true">
-<!--           <div class="col-md-8 ftco-animate text-center text-md-left mb-5" data-scrollax=" properties: { translateY: '70%' }"> -->
-          	<p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Post a Job</span></p>
-<!--             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Post a Job</h1> -->
-<!--           </div> -->
-        </div>
-      </div>
-    </div>
+						<section
+							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
+							<!-- demo page started -->
+							<div class="col-sm-3" style="float: right">預留區塊</div>
+							<div class="col-md-12 col-lg-8 mb-5 bg-light">
+								<div class="container">
+									<div class="row">
+										<div class="col-md-12 col-lg-8 mb-5">
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0 ">
+													<label class="font-weight-bold" for="companyId">公司序號:</label>
+													<form:input type="text" path="companyId" id="companyId" class="form-control" readonly="true"/>
+												</div>
+											</div>
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0">
+													<label class="font-weight-bold" for="name">公司名稱:</label>
+													<form:input type="text" path="name" paid="name" class="form-control"
+														placeholder="新科技資訊公司"  readonly="true"/>
+												</div>
+											</div>
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0">
+													<label class="font-weight-bold" for="taxId">統一編號:</label> 
+													<form:input type="text" path="taxId" id="taxId" class="form-control"
+														placeholder="八位阿拉伯數字" readonly="true"/>
+												</div>
+											</div>
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0 ">
+													<label class="font-weight-bold" for="address">營業地址:</label>
+													<form:input type="text" path="address" id="address" class="form-control"
+														placeholder="行政區 縣市 路名 門牌號碼 郵遞區號"  readonly="true"/>
+												</div>
+											</div>
 
-    <div class="ftco-section bg-light">
-      <div class="container">
-        <div class="row">
-       
-          <div class="col-md-12 col-lg-8 mb-5">
-          
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">公司營業地址:</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Professional UI/UX Designer">
-                </div>
-              </div>
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0">
+													<label class="font-weight-bold" for="reviewStatus">公司審核狀態:
+													</label> <form:input path="reviewStatus" type="text" id="reviewStatus" class="form-control" readonly="true"/>
+												</div>
+											</div>
+<!-- 											<div class="row form-group mb-3"> -->
+<!-- 												<div class="col-md-12 mb-3 mb-md-0"> -->
+<!-- 													<label class="font-weight-bold" for="description">公司簡介:</label> -->
+<%-- 													<form:textarea  type="text" path="description" id="description" class="form-control" --%>
+<%--  														placeholder="請填入公司簡單介紹 "/> --%>
+<!-- 												</div> -->
+<!-- 											</div> -->
 
-              <div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">公司簡介:</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
-			
-			<div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">公司名稱:</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
-
-			<div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">未讀訊息:</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
-			
-			<div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">公司審核狀態: </label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
-			
-			<div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">公司統一編號: </label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
-              
-              			<div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">公司網頁: </label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
-              
-                            			<div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">公司管理者:</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
-              </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-		
-		
-<!-- demo page started -->				
-							
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0">
+													<label class="font-weight-bold" for="siteURL">公司網頁:
+													</label> <form:input type="text" path="siteURL" id="siteURL" class="form-control"
+														placeholder="www.goodBusinessInc.com"/>
+												</div>
+											</div>
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0">
+													<label class="font-weight-bold" for="user">公司管理者:</label>
+													<form:input type="text" path="user" id="user" class="form-control"
+														placeholder="王瑜仙"/> 
+												</div>
+											</div>
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0">
+													<label class="font-weight-bold" for="companyLogo">公司LOGO:</label>
+													<form:input type="file" path="companyLogo" id="companyLogo" class="form-control"/>
+												</div>
+											</div>
+											<div class="row form-group mb-3">
+												<div class="col-md-12 mb-3 mb-md-0">
+													<label class="font-weight-bold" for="companyCoverPic">公司coverPic:</label>
+													<form:input type="file" path="companyCoverPic" id="companyCoverPic" class="form-control"/>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class='col-lg-offset-2 col-lg-10'>
+												<input id="btnAdd" type='submit' class='btn btn-primary'
+											value="<spring:message code='spring.addProduct.form.submit.label'/>" />
+								</div>
+							</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 							</div> -->
 						</section>
 					</fieldset>
 				</form:form>
-				<div id="content1"></div>
 			</div>
-			<div class="col-sm-2">預留區塊</div>
+
+			<!-- demo page started -->
 		</div>
+	</div>
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">

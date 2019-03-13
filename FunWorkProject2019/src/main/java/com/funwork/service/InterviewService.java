@@ -2,11 +2,13 @@ package com.funwork.service;
 
 import java.util.List;
 
+import com.funwork.model.Application;
 import com.funwork.model.Interview;
 
 public interface InterviewService {
-Interview findByPrimaryKey(int key);
-	
+
+	Interview findByPrimaryKey(int key);
+
 	void saveInterview(Interview interview);
 
 	void updateInterview(Interview interview);
@@ -18,4 +20,6 @@ Interview findByPrimaryKey(int key);
 	void deleteAllInterviews();
 
 	public boolean isInterviewExist(Interview interview);
+
+	List<Application> getInterviewByApplicationId(Integer applicationId);
 }

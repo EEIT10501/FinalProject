@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
+
 </head>
 <style>
 .card-text-size{
@@ -62,18 +63,44 @@ height:600px;
 <div style="height:4rem"></div>
     <div class="container-fluid">
         <div class="row m-3 justify-content-around">
-            <div class="col-sm-2 asideblock">
-            <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-  <a href="manageJob" class="list-group-item list-group-item-action">工作管理</a>
-  <a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-  <a href="manageCompanyPage" class="list-group-item list-group-item-action">公司單位管理</a>
-  <a href="#" class="list-group-item list-group-item-action">加值服務</a>
-  <a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
-  <a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-  <a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-  </div>
-            </div>
+         			<div class="col-sm2 asideblock">
+				<div id="accordion"  class="list-group-item list-group-item-action">
+					<a href="#" class="list-group-item list-group-item-action">雇主後台資訊</a>
+					<ul>
+						<li><a href="#">會員資訊</a></li>
+						<li><a href="mainHub">數據資訊</a></li>
+						<li><a href="#">圖形表單</a></li>
+
+					</ul>
+					<a href="#" class="list-group-item list-group-item-action">職缺釋放管理</a>
+					<ul>
+						<li><a href="manageJob">管理職缺</a></li>
+						<li><a href="addJobProfile">新增職缺</a></li>
+
+					</ul>
+					<a href="#" class="list-group-item list-group-item-action">邀約面試管理</a>
+					<ul type="disc">
+						<li >管理邀約</li>
+						<li>管理面試</li>
+						<li>智慧招募</li>
+					</ul>
+					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
+					<ul>
+						<li><a href="manageCompanyPage">管理單位</a></li>
+						<li><a href="addCorpProfile">新增單位</a></li>
+
+					</ul>
+					<a href="#" class="list-group-item list-group-item-action">排班管理</a>
+					<ul>
+						<li><a href="scheduleManage">新增班別</a></li>
+						<li>管理班表</li>
+					</ul>
+					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
+					<a href="#" class="list-group-item list-group-item-action">進階會員</a>
+					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
+					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
+				</div>
+			</div>
             <div class="col-sm-8">
 <!--             程式寫在這 -->
             

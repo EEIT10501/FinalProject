@@ -30,35 +30,7 @@
 }
 </style>
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<a class="navbar-brand" href="<c:url value='/'/>"> 
-			<img src="<c:url value='/image/LOGO.jpg'/>" width=" 30" height="30" class="d-inline-block align-top">
-			EEIT趣打工
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="<c:url value='/'/>">首頁 <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
-			</ul>
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
-			<span class="navbar-text">
-				<a class="nav-link" href="#">登入</a>
-			</span> 
-			<span class="navbar-text">
-				<a class="nav-link" href="#">註冊</a>
-			</span>
-		</div>
-	</nav>
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
@@ -67,8 +39,19 @@
 			</div>
 			<div class="col-sm-8">
 				<h1>${application.job.title}</h1>
-				<table class="table table-hover" id="msg">
-				</table>
+				<c:choose>
+					<c:when test="${user.userId == application.user.userId}">
+						<p>您於<fmt:formatDate value="${application.applicationTime}" pattern="yyyy/MM/dd" />應徵了此工作</p>
+					</c:when>
+					<c:otherwise>
+						<p>${application.user.userName}於<fmt:formatDate value="${application.applicationTime}" pattern="yyyy/MM/dd" />應徵了此工作</p>
+					</c:otherwise>
+				</c:choose>		
+				<div style="width:100%;height:400px;overflow:auto" id="myDiv">	
+					<table class="table table-hover" id="msgTable">
+						<tbody id="msg"></tbody>
+					</table>		
+				</div>		
 				<div class="col-lg">
 					<div class="input-group">
 						<input type="hidden" id="userId" value="${user.userId}"> 
@@ -124,10 +107,20 @@
 			$('#send').click(function() {
 				send();
 			});
+			
+			$('#message').keypress(function(e) {
+				code = (e.keyCode ? e.keyCode : e.which);
+				if(code == 13){
+					send();
+				}
+			});
 
 			function send() {
 				if (websocket != null) {
 					var message = $("#message").val();
+					if(message == ""){
+						return;
+					}
 					message = message;
 					websocket.send(message);
 
@@ -153,17 +146,24 @@
 					success : function(data) {
 						$.each(data, function(index, element) {
 							var time = new Date(element.time);
+							var min = time.getMinutes();
+							if(min < 10){
+								min = "0" + min;
+							}
 							var timeStr = time.getFullYear() + "年"
 							+ (time.getMonth() + 1) + "月" + time.getDate()
-							+ "日 " + time.getHours() + ":" + time.getMinutes();
+							+ "日 " + time.getHours() + ":" + min;
 							
 							var imgTr = $("<td>").html("<img width='50' height='50' src='<c:url value='/getPicture/" + element.sender.userId + "'/>' />")
 							
 							$("<tr>").appendTo("#msg")
 							.append(imgTr)
-							.append($("<td>").text(element.sender.userName + "：" + element.content))
+							.append($("<td width='50'>"))
+							.append($("<td width='620px'>").text(element.sender.userName + "：" + element.content))
 							.append($("<td>").text(timeStr));
 						});
+						
+						$("#myDiv").scrollTop(10000);
 					}
 				});
 				
@@ -173,18 +173,39 @@
 					success : function(data) {
 						$.each(data, function(index, element) {
 							var time = new Date(element.latestMsgTime);
+							var min = time.getMinutes();
+							if(min < 10){
+								min = "0" + min;
+							}
 							var timeStr = time.getFullYear() + "年"
 							+ (time.getMonth() + 1) + "月" + time.getDate()
-							+ "日 " + time.getHours() + ":" + time.getMinutes();
+							+ "日 " + time.getHours() + ":" + min;
+									
+							var toUserName = "";
+							if(userId != element.user.userId){
+								toUserName = element.user.userName;
+							}else{
+								toUserName = element.job.jobOwner.userName;
+							}
 									
 							var a = $("<a>").attr("href", "<c:url value='/chat/"+ element.applicationId +"'/>").attr("class", "list-group-item list-group-item-action");
-							a.html(element.job.title + "<br>應徵人：" +  element.user.userName + "<br>雇主：" + element.job.jobOwner.userName + "<br>" + element.latestMsg + "<br>" + timeStr);						
+							a.html(element.job.title + "<br>" + toUserName + "<br>" + element.latestMsg + "<br>" + timeStr);						
 							a.appendTo("#apList");	
 						});
 					}
 				});
+				
 			}	
 			getOldMsg();
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/newMsg",
+				type : "GET",
+				success : function(data) {
+					$("#newMsg").html("(" + data + ")");
+				}
+			});	
+			
 		});
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>

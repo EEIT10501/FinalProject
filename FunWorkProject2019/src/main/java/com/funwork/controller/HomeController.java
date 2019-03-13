@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.funwork.model.Resume;
 import com.funwork.model.User;
 import com.funwork.service.ResumeService;
+import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
 
 @Controller
@@ -41,6 +43,8 @@ public class HomeController {
 	private Pattern pattern = null;
 	private Matcher matcher = null;
 
+	@Autowired
+	ScheduleService scheuleService;
 	@Autowired
 	ResumeService resumeService;
 	@Autowired
@@ -52,7 +56,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/")
-	public String Home() {
+	public String Home(HttpServletResponse res) {
 		return "index";
 	}
 
@@ -98,49 +102,18 @@ public class HomeController {
 	@RequestMapping("/login")
 	@ResponseBody
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password,
-			@RequestParam("rememberMe") String rememberMe, HttpServletRequest req, HttpServletResponse res) {
+			HttpServletRequest req) {
 		User user = userService.loginCheck(email, password);
-		Cookie cookieUser = null;
-		Cookie cookiePassword = null;
-		Cookie cookieRememberMe = null;
+
 		if (user != null) {
 			HttpSession session = req.getSession();
 			session.setAttribute("loginUser", user);
-
-			if (rememberMe.equals(true)) {
-				cookieUser = new Cookie("user", String.valueOf(user.getEmail()));
-				cookieUser.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
-				cookieUser.setPath(req.getContextPath());
-
-				cookiePassword = new Cookie("password", password);
-				cookiePassword.setMaxAge(7 * 24 * 60 * 60);
-				cookiePassword.setPath(req.getContextPath());
-
-				cookieRememberMe = new Cookie("rm", "true");
-				cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
-				cookieRememberMe.setPath(req.getContextPath());
-			} else { // 使用者沒有對 RememberMe 打勾
-				cookieUser = new Cookie("user", String.valueOf(user.getEmail()));
-				cookieUser.setMaxAge(0); // MaxAge==0 表示要請瀏覽器刪除此Cookie
-				cookieUser.setPath(req.getContextPath());
-
-				cookiePassword = new Cookie("password", password);
-				cookiePassword.setMaxAge(0);
-				cookiePassword.setPath(req.getContextPath());
-
-				cookieRememberMe = new Cookie("rm", "false");
-				cookieRememberMe.setMaxAge(7 * 24 * 60 * 60);
-				cookieRememberMe.setPath(req.getContextPath());
-			}
-			res.addCookie(cookieUser);
-			res.addCookie(cookiePassword);
-			res.addCookie(cookieRememberMe);
-
 			return "OK";
 		} else {
 			return "fail";
 		}
 	}
+
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model) {
@@ -213,6 +186,28 @@ public class HomeController {
 		}
 
 		return "/register";
+
+	}
+	@RequestMapping("/login/{email}/{password}")
+	@ResponseBody
+	public String login2(@PathVariable("email") String email, @PathVariable("password") String password,
+			HttpServletRequest req) {
+		User user = userService.loginCheck(email, password);
+
+		if (user != null) {
+			HttpSession session = req.getSession();
+			session.setAttribute("loginUser", user);
+			return "OK";
+		} else {
+			return "fail";
+		}
+	}
+
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("loginUser");
+		return "redirect:/";
 
 	}
 

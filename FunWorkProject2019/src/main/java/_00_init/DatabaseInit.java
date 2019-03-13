@@ -40,7 +40,7 @@ public class DatabaseInit {
 		new InterviewTableInit(factory).initInterview();
 		new ProductTableInit(factory).initProduct();
 		new OrderTableInit(factory).initOrder();
-		new MessageTableInit(factory).initMessage();
+//		new MessageTableInit(factory).initMessage();
 		new SuggestionTableInit(factory).initSuggestion();
 		factory.close();
 	}

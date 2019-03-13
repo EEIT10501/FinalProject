@@ -43,14 +43,21 @@ public class CompanyDaoImp implements CompanyDao {
 	@Override
 	public void saveCompany(Company company) {
 		Session session = factory.getCurrentSession();
+		company.setLicensure(company.getLicensure());
 		session.save(company);
 	}
 	
 
 	@Override
-	public void updateCompany(Company company) {
+	public void updateCompanyById(int id,Company company) {
+		String hql = "UPDATE Company SET siteURL = :url, logo = :logo, coverPic = :coverPic, reviewStatus = :status WHERE companyId = :id";
 		Session session = factory.getCurrentSession();
-		session.update(company);
+		session.createQuery(hql).setParameter("url", company.getSiteURL()).
+		setParameter("logo", company.getLogo()).
+		setParameter("coverPic", company.getCoverPic()).
+		setParameter("status", "公司完成建檔").
+		setParameter("id", id).
+		executeUpdate();
 	}
 
 	@Override
@@ -97,10 +104,17 @@ public class CompanyDaoImp implements CompanyDao {
 		System.out.println("parameter received in DaoImp is "+reviewStatus);
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Company WHERE reviewStatus= :reviewStatus";
-//		Query<?> sqlQuery = session.createQuery(hql).setParameter("reviewStatus", reviewStatus);
-//		System.out.println(sqlQuery.);
-//		List<Company> list = (List<Company>) sqlQuery.getResultList();
 		List<Company> list=  session.createQuery(hql).setParameter("reviewStatus", reviewStatus).getResultList();
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Company> findAllCompanyByUserId(Integer userId){
+		System.out.println("findAllCompanyByUserId() called");
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Company WHERE user.userId = :userId ORDER BY companyId ASC";
+		List<Company> list=  session.createQuery(hql).setParameter("userId", userId).getResultList();
 		return list;
 	}
 	

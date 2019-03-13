@@ -62,4 +62,19 @@ public class ComplaintDealController {
 		}
 		return "redirect:/cpsDeal";
 	}
+
+	@RequestMapping(value = "/cpApply", method = RequestMethod.POST)
+	public String complaintApply(@RequestParam("type") String type, @RequestParam("content") String content,
+			@RequestParam("jobId") Integer jobId) {
+
+		Complaint cp = new Complaint();
+		cp.setContent(content);
+		cp.setJob(jobService.getJobById(jobId));
+		cp.setStatus("待處理");
+		cp.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+		cp.setType(type);
+		complaintService.insertCp(cp);
+		
+		return "redirect:/jobDetail/" + jobId;
+	}
 }

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<jsp:useBean id="now" class="java.util.Date"/>
 
 <!DOCTYPE html>
 <html>
@@ -13,13 +14,15 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
+
 <title>首頁</title>
 </head>
 <script>
 	$(document).ready(function() {
 		var text1;
-
+		
+		$("example").dataTable();
+		
 		$("#condit1").change(function() {
 			text1 = $("#condit1").find(":selected").text();
 		});
@@ -94,35 +97,8 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<div>
-						<ul>
-							<li><a href="#">會員資訊</a></li>
-							<li><a href="#">數據資訊</a></li>
-							<li><a href="#">圖形表單</a></li>
-
-						</ul>
-					</div>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<div>
-						<ul>
-							<li><a href="manageJob">管理已刊登職缺</a></li>
-							<li><a href="addJobProfile">新增工作職缺</a></li>
-
-						</ul>
-					</div>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-				</div>
-			</div>
+			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
 			<div class="col-sm-8">
-				<h1>我張貼的工作</h1>
 				<section
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
 					<nav>
@@ -138,13 +114,13 @@
 					</nav>
 				</section>
 				<div id="content1"></div>
-				<table class="table table-hover">
+				<table class="table table-hover" id="example">
 					<thead>
 						<tr>
 							<th>公司單位</th>
 							<th>職缺編號</th>
 							<th>職位</th>
-							<th>產業性質</th>
+							<th>截止時間</th>
 							<th>職缺內容</th>
 						</tr>
 					</thead>
@@ -154,8 +130,10 @@
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
-								<td>${job.isFilled}</td>
-								<td><a href='<spring:url value="job?id=${job.jobId}"/>'
+								<c:if test="${job.postEndDate > now}">
+								<td>${job.postEndDate}</td>
+								</c:if>
+								<td><a href='<spring:url value="jobProfile?id=${job.jobId}"/>'
 									class="btn btn-primary"> <span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料
 								</a></td>

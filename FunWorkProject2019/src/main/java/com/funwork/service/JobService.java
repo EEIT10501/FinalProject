@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.funwork.model.City;
 import com.funwork.model.Job;
+import com.funwork.model.User;
 
 public interface JobService {
 
@@ -28,4 +29,10 @@ public interface JobService {
 	List<City> getAllCitys();
 	
 	List<City> getCityName(Integer cityId);
+
+	List<Job> findJobByUserId(Integer userId);
+
+	List<Job> findJobByUserIdNJobStatus(Integer userId);
+	
+	List<Job> getCorrectJobs();
 }

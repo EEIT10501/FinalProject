@@ -33,6 +33,13 @@ public class UserDaoImpl implements UserDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
+	
+	@Override
+	public User findByPrimaryKey(int key) {
+		Session session = factory.getCurrentSession();
+		User user= session.get(User.class, key);
+		return user;
+	}
 
 	@Override
 	public User getUserById(Integer userId) {

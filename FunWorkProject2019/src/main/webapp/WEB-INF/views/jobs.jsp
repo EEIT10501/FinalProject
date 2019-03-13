@@ -18,9 +18,6 @@
 	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
 <script type="text/javascript"
-	src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
-
-<script type="text/javascript"
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
 	async defer></script>
 
@@ -62,8 +59,7 @@
 			// Browser doesn't support Geolocation
 			handleLocationError(false, infoWindow, map.getCenter());
 		}
-				
-		
+		addMarker()
 	}
 
 	function addMarker() {
@@ -75,8 +71,7 @@
 				title: "${job.title}"
 			});
 			
-			var contentString = "<div>${job.address}</div>"
-		      
+			var contentString = "<div><h6>${job.title}<h6></div><div style='margin-bottom:5px'>${job.address}</div><a href='<c:url value='/jobDetail/${job.jobId}'/>' class='btn btn-primary'><span class='glyphicon-info-sigh glyphicon'></span> 詳細資料 </a>"
 			var infowindow${job.jobId} = new google.maps.InfoWindow({
 			    content: contentString
 			  });
@@ -109,44 +104,10 @@
 }
 
 
-table.dataTable thead .sorting {
-	background-image:
-		url("<c:url value='/datatableimages/sort_both.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_asc {
-	background-image:
-		url("<c:url value='/datatableimages/sort_asc.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_desc {
-	background-image:
-		url("<c:url value='/datatableimages/sort_desc.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_asc_disabled {
-	background-image:
-		url("<c:url value='/datatableimages/sort_asc_disabled.png'></c:url>")
-}
-
-
-
-table.dataTable thead .sorting_desc_disabled {
-	background-image:
-		url("<c:url value='/datatableimages/sort_desc_disabled.png'></c:url>")
-}
-
 #map {
 	height: 400px;
 	margin-bottom: 5px;
 }
-
 </style>
 
 </head>
@@ -201,6 +162,21 @@ table.dataTable thead .sorting_desc_disabled {
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}">
+						<c:if test="${job.isExposure==true}">
+							<tr>
+								<td>
+								<span class="text-info" style="margin-right:5px">★推薦</span>${job.title}</td>
+								<td>${job.city.cityName}</td>
+								<td>${job.jobCompany.name}</td>
+								<td>${job.isFilled}</td>
+								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
+									class="btn btn-primary"><span
+										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+							</tr>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="job" items="${jobs}">
+							<c:if test="${job.isExposure==false}">
 							<tr>
 								<td>${job.title}</td>
 								<td>${job.city.cityName}</td>
@@ -210,14 +186,14 @@ table.dataTable thead .sorting_desc_disabled {
 									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
 
 			</div>
 			<div class="col-sm-5">
-				<input type="button" class="btn btn-secondary"
-					style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作">
+<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
 				<div id="map"></div>
 			</div>
 		</div>
@@ -229,7 +205,8 @@ table.dataTable thead .sorting_desc_disabled {
 				reserved.</div>
 		</div>
 	</div>
-
+	<script type="text/javascript"
+		src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

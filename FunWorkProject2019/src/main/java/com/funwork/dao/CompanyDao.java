@@ -9,8 +9,6 @@ public interface CompanyDao {
 	
 	void saveCompany(Company company);
 
-	void updateCompany(Company company);
-
 	void deleteCompanyByPrimaryKey(int key);
 
 	List<Company> findAllCompanys();
@@ -22,4 +20,8 @@ public interface CompanyDao {
 	Company findByName(String name);
 
 	List<Company> getAllCompanysByReviewStatus(String reviewStatus);
+
+	void updateCompanyById(int id, Company company);
+
+	List<Company> findAllCompanyByUserId(Integer userId);
 }

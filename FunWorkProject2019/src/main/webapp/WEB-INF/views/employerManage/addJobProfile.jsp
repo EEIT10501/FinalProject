@@ -18,27 +18,32 @@
 </head>
 <script>
 	$(document).ready(function() {
-		var text1;
+		
+// 		var formFields = $('*:not(.no-serialize)', '#newJob').serialize();
 
-		$("#condit1").change(function() {
-			text1 = $("#condit1").find(":selected").text();
+		$("#addJobButton").click(function() {
+			
+			$("#newJob").ajaxSubmit({
+				url: contextPath + "/addJobProfile", 
+				type: 'post'
+				
+			})
+
+// 			$.ajax({
+// 				url : contextPath + "/newJobPost",
+// 				contentType : 'application/json; charset=utf-8',
+// 				cache : false,
+// 				type : "POST",
+// 				data:JSON.stringify(fieldArray),
+// 				success : function(result) {
+// 						console.log("Success");
+// 						$('#newJob').submit
+// 				},
+// 				error : function(xhr) {
+// 					alert("failure");
+// 				}
+// 			});
 		});
-
-		$("#butt1").click(function() {
-
-			$.ajax({
-				url : 'jobManCond',
-				data : {
-					condition1 : text1
-				},
-				type : 'post',
-				cache : false,
-				success : function(data) {
-					$('#content1').text(data);
-				}
-			});
-		});
-
 	});
 </script>
 <style>
@@ -94,171 +99,128 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-				</div>
-			</div>
+			<input type="hidden" id="contextPath"
+				value="${pageContext.request.contextPath}">
+			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			<div class="col-sm-8">
 
-								<form:form class='form-horizontal' modelAttribute="companyBean" method="POST">
-								<!--  enctype="multipart/form-data" --> 
+				<form:form class='form-horizontal' id="newJobPost" modelAttribute="newJobPost" 
+				method="POST" enctype="multipart/form-data">
 					<fieldset>
-						<section style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-<!-- demo page started -->							
-    <div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start" data-scrollax-parent="true">
-<!--           <div class="col-md-8 ftco-animate text-center text-md-left mb-5" data-scrollax=" properties: { translateY: '70%' }"> -->
-          	<p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Post a Job</span></p>
-<!--             <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Post a Job</h1> -->
-<!--           </div> -->
-        </div>
-      </div>
-    </div>
+						<section
+							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
+							<div class="col-md-12 col-lg-8 mb-5">
+								<h6>工作單位</h6>
+								<hr>
+<!-- 								<div class="row form-group"> -->
+<!-- 									<div class="col-md-12 mb-3 mb-md-0"> -->
+<!-- 										<label for="option-price-1">  -->
+<%-- 										<form:input type="checkbox" --%>
+<%-- 											id="option-price-1" path="personal"/> <span class="text-success">個人</span> --%>
+<!-- 										</label> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-md-12 mb-3 mb-md-0"> -->
+<!-- 										<label for="option-price-2">  -->
+<%-- 										<form:input type="checkbox" --%>
+<%-- 											id="option-price-2" path="corporal"/> <span class="text-success">公司</span> --%>
+<!-- 										</label> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 
-    <div class="ftco-section bg-light">
-      <div class="container">
-        <div class="row">
-       
-          <div class="col-md-12 col-lg-8 mb-5">
-          
-			     <form action="#" class="p-5 bg-white">
-              
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label for="option-price-1">
-                    <input type="checkbox" id="option-price-1"> <span class="text-success">$500</span> For 30 days
-                  </label>
-                </div>
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label for="option-price-2">
-                    <input type="checkbox" id="option-price-2"> <span class="text-success">$300</span> / Monthly Recurring
-                  </label>
-                </div>
-              </div>
+								<div class="row form-group">
+									<div class="col-md-12 mb-3 mb-md-0">
+										<label class="font-weight-bold" for="fullname">Job
+											Title</label> 
+										<form:input type="text" id="title" class="form-control" path="title"
+											placeholder="eg. Professional UI/UX Designer"/>
+									</div>
+								</div>
 
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">Job Title</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Professional UI/UX Designer">
-                </div>
-              </div>
-
-              <div class="row form-group mb-5">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">Company</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="eg. Facebook, Inc.">
-                </div>
-              </div>
+								<div class="row form-group mb-5">
+									<div class="col-md-12 mb-3 mb-md-0">
+										<label class="font-weight-bold" for="fullname">Company</label>
+										<form:input type="text" id="industry" class="form-control"
+											placeholder="eg. Facebook, Inc." path="industry"/>
+									</div>
+								</div>
 
 
-              <div class="row form-group">
-                <div class="col-md-12"><h3>Job Type</h3></div>
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label for="option-job-type-1">
-                    <input type="radio" id="option-job-type-1" name="job-type"> Full Time
-                  </label>
-                </div>
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label for="option-job-type-2">
-                    <input type="radio" id="option-job-type-2" name="job-type"> Part Time
-                  </label>
-                </div>
+								<!--               <div class="row form-group"> -->
+								<!--                 <div class="col-md-12"><h3>Job Type</h3></div> -->
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!--                   <label for="option-job-type-1"> -->
+								<!--                     <input type="radio" id="option-job-type-1" name="job-type"> Full Time -->
+								<!--                   </label> -->
+								<!--                 </div> -->
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!--                   <label for="option-job-type-2"> -->
+								<!--                     <input type="radio" id="option-job-type-2" name="job-type"> Part Time -->
+								<!--                   </label> -->
+								<!--                 </div> -->
 
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label for="option-job-type-3">
-                    <input type="radio" id="option-job-type-3" name="job-type"> Freelance
-                </div>
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label for="option-job-type-4">
-                    <input type="radio" id="option-job-type-4" name="job-type"> Internship
-                  </label>
-                </div>
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <label for="option-job-type-4">
-                    <input type="radio" id="option-job-type-4" name="job-type"> Termporary
-                  </label>
-                </div>
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!--                   <label for="option-job-type-3"> -->
+								<!--                     <input type="radio" id="option-job-type-3" name="job-type"> Freelance -->
+								<!--                 </div> -->
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!--                   <label for="option-job-type-4"> -->
+								<!--                     <input type="radio" id="option-job-type-4" name="job-type"> Internship -->
+								<!--                   </label> -->
+								<!--                 </div> -->
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!--                   <label for="option-job-type-4"> -->
+								<!--                     <input type="radio" id="option-job-type-4" name="job-type"> Termporary -->
+								<!--                   </label> -->
+								<!--                 </div> -->
 
-              </div>
+								<!--               </div> -->
 
-              <div class="row form-group mb-4">
-                <div class="col-md-12"><h3>Location</h3></div>
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <input type="text" class="form-control" placeholder="Western City, UK
-">
-                </div>
-              </div>
+								<!--               <div class="row form-group mb-4"> -->
+								<!--                 <div class="col-md-12"><h3>Location</h3></div> -->
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!--                   <input type="text" class="form-control" placeholder="Western City, UK -->
+								<!-- "> -->
+								<!--                 </div> -->
+								<!--               </div> -->
 
 
 
-              <div class="row form-group">
-                <div class="col-md-12"><h3>Job Description</h3></div>
-                <div class="col-md-12 mb-3 mb-md-0">
-                  <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
-                </div>
-              </div>
+								<!--               <div class="row form-group"> -->
+								<!--                 <div class="col-md-12"><h3>Job Description</h3></div> -->
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!--                   <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea> -->
+								<!--                 </div> -->
+								<!--               </div> -->
 
-              <div class="row form-group">
-                <div class="col-md-12">
-                  <input type="submit" value="Post" class="btn btn-primary  py-2 px-5">
-                </div>
-              </div>
+								<!--               <div class="row form-group"> -->
+								<!--                 <div class="col-md-12"> -->
+								<!--                   <input type="submit" value="Post" class="btn btn-primary  py-2 px-5"> -->
+								<!--                 </div> -->
+								<!--               </div> -->
 
-			   <div class="row form-group mb-4">
-                <div class="col-md-12"><h3>Contact Info</h3></div>
-                <div class="col-md-12 mb-3 mb-md-0">
-				  Address<input type="text" class="form-control" placeholder="203 Fake St. Mountain View, San Francisco, California, USA">
-				  Phone<input type="text" class="form-control" placeholder="+1 232 3235 324">
-				  Email Address<input type="text" class="form-control" placeholder="JohnSon@gmail.com">
-                </div>
-              </div>
-            <div class="p-4 mb-3 bg-white">
-                <h3 class="h5 text-black mb-3">More Info</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ad iure porro mollitia architecto hic consequuntur. Distinctio nisi perferendis dolore, ipsa consectetur</p>
-                <p>
-              <a href="#" class="btn btn-primary  py-2 px-4">Learn More</a></p>
-            </div>
-  
-            </form>
-          </div>
+								<!-- 			   <div class="row form-group mb-4"> -->
+								<!--                 <div class="col-md-12"><h3>Contact Info</h3></div> -->
+								<!--                 <div class="col-md-12 mb-3 mb-md-0"> -->
+								<!-- 				  Address<input type="text" class="form-control" placeholder="203 Fake St. Mountain View, San Francisco, California, USA"> -->
+								<!-- 				  Phone<input type="text" class="form-control" placeholder="+1 232 3235 324"> -->
+								<!-- 				  Email Address<input type="text" class="form-control" placeholder="JohnSon@gmail.com"> -->
+								<!--                 </div> -->
+								<!--               </div> -->
+								<!--             <div class="p-4 mb-3 bg-white"> -->
+								<!--                 <h3 class="h5 text-black mb-3">More Info</h3> -->
+								<!--                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ad iure porro mollitia architecto hic consequuntur. Distinctio nisi perferendis dolore, ipsa consectetur</p> -->
+								<!--                 <p> -->
+								<!--               <a href="#" class="btn btn-primary  py-2 px-4">Learn More</a></p> -->
+								<!--             </div> -->
 
-<!--           <div class="col-lg-4"> -->
-<!--             <div class="p-4 mb-3 bg-white"> -->
-<!--               <h3 class="h5 text-black mb-3">Contact Info</h3> -->
-<!--               <p class="mb-0 font-weight-bold">Address</p> -->
-
-<!--               <p class="mb-0 font-weight-bold">Phone</p> -->
-<!--               <p class="mb-4"><a href="#">+1 232 3235 324</a></p> -->
-
-<!--               <p class="mb-0 font-weight-bold">Email Address</p> -->
-<!--               <p class="mb-0"><a href="#"><span class="__cf_email__" data-cfemail="671e081215020a060e0b2703080a060e094904080a">[email&#160;protected]</span></a></p> -->
-
-<!--             </div> -->
-            
-<!--             <div class="p-4 mb-3 bg-white"> -->
-<!--               <h3 class="h5 text-black mb-3">More Info</h3> -->
-<!--               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ad iure porro mollitia architecto hic consequuntur. Distinctio nisi perferendis dolore, ipsa consectetur</p> -->
-<!--               <p><a href="#" class="btn btn-primary  py-2 px-4">Learn More</a></p> -->
-<!--             </div> -->
-          </div>
-        </div>
-      </div>
-    </div>
-
-		
-		
-<!-- demo page started -->				
-							
+								<%--             </form> --%>
+								<div class="form-group">
+									<div class='col-lg-offset-2 col-lg-10'>
+										<input id="addJobButton" type='submit' class='btn btn-primary'
+											value="<spring:message code='spring.addProduct.form.submit.label'/>" />
+									</div>
+								</div>
+							</div>
 						</section>
 					</fieldset>
 				</form:form>

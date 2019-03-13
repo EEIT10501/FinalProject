@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -63,10 +64,13 @@ public class ApplicationDaoImp implements ApplicationDao {
 		Session session = factory.getCurrentSession();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Application> findAllApplications() {
+	public List<Application> findAllApplicantByJobId(Job job) {
 		Session session = factory.getCurrentSession();
-		return null;
+		String hql = "FROM Application WHERE job = :job";
+		List<Application> list = session.createQuery(hql).setParameter("job", job).getResultList();
+		return list;
 	}
 
 	@Override
@@ -84,7 +88,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	@Override
 	public List<Application> getApplicationByUserId(Integer userId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2) and a.latestMsg IS NOT NULL ORDER BY a.latestMsgTime ASC";
+		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2) and a.latestMsg IS NOT NULL ORDER BY a.latestMsgTime DESC";
 		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId)
 				.getResultList();
 		return list;
@@ -96,6 +100,22 @@ public class ApplicationDaoImp implements ApplicationDao {
 		Application ap = session.get(Application.class, apId);
 		ap.setLatestMsg(msg);
 		ap.setLatestMsgTime(new Timestamp(System.currentTimeMillis()));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Application> getApplicationByUserIdByTime(Integer userId) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"+"ORDER BY a.applicationTime DESC";
+		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId).getResultList();
+		return list;
+	}
+
+	@Override
+	public void refuseUser(Integer apId) {
+		Session session = factory.getCurrentSession();
+		Application ap = session.get(Application.class, apId);
+		ap.setAppliedStatus("已婉拒");
 	}
 
 }
