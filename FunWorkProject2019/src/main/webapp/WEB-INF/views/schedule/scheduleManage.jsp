@@ -2,47 +2,37 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
-<link type="text/css" rel="stylesheet"
-	href="/FunWorkProject2019/css/jquery.dataTables.min.css"
-	media="screen, projection" />
-
-<link type="text/css" rel="stylesheet"
-	href="https://shift.ekko.com.tw/asset/css/jquery.fancybox-1.3.4.css"
-	media="screen, projection" />
-
-<link type="text/css" rel="stylesheet"
-	href="/FunWorkProject2019/css/jquery.timepicker.css"
-	media="screen, projection" />
-
-<script type="text/javascript"
-	src='<c:url value="/js/jquery-3.3.1.js"/>'></script>
-<script type="text/javascript"
-	src='<c:url value="/js/jquery.dataTables.min.js"/>'></script>
-<script type='text/javascript'>
-	var jQuery132 = jQuery.noConflict(true);
-</script>
-<script type="text/javascript"
-	src='<c:url value="/js/jquery-1.7.1.min.js"/>'></script>
-<script type="text/javascript"
-	src='<c:url value="/js/jquery.fancybox-1.3.4.pack.js"/>'></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 	
-<script type="text/javascript"
-	src='<c:url value="/js/jquery.timepicker.js"/>'></script>	
-<script type="text/javascript"
-	src='<c:url value="/js/datepair.js"/>'></script>
-<script type="text/javascript"
-	src='<c:url value="/js/jquery.datepair.js"/>'></script>
+<link type="text/css" rel="stylesheet" href='<c:url value="/css/jquery.dataTables.min.css"/>'  media="screen, projection" />
+<link type="text/css" rel="stylesheet" href='<c:url value="/css/jquery.timepicker.css"/>' media="screen, projection" />
+<link type="text/css" rel="stylesheet" href="https://shift.ekko.com.tw/asset/css/jquery.fancybox-1.3.4.css" media="screen, projection" />
+
+<!-- <script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script> -->
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src='<c:url value="/js/jquery-1.7.1.min.js"/>'></script>
+
+<script type="text/javascript" src='<c:url value="/js/jquery.fancybox-1.3.4.pack.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/js/jquery.timepicker.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/js/datepair.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/js/jquery.datepair.js"/>'></script>
+
+<script type="text/javascript" src='<c:url value="/js/jquery.dataTables.min.js"/>'></script>
+
 
 <script type="text/javascript">
-	jQuery132(document).ready(function() {
-		jQuery132('#example').DataTable({
+	$(document).ready(function() {
+		$('#example').DataTable({
 			"language" : {
 				"lengthMenu" : "Display _MENU_ records per page",
 				"zeroRecords" : "Nothing found - sorry",
@@ -52,20 +42,52 @@
 			}
 		});
 	});
-
-	
 </script>
 
 <title>班別管理</title>
+<style>
+.card-text-size {
+	font-size: 14px;
+}
+
+.footerbackground {
+	background: #343a40;
+	color: white;
+}
+
+.asideblock {
+	height: 600px;
+}
+
+</style>
 </head>
 
 <body>
+	
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
+	<script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script>
+	<div style="height: 4rem"></div>
+	<div class="container-fluid">
+		<div class="row m-3 justify-content-around">
+			<div class="col-sm-2 asideblock">
+				<div class="list-group">
+					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
+					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
+					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
+					<a href="#" class="list-group-item list-group-item-action">公司管理</a>
+					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
+					<a href="#" class="list-group-item list-group-item-action">黃金會員</a>
+					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
+					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<!--             程式寫在這 -->
 
-	<div class="" style="background-color: #FFFFCC">
+<div class="" style="background-color: ">
 		<h2>班別管理</h2>
-		<div class="" style="background-color: #CCFFFF">
-			<a href='<c:url value="/addSchedule"/>' title="新增班別"
-				 id="addSchedule">新增班別</a>
+		<div class="" style="background-color: ">
+			<a href='<c:url value="/addSchedule"/>' title="新增班別" id="addSchedule">新增班別</a>
 		</div>
 	</div>
 	<table id="example" class="display" style="width: 100%">
@@ -88,22 +110,26 @@
 					<td>${schedule.scheduleName}</td>
 					<td><div width="20" height="20"
 							style="width: 20px; height: 20px; border: 1px solid #000000; background-color: ${schedule.color}; margin: auto;">&nbsp;</div></td>
-					<td><fmt:formatDate value="${schedule.startTime}" pattern="HH:mm"/></td>
-					<td><fmt:formatDate value="${schedule.endTime}" pattern="HH:mm"/></td>					
+					<td><fmt:formatDate value="${schedule.startTime}"
+							pattern="HH:mm" /></td>
+					<td><fmt:formatDate value="${schedule.endTime}"
+							pattern="HH:mm" /></td>
 					<td>${schedule.restHour}</td>
 					<td>${schedule.workingHours}</td>
-					<td><a   
+					<td><a
 						href="<spring:url value='/updateSchedule?scheduleId=${schedule.scheduleId}' />"
-						title="編輯" class="image edit span-1" id="updateSchedule"><img src='<c:url value="/image/edit.png"/>' title="編輯" alt="編輯" width="20px"></a>
-						<a
+						title="編輯" class="image edit span-1" id="updateSchedule"><img
+							src='<c:url value="/image/edit.png"/>' title="編輯" alt="編輯"
+							width="20px"></a> <a
 						href="<spring:url value='/deleteSchedule?scheduleId=${schedule.scheduleId}' />"
-						title="刪除" class="image delete span-1" id="delete"><img src='<c:url value="/image/delete.png"/>' title="刪除" alt="刪除" width="22px"></a>
-						</td>
+						title="刪除" class="image delete span-1" id="delete"><img
+							src='<c:url value="/image/delete.png"/>' title="刪除" alt="刪除"
+							width="22px"></a></td>
 				</tr>
-<!-- 						<div class="" style="background-color: #CCFFFF"> -->
-<%-- 			<a href='<c:url value="/addSchedule"/>' title="新增班別" --%>
-<!-- 				class="worker span-2 button" id="addSchedule">新增班別</a> -->
-<!-- 		</div> -->
+				<!-- 						<div class="" style="background-color: #CCFFFF"> -->
+				<%-- 			<a href='<c:url value="/addSchedule"/>' title="新增班別" --%>
+				<!-- 				class="worker span-2 button" id="addSchedule">新增班別</a> -->
+				<!-- 		</div> -->
 			</c:forEach>
 		</tbody>
 		<tfoot>
@@ -121,7 +147,7 @@
 	</table>
 
 
-
+<!-- <script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script> -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("a#addSchedule,a#updateSchedule").live('click', function(e) {
@@ -138,9 +164,27 @@
 
 		})
 	</script>
-</body>
 
-</html>
-
+			</div>
+			<div class="col-sm-2">預留區塊</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row no-gutter footerbackground">
+			<div class="col text-center">Copyright© 2019 趣打工 All rights
+				reserved.</div>
+		</div>
+	</div>
+<!-- 	<script src="https://code.jquery.com/jquery-3.3.1.js" -->
+<!-- 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
+<!-- 		crossorigin="anonymous"></script> -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
 </body>
 </html>

@@ -27,6 +27,9 @@ public interface ApplicationDao {
 
 	void updateLatestMsg(Integer apId, String msg);
 
+
+	List<Application> getApplicationByUserIdByTime(Integer userId);
+
 	List<Application> findAllApplicantByJobId(Job job);
 	
 	void refuseUser(Integer apId);

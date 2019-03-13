@@ -72,7 +72,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	public Schedule getScheduleByPrimaryKey(int scheduleId) {
 		Session session = factory.getCurrentSession();		
 		Schedule schedule = session.get(Schedule.class, scheduleId);
-		System.out.println(schedule.getColor());
 		if(schedule==null)throw new PropertyNotFoundException("scheduleId"+scheduleId+" Not Found:");
 		return schedule;
 		

@@ -38,7 +38,7 @@
 </script>
 
 <script type="text/javascript">
-	jQuery132(document).ready(
+	$(document).ready(
 			function() {
 				$("input#name").focus();
 				$('input#color').simpleColorPicker(
@@ -62,7 +62,7 @@
 									'#c27ba0' ]
 						});
 
-				jQuery132("input[name='cancel']").bind('click', function(e) {
+				$("input[name='cancel']").bind('click', function(e) {
 					e.preventDefault();
 					$.fancybox.close();
 				});
