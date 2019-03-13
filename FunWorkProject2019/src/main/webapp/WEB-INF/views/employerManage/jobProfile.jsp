@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="now" class="java.util.Date"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +71,7 @@ height:600px;
 
 	<section>
 		<div>
-			<div class="container" style="text-align: center">
+			<div class="container" style="text-align: center; font: 微軟正黑體">
 				<strong><h1>工作職缺內容</h1></strong>
 			</div>
 		</div>
@@ -82,10 +84,12 @@ height:600px;
           <div class="panel panel-default text-left">
             <div class="panel-body">
               	 <h3><strong><a href='<spring:url value="applications?id=${job.jobId}"/>'>${job.title}</a></strong></h3> <p></p>
-                 <strong>單位名稱:</strong> ${job.jobCompany.name}　<p>
-            	 <strong>單位地址:</strong> ${job.address}　<p>
-            	 <strong>截止時間:</strong> ${job.postEndDate}　<p>
-            	 <strong>職缺點擊次數:</strong> ${job.viewTimes}　<p>
+                 <strong>單位名稱:</strong> ${job.jobCompany.name}<br>
+            	 <strong>單位地址:</strong> ${job.address}<br>
+            	 <strong>職缺點擊次數:</strong> ${job.viewTimes}<br>
+            	 <strong>剩<fmt:parseNumber
+   				  value="${(job.postEndDate.time - now.time) / (1000*60*60*24) }"
+  				  integerOnly="true" />天刊登時間</strong><p>
             <hr>
               <button type="button" class="btn btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-thumbs-up"></span> 至頂曝光

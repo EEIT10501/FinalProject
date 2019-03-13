@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.JobDao;
 import com.funwork.model.Job;
+import com.funwork.model.User;
 
 @Repository
 public class JobDaoImpl implements JobDao {
@@ -113,6 +114,24 @@ public class JobDaoImpl implements JobDao {
 		return job;
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Job> findJobByUserId(Integer userId){
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Job WHERE jobOwner.userId = :userId ORDER BY submitTime ASC";
+		List<Job> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
+		return list;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Job> findJobByUserIdNJobStatus(Integer userId){
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Job WHERE jobOwner.userId = :userId and reviewStatus =:reviewStatus";
+		List<Job> list = session.createQuery(hql).setParameter("userId", userId).
+				setParameter("reviewStatus","發布中").getResultList();
+		return list;
+	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getCorrectJobs() {
@@ -123,5 +142,4 @@ public class JobDaoImpl implements JobDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
-
 }

@@ -104,10 +104,17 @@ public class CompanyDaoImp implements CompanyDao {
 		System.out.println("parameter received in DaoImp is "+reviewStatus);
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Company WHERE reviewStatus= :reviewStatus";
-//		Query<?> sqlQuery = session.createQuery(hql).setParameter("reviewStatus", reviewStatus);
-//		System.out.println(sqlQuery.);
-//		List<Company> list = (List<Company>) sqlQuery.getResultList();
 		List<Company> list=  session.createQuery(hql).setParameter("reviewStatus", reviewStatus).getResultList();
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Company> findAllCompanyByUserId(Integer userId){
+		System.out.println("findAllCompanyByUserId() called");
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Company WHERE user.userId = :userId ORDER BY companyId ASC";
+		List<Company> list=  session.createQuery(hql).setParameter("userId", userId).getResultList();
 		return list;
 	}
 	

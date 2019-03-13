@@ -23,4 +23,6 @@ public interface CompanyService {
 	List<Company> findAllCompanys(String reviewStatus);
 
 	void updateCompanyById(int id, Company company);
+	
+	public List<Company> findAllCompanyByUserId(Integer userId);
 }
