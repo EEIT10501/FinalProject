@@ -63,11 +63,7 @@
 							value="${loginUser.userName} : 您好"></c:out></a>
 				</span>
 			</c:if>
-			<span class="navbar-text my-2 my-sm-0"> <a
-
-				class="nav-link btn btn-outline-secondary" data-toggle="modal"
-				data-target="#loginModal" href="#">登入</a>
-			</span> <span class="navbar-text my-2 my-sm-0"> <a
+			 <span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" href="register">註冊</a>
 
 			</span>
