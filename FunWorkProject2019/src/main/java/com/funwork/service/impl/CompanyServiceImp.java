@@ -71,5 +71,11 @@ public class CompanyServiceImp implements CompanyService {
 		System.out.println("parameter received in serviceImp is "+reviewStatus);
 		return dao.getAllCompanysByReviewStatus(reviewStatus);
 	}
+	
+	@Transactional
+	@Override
+	public List<Company> findAllCompanyByUserId(Integer userId) {
+		return dao.findAllCompanyByUserId(userId);
+	}
 
 }
