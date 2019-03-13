@@ -82,5 +82,12 @@ public class ApplicationServiceImp implements ApplicationService {
 	public void updateLatestMsg(Integer apId, String msg) {
 		dao.updateLatestMsg(apId, msg);
 	}
+	
+	@Transactional
+	@Override
+	public List<Application> getApplicationByUserIdByTime(Integer userId) {
+		return dao.getApplicationByUserIdByTime(userId);
+	}
+	
 
 }

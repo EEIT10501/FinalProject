@@ -28,4 +28,6 @@ public interface ApplicationService {
 	
 	void updateLatestMsg(Integer apId, String msg);
 
+	List<Application> getApplicationByUserIdByTime(Integer userId);
+
 }

@@ -36,6 +36,7 @@
 					href="<c:url value='/'></c:url>">首頁 <span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'></c:url>">想找打工</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobSeekerInfo'></c:url>">求職者專區</a>
 				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">想要徵人</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>

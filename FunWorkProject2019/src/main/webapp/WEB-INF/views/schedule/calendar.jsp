@@ -51,7 +51,7 @@
 							aspectRatio : 1.8,
 							scrollTime : '00:00',
 							header : {
-								left : 'today prev,next',
+								left : 'promptResource, prev,next',
 								center : 'title',
 								right : 'timelineDay,timelineTenDay,timelineMonth,timelineYear,timelineMonth'
 							},
@@ -64,6 +64,22 @@
 									$(this).remove();
 								}
 							},
+						      customButtons: {
+						          promptResource: {
+						            text: '+ 員工',
+						            click: function() {
+						              var title = prompt('請輸入員工名字');
+						              if (title) {
+						                $('#calendar').fullCalendar(
+						                  'addResource',
+						                  { title: title },
+						                  true // scroll to the new resource?
+						                );
+						              }
+						            }
+						          }
+						        },
+							
 							defaultView : 'month',
 							views : {
 								timelineDay : {
@@ -79,8 +95,10 @@
 							},
 							navLinks : true,
 							resourceAreaWidth : '25%',
-							resourceLabelText : 'Rooms',
+							resourceLabelText : '員工姓名',
 							resources : [ {
+					            url: "https://shift.ekko.com.tw/shift/ajax_get_worklogs/14140.html", 
+					            color: "#ffff00",    // an option!
 								id : 'a',
 								title : 'Auditorium A'
 							}, {
@@ -136,6 +154,7 @@
 								end : '2018-04-07T02:30:00',
 								title : 'event 5'
 							} ]
+							
 						});
 		
 

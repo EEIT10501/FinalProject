@@ -27,4 +27,6 @@ public interface ApplicationDao {
 	List<Application> getApplicationByUserId(Integer userId);
 	
 	void updateLatestMsg(Integer apId, String msg);
+
+	List<Application> getApplicationByUserIdByTime(Integer userId);
 }

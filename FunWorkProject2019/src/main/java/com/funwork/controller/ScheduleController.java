@@ -76,7 +76,6 @@ public class ScheduleController {
 	
 	@RequestMapping(value = "/updateSchedule", method = RequestMethod.GET)
 	public String getUpdateScheduleForm(Model model, @RequestParam("scheduleId") Integer scheduleId) {
-//		Schedule schedule = new Schedule();
 		Schedule updateSchedule = scheuleService.getScheduleByPrimaryKey(scheduleId);
 		model.addAttribute("schedule", updateSchedule);
 		return "schedule/updateSchedule";
