@@ -56,7 +56,7 @@ public class JobDaoImpl implements JobDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getJobByCityName(Integer cityId) {
-		String hql = "FROM Job WHERE Fk_City_Id = :cityId ORDER BY submitTime ASC";
+		String hql = "FROM Job WHERE Fk_City_Id = :cityId AND isFilled = false ORDER BY submitTime ASC";
 		List<Job> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
 		Query query = session.createQuery(hql).setParameter("cityId", cityId);
@@ -69,10 +69,10 @@ public class JobDaoImpl implements JobDao {
 	public List<Job> getJobByCityArea(Integer cityId) {
 		String hql = "";
 		if (cityId <= 12) {
-			hql = "FROM Job WHERE Fk_City_Id <= 12 ORDER BY submitTime ASC";
+			hql = "FROM Job WHERE Fk_City_Id <= 12 AND isFilled = false ORDER BY submitTime ASC";
 		}
 		if (cityId >= 13 && cityId < 42) {
-			hql = "FROM Job WHERE Fk_City_Id BETWEEN 13 AND 41 ORDER BY submitTime ASC";
+			hql = "FROM Job WHERE Fk_City_Id BETWEEN 13 AND 41 AND isFilled = false ORDER BY submitTime ASC";
 		}
 		List<Job> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
@@ -111,6 +111,17 @@ public class JobDaoImpl implements JobDao {
 		job.setReviewStatus("下架");
 		job.setFailReason(removeReason);
 		return job;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getCorrectJobs() {
+		String hql = "FROM Job WHERE reviewStatus = '發布中' AND isFilled = false ORDER BY submitTime ASC";
+		String hql2 = "FROM Job WHERE reviewStatus = '發布中' AND isFilled = false AND isExposure = false ORDER BY submitTime ASC";
+		List<Job> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
 	}
 
 }

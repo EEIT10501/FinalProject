@@ -55,6 +55,12 @@ public class ComplaintDaoImpl implements ComplaintDao {
 		complaint.setProcessDescription(closeReason);
 		complaint.setStatus("已處理");
 		return complaint;
-	}	
+	}
+
+	@Override
+	public void insertCp(Complaint cp) {
+		Session session = factory.getCurrentSession();
+		session.save(cp);
+	}
 
 }

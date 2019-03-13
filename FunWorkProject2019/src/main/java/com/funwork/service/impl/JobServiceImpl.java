@@ -91,5 +91,11 @@ public class JobServiceImpl implements JobService {
 		return citydao.getCityName(cityId);
 				
 	}
+	
+	@Transactional
+	@Override
+	public List<Job> getCorrectJobs(){		
+		return dao.getCorrectJobs();
+	}
 
 }

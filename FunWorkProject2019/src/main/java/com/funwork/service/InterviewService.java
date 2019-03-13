@@ -6,9 +6,9 @@ import com.funwork.model.Application;
 import com.funwork.model.Interview;
 
 public interface InterviewService {
-	
+
 	Interview findByPrimaryKey(int key);
-	
+
 	void saveInterview(Interview interview);
 
 	void updateInterview(Interview interview);

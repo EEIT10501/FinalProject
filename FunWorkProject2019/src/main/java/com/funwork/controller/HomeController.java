@@ -44,10 +44,6 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String Home(HttpServletResponse res) {
-		res.setHeader("Cache-Control", "no-cache");
-		res.setHeader("Cache-Control", "no-store");
-		res.setDateHeader("Expires", 0);
-		res.setHeader("Pragma", "no-cache");
 		return "index";
 	}
 
@@ -104,7 +100,7 @@ public class HomeController {
 			return "fail";
 		}
 	}
-	
+
 	@RequestMapping("/login/{email}/{password}")
 	@ResponseBody
 	public String login2(@PathVariable("email") String email, @PathVariable("password") String password,

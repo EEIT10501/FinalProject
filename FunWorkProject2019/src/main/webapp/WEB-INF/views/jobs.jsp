@@ -17,8 +17,6 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
-
-
 <script type="text/javascript"
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
 	async defer></script>
@@ -61,8 +59,7 @@
 			// Browser doesn't support Geolocation
 			handleLocationError(false, infoWindow, map.getCenter());
 		}
-				
-		
+		addMarker()
 	}
 
 	function addMarker() {
@@ -74,8 +71,7 @@
 				title: "${job.title}"
 			});
 			
-			var contentString = "<div>${job.address}</div>"
-		      
+			var contentString = "<div><h6>${job.title}<h6></div><div style='margin-bottom:5px'>${job.address}</div><a href='<c:url value='/jobDetail/${job.jobId}'/>' class='btn btn-primary'><span class='glyphicon-info-sigh glyphicon'></span> 詳細資料 </a>"
 			var infowindow${job.jobId} = new google.maps.InfoWindow({
 			    content: contentString
 			  });
@@ -166,6 +162,21 @@
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}">
+						<c:if test="${job.isExposure==true}">
+							<tr>
+								<td>
+								<span class="text-info" style="margin-right:5px">★推薦</span>${job.title}</td>
+								<td>${job.city.cityName}</td>
+								<td>${job.jobCompany.name}</td>
+								<td>${job.isFilled}</td>
+								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
+									class="btn btn-primary"><span
+										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+							</tr>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="job" items="${jobs}">
+							<c:if test="${job.isExposure==false}">
 							<tr>
 								<td>${job.title}</td>
 								<td>${job.city.cityName}</td>
@@ -175,14 +186,14 @@
 									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
 
 			</div>
 			<div class="col-sm-5">
-				<input type="button" class="btn btn-secondary"
-					style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作">
+<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
 				<div id="map"></div>
 			</div>
 		</div>

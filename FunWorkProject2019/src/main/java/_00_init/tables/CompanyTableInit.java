@@ -52,6 +52,7 @@ public class CompanyTableInit {
 				Clob clob = SystemUtils2018.fileToClob(token[9]);
 				cb.setDescription(clob);
 				cb.setSiteURL(token[10]);
+				cb.setFileName(token[11]);
 				int userId = Integer.parseInt(token[5].trim());
 				User ub = session.get(User.class, userId);
 				cb.setUser(ub);

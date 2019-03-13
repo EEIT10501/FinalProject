@@ -43,4 +43,10 @@ public class ComplaintServiceImpl implements ComplaintService {
 		return dao.processComplaint(cpId, closeReason);
 	}
 
+	@Transactional
+	@Override
+	public void insertCp(Complaint cp) {
+		dao.insertCp(cp);
+	}
+
 }
