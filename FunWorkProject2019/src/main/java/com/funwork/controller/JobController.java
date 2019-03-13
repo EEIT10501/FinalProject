@@ -60,21 +60,21 @@ public class JobController {
 	@RequestMapping("/jobs")
 	public String Jobs(Model model) {
 		List<Job> joblist = jobService.getCorrectJobs();
-		List<Job> jobIsExposure = new ArrayList<Job>();
-		for (int i=0;i<joblist.size();i++) {
-			  if(joblist.get(i).getIsExposure()==true) {
-				  jobIsExposure.add(joblist.get(i));
-				  joblist.remove(joblist.get(i));
-			  }
-		}
-		for (int i=0;i<joblist.size();i++) {
-			jobIsExposure.add(joblist.get(i));
-		}
+//		List<Job> jobIsExposure = new ArrayList<Job>();
+//		for (int i=0;i<joblist.size();i++) {
+//			  if(joblist.get(i).getIsExposure()==true) {
+//				  jobIsExposure.add(joblist.get(i));
+//				  joblist.remove(joblist.get(i));
+//			  }
+//		}
+//		for (int i=0;i<joblist.size();i++) {
+//			jobIsExposure.add(joblist.get(i));
+//		}
 //		List<Job> joblist = jobService.getJobByCity(5);      //依城市搜尋
 //		List<Job> joblist = jobService.getJobByCityArea(13); //依地區搜尋
 		List<City> citylist = jobService.getCityName(15);
 		model.addAttribute("citys", citylist);
-		model.addAttribute("jobs", jobIsExposure);
+		model.addAttribute("jobs", joblist);
 		return "jobs";
 	}
 
@@ -101,17 +101,7 @@ public class JobController {
 	@RequestMapping("/cityArea/{cityId}")
 	public String cityAreaJob(Model model, @PathVariable("cityId") Integer cityId) {
 		List<Job> joblist = jobService.getJobByCityArea(cityId); // 依縣市搜尋
-		List<Job> jobIsExposure = new ArrayList<Job>();
-		for (int i=0;i<joblist.size();i++) {
-			  if(joblist.get(i).getIsExposure()==true) {
-				  jobIsExposure.add(joblist.get(i));
-				  joblist.remove(joblist.get(i));
-			  }
-		}
-		for (int i=0;i<joblist.size();i++) {
-			jobIsExposure.add(joblist.get(i));
-		}
-		model.addAttribute("jobs", jobIsExposure);
+		model.addAttribute("jobs", joblist);
 		List<City> citylist = jobService.getCityName(cityId);
 		model.addAttribute("citys", citylist);
 		return "jobs";
@@ -120,17 +110,7 @@ public class JobController {
 	@RequestMapping("/cityName/{cityId}")
 	public String cityJob(Model model, @PathVariable("cityId") Integer cityId) {
 		List<Job> joblist = jobService.getJobByCityName(cityId); // 依城市搜尋
-		List<Job> jobIsExposure = new ArrayList<Job>();
-		for (int i=0;i<joblist.size();i++) {
-			  if(joblist.get(i).getIsExposure()==true) {
-				  jobIsExposure.add(joblist.get(i));
-				  joblist.remove(joblist.get(i));
-			  }
-		}
-		for (int i=0;i<joblist.size();i++) {
-			jobIsExposure.add(joblist.get(i));
-		}
-		model.addAttribute("jobs", jobIsExposure);
+		model.addAttribute("jobs", joblist);
 		List<City> citylist = jobService.getCityName(cityId);
 		model.addAttribute("citys", citylist);
 		return "jobs";

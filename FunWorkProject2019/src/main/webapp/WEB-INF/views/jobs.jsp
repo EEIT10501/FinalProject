@@ -162,9 +162,10 @@
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}">
+						<c:if test="${job.isExposure==true}">
 							<tr>
-								<td><c:if test="${job.isExposure==true}">
-								<span class="text-info" style="margin-right:5px">★推薦</span></c:if>${job.title}</td>
+								<td>
+								<span class="text-info" style="margin-right:5px">★推薦</span>${job.title}</td>
 								<td>${job.city.cityName}</td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.isFilled}</td>
@@ -172,6 +173,20 @@
 									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
 							</tr>
+							</c:if>
+							</c:forEach>
+							<c:forEach var="job" items="${jobs}">
+							<c:if test="${job.isExposure==false}">
+							<tr>
+								<td>${job.title}</td>
+								<td>${job.city.cityName}</td>
+								<td>${job.jobCompany.name}</td>
+								<td>${job.isFilled}</td>
+								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
+									class="btn btn-primary"><span
+										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
