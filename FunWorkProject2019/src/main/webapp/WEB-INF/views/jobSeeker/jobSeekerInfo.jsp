@@ -154,10 +154,10 @@
        		    最近邀約</div>
           <div class="card-body">
             <div class="table-responsive">
-            <c:if test="${empty applicatioList}">
+            <c:if test="${ !empty applicatioList}">
 			<a>你目前沒有任何邀約，請繼續尋找打工！</a>
 			</c:if>
-            <c:if test="${!empty applicatioList}">
+            <c:if test="${empty applicatioList}">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
@@ -222,16 +222,16 @@
                     <th>聯絡雇主</th>
                   </tr>
                 </thead>
-                <tfoot>
-                  <tr>
-                    <th>工作</th>
-                    <th>薪資</th>
-                    <th>給僱主的話</th>
-                    <th>狀態</th>
-                    <th>應徵時間</th>
-                    <th>聯絡雇主</th>
-                  </tr>
-                </tfoot>
+<!--                 <tfoot> -->
+<!--                   <tr> -->
+<!--                     <th>工作</th> -->
+<!--                     <th>薪資</th> -->
+<!--                     <th>給僱主的話</th> -->
+<!--                     <th>狀態</th> -->
+<!--                     <th>應徵時間</th> -->
+<!--                     <th>聯絡雇主</th> -->
+<!--                   </tr> -->
+<!--                 </tfoot> -->
                 <tbody>
                 <c:forEach var="applicatioList" items="${applicatioList}">
                   <tr>
