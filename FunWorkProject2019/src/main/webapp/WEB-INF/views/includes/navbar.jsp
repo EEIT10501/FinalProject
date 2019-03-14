@@ -35,14 +35,18 @@
 				<li class="nav-item active"><a class="nav-link"
 					href="<c:url value='/'></c:url>">首頁 <span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'></c:url>">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">想要徵人</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="<c:url value='/jobs'></c:url>">想找打工</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="manageCompanyPage">想要徵人</a></li>
 				<c:if test="${loginUser!=null}">
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobSeekerInfo'></c:url>">會員專區</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/jobSeekerInfo'></c:url>">會員專區</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 				<c:if test="${loginUser!=null}">
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/chat'/>">我的訊息<span id="newMsg"></span></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="<c:url value='/chat'/>">我的訊息<span id="newMsg"></span></a></li>
 				</c:if>
 			</ul>
 			<form class="form-inline">
@@ -64,10 +68,6 @@
 				</span>
 			</c:if>
 			<span class="navbar-text my-2 my-sm-0"> <a
-
-				class="nav-link btn btn-outline-secondary" data-toggle="modal"
-				data-target="#loginModal" href="#">登入</a>
-			</span> <span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" href="register">註冊</a>
 
 			</span>
@@ -128,13 +128,13 @@
 				</div>
 				<div class="modal-body">
 					<!-- 彈出視窗：寫程式的地方 -->
-					<div style="float:right">
-						<span class="navbar-text my-2 my-sm-0" data-dismiss="modal"> <a
-						class="nav-link btn btn-outline-secondary" >取消</a>
-					</span>
-					<span class="navbar-text my-2 my-sm-0"> <a
-						class="nav-link btn btn-outline-secondary" href="<c:url value='/logout'></c:url>">確認</a>
-					</span>
+					<div style="float: right">
+						<span class="navbar-text my-2 my-sm-0" data-dismiss="modal">
+							<a class="nav-link btn btn-outline-secondary">取消</a>
+						</span> <span class="navbar-text my-2 my-sm-0"> <a
+							class="nav-link btn btn-outline-secondary"
+							href="<c:url value='/logout'></c:url>">確認</a>
+						</span>
 					</div>
 
 				</div>
@@ -203,9 +203,9 @@
 						alert("帳號或密碼錯誤!");
 					}
 				}
-			});	
+			});
 		});
-		
+
 		$(function() {
 			$.ajax({
 				url : "${pageContext.request.contextPath}/newMsg",
@@ -213,9 +213,8 @@
 				success : function(data) {
 					$("#newMsg").html("(" + data + ")");
 				}
-			});	
+			});
 		});
-		
 	</script>
 </body>
 </html>
