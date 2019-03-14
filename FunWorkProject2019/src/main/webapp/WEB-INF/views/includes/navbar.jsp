@@ -38,7 +38,7 @@
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobs'></c:url>">想找打工</a></li>
 				<li class="nav-item"><a class="nav-link" href="manageCompanyPage">想要徵人</a></li>
 				<c:if test="${loginUser!=null}">
-				<li class="nav-item"><a class="nav-link" href="<c:url value='#'></c:url>">會員專區</a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobSeekerInfo'></c:url>">會員專區</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
 				<c:if test="${loginUser!=null}">
@@ -64,7 +64,12 @@
 				</span>
 			</c:if>
 			<span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="#">註冊</a>
+
+				class="nav-link btn btn-outline-secondary" data-toggle="modal"
+				data-target="#loginModal" href="#">登入</a>
+			</span> <span class="navbar-text my-2 my-sm-0"> <a
+				class="nav-link btn btn-outline-secondary" href="register">註冊</a>
+
 			</span>
 		</div>
 

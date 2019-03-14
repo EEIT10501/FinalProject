@@ -27,9 +27,13 @@ public interface ApplicationService {
 	
 	void updateLatestMsg(Integer apId, String msg);
 
+
+	List<Application> getApplicationByUserIdByTime(Integer userId);
+
 	List<Application> findAllApplicantsByJob(Job job);
 	
 	void refuseUser(Integer apId);
+
 
 	public List<Application> findAllApplications(Integer userId);
 

@@ -41,31 +41,32 @@
 					<div>
 						<div class="container" style="text-align: center">
 							<h1>
-								<strong>所有應徵紀錄</strong>
+								<strong>$('#jobTitle').value 所有應徵紀錄</strong>
 							</h1>
 						</div>
 					</div>
 				</section>
 				<div style="height: 30px;"></div>
 				<section class="container">
-					<div class="col-sm-12">
+					<div class="col-sm-12" >
 						<c:forEach var="applicant" items="${applicantsByJob}">
 							<div class="row">
 								<div class="col-sm-12">
+								<div class="col-sm-12" style="background-color:#F8F8FF">
 									<div class="panel panel-default text-left">
 										<div class="panel-body">
 											<h3>
 												<strong><a href="#">${applicant.user.userName}</a></strong>
 											</h3>
 											<p></p>
+											<img src="<c:url value='/getCoverPicture/${company.companyId}'/>">
+											<input type="hidden" id="jobTitle" value="${applicant.job.title}">
 											<strong>應徵公司單位:</strong> ${applicant.job.jobCompany.name}<br>
 											<strong>應徵編號:</strong> ${applicant.applicationId}<br>
 											<strong>雇主問題回應:</strong> ${applicant.answer}<br>
 											<strong>應徵送出時間:</strong> ${applicant.applicationTime}
 											<hr>
-											<button type="button" class="btn btn btn-success btn-sm">
-												<span class="glyphicon glyphicon-thumbs-up"></span> 履歷
-											</button>
+<!-- 											<div class="col-sm-12" style="background-color:grey"> -->
 											<button type="button" class="btn btn btn-warning btn-sm" data-toggle="modal" data-target="#interviewModal">
 												<span class="glyphicon glyphicon-thumbs-up"></span> 邀約
 											</button>
@@ -138,6 +139,7 @@
 												<span class="glyphicon glyphicon-thumbs-up"></span>傳訊給應徵者
 											</button>
 											</a>
+											</div>
 										</div>
 										<p>
 									</div>

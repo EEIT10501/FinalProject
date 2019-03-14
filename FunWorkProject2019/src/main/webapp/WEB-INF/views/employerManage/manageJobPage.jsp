@@ -119,11 +119,12 @@ $("#butt1").click(function() {
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
 					<nav>
 						請輸入選擇條件: &nbsp; <select id="condit1">
-							<option>發布中</option>
-							<option>待審核</option>
-							<option>已到期</option>
-							<option>草稿</option>
-						</select> &nbsp; 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
+							<option>刊登中</option>
+							<option>到期下架</option>
+<!-- 							<option>已到期</option> -->
+<!-- 							<option>草稿</option> -->
+						</select> &nbsp; 
+<!-- 						或是輸入關鍵字: &nbsp; <input placeholder="please enter"> -->
 						<button id="butt1" style="width: auto;">確定送出</button>
 						<button id="jobPostBut" style="width: auto;"
 							onclick="window.location='postJob'">張貼工作</button>

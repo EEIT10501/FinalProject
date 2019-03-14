@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funwork.dao.InterviewDao;
+import com.funwork.model.Application;
 import com.funwork.model.Interview;
 import com.funwork.service.InterviewService;
 
@@ -57,6 +58,12 @@ public class InterviewServiceImp implements InterviewService {
 	@Override
 	public boolean isInterviewExist(Interview interview) {
 		return dao.isInterviewExist(interview);
+	}
+	
+	@Transactional
+	@Override
+	public List<Application> getInterviewByApplicationId(Integer applicationId) {
+		return dao.getInterviewByApplicationId(applicationId);
 	}
 
 }

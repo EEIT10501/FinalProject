@@ -48,4 +48,11 @@ public class UserServiceImpl implements UserService {
 		return dao.loginCheck(email, password);
 	}
 
+	@Transactional
+	@Override
+	public boolean idExists(String email) {
+		return dao.idExists(email);
+	}
+	
+
 }

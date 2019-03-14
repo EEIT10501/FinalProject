@@ -141,11 +141,12 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 							<option>未通過</option>
 							<option>全部</option>
 							<option>公司完成建檔</option>
-						</select> 或是輸入關鍵字: &nbsp; <input placeholder="please enter">
+						</select> 
+<!-- 						或是輸入關鍵字: &nbsp; <input placeholder="please enter"> -->
 						<button id="butt1" style="width: auto">確定送出</button>
 
-						<button id="jobPostBut" style="width: auto;"
-							onclick="window.location='registerCompany'">建立公司</button>
+<!-- 						<button id="jobPostBut" style="width: auto;" -->
+<!-- 							onclick="window.location='registerCompany'">建立公司</button> -->
 						<div class="list-group2"></div>
 						<hr>
 						<div id="clearTable">
