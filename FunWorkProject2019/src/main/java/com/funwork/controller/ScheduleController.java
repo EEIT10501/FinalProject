@@ -16,7 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.funwork.model.Schedule;
 import com.funwork.service.ScheduleService;
-
+import com.google.gson.Gson;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 
@@ -37,15 +39,36 @@ public class ScheduleController {
 	@RequestMapping("/ScheduleCalendar")
 	public String calendarTestSave(Model model) {
 		List<Schedule> scheduleList = scheduleService.getAllSchedules();
+		
+		String scheduleJson = new Gson().toJson(scheduleList);
+		JSONArray jsonArray = new JSONArray();
+		JSONObject object = null;
+		for (Schedule sj : scheduleList) {
+			object = new JSONObject();
+			object.put("id", sj.getScheduleId());
+			object.put("title", sj.getScheduleName());
+			object.put("start", sj.getStartTime());
+			object.put("end", sj.getEndTime());
+			jsonArray.put(object);
+
+		}
 	
-		model.addAttribute(scheduleList);
+		model.addAttribute("scheduleJson",jsonArray);
+		model.addAttribute("scheduleList",scheduleList);
 		
 		return "schedule/ScheduleCalendar";
 	}
 	
 	@RequestMapping("/ScheduleCalendar/change")
 	public String calendarTestChange(Model model) {
+		
 		model.addAttribute("change",true);
+		List<Schedule> scheduleList = scheduleService.getAllSchedules();
+		String scheduleJson = new Gson().toJson(scheduleList);
+	
+		model.addAttribute("scheduleJson",scheduleJson);
+		model.addAttribute("scheduleList",scheduleList);
+		
 		return "schedule/ScheduleCalendar";
 	}
 

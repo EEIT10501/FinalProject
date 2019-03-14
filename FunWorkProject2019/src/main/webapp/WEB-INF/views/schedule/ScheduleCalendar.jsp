@@ -82,7 +82,7 @@ $(document).ready(function() {
 		</c:if>
 		businessHours: true, //顯示小時
 		eventLimit: true, // when too many events in a day, show the popover
-		events : 'https://fullcalendar.io/demo-events.json',
+		events : '${scheduleJson}',
 		<c:if test="${change!=null}">
 		eventMouseover:function(event,domEvent,view){
 
@@ -181,9 +181,9 @@ function deleteEvent(){
 					<p>
 						<strong>Draggable Events</strong>
 					</p>
-					<div class='fc-event' id="001">My Event 1</div>
-					<div class='fc-event' id="002">My Event 2</div>
-					<div class='fc-event' id="003">My Event 3</div>
+					<div class='fc-event' id="${scheduleList[0].scheduleId}">${scheduleList[0].job.title}</div>
+					<div class='fc-event' id="${scheduleList[1].scheduleId}">${scheduleList[1].job.title}</div>
+					<div class='fc-event' id="${scheduleList[2].scheduleId}">${scheduleList[2].job.title}</div>
 					<div class='fc-event' id="004">My Event 4</div>
 					<div class='fc-event' id="005">My Event 5</div>
 					<p>
@@ -198,9 +198,7 @@ function deleteEvent(){
 				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar/change'/>"><span class="glyphicon-info-sigh glyphicon"></span>編輯</a>
 				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar'/>"><span class="glyphicon-info-sigh glyphicon"></span>儲存</a>
 				</div>
-				</div>
-				
-				
+				</div>				
 
 			</div>
 			
@@ -213,9 +211,8 @@ function deleteEvent(){
 		</div>
 	</div>
 	
-	<script type="text/javascript" src="<c:url value='/js/moment.min.js'/>"></script>
-<script type="text/javascript"
-	src="<c:url value='/js/fullcalendar.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/moment.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/fullcalendar.min.js'/>"></script>
 <script src='https://code.jquery.com/ui/1.11.3/jquery-ui.min.js'></script>
 
 	<script
