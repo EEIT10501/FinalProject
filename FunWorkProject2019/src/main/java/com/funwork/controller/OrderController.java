@@ -3,6 +3,7 @@ package com.funwork.controller;
 import java.util.Hashtable;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,14 @@ public class OrderController {
 		
 		model.addAttribute("params",params);
 		model.addAttribute("CheckMacValue", allPay.genCheckMacValue("5294y06JbISpM5x9", "v77hoKGq4kWxNNIS", params));
+		
+		return "order";
+	}
+	
+	@RequestMapping(value = "/orderReturn", method = RequestMethod.POST)
+	public String OrderReturn(Model model,HttpServletRequest req,HttpServletResponse res) {
+		System.out.println("1");
+		System.out.println(req.getParameter("RtnCode"));
 		
 		return "order";
 	}
