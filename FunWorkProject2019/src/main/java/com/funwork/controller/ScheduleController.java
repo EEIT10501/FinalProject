@@ -40,7 +40,6 @@ public class ScheduleController {
 	public String calendarTestSave(Model model) {
 		List<Schedule> scheduleList = scheduleService.getAllSchedules();
 		
-		String scheduleJson = new Gson().toJson(scheduleList);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
 		for (Schedule sj : scheduleList) {
@@ -52,8 +51,12 @@ public class ScheduleController {
 			jsonArray.put(object);
 
 		}
+		String json = new Gson().toJson(jsonArray);
+		System.out.println(json);
+		System.out.println(jsonArray);
 	
-		model.addAttribute("scheduleJson",jsonArray);
+		model.addAttribute("scheduleJson",json);
+		model.addAttribute("json", jsonArray);
 		model.addAttribute("scheduleList",scheduleList);
 		
 		return "schedule/ScheduleCalendar";

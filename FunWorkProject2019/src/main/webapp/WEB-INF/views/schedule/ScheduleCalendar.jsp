@@ -82,7 +82,7 @@ $(document).ready(function() {
 		</c:if>
 		businessHours: true, //顯示小時
 		eventLimit: true, // when too many events in a day, show the popover
-		events : '${scheduleJson}',
+		events : <c:out value="${json}" escapeXml="false">${json}</c:out>,
 		<c:if test="${change!=null}">
 		eventMouseover:function(event,domEvent,view){
 
@@ -115,8 +115,8 @@ $(document).ready(function() {
 });
 
 function deleteEvent(){
-	
-	$("#calendar").fullCalendar("removeEvents",$("#eventId").val())
+	window.alert(${scheduleJson})
+// 	$("#calendar").fullCalendar("removeEvents",$("#eventId").val())
 }
 </script>
 <style>
@@ -198,6 +198,7 @@ function deleteEvent(){
 				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar/change'/>"><span class="glyphicon-info-sigh glyphicon"></span>編輯</a>
 				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar'/>"><span class="glyphicon-info-sigh glyphicon"></span>儲存</a>
 				</div>
+				<input type="button" onclick="deleteEvent()" value="TEST">
 				</div>				
 
 			</div>
