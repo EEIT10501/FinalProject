@@ -23,29 +23,28 @@ public class OrderController {
 
 	@Autowired
 	UserService userService;
-	
+
 	AllInOne all;
-	
+
 	AllPayFunction allPay;
-	
-	public OrderController(){
-		
+
+	public OrderController() {
+
 	}
-	
+
 	@RequestMapping("/order")
 	public String Order(Model model) {
-	
-		
+
 		return "order";
 	}
-	
+
 	@RequestMapping(value = "/orderCheck", method = RequestMethod.POST)
-	public String OrderCheck(Model model,HttpServletRequest req) {
+	public String OrderCheck(Model model, HttpServletRequest req) {
 		allPay = new AllPayFunction();
 		Hashtable<String, String> params = new Hashtable<>();
-		String random =Integer.toString((int)(Math.random()*100)) ;
+		String random = Integer.toString((int) (Math.random() * 100));
 		params.put("MerchantID", req.getParameter("MerchantID"));
-		params.put("MerchantTradeNo", req.getParameter("MerchantTradeNo")+random);
+		params.put("MerchantTradeNo", req.getParameter("MerchantTradeNo") + random);
 		params.put("MerchantTradeDate", req.getParameter("MerchantTradeDate"));
 		params.put("TotalAmount", req.getParameter("TotalAmount"));
 		params.put("TradeDesc", req.getParameter("TradeDesc"));
@@ -53,10 +52,10 @@ public class OrderController {
 		params.put("ReturnURL", req.getParameter("ReturnURL"));
 		params.put("ChoosePayment", req.getParameter("ChoosePayment"));
 		params.put("PaymentType", req.getParameter("PaymentType"));
-		
-		model.addAttribute("params",params);
+
+		model.addAttribute("params", params);
 		model.addAttribute("CheckMacValue", allPay.genCheckMacValue("5294y06JbISpM5x9", "v77hoKGq4kWxNNIS", params));
-		
+
 		return "order";
 	}
 	

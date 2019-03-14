@@ -42,7 +42,7 @@
 			<div class="col-sm-8 showjobdetail">
 				<div class="row">
 					<div class="col-sm-12">
-						<h3>工作審核</h3>
+						<h3>工作審核紀錄</h3>
 					</div>
 				</div>
 				<div class="row justify-content-center">
@@ -119,12 +119,6 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-sm-3">
-						<h5>提交時間</h5>
-					</div>
-					<div class="col-sm-5"><fmt:formatDate value="${jobBean.submitTime}" pattern="yyyy/MM/dd HH:mm" /></div>
-				</div>
-				<div class="row justify-content-center">
-					<div class="col-sm-3">
 						<h5>雇主姓名</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.jobOwner.userName}</div>
@@ -144,49 +138,23 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-sm-3">
-						<h5>審核備註</h5>
+						<h5>處理時間</h5>
 					</div>
-					<div class="col-sm-5">${jobBean.comment}</div>
+					<div class="col-sm-5"><fmt:formatDate value="${jobBean.submitTime}" pattern="yyyy/MM/dd HH:mm" /></div>
 				</div>
 				<div class="row justify-content-center">
-					<form action="<c:url value='/jobReview/${jobBean.jobId}'/>"
-						method="post" id="isPassForm">
-						<input type="hidden" id="isPass" name="isPass" value=""> <input
-							type="button" class="btn btn-info btn-lg" id="pass" value="審核通過" />
-						<button type="button" class="btn btn-danger btn-lg"
-							data-toggle="modal" data-target="#myModal">審核失敗</button>
-						<div class="modal fade" id="myModal" role="dialog">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title">請輸入審核失敗原因</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-									<div class="modal-body">
-										<p>審核失敗原因</p>
-										<input type="text" name="failReason" class="form-control">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-info" data-dismiss="modal"
-											id="fail">送出</button>
-										<button type="button" class="btn btn-danger"
-											data-dismiss="modal">關閉</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
+					<div class="col-sm-3">
+						<h5>處理說明</h5>
+					</div>
+					<c:choose>
+						<c:when test="${jobBean.failReason != null}">
+							<div class="col-sm-5">${jobBean.failReason}</div>
+						</c:when>
+						<c:otherwise>
+							<div class="col-sm-5">審核成功</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
-				<script>
-					$("#pass").click(function() {
-						$("#isPass").attr("value", "pass");
-						$("#isPassForm").submit();
-					});
-					$("#fail").click(function() {
-						$("#isPass").attr("value", "fail");
-						$("#isPassForm").submit();
-					});
-				</script>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

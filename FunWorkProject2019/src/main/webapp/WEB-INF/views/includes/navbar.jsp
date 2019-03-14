@@ -20,7 +20,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<a class="navbar-brand" href="#"> <img
+		<a class="navbar-brand" href="<c:url value='/'></c:url>"> <img
 			src="<c:url value='/image/LOGO.jpg'></c:url>" width="30" height="30"
 			class="d-inline-block align-top"> EEIT趣打工
 		</a>
@@ -69,7 +69,6 @@
 			</c:if>
 			<span class="navbar-text my-2 my-sm-0"> <a
 				class="nav-link btn btn-outline-secondary" href="register">註冊</a>
-
 			</span>
 		</div>
 

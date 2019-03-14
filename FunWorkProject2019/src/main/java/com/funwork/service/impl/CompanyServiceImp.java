@@ -9,26 +9,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.funwork.dao.CompanyDao;
 import com.funwork.model.Company;
+import com.funwork.model.User;
 import com.funwork.service.CompanyService;
 
 @Service
 public class CompanyServiceImp implements CompanyService {
-	
+
 	@Autowired
 	CompanyDao dao;
-	
+
 	@Transactional
 	@Override
 	public Company findByPrimaryKey(int key) {
 		return dao.findByPrimaryKey(key);
 	}
-	
+
 	@Transactional
 	@Override
 	public void saveCompany(Company company) {
 		dao.saveCompany(company);
 	}
-	
+
 	@Transactional
 	@Override
 	public void updateCompanyById(int id, Company company) {
@@ -52,7 +53,7 @@ public class CompanyServiceImp implements CompanyService {
 	public void deleteAllCompanys() {
 		dao.deleteAllCompanys();
 	}
-	
+
 	@Transactional
 	@Override
 	public boolean isCompanyExist(Company company) {
@@ -68,14 +69,26 @@ public class CompanyServiceImp implements CompanyService {
 	@Transactional
 	@Override
 	public List<Company> findAllCompanys(String reviewStatus) {
-		System.out.println("parameter received in serviceImp is "+reviewStatus);
+		System.out.println("parameter received in serviceImp is " + reviewStatus);
 		return dao.getAllCompanysByReviewStatus(reviewStatus);
 	}
-	
+
 	@Transactional
 	@Override
 	public List<Company> findAllCompanyByUserId(Integer userId) {
 		return dao.findAllCompanyByUserId(userId);
+	}
+
+	@Transactional
+	@Override
+	public List<String> findAllCompanyByUser(User user) {
+		return dao.findAllCompanyByUser(user);
+	}
+
+	@Transactional
+	@Override
+	public Company findCompanyByUserAndName(Integer userId, String companyName) {
+		return dao.findCompanyByUserAndName(userId, companyName);
 	}
 
 }

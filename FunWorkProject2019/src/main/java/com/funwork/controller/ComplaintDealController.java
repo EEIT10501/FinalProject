@@ -48,8 +48,8 @@ public class ComplaintDealController {
 			@RequestParam(name = "jobId") Integer jobId) {
 
 		if (isRemove.equals("remove")) {
-			Complaint cp = complaintService.processComplaint(cpId, closeReason);
-			closeReason = "因職缺違反相關規定(" + cp.getType() + ")，由系統管理員下架";
+			Complaint cp = complaintService.processComplaint(cpId, "職缺違反規定，由系統管理員下架");
+			closeReason = "因職缺違反相關規定(" + cp.getType() + ")，由系統管理員下架。";
 			Job job = jobService.jobRemove(jobId, closeReason);
 			Notification notification = new Notification();
 			notification.setContent("您的職缺(" + job.getTitle() + ")因違反規定(" + cp.getType() + ")，已由系統管理員下架");
@@ -74,7 +74,22 @@ public class ComplaintDealController {
 		cp.setSubmitTime(new Timestamp(System.currentTimeMillis()));
 		cp.setType(type);
 		complaintService.insertCp(cp);
-		
+
 		return "redirect:/jobDetail/" + jobId;
 	}
+
+	@RequestMapping(value = "/cpsHistory", method = RequestMethod.GET)
+	public String complaintHistoryList(Model model) {
+		List<Complaint> list = complaintService.getComplaintHistoryList();
+		model.addAttribute("complaintList", list);
+		return "cpdeal/cpsDealHistory";
+	}
+
+	@RequestMapping(value = "/cpsHistory/{cpId}", method = RequestMethod.GET)
+	public String complaintHistory(Model model, @PathVariable Integer cpId) {
+		Complaint complaint = complaintService.getComplaintById(cpId);
+		model.addAttribute("cpBean", complaint);
+		return "cpdeal/cpDealHistory";
+	}
+
 }
