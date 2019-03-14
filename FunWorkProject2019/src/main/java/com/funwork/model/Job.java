@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Job {
@@ -31,7 +32,7 @@ public class Job {
 	private String jobEmail;
 	private String industry;
 	private String other;
-	private Date paidDate;
+	private String paidDate;
 	private String jobPhone;
 	private Integer positionNum;
 	private Integer rateByHour;
@@ -44,6 +45,9 @@ public class Job {
 	private String jobLng;
 	private String workDate;
 	private String workTime;
+	private String cityArea;
+	private String cityName;
+	private String companyName;
 
 	public Job() {
 	}
@@ -186,11 +190,11 @@ public class Job {
 		this.other = other;
 	}
 
-	public Date getPaidDate() {
+	public String getPaidDate() {
 		return paidDate;
 	}
 
-	public void setPaidDate(Date paidDate) {
+	public void setPaidDate(String paidDate) {
 		this.paidDate = paidDate;
 	}
 
@@ -293,5 +297,34 @@ public class Job {
 	public void setWorkTime(String workTime) {
 		this.workTime = workTime;
 	}
+
+	@Transient
+	public String getCityArea() {
+		return cityArea;
+	}
+
+	public void setCityArea(String cityArea) {
+		this.cityArea = cityArea;
+	}
+
+	@Transient
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	@Transient
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	
+	
 
 }

@@ -32,4 +32,8 @@ public interface JobDao {
 
 	List<Job> findJobByUserIdNJobStatus(Integer userId);
 
+	Job insertJob(Job job, Integer userId);
+
+	int getJobPostedCount(Integer userId);
+
 }

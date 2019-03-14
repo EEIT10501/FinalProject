@@ -36,4 +36,15 @@ public interface JobService {
 	List<Job> getCorrectJobs();
 
 	List<Job> getReviewHistory();
+
+	List<String> getCityAreaList();
+
+	String getCityNameList(String cityArea);
+
+	City getCityByCityName(String cityName);
+
+	Job insertJob(Job jbean, Integer userId);
+
+	int getJobPostedCount(Integer userId);
+
 }

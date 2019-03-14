@@ -128,8 +128,8 @@
 						<h5>公司名稱</h5>
 					</div>
 					<c:choose>
-						<c:when test="${cpBean.job.jobCompany.name != null}">
-							<div class="col-sm-5">${cpBean.job.jobCompany.name}</div>
+						<c:when test="${jobBean.jobCompany.name != null}">
+							<div class="col-sm-5">${jobBean.jobCompany.name}</div>
 						</c:when>
 						<c:otherwise>
 							<div class="col-sm-5">無</div>

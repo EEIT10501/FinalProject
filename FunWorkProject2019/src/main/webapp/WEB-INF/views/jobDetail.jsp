@@ -386,7 +386,7 @@
 							<div class="modal-footer">
 								<input  type="hidden" name="jobId" value="${jobBean.jobId}" >
 								<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary addapplication">送出</button>
+								<button type="submit" class="btn btn-primary">送出</button>
 							</div>
 							</form>
 							<%-- </c:if> --%>

@@ -61,7 +61,7 @@ public class HomeController {
 		User loginUser = (User) session.getAttribute("loginUser");
 		if (loginUser != null) {
 			if (loginUser.getRole() == 1) {
-				return "jobreview/jobsReview";
+				return "redirect:/jobsReview";
 			}
 		}
 		return "index";
@@ -185,6 +185,7 @@ public class HomeController {
 			ub.setEmail(email);
 			ub.setUserName(name);
 			ub.setPassword(password);
+			ub.setRole(2);
 			userService.insertUser(ub);
 			System.out.println("email");
 			System.out.println("新增成功");

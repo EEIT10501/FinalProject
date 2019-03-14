@@ -4,17 +4,21 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funwork.model.Application;
 import com.funwork.model.Job;
+import com.funwork.model.User;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.CompanyService;
 import com.funwork.service.JobService;
@@ -55,23 +59,37 @@ public class PostJobController {
 	}
 
 	@RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
-	public String getRegisterCompanyForm(Model model) {
+	public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
 		Job jbean = new Job();
+		HttpSession session = request.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
+		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
+		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+
 		model.addAttribute("newJobPost", jbean);
+		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
+		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
+		model.addAttribute("companyNameList", companyNameList);
+
 		return "employerManage/addJobProfile";
 	}
 
 	@RequestMapping(value = "/addJobProfile", method = RequestMethod.POST)
 	public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
-		System.out.println(jbean.getIndustry());
-		System.out.println(jbean.getTitle());
-		System.out.println(jbean.getDescription());
-		System.out.println(jbean.getOther());
-		System.out.println(jbean.getPostEndDate());
-		System.out.println(jbean.getWorkDate());
-		
-		
-		return "redirect:/manageJob";
+		HttpSession session = request.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
 
+		jobService.insertJob(jbean, loginUser.getUserId());
+
+		return "redirect:/manageJob";
 	}
+
+	@RequestMapping(value = "/getJobPostedCount/{userId}", method = RequestMethod.GET)
+	@ResponseBody
+	public Integer getJobPostedCount(@PathVariable("userId") Integer userId) {
+		Integer count = jobService.getJobPostedCount(userId);
+		return count;
+	}
+
 }

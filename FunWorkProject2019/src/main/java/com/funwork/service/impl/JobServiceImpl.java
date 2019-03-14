@@ -1,5 +1,6 @@
 package com.funwork.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funwork.dao.CityDao;
+import com.funwork.dao.CompanyDao;
 import com.funwork.dao.JobDao;
 import com.funwork.model.City;
 import com.funwork.model.Job;
@@ -20,6 +22,8 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	CityDao citydao;
+	@Autowired
+	CompanyDao companyDao;
 
 	public JobServiceImpl() {
 	}
@@ -114,6 +118,51 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public List<Job> getReviewHistory() {
 		return dao.getReviewHistory();
+	}
+
+	@Transactional
+	@Override
+	public List<String> getCityAreaList() {
+		return citydao.getCityAreaList();
+	}
+
+	@Transactional
+	@Override
+	public String getCityNameList(String cityArea) {
+		return citydao.getCityNameList(cityArea);
+	}
+
+	@Transactional
+	@Override
+	public City getCityByCityName(String cityName) {
+		return citydao.getCityByCityName(cityName);
+	}
+
+	@Transactional
+	@Override
+	public Job insertJob(Job jbean, Integer userId) {
+
+		String cityName = jbean.getCityName();
+		jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
+		jbean.setIsExposure(false);
+		jbean.setIsFilled(false);
+		jbean.setReviewStatus("待審核");
+		jbean.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+		jbean.setViewTimes(0);
+		String companyName = jbean.getCompanyName();
+		if (!companyName.equals("-1")) {
+			jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
+		}
+		jbean.setCity(citydao.getCityByCityName(cityName));
+
+		Job job = dao.insertJob(jbean, userId);
+		return job;
+	}
+
+	@Transactional
+	@Override
+	public int getJobPostedCount(Integer userId) {
+		return dao.getJobPostedCount(userId);
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.CityDao;
 import com.funwork.model.City;
+import com.google.gson.Gson;
 
 @Repository
 public class CityDaoImpl implements CityDao {
@@ -20,7 +21,9 @@ public class CityDaoImpl implements CityDao {
 	public CityDaoImpl() {
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.funwork.dao.impl.CityDao#getAllCiys()
 	 */
 	@Override
@@ -34,7 +37,9 @@ public class CityDaoImpl implements CityDao {
 		return list;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.funwork.dao.impl.CityDao#getAllCiyArea(java.lang.Integer)
 	 */
 	@Override
@@ -53,6 +58,39 @@ public class CityDaoImpl implements CityDao {
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getCityAreaList() {
+		String hql = "SELECT DISTINCT cityArea FROM City";
+		Session session = factory.getCurrentSession();
+		List<String> list = session.createQuery(hql).getResultList();
+
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public String getCityNameList(String cityArea) {
+		String hql = "SELECT DISTINCT cityName FROM City WHERE cityArea = :cityArea";
+		Session session = factory.getCurrentSession();
+		List<String> list = session.createQuery(hql).setParameter("cityArea", cityArea).getResultList();
+		String json = new Gson().toJson(list);
+		return json;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public City getCityByCityName(String cityName) {
+		City city = null;
+		String hql = "FROM City WHERE cityName = :cityName";
+		Session session = factory.getCurrentSession();
+		List<City> list = session.createQuery(hql).setParameter("cityName", cityName).getResultList();
+		if (list.size() != 0) {
+			city = list.get(0);
+		}
+		return city;
 	}
 
 }

@@ -3,6 +3,7 @@ package com.funwork.service;
 import java.util.List;
 
 import com.funwork.model.Company;
+import com.funwork.model.User;
 
 public interface CompanyService {
 	
@@ -25,4 +26,8 @@ public interface CompanyService {
 	void updateCompanyById(int id, Company company);
 	
 	public List<Company> findAllCompanyByUserId(Integer userId);
+
+	List<String> findAllCompanyByUser(User user);
+	
+	Company findCompanyByUserAndName(Integer userId, String companyName);
 }

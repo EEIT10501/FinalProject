@@ -79,7 +79,7 @@ public class JobTableInit {
 				job.setJobEmail(jobEmail);
 				job.setIndustry(industry);
 				job.setOther(other);
-				job.setPaidDate(Date.valueOf(paidDate));
+				job.setPaidDate(paidDate);
 				job.setJobPhone(jobPhone);
 				job.setPositionNum(Integer.valueOf(positionNum));
 				job.setRateByHour(Integer.valueOf(rateByHour));

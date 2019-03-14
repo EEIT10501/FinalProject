@@ -47,7 +47,7 @@ public class UserTableInit {
 				User user = new User();
 				user.setUserName(userName);
 				user.setPassword(password);
-				user.setPhoneNum(Integer.valueOf(phoneNum));
+				user.setPhoneNum(phoneNum);
 				user.setEmail(email);
 				user.setMebershipLevel(Integer.valueOf(mebershipLevel));
 				user.setExposureLimit(Integer.valueOf(exposureLimit));

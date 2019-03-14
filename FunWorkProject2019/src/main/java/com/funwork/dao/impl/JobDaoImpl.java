@@ -1,5 +1,7 @@
 package com.funwork.dao.impl;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.JobDao;
 import com.funwork.model.Job;
+import com.funwork.model.User;
 
 @Repository
 public class JobDaoImpl implements JobDao {
@@ -92,6 +95,7 @@ public class JobDaoImpl implements JobDao {
 		Session session = factory.getCurrentSession();
 		Job job = session.get(Job.class, jobId);
 		job.setReviewStatus("發布中");
+		job.setReviewTime(new Timestamp(System.currentTimeMillis()));
 		return job;
 	}
 
@@ -100,6 +104,7 @@ public class JobDaoImpl implements JobDao {
 		Session session = factory.getCurrentSession();
 		Job job = session.get(Job.class, jobId);
 		job.setReviewStatus("審核失敗");
+		job.setReviewTime(new Timestamp(System.currentTimeMillis()));
 		job.setFailReason(failReason);
 		return job;
 	}
@@ -151,6 +156,25 @@ public class JobDaoImpl implements JobDao {
 		Session session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
 		return list;
+	}
+
+	@Override
+	public Job insertJob(Job job, Integer userId) {
+		Session session = factory.getCurrentSession();
+		User user = session.get(User.class, userId);
+		job.setJobOwner(user);
+		session.save(job);
+		return job;
+	}
+
+	@Override
+	public int getJobPostedCount(Integer userId) {
+		Long count = 0L;
+		Session session = factory.getCurrentSession();
+		String hql = "SELECT count(*) FROM Job j where j.jobOwner.userId = :userId and j.postEndDate >= :nowdate";
+		count = (Long) session.createQuery(hql).setParameter("userId", userId)
+				.setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
+		return count.intValue();
 	}
 
 }
