@@ -14,7 +14,7 @@ public class User {
 	private Integer userId;
 	private String userName;
 	private String password;
-	private Integer phoneNum;
+	private String phoneNum;
 	private String email;
 	private Integer mebershipLevel;
 	private Integer exposureLimit;
@@ -56,11 +56,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(Integer phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 

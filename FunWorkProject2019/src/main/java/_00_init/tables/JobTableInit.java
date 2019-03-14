@@ -68,7 +68,7 @@ public class JobTableInit {
 				job.setComment(comment);
 				job.setIsExposure(Boolean.valueOf(isExposure));
 				job.setIsFilled(Boolean.valueOf(isFilled));
-				job.setPostEndDate(Timestamp.valueOf(postEndDate));
+				job.setPostEndDate(Date.valueOf(postEndDate));
 				job.setReviewStatus(reviewStatus);
 				job.setTitle(title);
 				job.setViewTimes(Integer.valueOf(viewTimes));
@@ -79,7 +79,7 @@ public class JobTableInit {
 				job.setJobEmail(jobEmail);
 				job.setIndustry(industry);
 				job.setOther(other);
-				job.setPaidDate(Date.valueOf(paidDate));
+				job.setPaidDate(paidDate);
 				job.setJobPhone(jobPhone);
 				job.setPositionNum(Integer.valueOf(positionNum));
 				job.setRateByHour(Integer.valueOf(rateByHour));

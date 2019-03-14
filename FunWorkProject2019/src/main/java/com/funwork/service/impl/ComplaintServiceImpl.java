@@ -49,4 +49,10 @@ public class ComplaintServiceImpl implements ComplaintService {
 		dao.insertCp(cp);
 	}
 
+	@Transactional
+	@Override
+	public List<Complaint> getComplaintHistoryList() {
+		return dao.getComplaintHistoryList();
+	}
+
 }

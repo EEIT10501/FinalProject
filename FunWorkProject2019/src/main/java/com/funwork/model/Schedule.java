@@ -30,6 +30,7 @@ public class Schedule implements Serializable {
 	private Date workDate;
 	private Job job;// fk
 	private Float workingHours;
+	private User user;
 
 	public Schedule() {
 	}
@@ -116,6 +117,16 @@ public class Schedule implements Serializable {
 		this.restHour = restHour;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_User_Id")
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Transient
 	public Float getWorkingHours() throws ParseException {
 		SimpleDateFormat simpleFormat = new SimpleDateFormat("HH:mm");
@@ -129,6 +140,7 @@ public class Schedule implements Serializable {
 		float dayhours = hours - getRestHour();
 		return dayhours;
 	}
+
 	@Transient
 	public void setWorkingHours(Float workingHours) throws ParseException {
 		this.workingHours = workingHours;

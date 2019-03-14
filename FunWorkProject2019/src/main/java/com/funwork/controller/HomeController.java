@@ -35,6 +35,7 @@ import com.funwork.model.User;
 import com.funwork.service.ResumeService;
 import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
+import com.funwork.service.impl.SendGmailService;
 
 @Controller
 public class HomeController {
@@ -51,12 +52,21 @@ public class HomeController {
 	UserService userService;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	SendGmailService sendGmailService;
 
 	public HomeController() {
 	}
 
 	@RequestMapping("/")
-	public String Home(HttpServletResponse res) {
+	public String Home(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser != null) {
+			if (loginUser.getRole() == 1) {
+				return "redirect:/jobsReview";
+			}
+		}
 		return "index";
 	}
 
@@ -114,7 +124,6 @@ public class HomeController {
 		}
 	}
 
-
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model) {
 		User ub = new User();
@@ -161,8 +170,8 @@ public class HomeController {
 //				errorMeg.put("passwordError", "密碼至少含有一個大寫字母、小寫字母、數字與!@#$%!^'\"等四組資料組合而成，且長度不能小於八個字元");
 //			}
 //		}
-		
-		//回傳上面的錯誤訊息到/register頁面
+
+		// 回傳上面的錯誤訊息到/register頁面
 		if (!errorMeg.isEmpty()) {
 //			RequestDispatcher rd = req.getRequestDispatcher("register.jsp");
 //			rd.forward(req, res);
@@ -178,16 +187,17 @@ public class HomeController {
 			ub.setEmail(email);
 			ub.setUserName(name);
 			ub.setPassword(password);
+			ub.setRole(2);
 			userService.insertUser(ub);
-			System.out.println("email");
-			System.out.println("新增成功");
-			System.out.println(userService.idExists(email));
+			sendGmailService.sendEmail("sam810331@gmail.com", "sam810331@gmail.com", "註冊成功", "<h1>恭喜註冊成功</h1>");
+
 			return "redirect:/";
 		}
 
 		return "/register";
 
 	}
+
 	@RequestMapping("/login/{email}/{password}")
 	@ResponseBody
 	public String login2(@PathVariable("email") String email, @PathVariable("password") String password,
