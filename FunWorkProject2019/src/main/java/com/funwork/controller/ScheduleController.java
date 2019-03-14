@@ -24,7 +24,7 @@ import com.funwork.service.ScheduleService;
 public class ScheduleController {
 	
 	@Autowired
-	ScheduleService scheuleService;
+	ScheduleService scheduleService;
 
 	public ScheduleController() {
 	}
@@ -34,9 +34,19 @@ public class ScheduleController {
 		return "schedule/calendar";
 	}
 	
-	@RequestMapping("/calendarTest")
-	public String calendarTest() {
-		return "schedule/calendarTest";
+	@RequestMapping("/ScheduleCalendar")
+	public String calendarTestSave(Model model) {
+		List<Schedule> scheduleList = scheduleService.getAllSchedules();
+	
+		model.addAttribute(scheduleList);
+		
+		return "schedule/ScheduleCalendar";
+	}
+	
+	@RequestMapping("/ScheduleCalendar/change")
+	public String calendarTestChange(Model model) {
+		model.addAttribute("change",true);
+		return "schedule/ScheduleCalendar";
 	}
 
 	
@@ -56,34 +66,34 @@ public class ScheduleController {
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST)
 	public String addScheduleForm(@ModelAttribute("schedule")Schedule schedule, BindingResult result,
 			HttpServletRequest request) {
-		scheuleService.insertSchedule(schedule);
+		scheduleService.insertSchedule(schedule);
 		return "redirect:/scheduleManage";
 	}
 	
 	@RequestMapping("/scheduleManage")
 	public String scheduleManage(Model model) {
-		List<Schedule> schedulelist = scheuleService.getAllSchedules();
+		List<Schedule> schedulelist = scheduleService.getAllSchedules();
 		model.addAttribute("schedules",schedulelist);
 		return "schedule/scheduleManage";
 	}
 	
 	@RequestMapping("/scheduleManage2")
 	public String scheduleManage2(Model model) {
-		List<Schedule> schedulelist = scheuleService.getAllSchedules();
+		List<Schedule> schedulelist = scheduleService.getAllSchedules();
 		model.addAttribute("schedules",schedulelist);
 		return "schedule/scheduleManage2";
 	}
 	
 	@RequestMapping("/deleteSchedule")
 	public String deleteScheduleByPrimaryKey(Model model, @RequestParam("scheduleId") Integer scheduleId) {
-		scheuleService.deleteScheduleByPrimaryKey(scheduleId);
+		scheduleService.deleteScheduleByPrimaryKey(scheduleId);
 		return "redirect:/scheduleManage";
 	}
 	
 	
 	@RequestMapping(value = "/updateSchedule", method = RequestMethod.GET)
 	public String getUpdateScheduleForm(Model model, @RequestParam("scheduleId") Integer scheduleId) {
-		Schedule updateSchedule = scheuleService.getScheduleByPrimaryKey(scheduleId);
+		Schedule updateSchedule = scheduleService.getScheduleByPrimaryKey(scheduleId);
 		model.addAttribute("schedule", updateSchedule);
 		return "schedule/updateSchedule";
 	}
@@ -91,7 +101,7 @@ public class ScheduleController {
 	@RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
 	public String UpdateScheduleForm(@ModelAttribute("schedule")Schedule schedule, BindingResult result,
 			HttpServletRequest request) {
-		scheuleService.updateScheduleByPrimaryKey(schedule);
+		scheduleService.updateScheduleByPrimaryKey(schedule);
 		return "redirect:/scheduleManage";
 	}
 	
