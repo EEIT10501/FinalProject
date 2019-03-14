@@ -18,31 +18,74 @@
 <title>首頁</title>
 </head>
 <script>
-	$(document).ready(function() {
-		var text1;
-		
-		$("example").dataTable();
-		
-		$("#condit1").change(function() {
-			text1 = $("#condit1").find(":selected").text();
-		});
 
-		$("#butt1").click(function() {
-			// 			alert(text1);
-			$.ajax({
-				url : 'jobManCond',
-				data : {
-					condition1 : text1
-				},
-				type : 'post',
-				cache : false,
-				success : function(data) {
-					$('#content1').text(data);
-				}
-			});
-		});
+$(document).ready(function() {
+$.noConflict();
+$('#example').DataTable();
+var contextPath = $("#contextPath").attr('value');
 
+var status = $("#condit1").find(":selected").text();
+
+$("#condit1").change(function() {
+	status = $("#condit1").find(":selected").text();
+});
+
+$("#butt1").click(function() {
+	
+//		$('#testField').DataTable({
+//			'ajax':{
+//		        'url': contextPath +  "/resultCorStatsJSON/"+status,
+//		        'type': "POST",
+//		        'data': { 'qstr': status },
+//		        'dataSrc': 'history'
+//			},
+//		    'autoWidth': false,
+//		    'lengthChange': false,
+//		    'ordering': false,
+//		    'pageLength': 50
+//	});
+	
+	$.ajax({
+		url : contextPath +  "/resultCorStatsJSON/"+status,
+		cache : false,
+		type : "GET",
+		dataType: 'json',
+		success: function(json) {
+			   console.log(JSON.stringify(json));
+			   jQuery.fn.exists = function(){ return this.length > 0; }
+//				   if($('#example_wrapper').exists()){
+//				   	$('#example_wrapper').hide();
+//				   }
+			   $('#clearTable').hide();
+			   var rowHead  = '<thead><tr><th>筆數 </th>'+
+					'<th>名稱 </th>'+
+					'<th>統編 </th>'+
+					'<th>地址 </th>'+
+					'<th>狀態 </th>'+
+					'<th>資料 </th></tr></thead><tbody>';
+				var tableContent ="";
+			   $.each(json, function(index, element){
+				 var idx = parseInt(index);
+				 var n = parseInt(1);
+			     var dataRow = '<tr><td>'+ (idx+n) +'</td>'+
+			    		 		'<td>'+element.name+'</td>'+
+			    		 		'<td>'+element.taxId+'</td>'+
+			    		 		'<td>'+element.address+'</td>'+
+			    		 		'<td>'+element.reviewStatus+'</td>'+
+			  "<td><a href='<spring:url value='company?id="+element.companyId+"'/>' class='btn btn-info btn-sm'>"+
+			  "<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a></td></tr>";
+			    	tableContent += dataRow;
+			   	});
+			   var myTable = rowHead + tableContent+'</tbody>';
+			   	$('#testField').html(myTable);
+				$('#testField').DataTable();
+		},
+		error : function(xhr) {
+			alert("failure");
+		}
 	});
+});
+});
 </script>
 <style>
 .card-text-size {
@@ -64,7 +107,7 @@
 }
 </style>
 <body>
-	<%@ include file="/WEB-INF/views/includes/adminnavbar.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
@@ -101,7 +144,7 @@
 					<tbody>
 						<c:forEach var="job" items="${jobs}" varStatus="loop">
 							<tr>
-								<td>${loop.index}</td>
+								<td><c:out value="${loop.count}" /></td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>

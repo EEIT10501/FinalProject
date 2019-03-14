@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<jsp:useBean id="now" class="java.util.Date"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,19 +77,6 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 
 		$("#butt1").click(function() {
 			
-// 			$('#testField').DataTable({
-// 				'ajax':{
-// 			        'url': contextPath +  "/resultCorStatsJSON/"+status,
-// 			        'type': "POST",
-// 			        'data': { 'qstr': status },
-// 			        'dataSrc': 'history'
-// 				},
-// 			    'autoWidth': false,
-// 			    'lengthChange': false,
-// 			    'ordering': false,
-// 			    'pageLength': 50
-// 		});
-			
 			$.ajax({
 				url : contextPath +  "/resultCorStatsJSON/"+status,
 				cache : false,
@@ -97,9 +85,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 				success: function(json) {
 					   console.log(JSON.stringify(json));
 					   jQuery.fn.exists = function(){ return this.length > 0; }
-// 					   if($('#example_wrapper').exists()){
-// 					   	$('#example_wrapper').hide();
-// 					   }
+
 					   $('#clearTable').hide();
 					   var rowHead  = '<thead><tr><th>筆數 </th>'+
 							'<th>名稱 </th>'+
@@ -167,40 +153,40 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 							<thead>
 								<tr>
 									<th>筆數</th>
-									<th>名稱</th>
-									<th>統編</th>
-									<th>地址</th>
-									<th>狀態</th>
-									<th>資料</th>
+									<th>邀約編號</th>
+									<th>應徵者名稱</th>
+									<th>給雇主的回應</th>
+									<th>應徵時間</th>
+<!-- 									<th>狀態</th> -->
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="company" items="${companys}" varStatus="loop">
+								<c:forEach var="application" items="${applications}" varStatus="loop">
 									<tr>
 										<td><c:out value="${loop.count}" /></td>
-										<td>${company.name}</td>
-										<td>${company.taxId}</td>
-										<td>${company.address}</td>
-										<td>${company.reviewStatus}</td>
-										<c:choose>
-										<c:when test="${company.reviewStatus =='已通過'}">
-										<td><a
-											href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
-											class="btn btn-info btn-sm"> <span
-												class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
-										</a></td>
-										</c:when >
-										<c:when test="${company.reviewStatus =='公司完成建檔'}">
-										<td><a
-											href='<spring:url value="company?id=${company.companyId}"/>'
-											class="btn btn-success btn-sm"> <span
-												class="glyphicon-info-sigh glyphicon"></span> 詳細資料
-										</a></td>
-										</c:when>
-										<c:otherwise>
-										<td></td>
-										</c:otherwise>
-										</c:choose>
+										<td>${application.applicationId}</td>
+										<td>${application.user.userName}</td>
+										<td>${application.answer}</td>
+										<td>${application.applicationTime}</td>
+<%-- 										<c:choose> --%>
+<%-- 										<c:when test="${application.applicationTime > now}"> --%>
+<!-- 										<td><a -->
+<%-- 											href='<spring:url value="addCorpProfile?id=${company.companyId}"/>' --%>
+<!-- 											class="btn btn-info btn-sm"> <span -->
+<!-- 												class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔 -->
+<!-- 										</a></td> -->
+<%-- 										</c:when > --%>
+<%-- 										<c:when test="${application.applicationTime < now}"> --%>
+<!-- 										<td><a -->
+<%-- 											href='<spring:url value="company?id=${company.companyId}"/>' --%>
+<!-- 											class="btn btn-success btn-sm"> <span -->
+<!-- 												class="glyphicon-info-sigh glyphicon"></span> 詳細資料 -->
+<!-- 										</a></td> -->
+<%-- 										</c:when> --%>
+<%-- 										<c:otherwise> --%>
+<!-- 										<td></td> -->
+<%-- 										</c:otherwise> --%>
+<%-- 										</c:choose> --%>
 									</tr>
 								</c:forEach>
 							</tbody>
