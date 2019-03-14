@@ -1,12 +1,14 @@
 package com.funwork.config;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.View;
@@ -78,6 +80,29 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		views.add(jsonView());
 		resolver.setDefaultViews(views);
 		return resolver;
+	}
+
+	@Bean
+	public JavaMailSenderImpl javaMailSenderImpl() {
+		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+	
+		Properties properties = new Properties();
+		properties.put("mail.smtp.auth", true);
+		properties.put("mail.smtp.starttls.enable", true);
+		properties.put("mail.smtp.starttls.required", true);
+		properties.put("mail.smtp.socketFactory.port", 465);
+		properties.put("mail.smtp.debug", true);
+		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		properties.put("mail.smtp.socketFactory.fallback", false);
+		javaMailSenderImpl.setJavaMailProperties(properties);
+		
+		javaMailSenderImpl.setJavaMailProperties(properties);
+		javaMailSenderImpl.setHost("smtp.gmail.com");
+		javaMailSenderImpl.setPort(465);
+		javaMailSenderImpl.setProtocol("smtp");
+		javaMailSenderImpl.setUsername("sam810331");
+		javaMailSenderImpl.setPassword("mino810125");
+		return javaMailSenderImpl;
 	}
 
 }
