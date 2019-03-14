@@ -95,4 +95,14 @@ public class UserDaoImpl implements UserDao {
 		session.createQuery(hql).setParameter("userId", Integer.valueOf(userId.toString())).executeUpdate();
 	}
 
+	@Override
+	public User getUserByGoogleEmail(String email, String googleId) {
+		Session session = factory.getCurrentSession();
+		String hql = "UPDATE User u SET u.google = :googleId WHERE u.email = :email";
+		String hql2 = "FROM User u WHERE u.email = :email";
+		session.createQuery(hql).setParameter("googleId", googleId).setParameter("email", email).executeUpdate();
+		User user = (User) session.createQuery(hql2).setParameter("email", email).uniqueResult();
+		return user;
+	}
+
 }

@@ -62,4 +62,10 @@ public class UserServiceImpl implements UserService {
 		dao.openUser(userId);
 	}
 
+	@Transactional
+	@Override
+	public User getUserByGoogleEmail(String email, String googleId) {
+		return dao.getUserByGoogleEmail(email, googleId);
+	}
+
 }

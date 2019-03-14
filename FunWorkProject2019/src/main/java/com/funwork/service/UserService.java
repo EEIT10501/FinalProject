@@ -20,4 +20,6 @@ public interface UserService {
 	User loginCheck(String email, String password);
 
 	void openUser(Serializable userId);
+	
+	User getUserByGoogleEmail(String email, String googleId);
 }

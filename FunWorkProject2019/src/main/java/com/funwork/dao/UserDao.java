@@ -10,14 +10,16 @@ public interface UserDao {
 	List<User> getAllUsers();
 
 	User findByPrimaryKey(int key);
-	
+
 	User getUserById(Integer userId);
-	
+
 	Serializable insertUser(User user);
-	
+
 	public boolean idExists(String email);
-	
+
 	User loginCheck(String email, String password);
-	
+
 	void openUser(Serializable userId);
+
+	User getUserByGoogleEmail(String email, String googleId);
 }
