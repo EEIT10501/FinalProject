@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import org.hibernate.Session;
@@ -46,8 +47,8 @@ public class ScheduleTableInit {
 				Schedule schedule = new Schedule();
 
 				Date workdate1 = strToDate(workdate);
-				Time endtime1 = strToTime(endtime);
-				Time startime1 = strToTime(startime);
+				Timestamp endtime1 = Timestamp.valueOf(endtime);
+				Timestamp startime1 = Timestamp.valueOf(startime);
 				Float restHour1 = Float.parseFloat(restHour);
 
 				schedule.setScheduleName(scheduleName);

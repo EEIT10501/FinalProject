@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -24,8 +25,8 @@ public class Schedule implements Serializable {
 	private Integer scheduleId;
 	private String scheduleName;
 	private String color;
-	private Time endTime;
-	private Time startTime;
+	private Timestamp endTime;
+	private Timestamp startTime;
 	private Float restHour;
 	private Date workDate;
 	private Job job;// fk
@@ -35,7 +36,7 @@ public class Schedule implements Serializable {
 	public Schedule() {
 	}
 
-	public Schedule(Integer scheduleId, String scheduleName, String color, Time endTime, Time startTime, Float restHour,
+	public Schedule(Integer scheduleId, String scheduleName, String color, Timestamp endTime, Timestamp startTime, Float restHour,
 			Date workDate, Job job, Float workingHours) {
 		super();
 		this.scheduleId = scheduleId;
@@ -59,19 +60,19 @@ public class Schedule implements Serializable {
 		this.scheduleId = scheduleId;
 	}
 
-	public Time getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Time endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 
-	public Time getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
