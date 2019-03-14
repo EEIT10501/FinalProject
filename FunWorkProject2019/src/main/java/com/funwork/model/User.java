@@ -25,6 +25,7 @@ public class User {
 	private Integer abscence;
 	private String facebook;
 	private String google;
+	private Boolean isOpen;
 
 	public User() {
 	}
@@ -143,6 +144,14 @@ public class User {
 
 	public void setGoogle(String google) {
 		this.google = google;
+	}
+
+	public Boolean getIsOpen() {
+		return isOpen;
+	}
+
+	public void setIsOpen(Boolean isOpen) {
+		this.isOpen = isOpen;
 	}
 
 }

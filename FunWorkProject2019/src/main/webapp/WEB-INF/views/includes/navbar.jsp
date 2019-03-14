@@ -200,6 +200,8 @@
 						// 					$("#loginspan").text("<a class='nav-link btn btn-outline-secondary'>登入</a>");
 					} else if (data == "fail") {
 						alert("帳號或密碼錯誤!");
+					} else if (data == "notOpen"){
+						alert("請至您註冊的Email驗證帳號");
 					}
 				}
 			});

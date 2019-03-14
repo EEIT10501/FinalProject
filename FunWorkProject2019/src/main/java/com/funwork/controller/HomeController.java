@@ -1,6 +1,7 @@
 package com.funwork.controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -9,9 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -116,9 +115,13 @@ public class HomeController {
 		User user = userService.loginCheck(email, password);
 
 		if (user != null) {
-			HttpSession session = req.getSession();
-			session.setAttribute("loginUser", user);
-			return "OK";
+			if (user.getIsOpen()) {
+				HttpSession session = req.getSession();
+				session.setAttribute("loginUser", user);
+				return "OK";
+			} else {
+				return "notOpen";
+			}
 		} else {
 			return "fail";
 		}
@@ -188,8 +191,17 @@ public class HomeController {
 			ub.setUserName(name);
 			ub.setPassword(password);
 			ub.setRole(2);
-			userService.insertUser(ub);
-			sendGmailService.sendEmail("sam810331@gmail.com", "sam810331@gmail.com", "註冊成功", "<h1>恭喜註冊成功</h1>");
+			ub.setAbscence(0);
+			ub.setExposureLimit(0);
+			ub.setJobPostLimit(3);
+			ub.setJobPostPeriod(7);
+			ub.setMebershipLevel(1);
+			ub.setIsOpen(false);
+			Serializable userId = userService.insertUser(ub);
+			sendGmailService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
+					"<h1>哈囉!" + name
+							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
+							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
 
 			return "redirect:/";
 		}
@@ -198,25 +210,17 @@ public class HomeController {
 
 	}
 
-	@RequestMapping("/login/{email}/{password}")
-	@ResponseBody
-	public String login2(@PathVariable("email") String email, @PathVariable("password") String password,
-			HttpServletRequest req) {
-		User user = userService.loginCheck(email, password);
-
-		if (user != null) {
-			HttpSession session = req.getSession();
-			session.setAttribute("loginUser", user);
-			return "OK";
-		} else {
-			return "fail";
-		}
-	}
-
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession();
 		session.removeAttribute("loginUser");
+		return "redirect:/";
+
+	}
+
+	@RequestMapping("/userOpen/{userId}")
+	public String userOpen(@PathVariable("userId") String userId) {
+		userService.openUser(userId);
 		return "redirect:/";
 
 	}
