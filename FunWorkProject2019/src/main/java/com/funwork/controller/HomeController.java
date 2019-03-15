@@ -1,20 +1,15 @@
 package com.funwork.controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
-import java.security.GeneralSecurityException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +29,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.funwork.model.Resume;
 import com.funwork.model.User;
 import com.funwork.service.ResumeService;
-import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
 import com.funwork.service.impl.SendGmailService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 
 @Controller
 public class HomeController {
 
-	@Autowired
-	ScheduleService scheuleService;
 	@Autowired
 	ResumeService resumeService;
 	@Autowired
@@ -61,7 +50,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/")
-	public String Home(HttpServletRequest req) {
+	public String home(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		if (loginUser != null) {
@@ -73,13 +62,14 @@ public class HomeController {
 	}
 
 	@RequestMapping("/form")
-	public String Form() {
+	public String form() {
 		return "pages/form";
 	}
 
 	@RequestMapping(value = "/getPicture/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getPicture(HttpServletRequest resp, @PathVariable Integer userId) {
+	public ResponseEntity<byte[]> getUserPicture(@PathVariable Integer userId) {
 
+		String filePath = "/resources/images/NoImage.jpg";
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
 		String fileName = "";
@@ -96,12 +86,12 @@ public class HomeController {
 					throw new RuntimeException("HomeController的getPicture()發生SQLException:" + e.getMessage());
 				}
 			} else {
-//				media = toByteArray(filePath);
-//				fileName = filePath;
+				media = toByteArray(filePath);
+				fileName = filePath;
 			}
 		} else {
-//			media = toByteArray(filePath);
-//			fileName = filePath;
+			media = toByteArray(filePath);
+			fileName = filePath;
 		}
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		String mimeType = context.getMimeType(fileName);
@@ -119,9 +109,9 @@ public class HomeController {
 
 		if (user != null) {
 //			if (user.getIsOpen()) {
-				HttpSession session = req.getSession();
-				session.setAttribute("loginUser", user);
-				return "OK";
+			HttpSession session = req.getSession();
+			session.setAttribute("loginUser", user);
+			return "OK";
 //			} else {
 //				return "notOpen";
 //			}
@@ -132,22 +122,17 @@ public class HomeController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model) {
-		User ub = new User();
-		model.addAttribute("userBean", ub);
 		return "register";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@RequestParam("email") String email, @RequestParam("name") String name,
 			@RequestParam("password") String password, @RequestParam("password2") String password2,
-			HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+			HttpServletRequest req) {
 
 		// 存放錯誤訊息errorMeg
 		Map<String, String> errorMeg = new HashMap<String, String>();
-		Map<String, String> okMeg = new HashMap<String, String>();
-		HttpSession session = req.getSession();
 		req.setAttribute("Msg", errorMeg); // 顯示錯誤訊息, errorMeg傳到前端用EL接
-		session.setAttribute("OK", okMeg);
 
 		if (email == null || email.trim().length() == 0) {
 			errorMeg.put("errEmailEmpty", "帳號欄必須輸入");
@@ -167,20 +152,8 @@ public class HomeController {
 				errorMeg.put("errPdEmpty", "*");
 			}
 		}
-		// 可以使用Pattern的靜態方法compile()來編譯
-		// 之後就可以重覆使用這個pattern的matcher()方法來進行字串比對,matcher.matches()傳回true or false
-//		if (errorMeg.isEmpty()) {
-//			pattern = Pattern.compile(PASSWORDPATTERN);
-//			matcher = pattern.matcher(password);
-//			if (!matcher.matches()) {
-//				errorMeg.put("passwordError", "密碼至少含有一個大寫字母、小寫字母、數字與!@#$%!^'\"等四組資料組合而成，且長度不能小於八個字元");
-//			}
-//		}
-
 		// 回傳上面的錯誤訊息到/register頁面
 		if (!errorMeg.isEmpty()) {
-//			RequestDispatcher rd = req.getRequestDispatcher("register.jsp");
-//			rd.forward(req, res);
 			return "/register";
 		}
 
@@ -189,32 +162,18 @@ public class HomeController {
 			System.out.println(userService.idExists(email));
 
 		} else {
-			User ub = new User();
-			ub.setEmail(email);
-			ub.setUserName(name);
-			ub.setPassword(password);
-			ub.setRole(2);
-			ub.setAbscence(0);
-			ub.setExposureLimit(0);
-			ub.setJobPostLimit(3);
-			ub.setJobPostPeriod(7);
-			ub.setMebershipLevel(1);
-			ub.setIsOpen(false);
-			Serializable userId = userService.insertUser(ub);
+			Integer userId = userService.insertUser(email, name, password);
 //			sendGmailService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
 //					"<h1>哈囉!" + name
 //							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
 //							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
-
 			return "redirect:/";
 		}
-
 		return "/register";
-
 	}
 
 	@RequestMapping("/logout")
-	public String logout(HttpServletRequest req, HttpServletResponse res) {
+	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		session.removeAttribute("loginUser");
 		return "redirect:/";
@@ -231,55 +190,49 @@ public class HomeController {
 	@ResponseBody
 	public String googleLogin(@RequestParam("idtoken") String idtoken, HttpServletRequest req) {
 
-		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
-				JacksonFactory.getDefaultInstance())
-						.setAudience(Collections.singletonList(
-								"784516300990-g9mc0al77s74lmmi0q6hb9777k3om0qj.apps.googleusercontent.com"))
-						.build();
-
 		GoogleIdToken idToken = null;
-		try {
-			idToken = verifier.verify(idtoken);
-		} catch (GeneralSecurityException e) {
-			System.out.println("驗證時出現GeneralSecurityException異常");
-		} catch (IOException e) {
-			System.out.println("驗證時出現IOException異常");
-		}
+		idToken = sendGmailService.idTokenVertify(idtoken);
+
 		if (idToken != null) {
 			Payload payload = idToken.getPayload();
-			String userId = payload.getSubject();
+			String googleId = payload.getSubject();
 			String email = payload.getEmail();
 //			String name = (String) payload.get("name");	這個name 是 偉廷石	
 			String familyName = (String) payload.get("family_name");
 			String givenName = (String) payload.get("given_name");
 			String name = givenName.trim() + familyName.trim();
-
 			if (userService.idExists(email)) {
-				User user = userService.getUserByGoogleEmail(email, userId);
+				User user = userService.getUserByGoogleEmail(email, googleId);
 				HttpSession session = req.getSession();
 				session.setAttribute("loginUser", user);
 			} else {
-				User ub = new User();
-				ub.setEmail(email);
-				ub.setUserName(name);
-//				ub.setPassword(password);
-				ub.setGoogle(userId);
-				ub.setRole(2);
-				ub.setAbscence(0);
-				ub.setExposureLimit(0);
-				ub.setJobPostLimit(3);
-				ub.setJobPostPeriod(7);
-				ub.setMebershipLevel(1);
-				ub.setIsOpen(true);
-				userService.insertUser(ub);
-
+				Integer userId = userService.insertGoogleUser(email, name, googleId);
+				User user = userService.getUserById(userId);
 				HttpSession session = req.getSession();
-				session.setAttribute("loginUser", ub);
-
+				session.setAttribute("loginUser", user);
 			}
 			return "OK";
 		} else {
 			return "Fail";
 		}
+	}
+
+	private byte[] toByteArray(String filePath) {
+		String root = context.getRealPath("/");
+		root = root.substring(0, root.length() - 1);
+		String fileLocation = root + filePath;
+		byte[] b = null;
+		try {
+			java.io.File file = new java.io.File(fileLocation);
+			long size = file.length();
+			b = new byte[(int) size];
+			InputStream fis = context.getResourceAsStream(filePath);
+			fis.read(b);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return b;
 	}
 }
