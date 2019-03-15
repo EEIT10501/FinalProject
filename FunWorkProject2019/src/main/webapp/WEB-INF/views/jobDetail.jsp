@@ -263,7 +263,7 @@
 							<div class="modal-body">
 								<!-- 彈出視窗：寫程式的地方 -->
 								<c:if test="${empty resumeBean}">
-									<h5 style="color: red">請先登入系統</h5>
+									<h5 style="color: red">請先登入系統及填寫履歷</h5>
 								</c:if>
 								<table class="table table-striped">
 
