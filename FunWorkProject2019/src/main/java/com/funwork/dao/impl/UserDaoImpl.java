@@ -50,9 +50,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Serializable insertUser(User user) {
+	public Integer insertUser(User user) {
 		Session session = factory.getCurrentSession();
-		Serializable userId = session.save(user);
+		Integer userId = (Integer) session.save(user);
 		return userId;
 	}
 

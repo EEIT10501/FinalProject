@@ -74,6 +74,7 @@ public class EmployerController {
 		return "employerManage/addJobProfile";
 	}
 
+	// 這個路徑進去就掛掉
 	@RequestMapping("/addCorpProfile")
 	public String addCorpProfile() {
 		return "employerManage/addCorpProfile";
@@ -104,13 +105,6 @@ public class EmployerController {
 		} else {
 			return "redirect:/";
 		}
-	}
-
-	@RequestMapping("/jobManCond")
-	public String jobManCond(Model model) {
-		List<Company> list = companyService.findAllCompanys();
-		model.addAttribute("companys", list);
-		return "test";
 	}
 
 	@ResponseBody
@@ -162,13 +156,6 @@ public class EmployerController {
 		System.out.println("getCompanyById");
 		model.addAttribute("company", companyService.findByPrimaryKey(id));
 		return "employerManage/companyProfile";
-	}
-
-	@RequestMapping(value = "/postJob", method = RequestMethod.GET)
-	public String getAddNewcompanyForm(Model model) {
-		Job jb = new Job();
-		model.addAttribute("jobBean", jb);
-		return "employerManage/addJob";
 	}
 
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.GET)
