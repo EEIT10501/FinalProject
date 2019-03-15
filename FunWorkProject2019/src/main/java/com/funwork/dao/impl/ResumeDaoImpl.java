@@ -40,4 +40,14 @@ public class ResumeDaoImpl implements ResumeDao {
 		return resume;
 	}
 
+	@Override
+	public void addResume(Resume resume) {
+	Session session = factory.getCurrentSession();
+//	User user = getResumeByUserId(resume.get);
+	
+	
+		
+	}
+
+	
 }

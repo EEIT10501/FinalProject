@@ -24,13 +24,10 @@
 .asideblock {
 	height: 600px;
 }
-fieldset{
-border:solid green;
-text-align:center;
 
-width:default;
-background-position:center;
-}
+
+
+
 </style>
 </head>
 
@@ -57,18 +54,22 @@ background-position:center;
 	     <div class="col-sm-8">
 			<!-- 程式寫在這 -->
              <!--如果要insert多筆資料可以用form:form直接傳物件 -->
-		 <!-- onsubmit= "return formCheck() " +在form標籤中可以用(js)檢測密碼是否輸入相同-->	
-              <form method="post" action="${pageContext.request.contextPath}/register" >
-               <fieldset>
-               <legend><em>註冊會員</em></legend>
-
+		 <!-- onsubmit= "return formCheck()" +在form標籤中可以用(js)檢測密碼是否輸入相同-->	
+      <form method="post" action="${pageContext.request.contextPath}/register"onsubmit= "return formCheck()" class="was-validated">
+         
+         <fieldset>
+            <legend><em>註冊會員</em></legend>
 
                <div class="form-group row">
 	              <label for="inputEmail3" class="col-sm-2 col-form-label">email:</label>
 	              <div class="col-sm">
-	                <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="xx@xx.com" 
+	                <input type="email" name="email" class="form-control is-invalid" id="inputEmail3" placeholder="xx@xx.com" 
 	                autocomplete="on" required ="required" title="請輸入email"  style="width: 230px;">
+                   <div class="col-sm">
                     <font color="red" size="-1">${Msg.errorEmail}${Msg.errorIDExs} </font>
+                    <div class="invalid-feedback">good
+                    </div>
+                  	</div>
                   </div>       
                </div>   
                 
@@ -76,8 +77,10 @@ background-position:center;
                   <label for="inputPassword3" class="col-sm-2 col-form-label">姓名:</label>
                   <div class="col-sm">
 	                <input type="text" name="name" class="form-control" id="inputPassword3" placeholder="我好酷"  
-	                     required pattern="{1,15}" title="請輸入姓名" style="width: 200px;">
+	                     required pattern="{1,15}" title="請輸入姓名" style="width: 230px;">
+                  <div class="col-sm">
                     <font color="red" size="-1">${Msg.errEmailEmpty}</font>
+			     	 </div>
 			      </div>   
 			    </div>   
 			    
@@ -86,28 +89,35 @@ background-position:center;
 			      <div class="col-sm">
 			        <input type="password" name="password"  class="form-control" id="pwd1" placeholder="6~12英文數字組合" 
 			             required pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$" 
-			             title="密碼：6~12英數字組合，至少有一個大寫、小寫英文字母及數字，如 A12Rd6"  style="width: 200px;">
+			             title="密碼：6~12英數字組合，至少有一個大寫、小寫英文字母及數字，如 A12Rd6"  style="width: 230px;">
+			       <div class="col-sm">	
 			        <font color="red" size="-1">${Msg.errPdEmpty}</font>      
+			      	</div>
 			       </div>
 			      </div>
 			      
 			    <div class="form-group row">  
-			      <label for="inputPassword3" class="col-sm-2 col-form-label">密碼確認：</label>
+			      <label for="inputPassword3" class="col-sm-2  col-form-label">密碼確認：</label>
 			        <div class="col-sm">
-			         <input type="password" name="password2" class="form-control" id="pwd2" required="required" style="width: 200px;">
+			         <input type="password" name="password2" class="form-control" id="pwd2" 
+			         required pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"  style="width: 230px;">
+			      
 			         <font color="red" size="-1">${Msg.errPd2Empty}</font>            
+	
 			       </div>
 			      </div>
 			      
                 <div class="form-group row">
-   				  <div class="col-sm">
-				     <input type="submit" name="submit" class="btn btn-primary" id="submit" value="註冊"/>			
-			         <input type="reset" name="cancel" class="btn btn-primary" id="cancel" value="重填">
-		           </div>
-			     </div>
-			
+                	<div class="col-sm">
+				     <input type="submit" name="submit" class="btn btn-primary" id="submit" value="註冊"/>						        
+			         <input type="reset" name="cancel" class="btn btn-primary" id="cancel" value="重填"/>
+			     	</div>
+			       </div>
+			    
+		
 			</fieldset>
-			</form>
+		  
+		</form>
 
  				</div>
 			</div>

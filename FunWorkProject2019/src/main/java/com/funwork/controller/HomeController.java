@@ -148,8 +148,7 @@ public class HomeController {
 		}
 		if (password.trim().length() > 0 && password2.trim().length() > 0) {
 			if (!password.trim().equals(password2.trim())) {
-				errorMeg.put("errPd2Empty", "密碼欄必須與確認欄一致");
-				errorMeg.put("errPdEmpty", "*");
+				errorMeg.put("errPd2Empty", "必須與密碼欄一致");
 			}
 		}
 		// 可以使用Pattern的靜態方法compile()來編譯

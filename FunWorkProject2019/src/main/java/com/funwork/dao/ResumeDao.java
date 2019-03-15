@@ -9,4 +9,6 @@ public interface ResumeDao {
 	List<Resume> getAllResumes();
 
 	Resume getResumeByUserId(Integer userId);
+	
+	void addResume(Resume resume);
 }
