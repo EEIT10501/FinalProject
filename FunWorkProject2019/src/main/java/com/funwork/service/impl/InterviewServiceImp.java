@@ -68,8 +68,14 @@ public class InterviewServiceImp implements InterviewService {
 	}
 
 	@Override
-	public List<Application> getInterviewByApplicationId(Integer applicationId) {
-		return interviewDao.getInterviewByApplicationId(applicationId);
+
+	public List<Interview> findByApplicationIds(int key) {
+		return interviewDao.findByApplicationIds(key);
 	}
 
+	@Override
+	public List<Interview> findByApplicationIdAndTime(int key) {
+		return interviewDao.findByApplicationIdAndTime(key);
+
+	}
 }
