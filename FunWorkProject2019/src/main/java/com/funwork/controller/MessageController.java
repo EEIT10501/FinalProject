@@ -25,12 +25,10 @@ import com.funwork.service.MessageService;
 import com.funwork.service.impl.WSMessageService;
 
 @Controller
-@RequestMapping
 public class MessageController {
 
 	@Autowired
 	private WSMessageService wsMessageService;
-
 	@Autowired
 	MessageService messageService;
 	@Autowired
@@ -38,19 +36,15 @@ public class MessageController {
 
 	@RequestMapping(value = "/message/TestWS", method = RequestMethod.GET)
 	@ResponseBody
-	public String TestWS(@RequestParam(value = "userId", required = true) String userId,
-			@RequestParam(value = "toUserId", required = true) String toUserId,
+	public String testWS(@RequestParam(value = "userId", required = true) Integer userId,
+			@RequestParam(value = "toUserId", required = true) Integer toUserId,
 			@RequestParam(value = "message", required = true) String message,
-			@RequestParam(value = "apId", required = true) String apId) {
-
-		applicationService.updateLatestMsg(Integer.valueOf(apId), message);
+			@RequestParam(value = "apId", required = true) Integer apId) {
+		applicationService.updateLatestMsg(apId, message);
 		messageService.insertMessage(message, userId, toUserId, apId, 0);
-
-		if (wsMessageService.sendToAllTerminal(toUserId, message)) {
-//			messageService.insertMessage(message, userId, toUserId, apId, 1);
+		if (wsMessageService.sendToAllTerminal(toUserId.toString(), message)) {
 			return "sucess";
 		} else {
-			
 			return "fail";
 		}
 	}
@@ -68,7 +62,7 @@ public class MessageController {
 	}
 
 	@RequestMapping("/chat/{applicationId}")
-	public String Chat(Model model, @PathVariable("applicationId") Integer applicationId, HttpServletRequest req,
+	public String chat(Model model, @PathVariable("applicationId") Integer applicationId, HttpServletRequest req,
 			HttpServletResponse res) {
 		HttpSession session = req.getSession();
 		res.setHeader("Cache-Control", "no-cache");
@@ -97,15 +91,6 @@ public class MessageController {
 		model.addAttribute("user", user);
 		model.addAttribute("toUser", toUser);
 		return "pages/chat";
-	}
-
-	// chat2 是測試頁面，之後可以刪掉
-	@RequestMapping("/chat2/{applicationId}")
-	public String Chat2(Model model, @PathVariable("applicationId") Integer applicationId) {
-		List<Message> list = messageService.getOldMessageByApplicationId(applicationId);
-		model.addAttribute("oldMessageList", list);
-		model.addAttribute("apId", applicationId);
-		return "pages/chat2";
 	}
 
 	@RequestMapping(value = "/chatJSON", method = RequestMethod.GET, produces = { "application/json" })

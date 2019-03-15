@@ -59,11 +59,11 @@ public class MessageDaoImpl implements MessageDao {
 	}
 
 	@Override
-	public void insertMessage(String message, String userId, String toUserId, String apId, Integer isRead) {
+	public void insertMessage(String message, Integer userId, Integer toUserId, Integer apId, Integer isRead) {
 		Session session = factory.getCurrentSession();
-		Application ap = session.get(Application.class, Integer.valueOf(apId));
-		User sender = session.get(User.class, Integer.valueOf(userId));
-		User receiver = session.get(User.class, Integer.valueOf(toUserId));
+		Application ap = session.get(Application.class, apId);
+		User sender = session.get(User.class, userId);
+		User receiver = session.get(User.class, toUserId);
 		Message msg = new Message();
 		msg.setContent(message);
 		msg.setTime(new Timestamp(System.currentTimeMillis()));

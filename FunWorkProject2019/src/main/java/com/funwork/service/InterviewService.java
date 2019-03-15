@@ -9,7 +9,7 @@ public interface InterviewService {
 
 	Interview findByPrimaryKey(int key);
 
-	void saveInterview(Interview interview);
+	Integer saveInterview(String interType, String interComment, String interPlace, String interTime, Integer apId);
 
 	void updateInterview(Interview interview);
 

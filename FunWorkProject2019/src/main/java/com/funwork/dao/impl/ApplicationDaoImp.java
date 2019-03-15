@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -102,13 +101,15 @@ public class ApplicationDaoImp implements ApplicationDao {
 		ap.setLatestMsg(msg);
 		ap.setLatestMsgTime(new Timestamp(System.currentTimeMillis()));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Application> getApplicationByUserIdByTime(Integer userId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"+"ORDER BY a.applicationTime DESC";
-		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId).getResultList();
+		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"
+				+ "ORDER BY a.applicationTime DESC";
+		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId)
+				.getResultList();
 		return list;
 	}
 

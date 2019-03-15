@@ -25,7 +25,6 @@ import com.funwork.service.JobService;
 import com.funwork.service.UserService;
 
 @Controller
-@RequestMapping
 public class PostJobController {
 
 	@Autowired
@@ -45,14 +44,12 @@ public class PostJobController {
 
 	@RequestMapping(value = "/jobProfile")
 	public String getJobPostById(@RequestParam("id") Integer id, Model model) {
-		System.out.println("job selected: " + id);
 		model.addAttribute("job", jobService.getJobById(id));
 		return "employerManage/jobProfile";
 	}
 
 	@RequestMapping(value = "/applications")
 	public String pullApplicantsByJob(@RequestParam("id") Integer id, Model model) {
-		System.out.println("ready to pull applicant by jobId" + id);
 		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(id));
 		model.addAttribute("applicantsByJob", list);
 		return "employerManage/applicantsList";
@@ -60,28 +57,24 @@ public class PostJobController {
 
 	@RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
-		Job jbean = new Job();
+		Job job = new Job();
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
 		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
 		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
-
-		model.addAttribute("newJobPost", jbean);
+		model.addAttribute("jobBean", job);
 		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
 		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
 		model.addAttribute("companyNameList", companyNameList);
-
 		return "employerManage/addJobProfile";
 	}
 
 	@RequestMapping(value = "/addJobProfile", method = RequestMethod.POST)
-	public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
+	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-
 		jobService.insertJob(jbean, loginUser.getUserId());
-
 		return "redirect:/manageJob";
 	}
 

@@ -1,7 +1,6 @@
 package com.funwork.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -27,7 +26,6 @@ import com.funwork.service.NotificationService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
-
 
 @Controller
 public class JobController {
@@ -79,21 +77,21 @@ public class JobController {
 	}
 
 	@RequestMapping("/jobDetail/{jobId}")
-	public String JobDetail(Model model, @PathVariable("jobId") Integer jobId,HttpServletRequest req, HttpServletResponse res) {
+	public String JobDetail(Model model, @PathVariable("jobId") Integer jobId, HttpServletRequest req,
+			HttpServletResponse res) {
 		Job job = jobService.getJobById(jobId);
 		Resume resume = null;
-		//注意
-		HttpSession session = req.getSession(); //取得session物件
-		User user = (User) session.getAttribute("loginUser"); //取的在session裡面名為loginUser的物件
-		
-		if(session.getAttribute("loginUser")!=null && resumeService.getResumeByUserId(user.getUserId())!=null) {
-		resume = resumeService.getResumeByUserId(user.getUserId());
-		model.addAttribute("resumeBean", resume);
+		// 注意
+		HttpSession session = req.getSession(); // 取得session物件
+		User user = (User) session.getAttribute("loginUser"); // 取的在session裡面名為loginUser的物件
+
+		if (session.getAttribute("loginUser") != null && resumeService.getResumeByUserId(user.getUserId()) != null) {
+			resume = resumeService.getResumeByUserId(user.getUserId());
+			model.addAttribute("resumeBean", resume);
 		}
 
 		List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
 		model.addAttribute("jobBean", job);
-		
 		model.addAttribute("schedules", schedulelist);
 		return "jobDetail";
 	}

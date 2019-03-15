@@ -1,6 +1,5 @@
 package com.funwork.controller;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.funwork.model.Job;
-import com.funwork.model.Notification;
 import com.funwork.service.JobService;
-import com.funwork.service.NotificationService;
 
 @Controller
 public class JobReviewController {
 
 	@Autowired
 	JobService jobService;
-	@Autowired
-	NotificationService notificationService;
 
 	@RequestMapping(value = "/jobsReview", method = RequestMethod.GET)
 	public String reviewJobList(Model model) {
@@ -41,23 +36,10 @@ public class JobReviewController {
 	@RequestMapping(value = "/jobReview/{jobId}", method = RequestMethod.POST)
 	public String processAddNewProductForm(@PathVariable Integer jobId, @RequestParam(name = "isPass") String isPass,
 			@RequestParam(name = "failReason", required = false) String failReason) {
-
 		if (isPass.equals("pass")) {
-			Job job = jobService.jobReviewPass(jobId);
-			Notification notification = new Notification();
-			notification.setContent("您的職缺(" + job.getTitle() + ")已通過審核");
-			notification.setTime(new Timestamp(System.currentTimeMillis()));
-			notification.setType(2);
-			notification.setUser(job.getJobOwner());
-			notificationService.insertNotification(notification);
+			jobService.jobReviewPass(jobId);
 		} else if (isPass.equals("fail")) {
-			Job job = jobService.jobReviewFail(jobId, failReason);
-			Notification notification = new Notification();
-			notification.setContent("您的職缺(" + job.getTitle() + ")審核失敗");
-			notification.setTime(new Timestamp(System.currentTimeMillis()));
-			notification.setType(2);
-			notification.setUser(job.getJobOwner());
-			notificationService.insertNotification(notification);
+			jobService.jobReviewFail(jobId, failReason);
 		}
 		return "redirect:/jobsReview";
 	}
@@ -68,7 +50,7 @@ public class JobReviewController {
 		model.addAttribute("jobList", jobList);
 		return "jobreview/jobsReviewHistory";
 	}
-	
+
 	@RequestMapping(value = "/jobReviewHistory/{jobId}", method = RequestMethod.GET)
 	public String reviewJobHistory(Model model, @PathVariable Integer jobId) {
 		Job job = jobService.getJobById(jobId);

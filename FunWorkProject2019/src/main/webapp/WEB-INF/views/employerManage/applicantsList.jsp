@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
 <style>
@@ -152,8 +151,7 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights
-				reserved.</div>
+			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>

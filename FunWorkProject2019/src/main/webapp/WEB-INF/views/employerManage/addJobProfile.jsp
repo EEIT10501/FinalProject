@@ -40,7 +40,7 @@
 					<h1>張貼工作</h1>
 					<p id="noPost" style="color:red"></p>
 				</div>
-				<form:form modelAttribute="newJobPost" method="POST" id="jobForm">			
+				<form:form modelAttribute="jobBean" method="POST" id="jobForm">			
 						<hr>
 						<div class="form-group row">
 						    <label for="type" class="col-sm-2 col-form-label">工作類型</label>

@@ -10,138 +10,136 @@ import org.springframework.transaction.annotation.Transactional;
 import com.funwork.dao.CityDao;
 import com.funwork.dao.CompanyDao;
 import com.funwork.dao.JobDao;
+import com.funwork.dao.NotificationDao;
 import com.funwork.model.City;
 import com.funwork.model.Job;
+import com.funwork.model.Notification;
 import com.funwork.service.JobService;
 
+@Transactional
 @Service
 public class JobServiceImpl implements JobService {
 
 	@Autowired
-	JobDao dao;
-
+	JobDao jobDao;
 	@Autowired
-	CityDao citydao;
+	CityDao cityDao;
 	@Autowired
 	CompanyDao companyDao;
+	@Autowired
+	NotificationDao notificationDao;
 
 	public JobServiceImpl() {
 	}
 
 	@Override
-	@Transactional
 	public List<Job> getAllJobs() {
-		return dao.getAllJobs();
+		return jobDao.getAllJobs();
 	}
 
 	@Override
-	@Transactional
 	public List<Job> getJobReviewList() {
-		return dao.getJobReviewList();
+		return jobDao.getJobReviewList();
 	}
 
 	@Override
-	@Transactional
 	public List<Job> getJobPassed() {
-		return dao.getJobPassed();
+		return jobDao.getJobPassed();
 	}
 
 	@Override
-	@Transactional
 	public List<Job> getJobByCityName(Integer cityId) {
-		return dao.getJobByCityName(cityId);
+		return jobDao.getJobByCityName(cityId);
 	}
 
-	@Transactional
 	@Override
 	public List<Job> getJobByCityArea(Integer cityId) {
-		return dao.getJobByCityArea(cityId);
+		return jobDao.getJobByCityArea(cityId);
 	}
 
 	@Override
-	@Transactional
 	public Job getJobById(Integer jobId) {
-		return dao.getJobById(jobId);
+		return jobDao.getJobById(jobId);
 	}
 
 	@Override
-	@Transactional
 	public Job jobReviewPass(Integer jobId) {
-		return dao.jobReviewPass(jobId);
+		Job job = jobDao.jobReviewPass(jobId);
+		Notification notification = new Notification();
+		notification.setContent("您的職缺(" + job.getTitle() + ")已通過審核");
+		notification.setTime(new Timestamp(System.currentTimeMillis()));
+		notification.setType(2);
+		notification.setUser(job.getJobOwner());
+		notificationDao.insertNotification(notification);
+		return job;
 	}
 
 	@Override
-	@Transactional
 	public Job jobReviewFail(Integer jobId, String failReason) {
-		return dao.jobReviewFail(jobId, failReason);
+		Job job = jobDao.jobReviewFail(jobId, failReason);
+		Notification notification = new Notification();
+		notification.setContent("您的職缺(" + job.getTitle() + ")審核失敗");
+		notification.setTime(new Timestamp(System.currentTimeMillis()));
+		notification.setType(2);
+		notification.setUser(job.getJobOwner());
+		notificationDao.insertNotification(notification);
+		return job;
 	}
 
-	@Transactional
 	@Override
 	public Job jobRemove(Integer jobId, String removeReason) {
-		return dao.jobRemove(jobId, removeReason);
+		return jobDao.jobRemove(jobId, removeReason);
 	}
 
-	@Transactional
 	@Override
 	public List<City> getAllCitys() {
-		return citydao.getAllCitys();
+		return cityDao.getAllCitys();
 
 	}
 
-	@Transactional
 	@Override
 	public List<City> getCityName(Integer cityId) {
-		return citydao.getCityName(cityId);
+		return cityDao.getCityName(cityId);
 
 	}
 
-	@Transactional
 	@Override
 	public List<Job> findJobByUserId(Integer userId) {
-		return dao.findJobByUserId(userId);
+		return jobDao.findJobByUserId(userId);
 	}
 
-	@Transactional
 	@Override
 	public List<Job> findJobByUserIdNJobStatus(Integer userId) {
-		return dao.findJobByUserIdNJobStatus(userId);
+		return jobDao.findJobByUserIdNJobStatus(userId);
 	}
 
-	@Transactional
 	@Override
 	public List<Job> getCorrectJobs() {
-		return dao.getCorrectJobs();
+		return jobDao.getCorrectJobs();
 	}
 
-	@Transactional
 	@Override
 	public List<Job> getReviewHistory() {
-		return dao.getReviewHistory();
+		return jobDao.getReviewHistory();
 	}
 
-	@Transactional
 	@Override
 	public List<String> getCityAreaList() {
-		return citydao.getCityAreaList();
+		return cityDao.getCityAreaList();
 	}
 
-	@Transactional
 	@Override
 	public String getCityNameList(String cityArea) {
-		return citydao.getCityNameList(cityArea);
+		return cityDao.getCityNameList(cityArea);
 	}
 
-	@Transactional
 	@Override
 	public City getCityByCityName(String cityName) {
-		return citydao.getCityByCityName(cityName);
+		return cityDao.getCityByCityName(cityName);
 	}
 
-	@Transactional
 	@Override
 	public Job insertJob(Job jbean, Integer userId) {
-
 		String cityName = jbean.getCityName();
 		jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
 		jbean.setIsExposure(false);
@@ -153,16 +151,15 @@ public class JobServiceImpl implements JobService {
 		if (!companyName.equals("-1")) {
 			jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
 		}
-		jbean.setCity(citydao.getCityByCityName(cityName));
+		jbean.setCity(cityDao.getCityByCityName(cityName));
 
-		Job job = dao.insertJob(jbean, userId);
+		Job job = jobDao.insertJob(jbean, userId);
 		return job;
 	}
 
-	@Transactional
 	@Override
 	public int getJobPostedCount(Integer userId) {
-		return dao.getJobPostedCount(userId);
+		return jobDao.getJobPostedCount(userId);
 	}
 
 }

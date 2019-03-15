@@ -15,7 +15,7 @@ public interface MessageDao {
 
 	void insertReceiver(Serializable msgId, User user);
 
-	void insertMessage(String message, String userId, String toUserId, String apId, Integer isRead);
+	void insertMessage(String message, Integer userId, Integer toUserId, Integer apId, Integer isRead);
 
 	void changeMsgStatusToRead(Integer userId, Integer adId);
 
