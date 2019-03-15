@@ -9,17 +9,11 @@ import com.funwork.dao.AttendenceDao;
 import com.funwork.model.Attendence;
 import com.funwork.service.AttendenceService;
 
-
-
-
 @Service
 public class AttendenceServiceImpl implements AttendenceService {
 
 	@Autowired
 	AttendenceDao dao;
-
-	public AttendenceServiceImpl() {
-	}
 
 	@Transactional
 	@Override

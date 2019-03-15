@@ -18,9 +18,6 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	MessageDao dao;
 
-	public MessageServiceImpl() {
-	}
-
 	@Transactional
 	@Override
 	public List<Message> getAllMessages() {

@@ -132,7 +132,7 @@ public class CompanyDaoImp implements CompanyDao {
 		Session session = factory.getCurrentSession();
 		List<Company> list = session.createQuery(hql).setParameter("userId", userId)
 				.setParameter("companyName", companyName).getResultList();
-		if (list.size() != 0) {
+		if (!list.isEmpty()) {
 			company = list.get(0);
 		}
 		return company;

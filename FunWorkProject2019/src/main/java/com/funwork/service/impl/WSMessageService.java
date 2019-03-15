@@ -10,12 +10,6 @@ public class WSMessageService {
 	private WebSocketChat webSocketChat = new WebSocketChat();
 
 	public Boolean sendToAllTerminal(String userId, String message) {
-
-		if (webSocketChat.sendMessageToUser(userId, message)) {
-			return true;
-		} else {
-			return false;
-		}
+		return webSocketChat.sendMessageToUser(userId, message);
 	}
-
 }

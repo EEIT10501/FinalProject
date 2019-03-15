@@ -11,9 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +26,10 @@ import com.funwork.service.impl.WSMessageService;
 @Controller
 public class MessageController {
 
+	private static final String LOGIN_USER = "loginUser";
+	private static final String CACHECONTROL_HEADER = "Cache-Control";
+	private static final String NO_CACHE = "no-cache";
+
 	@Autowired
 	private WSMessageService wsMessageService;
 	@Autowired
@@ -34,7 +37,7 @@ public class MessageController {
 	@Autowired
 	ApplicationService applicationService;
 
-	@RequestMapping(value = "/message/TestWS", method = RequestMethod.GET)
+	@GetMapping(value = "/message/TestWS")
 	@ResponseBody
 	public String testWS(@RequestParam(value = "userId", required = true) Integer userId,
 			@RequestParam(value = "toUserId", required = true) Integer toUserId,
@@ -49,28 +52,28 @@ public class MessageController {
 		}
 	}
 
-	@RequestMapping("/chat")
+	@GetMapping("/chat")
 	public String chatList(Model model, HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
+		User loginUser = (User) session.getAttribute(LOGIN_USER);
 		model.addAttribute("user", loginUser);
-		res.setHeader("Cache-Control", "no-cache");
-		res.setHeader("Cache-Control", "no-store");
+		res.setHeader(CACHECONTROL_HEADER, NO_CACHE);
+		res.setHeader(CACHECONTROL_HEADER, "no-store");
 		res.setDateHeader("Expires", 0);
-		res.setHeader("Pragma", "no-cache");
+		res.setHeader("Pragma", NO_CACHE);
 		return "pages/chatList";
 	}
 
-	@RequestMapping("/chat/{applicationId}")
+	@GetMapping("/chat/{applicationId}")
 	public String chat(Model model, @PathVariable("applicationId") Integer applicationId, HttpServletRequest req,
 			HttpServletResponse res) {
 		HttpSession session = req.getSession();
-		res.setHeader("Cache-Control", "no-cache");
-		res.setHeader("Cache-Control", "no-store");
+		res.setHeader(CACHECONTROL_HEADER, NO_CACHE);
+		res.setHeader(CACHECONTROL_HEADER, "no-store");
 		res.setDateHeader("Expires", 0);
-		res.setHeader("Pragma", "no-cache");
+		res.setHeader("Pragma", NO_CACHE);
 
-		User loginUser = (User) session.getAttribute("loginUser");
+		User loginUser = (User) session.getAttribute(LOGIN_USER);
 		if (loginUser == null) {
 			return "redirect:/";
 		}
@@ -79,7 +82,7 @@ public class MessageController {
 		User toUser = null;
 		List<Message> list = messageService.getOldMessageByApplicationId(applicationId);
 		Application application = applicationService.findByPrimaryKey(applicationId);
-		if (loginUser.getUserId() == application.getUser().getUserId()) {
+		if (loginUser.getUserId().equals(application.getUser().getUserId())) {
 			user = application.getUser();
 			toUser = application.getJob().getJobOwner();
 		} else {
@@ -93,28 +96,26 @@ public class MessageController {
 		return "pages/chat";
 	}
 
-	@RequestMapping(value = "/chatJSON", method = RequestMethod.GET, produces = { "application/json" })
+	@GetMapping(value = "/chatJSON", produces = { "application/json" })
 	public ResponseEntity<List<Message>> getOldMsgByApId(@RequestParam("apId") Integer apId, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
+		User loginUser = (User) session.getAttribute(LOGIN_USER);
 		messageService.changeMsgStatusToRead(loginUser.getUserId(), apId);
 		List<Message> list = messageService.getOldMessageByApplicationId(apId);
-		ResponseEntity<List<Message>> re = new ResponseEntity<>(list, HttpStatus.OK);
-		return re;
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/apJSON", method = RequestMethod.GET, produces = { "application/json" })
+	@GetMapping(value = "/apJSON", produces = { "application/json" })
 	public ResponseEntity<List<Application>> getApByUserId(@RequestParam("userId") Integer userId) {
 		List<Application> list = applicationService.getApplicationByUserId(userId);
-		ResponseEntity<List<Application>> re = new ResponseEntity<>(list, HttpStatus.OK);
-		return re;
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping("/newMsg")
+	@GetMapping("/newMsg")
 	@ResponseBody
 	public int newMsg(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
+		User loginUser = (User) session.getAttribute(LOGIN_USER);
 		int count;
 		if (loginUser == null) {
 			count = 0;

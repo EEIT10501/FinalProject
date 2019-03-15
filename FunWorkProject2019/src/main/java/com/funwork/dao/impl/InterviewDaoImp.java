@@ -1,7 +1,5 @@
 package com.funwork.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -12,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.InterviewDao;
-import com.funwork.model.Application;
 import com.funwork.model.Interview;
-import com.funwork.model.Schedule;
 
 @Repository
 public class InterviewDaoImp implements InterviewDao {
@@ -25,8 +21,7 @@ public class InterviewDaoImp implements InterviewDao {
 	@Override
 	public Interview findByPrimaryKey(int key) {
 		Session session = factory.getCurrentSession();
-		Interview interview = session.get(Interview.class, key);
-		return interview;
+		return session.get(Interview.class, key);
 	}
 	
 	

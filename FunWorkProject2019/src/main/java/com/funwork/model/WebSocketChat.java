@@ -30,7 +30,7 @@ public class WebSocketChat {
 	private String userId;
 
 	@OnOpen
-	public void onOpen(@PathParam("userId") String userId, Session session) throws IOException {
+	public void onOpen(@PathParam("userId") String userId, Session session) {
 		this.session = session;
 		this.userId = userId;
 //		onlineCount++;
@@ -51,7 +51,7 @@ public class WebSocketChat {
 	@OnClose
 	public void onClose() {
 		// 移除當前用戶終端登錄的websocket訊息，如果該用戶所有的終端都下線了，則刪除該用戶的紀錄
-		if (userSocket.get(this.userId).size() == 0) {
+		if (userSocket.get(this.userId).isEmpty()) {
 			userSocket.remove(this.userId);
 		} else {
 			userSocket.get(this.userId).remove(this);

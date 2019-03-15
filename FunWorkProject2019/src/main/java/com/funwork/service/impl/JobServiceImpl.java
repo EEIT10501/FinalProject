@@ -29,9 +29,6 @@ public class JobServiceImpl implements JobService {
 	@Autowired
 	NotificationDao notificationDao;
 
-	public JobServiceImpl() {
-	}
-
 	@Override
 	public List<Job> getAllJobs() {
 		return jobDao.getAllJobs();
@@ -153,8 +150,7 @@ public class JobServiceImpl implements JobService {
 		}
 		jbean.setCity(cityDao.getCityByCityName(cityName));
 
-		Job job = jobDao.insertJob(jbean, userId);
-		return job;
+		return jobDao.insertJob(jbean, userId);
 	}
 
 	@Override

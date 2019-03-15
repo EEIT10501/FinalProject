@@ -21,9 +21,6 @@ public class MessageDaoImpl implements MessageDao {
 	@Autowired
 	SessionFactory factory;
 
-	public MessageDaoImpl() {
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> getAllMessages() {
@@ -40,15 +37,13 @@ public class MessageDaoImpl implements MessageDao {
 	public List<Message> getOldMessageByApplicationId(Integer applicationId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Message WHERE Fk_Application_Id = :applicationId ORDER BY time ASC";
-		List<Message> list = session.createQuery(hql).setParameter("applicationId", applicationId).getResultList();
-		return list;
+		return session.createQuery(hql).setParameter("applicationId", applicationId).getResultList();
 	}
 
 	@Override
 	public Serializable insertMessage(Message message) {
 		Session session = factory.getCurrentSession();
-		Serializable id = session.save(message);
-		return id;
+		return session.save(message);
 	}
 
 	@Override

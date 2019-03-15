@@ -48,9 +48,6 @@ public class HomeController {
 	@Autowired
 	SendGmailService sendGmailService;
 
-	public HomeController() {
-	}
-
 	@GetMapping("/")
 	public String home(HttpServletRequest req) {
 		HttpSession session = req.getSession();
@@ -83,7 +80,7 @@ public class HomeController {
 					len = (int) blob.length();
 					media = blob.getBytes(1, len);
 				} catch (SQLException e) {
-					throw new RuntimeException("HomeController的getPicture()發生SQLException:" + e.getMessage());
+					System.out.println("HomeController的getPicture()發生SQLException:" + e.getMessage());
 				}
 			} else {
 				media = toByteArray(filePath);

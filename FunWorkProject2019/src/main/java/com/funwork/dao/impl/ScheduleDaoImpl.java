@@ -18,9 +18,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	@Autowired
 	SessionFactory factory;
 
-	public ScheduleDaoImpl() {
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Schedule> getAllSchedules() {
@@ -39,16 +36,16 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		Session session = null;
 		List<Schedule> list = new ArrayList<>();
 		session = factory.getCurrentSession();
-		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();		
-			return list;
+		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+		return list;
 	}
-	
+
 	@Override
 	public void insertSchedule(Schedule schedule) {
 		Session session = factory.getCurrentSession();
 		session.save(schedule);
 	}
-	
+
 	@Override
 	public void deleteScheduleByPrimaryKey(int scheduleId) {
 		Session session = factory.getCurrentSession();
@@ -56,22 +53,21 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		schedule.setScheduleId(scheduleId);
 		session.delete(schedule);
 	}
-	
+
 	@Override
 	public void updateScheduleByPrimaryKey(Schedule schedule) {
 		Session session = factory.getCurrentSession();
 		session.update(schedule);
 	}
-	
+
 	@Override
 	public Schedule getScheduleByPrimaryKey(int scheduleId) {
-		Session session = factory.getCurrentSession();		
+		Session session = factory.getCurrentSession();
 		Schedule schedule = session.get(Schedule.class, scheduleId);
-		if(schedule==null)throw new PropertyNotFoundException("scheduleId"+scheduleId+" Not Found:");
+		if (schedule == null)
+			throw new PropertyNotFoundException("scheduleId" + scheduleId + " Not Found:");
 		return schedule;
 
 	}
-	
-
 
 }

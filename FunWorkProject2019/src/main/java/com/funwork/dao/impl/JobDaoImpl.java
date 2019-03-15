@@ -22,9 +22,6 @@ public class JobDaoImpl implements JobDao {
 	@Autowired
 	SessionFactory factory;
 
-	public JobDaoImpl() {
-	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Job> getAllJobs() {
@@ -86,8 +83,7 @@ public class JobDaoImpl implements JobDao {
 	@Override
 	public Job getJobById(Integer jobId) {
 		Session session = factory.getCurrentSession();
-		Job job = session.get(Job.class, jobId);
-		return job;
+		return session.get(Job.class, jobId);
 	}
 
 	@Override

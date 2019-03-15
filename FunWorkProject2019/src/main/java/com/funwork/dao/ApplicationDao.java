@@ -13,15 +13,15 @@ public interface ApplicationDao {
 
 	void insertApplication(Integer userId, Integer jobId, String question);
 
-	void saveApplication(Application Application);
+	void saveApplication(Application application);
 
-	void updateApplication(Application Application);
+	void updateApplication(Application application);
 
 	void deleteApplicationByPrimaryKey(int key);
 
 	void deleteAllApplications();
 
-	public boolean isApplicationExist(Application Application);
+	public boolean isApplicationExist(Application application);
 
 	List<Application> getApplicationByUserId(Integer userId);
 

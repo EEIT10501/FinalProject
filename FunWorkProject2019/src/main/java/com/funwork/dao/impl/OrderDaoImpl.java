@@ -17,9 +17,6 @@ public class OrderDaoImpl implements OrderDao {
 	@Autowired
 	SessionFactory factory;
 
-	public OrderDaoImpl() {
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Order> getAllOrders() {

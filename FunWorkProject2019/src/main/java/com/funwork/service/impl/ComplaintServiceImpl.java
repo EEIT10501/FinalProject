@@ -26,9 +26,6 @@ public class ComplaintServiceImpl implements ComplaintService {
 	@Autowired
 	NotificationDao notificationDao;
 
-	public ComplaintServiceImpl() {
-	}
-
 	@Override
 	public List<Complaint> getAllComplaints() {
 		return complaintDao.getAllComplaints();

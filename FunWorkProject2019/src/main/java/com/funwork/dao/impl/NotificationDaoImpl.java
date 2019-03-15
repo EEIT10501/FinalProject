@@ -17,9 +17,6 @@ public class NotificationDaoImpl implements NotificationDao {
 	@Autowired
 	SessionFactory factory;
 
-	public NotificationDaoImpl() {
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Notification> getAllNotifications() {

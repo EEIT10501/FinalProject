@@ -17,16 +17,12 @@ public class ComplaintDaoImpl implements ComplaintDao {
 	@Autowired
 	SessionFactory factory;
 
-	public ComplaintDaoImpl() {
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Complaint> getAllComplaints() {
 		String hql = "FROM Complaint";
 		Session session = factory.getCurrentSession();
-		List<Complaint> list = session.createQuery(hql).getResultList();
-		return list;
+		return session.createQuery(hql).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -34,15 +30,13 @@ public class ComplaintDaoImpl implements ComplaintDao {
 	public List<Complaint> getComplaintDealList() {
 		String hql = "FROM Complaint WHERE status = '待處理' ORDER BY submitTime ASC";
 		Session session = factory.getCurrentSession();
-		List<Complaint> list = session.createQuery(hql).getResultList();
-		return list;
+		return session.createQuery(hql).getResultList();
 	}
 
 	@Override
 	public Complaint getComplaintById(Integer cpId) {
 		Session session = factory.getCurrentSession();
-		Complaint complaint = session.get(Complaint.class, cpId);
-		return complaint;
+		return session.get(Complaint.class, cpId);
 	}
 
 	@Override
@@ -66,8 +60,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 	public List<Complaint> getComplaintHistoryList() {
 		String hql = "FROM Complaint WHERE status = '已處理' ORDER BY submitTime ASC";
 		Session session = factory.getCurrentSession();
-		List<Complaint> list = session.createQuery(hql).getResultList();
-		return list;
+		return session.createQuery(hql).getResultList();
 	}
 
 }

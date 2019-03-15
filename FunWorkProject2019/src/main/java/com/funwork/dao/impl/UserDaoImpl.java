@@ -18,10 +18,6 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	SessionFactory factory;
 
-	public UserDaoImpl() {
-
-	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> getAllUsers() {
@@ -38,22 +34,19 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findByPrimaryKey(int key) {
 		Session session = factory.getCurrentSession();
-		User user = session.get(User.class, key);
-		return user;
+		return session.get(User.class, key);
 	}
 
 	@Override
 	public User getUserById(Integer userId) {
 		Session session = factory.getCurrentSession();
-		User user = session.get(User.class, userId);
-		return user;
+		return session.get(User.class, userId);
 	}
 
 	@Override
 	public Integer insertUser(User user) {
 		Session session = factory.getCurrentSession();
-		Integer userId = (Integer) session.save(user);
-		return userId;
+		return (Integer) session.save(user);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,7 +57,7 @@ public class UserDaoImpl implements UserDao {
 		Session session = factory.getCurrentSession();
 		List<User> list = session.createQuery(hql).setParameter("email", email).setParameter("password", password)
 				.getResultList();
-		if (list.size() == 0) {
+		if (list.isEmpty()) {
 			user = null;
 		} else {
 			user = list.get(0);
@@ -79,7 +72,7 @@ public class UserDaoImpl implements UserDao {
 		boolean exist = false;
 		String hql = "FROM User u WHERE u.email = :email";
 		List<User> list = session.createQuery(hql).setParameter("email", email).getResultList();
-		if (list.size() != 0) {
+		if (!list.isEmpty()) {
 			exist = true;
 		} else {
 			exist = false;
@@ -101,8 +94,7 @@ public class UserDaoImpl implements UserDao {
 		String hql = "UPDATE User u SET u.google = :googleId WHERE u.email = :email";
 		String hql2 = "FROM User u WHERE u.email = :email";
 		session.createQuery(hql).setParameter("googleId", googleId).setParameter("email", email).executeUpdate();
-		User user = (User) session.createQuery(hql2).setParameter("email", email).uniqueResult();
-		return user;
+		return (User) session.createQuery(hql2).setParameter("email", email).uniqueResult();
 	}
 
 }

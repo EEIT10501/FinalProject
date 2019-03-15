@@ -50,12 +50,12 @@ public class ApplicationDaoImp implements ApplicationDao {
 	}
 
 	@Override
-	public void saveApplication(Application Application) {
+	public void saveApplication(Application application) {
 		Session session = factory.getCurrentSession();
 	}
 
 	@Override
-	public void updateApplication(Application Application) {
+	public void updateApplication(Application application) {
 		Session session = factory.getCurrentSession();
 	}
 
@@ -69,8 +69,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	public List<Application> findAllApplicantByJobId(Job job) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Application WHERE job = :job";
-		List<Application> list = session.createQuery(hql).setParameter("job", job).getResultList();
-		return list;
+		return session.createQuery(hql).setParameter("job", job).getResultList();
 	}
 
 	@Override
@@ -79,7 +78,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	}
 
 	@Override
-	public boolean isApplicationExist(Application Application) {
+	public boolean isApplicationExist(Application application) {
 		Session session = factory.getCurrentSession();
 		return false;
 	}
