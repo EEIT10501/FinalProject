@@ -6,9 +6,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +43,6 @@ import com.funwork.service.JobService;
 import com.funwork.service.UserService;
 
 @Controller
-@RequestMapping
 public class EmployerController {
 
 	@Autowired
@@ -60,19 +57,16 @@ public class EmployerController {
 	@Autowired
 	ServletContext context;
 
+	// 沒用到就刪掉
 	@RequestMapping("/employerPortal")
 	public String accessCompanyMain() {
 		return "employerManage/employerPortal";
 	}
 
+	// 沒用到就刪掉
 	@RequestMapping("/mainHub")
 	public String accessMain() {
 		return "employerManage/mainHub";
-	}
-
-	@RequestMapping("/pages/indexTest")
-	public String login() {
-		return "pages/indexTest";
 	}
 
 	@RequestMapping("/addJobProfile")
@@ -152,12 +146,12 @@ public class EmployerController {
 			List<Company> listAll = companyService.findAllCompanyByUserId(user.getUserId());
 			ResponseEntity<List<Company>> re = new ResponseEntity<>(listAll, HttpStatus.OK);
 			return re;
-		}else {
+		} else {
 			for (Company com : list) {
 				if (com.getUser().getUserId() == user.getUserId()) {
 					arr.add(com);
 				}
-			} 
+			}
 			ResponseEntity<List<Company>> re = new ResponseEntity<>(arr, HttpStatus.OK);
 			return re;
 		}
@@ -209,14 +203,14 @@ public class EmployerController {
 				throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
 			}
 		}
-		
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
 		if (user != null) {
-		cb.setUser(user);
-		companyService.saveCompany(cb);
-		return "redirect:/manageCompanyPage";
-		}else {
+			cb.setUser(user);
+			companyService.saveCompany(cb);
+			return "redirect:/manageCompanyPage";
+		} else {
 			return "redirect:/";
 		}
 	}

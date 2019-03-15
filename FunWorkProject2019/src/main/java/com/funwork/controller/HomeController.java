@@ -118,13 +118,13 @@ public class HomeController {
 		User user = userService.loginCheck(email, password);
 
 		if (user != null) {
-			if (user.getIsOpen()) {
+//			if (user.getIsOpen()) {
 				HttpSession session = req.getSession();
 				session.setAttribute("loginUser", user);
 				return "OK";
-			} else {
-				return "notOpen";
-			}
+//			} else {
+//				return "notOpen";
+//			}
 		} else {
 			return "fail";
 		}
