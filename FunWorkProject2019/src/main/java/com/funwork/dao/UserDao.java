@@ -13,7 +13,7 @@ public interface UserDao {
 
 	User getUserById(Integer userId);
 
-	Serializable insertUser(User user);
+	Integer insertUser(User user);
 
 	public boolean idExists(String email);
 

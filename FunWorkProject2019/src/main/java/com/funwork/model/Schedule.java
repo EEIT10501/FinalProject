@@ -2,8 +2,6 @@ package com.funwork.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

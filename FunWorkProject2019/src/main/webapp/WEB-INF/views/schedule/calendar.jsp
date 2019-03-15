@@ -53,7 +53,7 @@
 							header : {
 								left : 'promptResource, prev,next',
 								center : 'title',
-								right : 'timelineDay,timelineTenDay,timelineMonth,timelineYear,timelineMonth'
+								right : 'timelineDay,timelineTenDay,timelineMonth,timelineYear,timelineMonth,month,agendaDay'
 							},
 							editable : true,
 							droppable : true, // this allows things to be dropped onto the calendar

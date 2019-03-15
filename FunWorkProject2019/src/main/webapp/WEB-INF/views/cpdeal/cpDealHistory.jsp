@@ -59,7 +59,7 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-sm-3">
-						<h5>被申訴職缺</h5>
+						<h5>申訴職缺</h5>
 					</div>
 					<div class="col-sm-5">${cpBean.job.title}</div>
 				</div>
