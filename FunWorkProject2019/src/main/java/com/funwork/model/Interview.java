@@ -1,5 +1,6 @@
 package com.funwork.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Interview {
+public class Interview implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Integer interviewId;
 	private String interviewComment;
 	private String interviewType;

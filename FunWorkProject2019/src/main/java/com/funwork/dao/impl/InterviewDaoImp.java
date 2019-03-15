@@ -1,6 +1,7 @@
 package com.funwork.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -28,16 +29,37 @@ public class InterviewDaoImp implements InterviewDao {
 		return interview;
 	}
 	
-
+	
 	@Override
-	public List<Application> getInterviewByApplicationId(Integer  applicationId) {
+	public List<Interview> findByApplicationIdAndTime(int key) {
+		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
+				" and i.interviewStatus = '待回應' "+
+				" and i.interviewTime >= (getdate()-1)";
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Interview a WHERE (a.application.applicationId = :applicationId)"+"ORDER BY a.applicationTime DESC";
-		List<Application> list = session.createQuery(hql).setParameter("userId", applicationId).getResultList();
+		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
+		return list;
+	}
+
+	
+	@Override
+	public List<Interview> findByApplicationIds(int key) {
+		String hql = "FROM Interview i WHERE i.application.user.userId = :userId";
+		Session session = factory.getCurrentSession();
+		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
 		return list;
 	}
 	
-
+//	@SuppressWarnings({ "unchecked", "deprecation" })
+//	@Override
+//	public List<Schedule> getSchedulesByJobId(Integer jobId) {
+//		String hql = "FROM Schedule where Fk_Job_Id = :jobId";
+//		Session session = null;
+//		List<Schedule> list = new ArrayList<>();
+//		session = factory.getCurrentSession();
+//		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();		
+//			return list;
+//	}
+	
 	@Override
 	public void saveInterview(Interview interview) {
 		Session session = factory.getCurrentSession();
