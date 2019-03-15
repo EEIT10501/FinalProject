@@ -132,7 +132,7 @@ src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 	});
 </script>
 <body>
-	<%@ include file="/WEB-INF/views/includes/adminnavbar.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">

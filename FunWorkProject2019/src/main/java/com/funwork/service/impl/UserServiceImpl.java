@@ -1,5 +1,6 @@
 package com.funwork.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		return dao.getAllUsers();
 	}
+
 	@Transactional
 	@Override
 	public User findByPrimaryKey(int key) {
@@ -38,14 +40,32 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public void insertUser(User user) {
-		dao.insertUser(user);
+	public Serializable insertUser(User user) {
+		return dao.insertUser(user);
 	}
 
 	@Transactional
 	@Override
 	public User loginCheck(String email, String password) {
 		return dao.loginCheck(email, password);
+	}
+
+	@Transactional
+	@Override
+	public boolean idExists(String email) {
+		return dao.idExists(email);
+	}
+
+	@Transactional
+	@Override
+	public void openUser(Serializable userId) {
+		dao.openUser(userId);
+	}
+
+	@Transactional
+	@Override
+	public User getUserByGoogleEmail(String email, String googleId) {
+		return dao.getUserByGoogleEmail(email, googleId);
 	}
 
 }

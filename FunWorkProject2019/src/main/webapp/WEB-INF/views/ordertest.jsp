@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +9,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-	
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-		crossorigin="anonymous"></script>
 
-<title>首頁</title>
+<title>訂單</title>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -30,14 +24,13 @@
 .asideblock {
 	height: 600px;
 }
-
 </style>
 </head>
 
 <body>
-	
-	<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
-	
+
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
+
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
@@ -55,6 +48,10 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
+				<h3>填寫訂單</h3>
+				<form method="POST" action="<c:url value='/orderCheck1'/>">			
+					<button type="submit" class="btn btn-primary">確認送出</button> 
+				</form>
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>
@@ -66,7 +63,9 @@
 				reserved.</div>
 		</div>
 	</div>
-	
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

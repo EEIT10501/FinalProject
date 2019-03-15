@@ -14,7 +14,7 @@ public class User {
 	private Integer userId;
 	private String userName;
 	private String password;
-	private Integer phoneNum;
+	private String phoneNum;
 	private String email;
 	private Integer mebershipLevel;
 	private Integer exposureLimit;
@@ -25,6 +25,7 @@ public class User {
 	private Integer abscence;
 	private String facebook;
 	private String google;
+	private Boolean isOpen;
 
 	public User() {
 	}
@@ -56,11 +57,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(Integer phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 
@@ -143,6 +144,14 @@ public class User {
 
 	public void setGoogle(String google) {
 		this.google = google;
+	}
+
+	public Boolean getIsOpen() {
+		return isOpen;
+	}
+
+	public void setIsOpen(Boolean isOpen) {
+		this.isOpen = isOpen;
 	}
 
 }

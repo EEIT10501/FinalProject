@@ -3,10 +3,11 @@ package com.funwork.dao;
 import java.util.List;
 
 import com.funwork.model.Company;
+import com.funwork.model.User;
 
 public interface CompanyDao {
 	Company findByPrimaryKey(int key);
-	
+
 	void saveCompany(Company company);
 
 	void deleteCompanyByPrimaryKey(int key);
@@ -24,4 +25,8 @@ public interface CompanyDao {
 	void updateCompanyById(int id, Company company);
 
 	List<Company> findAllCompanyByUserId(Integer userId);
+
+	List<String> findAllCompanyByUser(User user);
+
+	Company findCompanyByUserAndName(Integer userId, String companyName);
 }

@@ -48,59 +48,105 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
-				<h1>確認訂單</h1>
+				<c:if test="${empty params}">
+				<h3>填寫訂單</h3>
+				<form method="POST" action="<c:url value='/orderCheck'/>">
+					<div class="form-group">
+						<label for="MerchantID">商店名稱</label> 
+						<input type="text" class="form-control" id="MerchantID" name="MerchantID" value="2000132" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="MerchantTradeNo">訂單編號</label> 
+						<input type="text" class="form-control" id="MerchantTradeNo" name="MerchantTradeNo" value="${params.MerchantTradeNo }">
+					</div>
+					<div class="form-group">
+						<label for="MerchantTradeDate">交易日期</label> 
+						<input type="text" class="form-control" id="MerchantTradeDate" placeholder="YYYY/MM/DD HH:MM:SS" name="MerchantTradeDate">
+					</div>
+					<div class="form-group">
+						<label for="TotalAmount">加總金額</label> 
+						<input type="text" class="form-control" id="TotalAmount" placeholder="TotalAmount" name="TotalAmount">
+					</div>
+					<div class="form-group">
+						<label for="TradeDesc">商品描述</label> 
+						<input type="text" class="form-control" id="TradeDesc" placeholder="TradeDesc" name="TradeDesc">
+					</div>
+					<div class="form-group">
+						<label for="ItemName">商品名稱</label> 
+						<input type="text" class="form-control" id="ItemName" placeholder="ItemName" name="ItemName">
+					</div>
+					<div class="form-group">
+						<label for="ReturnURL">傳回網頁</label> 
+						<input type="text" class="form-control" id="ReturnURL" name="ReturnURL" value="<c:url value='/orderReturn'/>" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="ChoosePayment">付款方式</label> 
+						<input type="text" class="form-control" id="ChoosePayment" name="ChoosePayment" value="Credit" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="PaymentType">付款型態</label> 
+						<input type="text" class="form-control" id="PaymentType" name="PaymentType" value="aio" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="CheckMacValue">CheckMacValue</label> 
+						<input type="text" class="form-control" id="CheckMacValue" name="CheckMacValue" value="${CheckMacValue}" readonly="readonly">
+					</div>
+					
+					
+					<button type="submit" class="btn btn-primary">確認送出</button> 
+				</form>
+				</c:if>
+				<c:if test="${params!=null}">
+				<h3>確認訂單</h3>
 
 				<form method="POST"
 					action="https://payment-stage.opay.tw/Cashier/AioCheckOut/V5">
-
-					<table>
-						<tr>
-							<td><input type="text" name="MerchantID" value="2000132" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="MerchantTradeNo" value="201903130449001" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="MerchantTradeDate" value="2019/03/13 17:50:00" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="TotalAmount" value="100" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="TradeDesc" value="測試歐付寶" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="ItemName" value="測試商品" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="ReturnURL" value="http://localhost:8081/FunWorkProject2019/" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="ChoosePayment" value="Credit" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="PaymentType" value="aio" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="PaymentType" value="aio" /></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="CheckMacValue" value="${cattest2}" /></td>
-						</tr>
-						
-						<tr>
-							<td><input type="submit" value="確認付款" /></td>
-						</tr>
-					</table>
+					<div class="form-group">
+						<label for="MerchantID">商店名稱</label> 
+						<input type="text" class="form-control" id="MerchantID" name="MerchantID" value="${params.MerchantID}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="MerchantTradeNo">訂單編號</label> 
+						<input type="text" class="form-control" id="MerchantTradeNo" name="MerchantTradeNo" value="${params.MerchantTradeNo}">
+					</div>
+					<div class="form-group">
+						<label for="MerchantTradeDate">交易日期</label> 
+						<input type="text" class="form-control" id="MerchantTradeDate" name="MerchantTradeDate" value="${params.MerchantTradeDate}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="TotalAmount">加總金額</label> 
+						<input type="text" class="form-control" id="TotalAmount" name="TotalAmount" value="${params.TotalAmount}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="TradeDesc">商品描述</label> 
+						<input type="text" class="form-control" id="TradeDesc" name="TradeDesc" value="${params.TradeDesc}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="ItemName">商品名稱</label> 
+						<input type="text" class="form-control" id="ItemName" name="ItemName" value="${params.ItemName}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="ReturnURL">傳回網頁</label> 
+						<input type="text" class="form-control" id="ReturnURL" name="ReturnURL" value="${params.ReturnURL}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="ChoosePayment">付款方式</label> 
+						<input type="text" class="form-control" id="ChoosePayment" name="ChoosePayment" value="${params.ChoosePayment}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="PaymentType">付款型態</label> 
+						<input type="text" class="form-control" id="PaymentType" name="PaymentType" value="${params.PaymentType}" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="CheckMacValue">CheckMacValue</label> 
+						<input type="text" class="form-control" id="CheckMacValue" name="CheckMacValue" value="${CheckMacValue}" readonly="readonly">
+					</div>
+					
+					
+					<button type="submit" class="btn btn-primary">確認送出</button> 
 				</form>
+				</c:if>
 
-				<form method="GET" action="<%=request.getContextPath()%>">
-					<table>
-						<tr>
-							<td><input type="submit" value="back to Home" /></td>
-						</tr>
-					</table>
-				</form>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

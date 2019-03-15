@@ -16,8 +16,8 @@ public class Experience {
 	private String company;
 	private String position;
 	private String term;
-	private Resume resume;
 
+	private Resume resume;
 	public Experience() {
 	}
 
@@ -39,6 +39,7 @@ public class Experience {
 	public void setCompany(String company) {
 		this.company = company;
 	}
+
 
 	@Column(columnDefinition = "nvarchar(255)")
 	public String getTerm() {

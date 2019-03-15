@@ -1,27 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-	crossorigin="anonymous"></script>
-	
-<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
-	async defer></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap" async defer></script>
 <title>詳細工作頁面</title>
 <script>
-
 	$(document).ready(function() {
 		<c:if test="${resumeBean!=null}" >
 		$(".addapplication").click(function() {
@@ -42,7 +30,6 @@
 					});		
 			else
 			window.alert("請回答問題!");			
-			
 			});
 		</c:if>
 		});
@@ -263,7 +250,7 @@
 							<div class="modal-body">
 								<!-- 彈出視窗：寫程式的地方 -->
 								<c:if test="${empty resumeBean}">
-									<h5 style="color: red">請先登入系統</h5>
+									<h5 style="color: red">請先登入系統及填寫履歷</h5>
 								</c:if>
 								<table class="table table-striped">
 
@@ -333,11 +320,8 @@
 							<form action="${pageContext.request.contextPath}/cpApply" method="post">
 							<div class="modal-body">
 								<!-- 彈出視窗：寫程式的地方 -->
-								<%-- <c:if test="${empty resumeBean}"> --%>
-								<!-- <h5 style="color: red">請先登入系統</h5> -->
-								<%-- </c:if> --%>
 								<div class="form-group">
-									<label for="exampleInputEmail1">請選擇舉報的原因，為保護你的安全，我們不會透露你的個人資訊給雇主。</label>
+									<label for="exampleInputEmail1">請選擇舉報的原因，為保帳您的權益，我們不會透露您的個人資訊給雇主。</label>
 								</div>
 								<fieldset class="form-group">
 									<div class="row">
@@ -382,14 +366,12 @@
 								    <textarea class="form-control" id="desc" name="content" rows="3"></textarea>
 								</div>		
 							</div>
-							<%-- <c:if test="${resumeBean!=null}"> --%>
 							<div class="modal-footer">
 								<input  type="hidden" name="jobId" value="${jobBean.jobId}" >
 								<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">取消</button>
-								<button type="submit" class="btn btn-primary addapplication">送出</button>
+								<button type="submit" class="btn btn-primary">送出</button>
 							</div>
 							</form>
-							<%-- </c:if> --%>
 						</div>
 					</div>
 				</div>
@@ -404,14 +386,7 @@
 			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
