@@ -63,4 +63,14 @@ public class ComplaintDaoImpl implements ComplaintDao {
 		session.save(cp);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Complaint> getComplaintHistoryList() {
+		String hql = "FROM Complaint WHERE status = '已處理' ORDER BY submitTime ASC";
+		List<Complaint> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
 }

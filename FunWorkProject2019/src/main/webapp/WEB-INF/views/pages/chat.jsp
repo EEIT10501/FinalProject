@@ -98,6 +98,13 @@
 				$("#msg").empty();
 				$("#apList").empty();
 				getOldMsg();
+				$.ajax({
+					url : "${pageContext.request.contextPath}/newMsg",
+					type : "GET",
+					success : function(data) {
+						$("#newMsg").html("(" + data + ")");
+					}
+				});	
 			};
 			websocket.onerror = function(evnt) {
 			};

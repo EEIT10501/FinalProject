@@ -61,4 +61,18 @@ public class JobReviewController {
 		}
 		return "redirect:/jobsReview";
 	}
+
+	@RequestMapping(value = "/jobsReviewHistory", method = RequestMethod.GET)
+	public String reviewJobsHistory(Model model) {
+		List<Job> jobList = jobService.getReviewHistory();
+		model.addAttribute("jobList", jobList);
+		return "jobreview/jobsReviewHistory";
+	}
+	
+	@RequestMapping(value = "/jobReviewHistory/{jobId}", method = RequestMethod.GET)
+	public String reviewJobHistory(Model model, @PathVariable Integer jobId) {
+		Job job = jobService.getJobById(jobId);
+		model.addAttribute("jobBean", job);
+		return "jobreview/jobReviewHistory";
+	}
 }

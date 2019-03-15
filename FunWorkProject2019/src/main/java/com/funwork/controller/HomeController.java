@@ -1,17 +1,18 @@
 package com.funwork.controller;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.security.GeneralSecurityException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,13 +36,15 @@ import com.funwork.model.User;
 import com.funwork.service.ResumeService;
 import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
+import com.funwork.service.impl.SendGmailService;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 @Controller
 public class HomeController {
-
-	private static final String PASSWORDPATTERN = null;
-	private Pattern pattern = null;
-	private Matcher matcher = null;
 
 	@Autowired
 	ScheduleService scheuleService;
@@ -51,12 +54,21 @@ public class HomeController {
 	UserService userService;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	SendGmailService sendGmailService;
 
 	public HomeController() {
 	}
 
 	@RequestMapping("/")
-	public String Home(HttpServletResponse res) {
+	public String Home(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser != null) {
+			if (loginUser.getRole() == 1) {
+				return "redirect:/jobsReview";
+			}
+		}
 		return "index";
 	}
 
@@ -106,14 +118,17 @@ public class HomeController {
 		User user = userService.loginCheck(email, password);
 
 		if (user != null) {
-			HttpSession session = req.getSession();
-			session.setAttribute("loginUser", user);
-			return "OK";
+			if (user.getIsOpen()) {
+				HttpSession session = req.getSession();
+				session.setAttribute("loginUser", user);
+				return "OK";
+			} else {
+				return "notOpen";
+			}
 		} else {
 			return "fail";
 		}
 	}
-
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model) {
@@ -160,8 +175,8 @@ public class HomeController {
 //				errorMeg.put("passwordError", "密碼至少含有一個大寫字母、小寫字母、數字與!@#$%!^'\"等四組資料組合而成，且長度不能小於八個字元");
 //			}
 //		}
-		
-		//回傳上面的錯誤訊息到/register頁面
+
+		// 回傳上面的錯誤訊息到/register頁面
 		if (!errorMeg.isEmpty()) {
 //			RequestDispatcher rd = req.getRequestDispatcher("register.jsp");
 //			rd.forward(req, res);
@@ -177,29 +192,24 @@ public class HomeController {
 			ub.setEmail(email);
 			ub.setUserName(name);
 			ub.setPassword(password);
-			userService.insertUser(ub);
-			System.out.println("email");
-			System.out.println("新增成功");
-			System.out.println(userService.idExists(email));
+			ub.setRole(2);
+			ub.setAbscence(0);
+			ub.setExposureLimit(0);
+			ub.setJobPostLimit(3);
+			ub.setJobPostPeriod(7);
+			ub.setMebershipLevel(1);
+			ub.setIsOpen(false);
+			Serializable userId = userService.insertUser(ub);
+			sendGmailService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
+					"<h1>哈囉!" + name
+							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
+							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
+
 			return "redirect:/";
 		}
 
 		return "/register";
 
-	}
-	@RequestMapping("/login/{email}/{password}")
-	@ResponseBody
-	public String login2(@PathVariable("email") String email, @PathVariable("password") String password,
-			HttpServletRequest req) {
-		User user = userService.loginCheck(email, password);
-
-		if (user != null) {
-			HttpSession session = req.getSession();
-			session.setAttribute("loginUser", user);
-			return "OK";
-		} else {
-			return "fail";
-		}
 	}
 
 	@RequestMapping("/logout")
@@ -210,4 +220,65 @@ public class HomeController {
 
 	}
 
+	@RequestMapping("/userOpen/{userId}")
+	public String userOpen(@PathVariable("userId") String userId) {
+		userService.openUser(userId);
+		return "redirect:/";
+	}
+
+	@RequestMapping("/googleLogin")
+	@ResponseBody
+	public String googleLogin(@RequestParam("idtoken") String idtoken, HttpServletRequest req) {
+
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
+				JacksonFactory.getDefaultInstance())
+						.setAudience(Collections.singletonList(
+								"784516300990-g9mc0al77s74lmmi0q6hb9777k3om0qj.apps.googleusercontent.com"))
+						.build();
+
+		GoogleIdToken idToken = null;
+		try {
+			idToken = verifier.verify(idtoken);
+		} catch (GeneralSecurityException e) {
+			System.out.println("驗證時出現GeneralSecurityException異常");
+		} catch (IOException e) {
+			System.out.println("驗證時出現IOException異常");
+		}
+		if (idToken != null) {
+			Payload payload = idToken.getPayload();
+			String userId = payload.getSubject();
+			String email = payload.getEmail();
+//			String name = (String) payload.get("name");	這個name 是 偉廷石	
+			String familyName = (String) payload.get("family_name");
+			String givenName = (String) payload.get("given_name");
+			String name = givenName.trim() + familyName.trim();
+
+			if (userService.idExists(email)) {
+				User user = userService.getUserByGoogleEmail(email, userId);
+				HttpSession session = req.getSession();
+				session.setAttribute("loginUser", user);
+			} else {
+				User ub = new User();
+				ub.setEmail(email);
+				ub.setUserName(name);
+//				ub.setPassword(password);
+				ub.setGoogle(userId);
+				ub.setRole(2);
+				ub.setAbscence(0);
+				ub.setExposureLimit(0);
+				ub.setJobPostLimit(3);
+				ub.setJobPostPeriod(7);
+				ub.setMebershipLevel(1);
+				ub.setIsOpen(true);
+				userService.insertUser(ub);
+
+				HttpSession session = req.getSession();
+				session.setAttribute("loginUser", ub);
+
+			}
+			return "OK";
+		} else {
+			return "Fail";
+		}
+	}
 }

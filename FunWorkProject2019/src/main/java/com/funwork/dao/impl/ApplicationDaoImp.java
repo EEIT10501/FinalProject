@@ -46,6 +46,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 		application.setUser(user);
 		application.setJob(job);
 		application.setAnswer(question);
+		application.setAppliedStatus("待回應");
 		session.save(application);
 	}
 

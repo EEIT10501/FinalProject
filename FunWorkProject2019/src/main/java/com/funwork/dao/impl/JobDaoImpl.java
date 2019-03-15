@@ -1,5 +1,7 @@
 package com.funwork.dao.impl;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +95,7 @@ public class JobDaoImpl implements JobDao {
 		Session session = factory.getCurrentSession();
 		Job job = session.get(Job.class, jobId);
 		job.setReviewStatus("發布中");
+		job.setReviewTime(new Timestamp(System.currentTimeMillis()));
 		return job;
 	}
 
@@ -101,6 +104,7 @@ public class JobDaoImpl implements JobDao {
 		Session session = factory.getCurrentSession();
 		Job job = session.get(Job.class, jobId);
 		job.setReviewStatus("審核失敗");
+		job.setReviewTime(new Timestamp(System.currentTimeMillis()));
 		job.setFailReason(failReason);
 		return job;
 	}
@@ -113,25 +117,26 @@ public class JobDaoImpl implements JobDao {
 		job.setFailReason(removeReason);
 		return job;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Job> findJobByUserId(Integer userId){
+	public List<Job> findJobByUserId(Integer userId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Job WHERE jobOwner.userId = :userId ORDER BY submitTime ASC";
 		List<Job> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
 		return list;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Job> findJobByUserIdNJobStatus(Integer userId){
+	public List<Job> findJobByUserIdNJobStatus(Integer userId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Job WHERE jobOwner.userId = :userId and reviewStatus =:reviewStatus";
-		List<Job> list = session.createQuery(hql).setParameter("userId", userId).
-				setParameter("reviewStatus","發布中").getResultList();
+		List<Job> list = session.createQuery(hql).setParameter("userId", userId).setParameter("reviewStatus", "發布中")
+				.getResultList();
 		return list;
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getCorrectJobs() {
@@ -142,4 +147,34 @@ public class JobDaoImpl implements JobDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getReviewHistory() {
+		String hql = "FROM Job WHERE reviewStatus != '待審核' ORDER BY submitTime ASC";
+		List<Job> list = new ArrayList<>();
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
+	@Override
+	public Job insertJob(Job job, Integer userId) {
+		Session session = factory.getCurrentSession();
+		User user = session.get(User.class, userId);
+		job.setJobOwner(user);
+		session.save(job);
+		return job;
+	}
+
+	@Override
+	public int getJobPostedCount(Integer userId) {
+		Long count = 0L;
+		Session session = factory.getCurrentSession();
+		String hql = "SELECT count(*) FROM Job j where j.jobOwner.userId = :userId and j.postEndDate >= :nowdate";
+		count = (Long) session.createQuery(hql).setParameter("userId", userId)
+				.setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
+		return count.intValue();
+	}
+
 }

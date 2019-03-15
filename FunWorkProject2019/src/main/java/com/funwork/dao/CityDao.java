@@ -10,4 +10,10 @@ public interface CityDao {
 
 	List<City> getCityName(Integer cityId);
 
+	List<String> getCityAreaList();
+
+	String getCityNameList(String cityArea);
+	
+	City getCityByCityName(String cityName);
+
 }
