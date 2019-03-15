@@ -44,8 +44,9 @@ public class ProductTableInit {
 			System.out.println("Product資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建Product表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 	}
 }

@@ -42,7 +42,7 @@ public class RootAppConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setDataSource(dataSource());
-		factory.setPackagesToScan(new String[] { "com.funwork.model" });
+		factory.setPackagesToScan("com.funwork.model");
 		factory.setHibernateProperties(additionalProperties());
 		return factory;
 	}

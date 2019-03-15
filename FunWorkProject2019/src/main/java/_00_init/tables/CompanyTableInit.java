@@ -62,8 +62,9 @@ public class CompanyTableInit {
 			System.out.println("Company資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建Company表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 
 	}

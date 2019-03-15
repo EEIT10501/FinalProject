@@ -166,7 +166,7 @@ public class GlobalService {
 		if (length <= maxLength) {
 			return fileName;
 		}
-		int n = fileName.lastIndexOf(".");
+		int n = fileName.lastIndexOf('.');
 		int sub = fileName.length() - n - 1;
 		fileName = fileName.substring(0, maxLength - 1 - sub) + "." + fileName.substring(n + 1);
 		return fileName;
@@ -250,15 +250,8 @@ public class GlobalService {
 			SecretKeySpec secretKey = new SecretKeySpec(KEY.getBytes(), "AES");
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			encryptedString = DatatypeConverter.printBase64Binary(cipher.doFinal(message.getBytes()));
-		} catch (InvalidKeyException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (NoSuchPaddingException e) {
-			e.printStackTrace();
-		} catch (IllegalBlockSizeException e) {
-			e.printStackTrace();
-		} catch (BadPaddingException e) {
+		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
+				| BadPaddingException e) {
 			e.printStackTrace();
 		}
 		return encryptedString;
@@ -276,15 +269,8 @@ public class GlobalService {
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			byte[] b = DatatypeConverter.parseBase64Binary(stringToDecrypt);
 			decryptedString = new String(cipher.doFinal(b));
-		} catch (InvalidKeyException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (NoSuchPaddingException e) {
-			e.printStackTrace();
-		} catch (IllegalBlockSizeException e) {
-			e.printStackTrace();
-		} catch (BadPaddingException e) {
+		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
+				| BadPaddingException e) {
 			e.printStackTrace();
 		}
 		return decryptedString;

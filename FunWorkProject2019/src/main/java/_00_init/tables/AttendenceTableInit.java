@@ -64,8 +64,9 @@ public class AttendenceTableInit {
 			System.out.println("Attendence資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建Attendence表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 
 	}
@@ -76,11 +77,11 @@ public class AttendenceTableInit {
 		java.util.Date d = null;
 		try {
 			d = format.parse(str);
+			return new java.sql.Date(d.getTime());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("AttendenceTableInit strToDate()發生錯誤");
 		}
-		java.sql.Date date = new java.sql.Date(d.getTime());
-		return date;
+		return null;
 	}
 
 	public Time strToTime(String strDate) {
@@ -89,10 +90,10 @@ public class AttendenceTableInit {
 		java.util.Date d = null;
 		try {
 			d = format.parse(str);
+			return new java.sql.Time(d.getTime());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("AttendenceTableInit strToTime()發生錯誤");
 		}
-		Time date = new java.sql.Time(d.getTime());
-		return date;
+		return null;
 	}
 }

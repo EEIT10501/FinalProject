@@ -66,8 +66,9 @@ public class UserTableInit {
 			System.out.println("User資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建User表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 	}
 }

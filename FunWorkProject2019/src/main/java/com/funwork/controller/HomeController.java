@@ -1,6 +1,5 @@
 package com.funwork.controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -20,9 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,6 +36,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 @Controller
 public class HomeController {
 
+	private static final String REDIRECT_TO_INDEX = "redirect:/";
+	private static final String LOGIN_USER = "loginUser";
+
 	@Autowired
 	ResumeService resumeService;
 	@Autowired
@@ -49,24 +51,22 @@ public class HomeController {
 	public HomeController() {
 	}
 
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String home(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser != null) {
-			if (loginUser.getRole() == 1) {
-				return "redirect:/jobsReview";
-			}
+		User loginUser = (User) session.getAttribute(LOGIN_USER);
+		if (loginUser != null && loginUser.getRole() == 1) {
+			return "redirect:/jobsReview";
 		}
 		return "index";
 	}
 
-	@RequestMapping("/form")
+	@GetMapping("/form")
 	public String form() {
 		return "pages/form";
 	}
 
-	@RequestMapping(value = "/getPicture/{userId}", method = RequestMethod.GET)
+	@GetMapping(value = "/getPicture/{userId}")
 	public ResponseEntity<byte[]> getUserPicture(@PathVariable Integer userId) {
 
 		String filePath = "/resources/images/NoImage.jpg";
@@ -97,11 +97,10 @@ public class HomeController {
 		String mimeType = context.getMimeType(fileName);
 		MediaType mediaType = MediaType.valueOf(mimeType);
 		headers.setContentType(mediaType);
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
+		return new ResponseEntity<>(media, headers, HttpStatus.OK);
 	}
 
-	@RequestMapping("/login")
+	@PostMapping("/login")
 	@ResponseBody
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password,
 			HttpServletRequest req) {
@@ -110,7 +109,7 @@ public class HomeController {
 		if (user != null) {
 //			if (user.getIsOpen()) {
 			HttpSession session = req.getSession();
-			session.setAttribute("loginUser", user);
+			session.setAttribute(LOGIN_USER, user);
 			return "OK";
 //			} else {
 //				return "notOpen";
@@ -120,12 +119,12 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@GetMapping(value = "/register")
 	public String register(Model model) {
 		return "register";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@PostMapping(value = "/register")
 	public String register(@RequestParam("email") String email, @RequestParam("name") String name,
 			@RequestParam("password") String password, @RequestParam("password2") String password2,
 			HttpServletRequest req) {
@@ -146,11 +145,11 @@ public class HomeController {
 		if (password2 == null || password2.trim().length() == 0) {
 			errorMeg.put("errPd2Empty", "密碼確認欄必須輸入");
 		}
-		if (password.trim().length() > 0 && password2.trim().length() > 0) {
-			if (!password.trim().equals(password2.trim())) {
-				errorMeg.put("errPd2Empty", "密碼欄必須與確認欄一致");
-				errorMeg.put("errPdEmpty", "*");
-			}
+		if ((password != null && password2 != null) && (password.trim().length() > 0 && password2.trim().length() > 0)
+				&& !password.trim().equals(password2.trim())) {
+			errorMeg.put("errPd2Empty", "密碼欄必須與確認欄一致");
+			errorMeg.put("errPdEmpty", "*");
+
 		}
 		// 回傳上面的錯誤訊息到/register頁面
 		if (!errorMeg.isEmpty()) {
@@ -159,7 +158,6 @@ public class HomeController {
 
 		if (userService.idExists(email)) {
 			errorMeg.put("errorIDExs", "帳號已存在請重新更新");
-			System.out.println(userService.idExists(email));
 
 		} else {
 			Integer userId = userService.insertUser(email, name, password);
@@ -167,26 +165,26 @@ public class HomeController {
 //					"<h1>哈囉!" + name
 //							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
 //							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
-			return "redirect:/";
+			return REDIRECT_TO_INDEX;
 		}
 		return "/register";
 	}
 
-	@RequestMapping("/logout")
+	@GetMapping("/logout")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		session.removeAttribute("loginUser");
-		return "redirect:/";
+		session.removeAttribute(LOGIN_USER);
+		return REDIRECT_TO_INDEX;
 
 	}
 
-	@RequestMapping("/userOpen/{userId}")
+	@GetMapping("/userOpen/{userId}")
 	public String userOpen(@PathVariable("userId") String userId) {
 		userService.openUser(userId);
-		return "redirect:/";
+		return REDIRECT_TO_INDEX;
 	}
 
-	@RequestMapping("/googleLogin")
+	@PostMapping("/googleLogin")
 	@ResponseBody
 	public String googleLogin(@RequestParam("idtoken") String idtoken, HttpServletRequest req) {
 
@@ -204,12 +202,12 @@ public class HomeController {
 			if (userService.idExists(email)) {
 				User user = userService.getUserByGoogleEmail(email, googleId);
 				HttpSession session = req.getSession();
-				session.setAttribute("loginUser", user);
+				session.setAttribute(LOGIN_USER, user);
 			} else {
 				Integer userId = userService.insertGoogleUser(email, name, googleId);
 				User user = userService.getUserById(userId);
 				HttpSession session = req.getSession();
-				session.setAttribute("loginUser", user);
+				session.setAttribute(LOGIN_USER, user);
 			}
 			return "OK";
 		} else {
@@ -228,8 +226,6 @@ public class HomeController {
 			b = new byte[(int) size];
 			InputStream fis = context.getResourceAsStream(filePath);
 			fis.read(b);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -35,7 +35,7 @@ public class ScheduleTableInit {
 				if (line.startsWith(UTF8_BOM)) {
 					line = line.substring(1);
 				}
-				String[] token = line.split("\\|");				
+				String[] token = line.split("\\|");
 				String scheduleName = token[0];
 				String color = token[1];
 				String endtime = token[2];
@@ -66,8 +66,9 @@ public class ScheduleTableInit {
 			System.out.println("Schedule資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建Schedule表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 
 	}
@@ -78,11 +79,11 @@ public class ScheduleTableInit {
 		java.util.Date d = null;
 		try {
 			d = format.parse(str);
+			return new java.sql.Date(d.getTime());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("SalaryTableInit strToDate()發生錯誤");
 		}
-		java.sql.Date date = new java.sql.Date(d.getTime());
-		return date;
+		return null;
 	}
 
 	public Time strToTime(String strDate) {
@@ -91,10 +92,10 @@ public class ScheduleTableInit {
 		java.util.Date d = null;
 		try {
 			d = format.parse(str);
+			return new java.sql.Time(d.getTime());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("SalaryTableInit strToTime()發生錯誤");
 		}
-		Time date = new java.sql.Time(d.getTime());
-		return date;
+		return null;
 	}
 }

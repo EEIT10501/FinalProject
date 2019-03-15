@@ -2,7 +2,6 @@ package _00_init.tables;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 import org.hibernate.Session;
@@ -62,8 +61,9 @@ public class SalaryTableInit {
 			System.out.println("Salary資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建Salary表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 
 	}
@@ -74,11 +74,11 @@ public class SalaryTableInit {
 		java.util.Date d = null;
 		try {
 			d = format.parse(str);
+			return new java.sql.Date(d.getTime());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("SalaryTableInit strToDate()發生錯誤");
 		}
-		java.sql.Date date = new java.sql.Date(d.getTime());
-		return date;
+		return null;
 	}
 
 	public java.sql.Time strToTime(String strDate) {
@@ -87,10 +87,10 @@ public class SalaryTableInit {
 		java.util.Date d = null;
 		try {
 			d = format.parse(str);
+			return new java.sql.Time(d.getTime());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("SalaryTableInit strToTime()發生錯誤");
 		}
-		Time date = new java.sql.Time(d.getTime());
-		return date;
+		return null;
 	}
 }

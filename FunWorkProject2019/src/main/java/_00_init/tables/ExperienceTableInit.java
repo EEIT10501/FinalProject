@@ -49,8 +49,9 @@ public class ExperienceTableInit {
 			System.out.println("Experience資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建Experience表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 	}
 }

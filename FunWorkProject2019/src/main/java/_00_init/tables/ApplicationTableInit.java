@@ -17,7 +17,6 @@ public class ApplicationTableInit {
 	public static final String UTF8_BOM = "\uFEFF";
 	SessionFactory factory;
 	String line = "";
-	Transaction tx;
 
 	public ApplicationTableInit(SessionFactory factory) {
 		this.factory = factory;
@@ -51,8 +50,9 @@ public class ApplicationTableInit {
 			tx.commit();
 		} catch (Exception e) {
 			System.err.println("新建Application表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 	}
 }

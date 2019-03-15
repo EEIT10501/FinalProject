@@ -8,6 +8,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtils {
 
+	private HibernateUtils() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	private static SessionFactory sessionFactory = buildSessionFactory();
 
 	private static SessionFactory buildSessionFactory() {
@@ -17,10 +21,9 @@ public class HibernateUtils {
 					.configure("hibernate.cfg.xml").build();
 
 			Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
-			return sessionFactory;
+			return metadata.getSessionFactoryBuilder().build();
 
-		} catch (Throwable ex) {
+		} catch (Exception ex) {
 			System.err.println("新建SessionFactory失敗:" + ex.getMessage());
 			throw new ExceptionInInitializerError(ex);
 		}

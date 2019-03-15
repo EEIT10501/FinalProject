@@ -38,6 +38,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/css/");
 		registry.addResourceHandler("/image/**").addResourceLocations("/WEB-INF/views/images/");
@@ -91,6 +92,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		properties.put("mail.smtp.socketFactory.port", 465);
 		properties.put("mail.smtp.debug", true);
 		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		properties.put("mail.smtp.ssl.checkserveridentity", true); 
 		properties.put("mail.smtp.socketFactory.fallback", false);
 		javaMailSenderImpl.setJavaMailProperties(properties);
 		javaMailSenderImpl.setJavaMailProperties(properties);

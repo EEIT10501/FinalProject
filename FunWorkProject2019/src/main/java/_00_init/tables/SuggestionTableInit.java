@@ -54,8 +54,9 @@ public class SuggestionTableInit {
 			System.out.println("Suggestion資料新增成功");
 		} catch (Exception e) {
 			System.err.println("新建Suggestion表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 	}
 }

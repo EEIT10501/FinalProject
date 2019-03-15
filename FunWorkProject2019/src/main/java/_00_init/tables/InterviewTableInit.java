@@ -16,7 +16,6 @@ public class InterviewTableInit {
 	public static final String UTF8_BOM = "\uFEFF";
 	SessionFactory factory;
 	String line = "";
-	Transaction tx;
 
 	public InterviewTableInit(SessionFactory factory) {
 		this.factory = factory;
@@ -48,8 +47,9 @@ public class InterviewTableInit {
 			tx.commit();
 		} catch (Exception e) {
 			System.err.println("新建Interview表格時發生例外: " + e.getMessage());
-			e.printStackTrace();
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 		}
 	}
 }
