@@ -200,10 +200,10 @@ public class HomeController {
 			ub.setMebershipLevel(1);
 			ub.setIsOpen(false);
 			Serializable userId = userService.insertUser(ub);
-			sendGmailService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
-					"<h1>哈囉!" + name
-							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
-							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
+//			sendGmailService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
+//					"<h1>哈囉!" + name
+//							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
+//							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
 
 			return "redirect:/";
 		}
