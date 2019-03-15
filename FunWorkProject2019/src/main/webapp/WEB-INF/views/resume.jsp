@@ -47,17 +47,26 @@
 <!-- 					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a> -->
 <!-- 				</div> -->
 <!-- 			</div> -->
-			<div class="col-sm-8">
-
+			<div class="col-sm-8">		
 <!-- 				請重這裡開始 -->
-				<form action="/somewhere/to/upload" enctype="multipart/form-data">
-				
-				   <input type="file" id="progressbarTWInput" accept="image/gif, image/jpeg, image/png"/ >
-				
-				   <img id="preview_progressbarTW_img" src="#" />
-				
-				</form>
-								
+			
+			<form>
+		  <div class="form-group row">
+		    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+		    <div class="col-sm-10">
+		      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+		    </div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+		    <div class="col-sm-10">
+		      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+		    </div>
+		  </div>
+		  
+		  
+		  
+		  
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
@@ -68,32 +77,7 @@
 				reserved.</div>
 		</div>
 	</div>
-	<script>
 
-$("#progressbarTWInput").change(function(){
-
-		  readURL(this);		
-		});
-
-		function readURL(input){
-		
-		  if(input.files && input.files[0]){
-		
-		    var reader = new FileReader();
-		
-		    reader.onload = function (e) {
-		
-		       $("#preview_progressbarTW_img").attr('src', e.target.result);
-		
-		    }
-		
-		    reader.readAsDataURL(input.files[0]);
-		
-		  }
-		
-		}
-
-</script>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="

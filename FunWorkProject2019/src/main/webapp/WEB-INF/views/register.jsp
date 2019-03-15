@@ -54,12 +54,14 @@
 				<!-- 程式寫在這 -->
 				<!--如果要insert多筆資料可以用form:form直接傳物件 -->
 				<!-- onsubmit= "return formCheck() " +在form標籤中可以用(js)檢測密碼是否輸入相同-->
-				 <form method="post" action="${pageContext.request.contextPath}/register"onsubmit= "return formCheck()" class="was-validated">
+				<form method="post"
+					action="${pageContext.request.contextPath}/register">
 					<fieldset>
 						<legend>
 							<em>註冊會員</em>
 						</legend>
 						<p>註冊成功請至信箱進行帳號驗證</p>
+
 
 
 						<div class="form-group row">

@@ -14,9 +14,9 @@ public class ResumeController {
 	public ResumeController() {
 	
 	}
-//	
+	
 //	@RequestMapping(value="/resume", method = RequestMethod.GET)	
-//	public String resume
+//	public String 
 	
 	
 	

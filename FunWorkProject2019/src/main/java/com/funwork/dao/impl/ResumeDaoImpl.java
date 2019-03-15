@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.ResumeDao;
 import com.funwork.model.Resume;
+import com.funwork.model.User;
 
 @Repository
 public class ResumeDaoImpl implements ResumeDao {
@@ -45,14 +46,17 @@ public class ResumeDaoImpl implements ResumeDao {
 		 }
 	}
 
-	@Override
-	public void addResume(Resume resume) {
-	Session session = factory.getCurrentSession();
-//	User user = getResumeByUserId(resume.get);
-	
-	
-		
-	}
+//	@Override
+//	public void addResume(Resume resume) {
+//	Session session = factory.getCurrentSession();
+//	User user =  getUserById(resume.getUserId());
+//	session.save(resume);
+//	
+//		
+//	}
+
+
+
 
 	
 }
