@@ -46,19 +46,16 @@ public class JobSeekerController {
 	public String jobSeekerInfo(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser == null) {
-			return "/";
-		} else {
-			model.addAttribute("user", loginUser);
-			List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
-			model.addAttribute("applicatioList", applicatioList);
-			List<Interview> interviewList = interviewService.findByApplicationIdAndTime(loginUser.getUserId());
-			model.addAttribute("interviewList", interviewList);
-		}
+		model.addAttribute("user", loginUser);
+		List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
+		model.addAttribute("applicatioList", applicatioList);
+		List<Interview> interviewList = interviewService.findByApplicationIdAndTime(loginUser.getUserId());
+		System.out.println("size"+interviewList.size());
+		System.out.println("toString"+interviewList.toString());
+		model.addAttribute("interviewList", interviewList);
 
 		return "jobSeeker/jobSeekerInfo";
 	}
-
 
 	@RequestMapping(value = "/updateInterviewStatus", method = RequestMethod.POST)
 	public String updateInterviewStatus(@RequestParam("interviewId") Integer interviewId,
@@ -66,13 +63,12 @@ public class JobSeekerController {
 		System.out.println(interviewId);
 		System.out.println(interviewStatus);
 		Interview interview = interviewService.findByPrimaryKey(interviewId);
-		{
-			interview.setInterviewStatus(interviewStatus);
-			interviewService.updateInterview(interview);
-		}
+		interview.setInterviewStatus(interviewStatus);
+		interviewService.updateInterview(interview);
+
 		return "redirect:/jobSeekerInfo";
 	}
-	
+
 	@RequestMapping("/applicatedWork")
 	public String applicatedWork(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
@@ -85,7 +81,6 @@ public class JobSeekerController {
 
 		return "jobSeeker/applicatedWork";
 	}
-
 
 //	@RequestMapping(value = "/cpApply", method = RequestMethod.POST)
 //	public String complaintApply(@RequestParam("type") String type, @RequestParam("content") String content,

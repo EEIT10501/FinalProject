@@ -34,7 +34,7 @@ public class InterviewDaoImp implements InterviewDao {
 	public List<Interview> findByApplicationIdAndTime(int key) {
 		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
 				" and i.interviewStatus = '待回應' "+
-				" and i.interviewTime >= (getdate()-1)";
+				" and i.interviewTime >= (getdate())";
 		Session session = factory.getCurrentSession();
 		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
 		return list;
