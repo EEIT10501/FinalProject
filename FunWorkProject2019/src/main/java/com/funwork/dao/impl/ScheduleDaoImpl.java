@@ -43,7 +43,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	@Override
 	public void insertSchedule(Schedule schedule) {
 		Session session = factory.getCurrentSession();
-		session.save(schedule);
+		session.merge(schedule);
 	}
 
 	@Override

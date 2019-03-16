@@ -25,7 +25,11 @@
 
 <title>排班</title>
 <script>
+var delCount = [];
 $(document).ready(function() {
+	$("#saveEvent").click(function(){
+		saveEvent();
+	});
 	
 	$('#external-events .fc-event').each(function() {
 
@@ -34,7 +38,7 @@ $(document).ready(function() {
 	      title: $.trim($(this).text()), // use the element's text as the event title
 	      stick: true , // maintain when user navigates (see docs on the renderEvent method)
 	      allDay: true,
-	      id:$(this).attr("id")
+// 	      id:parseInt($(this).attr("id"))
 	    });
 
 	    // make the event draggable using jQuery UI
@@ -94,6 +98,7 @@ $(document).ready(function() {
 
 		    $("#delbut"+event.id).click(function(){
 		    	$('#calendar').fullCalendar('removeEvents', event._id);
+		    	delCount.push(event.id);
 		    });
 		},
 		
@@ -113,10 +118,12 @@ $(document).ready(function() {
 
 });
 
-function testEvent(){
+function saveEvent(){
 	var scheduleJSON =[];
 	var scheduleArray = $('#calendar').fullCalendar("clientEvents");
 // 	console.log(scheduleArray[0])
+alert(delCount)
+	var delString = delCount.toString();
 	
 	for(i=0;i<scheduleArray.length;i++){
 // 		alert(scheduleArray[i].id)
@@ -134,9 +141,13 @@ function testEvent(){
 		url:"<c:url value='/ScheduleCalendar/save'/>",
 		type:"POST",
 		dataType:"JSON",
-		data:{"scheduleJSONArray":scheduleJSONArray},
+		data:{"scheduleJSONArray":scheduleJSONArray,"delString":delString},
 		success:function(data){
-			window.alert(scheduleJSONArray);
+			window.alert("儲存成功");
+			window.location.replace("<c:url value='/ScheduleCalendar/'/>")
+		},
+		error:function(data){
+			window.alert("儲存失敗，請再檢查班表。");
 		}
 		
 	});
@@ -206,11 +217,12 @@ function testEvent(){
 					<p>
 						<strong>Draggable Events</strong>
 					</p>
-					<div class='fc-event' id="${scheduleList[0].scheduleId}">${scheduleList[0].job.title}</div>
-					<div class='fc-event' id="${scheduleList[1].scheduleId}">${scheduleList[1].job.title}</div>
-					<div class='fc-event' id="${scheduleList[2].scheduleId}">${scheduleList[2].job.title}</div>
-					<div class='fc-event' id="${scheduleList[3].scheduleId}">My Event 4</div>
-					<div class='fc-event' >My Event 5</div>
+					<div class='fc-event' >石偉庭</div>
+					<div class='fc-event' >鄭揚</div>
+					<div class='fc-event' >涂哲賢</div>
+					<div class='fc-event' >陳奕璋</div>
+					<div class='fc-event' >毛尊佑</div>
+					<div class='fc-event' >楊立台</div>
 					<p>
 						<input type='checkbox' id='drop-remove' /> <label
 							for='drop-remove'>remove after drop</label>
@@ -220,10 +232,14 @@ function testEvent(){
 				<div id='calendar-container'>
 					<div id='calendar'></div>
 					<div style="float:right">
+				<c:if test="${empty change}">
 				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar/change'/>"><span class="glyphicon-info-sigh glyphicon"></span>編輯</a>
-				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar'/>"><span class="glyphicon-info-sigh glyphicon"></span>儲存</a>
+				</c:if>
+				<c:if test="${change!=null}">
+				<a class="btn btn-primary" id="saveEvent"><span class="glyphicon-info-sigh glyphicon"></span>儲存</a>
+				</c:if>
 				</div>
-				<input type="button" onclick="testEvent()" value="TEST">
+<!-- 				<input type="button" onclick="saveEvent()" value="TEST"> -->
 				</div>				
 
 			</div>

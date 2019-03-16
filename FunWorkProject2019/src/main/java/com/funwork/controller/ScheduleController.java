@@ -49,13 +49,8 @@ public class ScheduleController {
 			object.put("start", sj.getStartTime());
 			object.put("end", sj.getEndTime());
 			jsonArray.put(object);
-
 		}
-//		String json = new Gson().toJson(jsonArray);
-//		System.out.println(json);
 		System.out.println(jsonArray);
-
-//		model.addAttribute("scheduleJson", json);
 		model.addAttribute("json", jsonArray);
 		model.addAttribute("scheduleList", scheduleList);
 
@@ -75,7 +70,6 @@ public class ScheduleController {
 			object.put("start", sj.getStartTime());
 			object.put("end", sj.getEndTime());
 			jsonArray.put(object);
-
 		}
 		model.addAttribute("json", jsonArray);
 		model.addAttribute("scheduleList", scheduleList);
@@ -84,35 +78,38 @@ public class ScheduleController {
 	}
 
 	@RequestMapping(value = "/ScheduleCalendar/save", method = RequestMethod.POST)
-	public String calendarIntoSql(@RequestParam("scheduleJSONArray") String scheduleJSON) throws JSONException, ParseException {
+	public String calendarIntoSql(Model model, @RequestParam("scheduleJSONArray") String scheduleJSON,
+			@RequestParam("delString") String delString) throws JSONException, ParseException {
+		model.addAttribute("change", true);
 
-		System.out.println(scheduleJSON);
+//		System.out.println(scheduleJSON);
+		System.out.println(delString);
+//		String[] delArray = delString.replaceAll(","," ").trim().split("\\s+");
+		String[] delArray=delString.split(",");
+		for (int i = 0; i < delArray.length; i++) {
+			if (delArray[i].length() != 0) {
+//				System.out.println(delArray[i]);
+				scheduleService.deleteScheduleByPrimaryKey(Integer.parseInt(delArray[i]));
+			}
+		}
 
 		JSONArray jsonArray = new JSONArray(scheduleJSON);
 
 		System.out.println(jsonArray);
-//		JSONObject jsonObject = null;
 		for (int i = 0; i < jsonArray.length(); i++) {
 			Schedule schedule = new Schedule();
 			JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-			if(jsonObject.isNull("scheduleId")==true) {
-				return null;
+			if (jsonObject.isNull("scheduleId") == false) {
+				schedule.setScheduleId((Integer) jsonObject.get("scheduleId"));
 			}
-			schedule.setScheduleId((Integer) jsonObject.get("scheduleId"));
 			schedule.setScheduleName((String) jsonObject.get("scheduleName"));
 			String starttime = ((String) jsonObject.get("startTime")).replaceAll("[^(0-9),-:]", " ");
-			System.out.println(starttime);
+//			System.out.println(starttime);
 			schedule.setStartTime(Timestamp.valueOf(starttime));
-			String endtime = ((String) jsonObject.get("startTime")).replaceAll("[^(0-9),-:]", " ");
+			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
 			scheduleService.insertSchedule(schedule);
 		}
-
-//		List<Schedule> schedulelist = (List<Schedule>) gson.fromJson(scheduleJSON, .class);
-
-//		for (int i = 0; i < schedulelist.size(); i++) {
-//			System.out.println(schedulelist.get(0).getScheduleId());
-//		}
 
 		return "schedule/ScheduleCalendar";
 	}
