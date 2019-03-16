@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
@@ -18,6 +19,10 @@ import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialClob;
 
 public class SystemUtils2018 {
+
+	private SystemUtils2018() {
+		throw new IllegalStateException("Utility class");
+	}
 
 	public static Blob fileToBlob(String imageFileName) throws IOException, SQLException {
 		File imageFile = new File(imageFileName);
@@ -33,7 +38,8 @@ public class SystemUtils2018 {
 
 	public static Clob fileToClob(String textFileName) throws IOException, SQLException {
 		Clob clob = null;
-		try (InputStreamReader isr = new InputStreamReader(new FileInputStream(textFileName), "UTF-8");) {
+		try (InputStreamReader isr = new InputStreamReader(new FileInputStream(textFileName),
+				StandardCharsets.UTF_8);) {
 			char[] c = new char[8192];
 			StringBuffer buf = new StringBuffer();
 			int len = 0;
@@ -67,7 +73,7 @@ public class SystemUtils2018 {
 		return sb;
 	}
 
-	public static String extractFileName(String pathName) throws IOException, SQLException {
-		return pathName.substring(pathName.lastIndexOf("/") + 1);
+	public static String extractFileName(String pathName) {
+		return pathName.substring(pathName.lastIndexOf('/') + 1);
 	}
 }

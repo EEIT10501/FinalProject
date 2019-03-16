@@ -16,84 +16,84 @@ import com.funwork.model.User;
 
 public class AttendenceTableInit {
 
-	public static final String UTF8_BOM = "\uFEFF";
-	SessionFactory factory;
-	String line = "";
+  private static final String UTF8_BOM = "\uFEFF";
+  private SessionFactory factory;
 
-	public AttendenceTableInit(SessionFactory factory) {
-		this.factory = factory;
-	}
+  public AttendenceTableInit(SessionFactory factory) {
+    this.factory = factory;
+  }
 
-	public void initAttendence() {
+  public void initAttendence() {
 
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+    Session session = factory.getCurrentSession();
+    Transaction tx = null;
+    String line = "";
 
-		try (FileReader fr = new FileReader("data/Attendence.dat"); BufferedReader br = new BufferedReader(fr);) {
-			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				if (line.startsWith(UTF8_BOM)) {
-					line = line.substring(1);
-				}
-				String[] token = line.split("\\|");
-				String date = token[0];
-				String time = token[1];
-				String type = token[2];
-				String dailySalary = token[3];
-				String jobId = token[4];
-				String userId = token[5];
+    try (FileReader fr = new FileReader("data/Attendence.dat"); BufferedReader br = new BufferedReader(fr);) {
+      tx = session.beginTransaction();
+      while ((line = br.readLine()) != null) {
+        if (line.startsWith(UTF8_BOM)) {
+          line = line.substring(1);
+        }
+        String[] token = line.split("\\|");
+        String date = token[0];
+        String time = token[1];
+        String type = token[2];
+        String dailySalary = token[3];
+        String jobId = token[4];
+        String userId = token[5];
 
-				Attendence attendence = new Attendence();
+        Attendence attendence = new Attendence();
 
-				Date date1 = strToDate(date);
-				Time time1 = strToTime(time);
+        Date date1 = strToDate(date);
+        Time time1 = strToTime(time);
 
-				attendence.setDate(date1);
-				attendence.setTime(time1);
-				attendence.setType(Integer.parseInt(type));
-				attendence.setDailySalary(Float.parseFloat(dailySalary));
+        attendence.setDate(date1);
+        attendence.setTime(time1);
+        attendence.setType(Integer.parseInt(type));
+        attendence.setDailySalary(Float.parseFloat(dailySalary));
 
-				Job job = session.get(Job.class, Integer.valueOf(jobId));
-				User user = session.get(User.class, Integer.valueOf(userId));
+        Job job = session.get(Job.class, Integer.valueOf(jobId));
+        User user = session.get(User.class, Integer.valueOf(userId));
 
-				attendence.setJob(job);
-				attendence.setUser(user);
-				session.save(attendence);
-			}
-			tx.commit();
-			System.out.println("Attendence資料新增成功");
-		} catch (Exception e) {
-			System.err.println("新建Attendence表格時發生例外: " + e.getMessage());
-			if (tx != null) {
-				tx.rollback();
-			}
-		}
+        attendence.setJob(job);
+        attendence.setUser(user);
+        session.save(attendence);
+      }
+      tx.commit();
+      System.out.println("Attendence資料新增成功");
+    } catch (Exception e) {
+      System.err.println("新建Attendence表格時發生例外: " + e.getMessage());
+      if (tx != null) {
+        tx.rollback();
+      }
+    }
 
-	}
+  }
 
-	public Date strToDate(String strDate) {
-		String str = strDate;
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date d = null;
-		try {
-			d = format.parse(str);
-			return new java.sql.Date(d.getTime());
-		} catch (Exception e) {
-			System.out.println("AttendenceTableInit strToDate()發生錯誤");
-		}
-		return null;
-	}
+  private Date strToDate(String strDate) {
+    String str = strDate;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    java.util.Date d = null;
+    try {
+      d = format.parse(str);
+      return new java.sql.Date(d.getTime());
+    } catch (Exception e) {
+      System.out.println("AttendenceTableInit strToDate()發生錯誤");
+    }
+    return null;
+  }
 
-	public Time strToTime(String strDate) {
-		String str = strDate;
-		SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
-		java.util.Date d = null;
-		try {
-			d = format.parse(str);
-			return new java.sql.Time(d.getTime());
-		} catch (Exception e) {
-			System.out.println("AttendenceTableInit strToTime()發生錯誤");
-		}
-		return null;
-	}
+  private Time strToTime(String strDate) {
+    String str = strDate;
+    SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+    java.util.Date d = null;
+    try {
+      d = format.parse(str);
+      return new java.sql.Time(d.getTime());
+    } catch (Exception e) {
+      System.out.println("AttendenceTableInit strToTime()發生錯誤");
+    }
+    return null;
+  }
 }

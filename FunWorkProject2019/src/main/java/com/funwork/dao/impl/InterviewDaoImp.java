@@ -15,35 +15,32 @@ import com.funwork.model.Interview;
 @Repository
 public class InterviewDaoImp implements InterviewDao {
 
-	@Autowired
-	SessionFactory factory;
+  @Autowired
+  SessionFactory factory;
 
-	@Override
-	public Interview findByPrimaryKey(int key) {
-		Session session = factory.getCurrentSession();
-		return session.get(Interview.class, key);
-	}
-	
-	
-	@Override
-	public List<Interview> findByApplicationIdAndTime(int key) {
-		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
-				" and i.interviewStatus = '待回應' "+
-				" and i.interviewTime >= (getdate())";
-		Session session = factory.getCurrentSession();
-		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
-		return list;
-	}
+  @Override
+  public Interview findByPrimaryKey(int key) {
+    Session session = factory.getCurrentSession();
+    return session.get(Interview.class, key);
+  }
 
-	
-	@Override
-	public List<Interview> findByApplicationIds(int key) {
-		String hql = "FROM Interview i WHERE i.application.user.userId = :userId";
-		Session session = factory.getCurrentSession();
-		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
-		return list;
-	}
-	
+  @Override
+  public List<Interview> findByApplicationIdAndTime(int key) {
+    String hql = "FROM Interview i WHERE i.application.user.userId = :userId" + " and i.interviewStatus = '待回應' "
+        + " and i.interviewTime >= (getdate())";
+    Session session = factory.getCurrentSession();
+    List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
+    return list;
+  }
+
+  @Override
+  public List<Interview> findByApplicationIds(int key) {
+    String hql = "FROM Interview i WHERE i.application.user.userId = :userId";
+    Session session = factory.getCurrentSession();
+    List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
+    return list;
+  }
+
 //	@SuppressWarnings({ "unchecked", "deprecation" })
 //	@Override
 //	public List<Schedule> getSchedulesByJobId(Integer jobId) {
@@ -54,54 +51,54 @@ public class InterviewDaoImp implements InterviewDao {
 //		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();		
 //			return list;
 //	}
-	
-	@Override
-	public void saveInterview(Interview interview) {
-		Session session = factory.getCurrentSession();
-		session.save(interview);
-	}
 
-	@Override
-	public void updateInterview(Interview interview) {
-		Session session = factory.getCurrentSession();
-		session.update(interview);
-	}
+  @Override
+  public void saveInterview(Interview interview) {
+    Session session = factory.getCurrentSession();
+    session.save(interview);
+  }
 
-	@Override
-	public void deleteInterviewByPrimaryKey(int key) {
-		Session session = factory.getCurrentSession();
-		Interview interview = new Interview();
-		interview.setInterviewId(key);
-		session.delete(interview);
-	}
+  @Override
+  public void updateInterview(Interview interview) {
+    Session session = factory.getCurrentSession();
+    session.update(interview);
+  }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Interview> findAllInterviews() {
-		Session session = factory.getCurrentSession();
-		String hql = "FROM Interview";
-		List<Interview> list = session.createQuery(hql).getResultList();
-		return list;
-	}
+  @Override
+  public void deleteInterviewByPrimaryKey(int key) {
+    Session session = factory.getCurrentSession();
+    Interview interview = new Interview();
+    interview.setInterviewId(key);
+    session.delete(interview);
+  }
 
-	@Override
-	public void deleteAllInterviews() {
-		Session session = factory.getCurrentSession();
-		String hql = "DELETE FROM Interview";
-		session.createQuery(hql).executeUpdate();
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Interview> findAllInterviews() {
+    Session session = factory.getCurrentSession();
+    String hql = "FROM Interview";
+    List<Interview> list = session.createQuery(hql).getResultList();
+    return list;
+  }
 
-	@Override
-	public boolean isInterviewExist(Interview interview) {
-		boolean exist = false;
-		Session session = factory.getCurrentSession();
-		String hql = "FROM Interview WHERE interviewId=:interviewId";
-		try {
-			session.createQuery(hql).setParameter(1, interview.getInterviewId()).getResultList();
-			exist = true;
-		} catch (NoResultException e) {
-			e.printStackTrace();
-		}
-		return exist;
-	}
+  @Override
+  public void deleteAllInterviews() {
+    Session session = factory.getCurrentSession();
+    String hql = "DELETE FROM Interview";
+    session.createQuery(hql).executeUpdate();
+  }
+
+  @Override
+  public boolean isInterviewExist(Interview interview) {
+    boolean exist = false;
+    Session session = factory.getCurrentSession();
+    String hql = "FROM Interview WHERE interviewId=:interviewId";
+    try {
+      session.createQuery(hql).setParameter(1, interview.getInterviewId()).getResultList();
+      exist = true;
+    } catch (NoResultException e) {
+      e.printStackTrace();
+    }
+    return exist;
+  }
 }

@@ -7,31 +7,30 @@ import com.funwork.model.Application;
 import com.funwork.model.Job;
 
 public interface ApplicationDao {
-	Application findByPrimaryKey(int key);
+  Application findByPrimaryKey(int key);
 
-	Application findByDate(Date date);
+  Application findByDate(Date date);
 
-	void insertApplication(Integer userId, Integer jobId, String question);
+  void insertApplication(Integer userId, Integer jobId, String question);
 
-	void saveApplication(Application application);
+  void saveApplication(Application application);
 
-	void updateApplication(Application application);
+  void updateApplication(Application application);
 
-	void deleteApplicationByPrimaryKey(int key);
+  void deleteApplicationByPrimaryKey(int key);
 
-	void deleteAllApplications();
+  void deleteAllApplications();
 
-	public boolean isApplicationExist(Application application);
+  public boolean isApplicationExist(Application application);
 
-	List<Application> getApplicationByUserId(Integer userId);
+  List<Application> getApplicationByUserId(Integer userId);
 
-	void updateLatestMsg(Integer apId, String msg);
+  void updateLatestMsg(Integer apId, String msg);
 
+  List<Application> getApplicationByUserIdByTime(Integer userId);
 
-	List<Application> getApplicationByUserIdByTime(Integer userId);
+  List<Application> findAllApplicantByJobId(Job job);
 
-	List<Application> findAllApplicantByJobId(Job job);
-	
-	void refuseUser(Integer apId);
+  void refuseUser(Integer apId);
 
 }

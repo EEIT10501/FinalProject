@@ -1,6 +1,5 @@
 package com.funwork.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -14,24 +13,22 @@ import com.funwork.model.Notification;
 @Repository
 public class NotificationDaoImpl implements NotificationDao {
 
-	@Autowired
-	SessionFactory factory;
+  @Autowired
+  SessionFactory factory;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Notification> getAllNotifications() {
-		String hql = "FROM Notification";
-		Session session = null;
-		List<Notification> list = new ArrayList<>();
-		session = factory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
-		return list;
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Notification> getAllNotifications() {
+    String hql = "FROM Notification";
+    Session session = null;
+    session = factory.getCurrentSession();
+    return session.createQuery(hql).getResultList();
+  }
 
-	@Override
-	public void insertNotification(Notification notification) {
-		Session session = factory.getCurrentSession();
-		session.save(notification);
-	}
+  @Override
+  public void insertNotification(Notification notification) {
+    Session session = factory.getCurrentSession();
+    session.save(notification);
+  }
 
 }

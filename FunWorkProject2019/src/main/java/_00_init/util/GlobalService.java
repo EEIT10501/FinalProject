@@ -204,7 +204,7 @@ public class GlobalService {
 					part.write("part_" + name);
 					value = req.getParameter(name);
 				}
-				System.out.printf("%-50s %-15s %8d  %-20s \n", name, contentType, size, value);
+				System.out.printf("%-50s %-15s %8d  %-20s %n", name, contentType, size, value);
 			}
 			System.out.println("=============================");
 		} catch (IOException e) {

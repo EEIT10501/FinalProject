@@ -11,44 +11,44 @@ import com.funwork.model.City;
 
 public class CityTableInit {
 
-	SessionFactory factory;
-	String line = "";
-	public static final String UTF8_BOM = "\uFEFF";
+  private SessionFactory factory;
 
-	public CityTableInit(SessionFactory factory) {
-		this.factory = factory;
-	}
+  private static final String UTF8_BOM = "\uFEFF";
 
-	public void initCity() {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+  public CityTableInit(SessionFactory factory) {
+    this.factory = factory;
+  }
 
-		try (FileReader fr = new FileReader("data/City.dat"); BufferedReader br = new BufferedReader(fr);) {
-			tx = session.beginTransaction();
-			while ((line = br.readLine()) != null) {
-				if (line.startsWith(UTF8_BOM)) {
-					line = line.substring(1);
-				}
+  public void initCity() {
+    Session session = factory.getCurrentSession();
+    Transaction tx = null;
+    String line = "";
 
-				String[] token = line.split("\\|");
+    try (FileReader fr = new FileReader("data/City.dat"); BufferedReader br = new BufferedReader(fr);) {
+      tx = session.beginTransaction();
+      while ((line = br.readLine()) != null) {
+        if (line.startsWith(UTF8_BOM)) {
+          line = line.substring(1);
+        }
 
-				String cityName = token[0];
-				String cityArea = token[1];
+        String[] token = line.split("\\|");
 
-				City city = new City();
-				city.setCityName(cityName);
-				city.setCityArea(cityArea);
+        String cityName = token[0];
+        String cityArea = token[1];
 
-				session.save(city);
-			}
-			tx.commit();
-			System.out.println("City資料新增成功");
-		} catch (Exception e) {
-			System.err.println("新建City表格時發生例外: " + e.getMessage());
-			if (tx != null) {
-				tx.rollback();
-			}
-		}
-	}
+        City city = new City();
+        city.setCityName(cityName);
+        city.setCityArea(cityArea);
 
+        session.save(city);
+      }
+      tx.commit();
+      System.out.println("City資料新增成功");
+    } catch (Exception e) {
+      System.err.println("新建City表格時發生例外: " + e.getMessage());
+      if (tx != null) {
+        tx.rollback();
+      }
+    }
+  }
 }
