@@ -29,18 +29,47 @@ public class InterviewDaoImp implements InterviewDao {
 		return interview;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Interview> findByApplicationIdAndTime(int key) {
+	public List<Interview> findByApplicationIdAndTimeProcessing(int key) {
 		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
 				" and i.interviewStatus = '待回應' "+
-				" and i.interviewTime >= (getdate())";
+				" and i.interviewTime >= (getdate())"+
+				" ORDER BY i.interviewTime";
+		Session session = factory.getCurrentSession();
+		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Interview> findByApplicationIdAndTimeCompleted(int key) {
+//		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
+//				" and i.interviewStatus = '接受' "+
+//				" and i.interviewStatus = '拒絕' "+
+//				" and i.interviewTime < (getdate())";
+		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
+				" and i.interviewStatus <> '待回應' "+
+				" and i.interviewTime < (getdate())"+
+				" ORDER BY i.interviewTime";
+		Session session = factory.getCurrentSession();
+		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Interview> findByApplicationIdAndTimeExpired(int key) {
+		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
+				" and i.interviewStatus = '待回應' "+
+				" and i.interviewTime < (getdate())"+
+				" ORDER BY i.interviewTime";
 		Session session = factory.getCurrentSession();
 		List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
 		return list;
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Interview> findByApplicationIds(int key) {
 		String hql = "FROM Interview i WHERE i.application.user.userId = :userId";

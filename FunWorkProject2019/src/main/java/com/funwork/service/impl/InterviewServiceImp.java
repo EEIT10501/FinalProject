@@ -69,7 +69,18 @@ public class InterviewServiceImp implements InterviewService {
 	
 	@Transactional
 	@Override
-	public List<Interview> findByApplicationIdAndTime(int key) {
-		return dao.findByApplicationIdAndTime(key);
+	public List<Interview> findByApplicationIdAndTimeProcessing(int key) {
+		return dao.findByApplicationIdAndTimeProcessing(key);
 	}
+	@Transactional
+	@Override
+	public List<Interview> findByApplicationIdAndTimeCompleted(int key) {
+		return dao.findByApplicationIdAndTimeCompleted(key);
+	}
+	@Transactional
+	@Override
+	public List<Interview> findByApplicationIdAndTimeExpired(int key) {
+		return dao.findByApplicationIdAndTimeExpired(key);
+	}
+	
 }
