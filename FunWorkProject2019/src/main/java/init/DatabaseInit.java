@@ -1,45 +1,46 @@
-package _00_init;
+package init;
 
+import init.tables.ApplicationTableInit;
+import init.tables.AttendenceTableInit;
+import init.tables.CityTableInit;
+import init.tables.CompanyTableInit;
+import init.tables.ComplaintTableInit;
+import init.tables.ExperienceTableInit;
+import init.tables.InterviewTableInit;
+import init.tables.JobTableInit;
+import init.tables.NotificationTableInit;
+import init.tables.OrderTableInit;
+import init.tables.ProductTableInit;
+import init.tables.ResumeTableInit;
+import init.tables.SalaryTableInit;
+import init.tables.ScheduleTableInit;
+import init.tables.SuggestionTableInit;
+import init.tables.UserTableInit;
+import init.util.HibernateUtils;
 import org.hibernate.SessionFactory;
-
-import _00_init.tables.ApplicationTableInit;
-import _00_init.tables.AttendenceTableInit;
-import _00_init.tables.CityTableInit;
-import _00_init.tables.CompanyTableInit;
-import _00_init.tables.ComplaintTableInit;
-import _00_init.tables.ExperienceTableInit;
-import _00_init.tables.InterviewTableInit;
-import _00_init.tables.JobTableInit;
-import _00_init.tables.NotificationTableInit;
-import _00_init.tables.OrderTableInit;
-import _00_init.tables.ProductTableInit;
-import _00_init.tables.ResumeTableInit;
-import _00_init.tables.SalaryTableInit;
-import _00_init.tables.ScheduleTableInit;
-import _00_init.tables.SuggestionTableInit;
-import _00_init.tables.UserTableInit;
-import _00_init.util.HibernateUtils;
 
 public class DatabaseInit {
 
+  /**
+   * Initialize All table.
+   */
   public static void main(String[] args) {
     SessionFactory factory = HibernateUtils.getSessionFactory();
     new UserTableInit(factory).initUser();
     new CompanyTableInit(factory).initCompany();
     new ResumeTableInit(factory).initResume();
     new ExperienceTableInit(factory).initExperience();
-    new NotificationTableInit(factory).initNotificaion();
+    new NotificationTableInit(factory).initNotification();
     new CityTableInit(factory).initCity();
     new JobTableInit(factory).initJob();
     new ScheduleTableInit(factory).initSchedule();
-    new ComplaintTableInit(factory).initSuggestion();
+    new ComplaintTableInit(factory).initComplaint();
     new SalaryTableInit(factory).initSalary();
     new AttendenceTableInit(factory).initAttendence();
     new ApplicationTableInit(factory).initApplicatoin();
     new InterviewTableInit(factory).initInterview();
     new ProductTableInit(factory).initProduct();
     new OrderTableInit(factory).initOrder();
-    //    new MessageTableInit(factory).initMessage();
     new SuggestionTableInit(factory).initSuggestion();
     factory.close();
   }

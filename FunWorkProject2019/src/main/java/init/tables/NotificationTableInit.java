@@ -1,18 +1,17 @@
-package _00_init.tables;
+package init.tables;
 
+import com.funwork.model.Notification;
+import com.funwork.model.User;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Timestamp;
-
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.funwork.model.Notification;
-import com.funwork.model.User;
-
 public class NotificationTableInit {
-
+  Logger logger = Logger.getLogger("com.funwork");
   private SessionFactory factory;
   private static final String UTF8_BOM = "\uFEFF";
 
@@ -20,13 +19,17 @@ public class NotificationTableInit {
     this.factory = factory;
   }
 
-  public void initNotificaion() {
+  /**
+   * Initialize Notification table.
+   */
+  public void initNotification() {
 
     Session session = factory.getCurrentSession();
     Transaction tx = null;
     String line = "";
 
-    try (FileReader fr = new FileReader("data/Notification.dat"); BufferedReader br = new BufferedReader(fr);) {
+    try (FileReader fr = new FileReader("data/Notification.dat"); 
+         BufferedReader br = new BufferedReader(fr);) {
       tx = session.beginTransaction();
       while ((line = br.readLine()) != null) {
         if (line.startsWith(UTF8_BOM)) {
@@ -51,9 +54,9 @@ public class NotificationTableInit {
         session.save(notification);
       }
       tx.commit();
-      System.out.println("Notification資料新增成功");
+      logger.info("Notification資料新增成功");
     } catch (Exception e) {
-      System.err.println("新建Notification表格時發生例外: " + e.getMessage());
+      logger.warning("新建Notification表格時發生例外: " + e.getMessage());
       if (tx != null) {
         tx.rollback();
       }

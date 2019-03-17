@@ -148,10 +148,8 @@ public class JobDaoImpl implements JobDao {
 	@Override
 	public List<Job> getReviewHistory() {
 		String hql = "FROM Job WHERE reviewStatus != '待審核' ORDER BY submitTime ASC";
-		List<Job> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
-		return list;
+		return session.createQuery(hql).getResultList();
 	}
 
 	@Override
@@ -165,7 +163,7 @@ public class JobDaoImpl implements JobDao {
 
 	@Override
 	public int getJobPostedCount(Integer userId) {
-		Long count = 0L;
+		Long count;
 		Session session = factory.getCurrentSession();
 		String hql = "SELECT count(*) FROM Job j where j.jobOwner.userId = :userId and j.postEndDate >= :nowdate";
 		count = (Long) session.createQuery(hql).setParameter("userId", userId)

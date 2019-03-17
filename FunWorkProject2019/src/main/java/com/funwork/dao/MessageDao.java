@@ -7,17 +7,15 @@ import com.funwork.model.Message;
 import com.funwork.model.User;
 
 public interface MessageDao {
-	List<Message> getAllMessages();
+  List<Message> getAllMessages();
 
-	List<Message> getOldMessageByApplicationId(Integer applicationId);
+  List<Message> getOldMessageByApplicationId(Integer applicationId);
 
-	Serializable insertMessage(Message message);
+  void insertReceiver(Serializable msgId, User user);
 
-	void insertReceiver(Serializable msgId, User user);
+  void insertMessage(String message, Integer userId, Integer toUserId, Integer apId, Integer isRead);
 
-	void insertMessage(String message, Integer userId, Integer toUserId, Integer apId, Integer isRead);
+  void changeMsgStatusToRead(Integer userId, Integer adId);
 
-	void changeMsgStatusToRead(Integer userId, Integer adId);
-
-	int getNewMsgCount(Integer userId);
+  int getNewMsgCount(Integer userId);
 }

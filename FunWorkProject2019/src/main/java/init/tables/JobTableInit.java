@@ -1,21 +1,21 @@
-package _00_init.tables;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+package init.tables;
 
 import com.funwork.model.City;
 import com.funwork.model.Company;
 import com.funwork.model.Job;
 import com.funwork.model.User;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.logging.Logger;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class JobTableInit {
-
+  Logger logger = Logger.getLogger("com.funwork");
   private SessionFactory factory;
   private static final String UTF8_BOM = "\uFEFF";
 
@@ -23,13 +23,15 @@ public class JobTableInit {
     this.factory = factory;
   }
 
+  /**
+   * Initialize Job table.
+   */
   public void initJob() {
-
     Session session = factory.getCurrentSession();
     Transaction tx = null;
     String line = "";
-
-    try (FileReader fr = new FileReader("data/Job.dat"); BufferedReader br = new BufferedReader(fr);) {
+    try (FileReader fr = new FileReader("data/Job.dat"); 
+         BufferedReader br = new BufferedReader(fr);) {
       tx = session.beginTransaction();
       while ((line = br.readLine()) != null) {
         if (line.startsWith(UTF8_BOM)) {
@@ -61,7 +63,6 @@ public class JobTableInit {
         String reviewTime = token[22];
         String lat = token[23];
         String lng = token[24];
-
         Job job = new Job();
         job.setAddress(address);
         job.setAddresssup(addresssup);
@@ -94,9 +95,9 @@ public class JobTableInit {
         session.save(job);
       }
       tx.commit();
-      System.out.println("Job資料新增成功");
+      logger.info("Job資料新增成功");
     } catch (Exception e) {
-      System.err.println("新建Job表格時發生例外: " + e.getMessage());
+      logger.warning("新建Job表格時發生例外: " + e.getMessage());
       if (tx != null) {
         tx.rollback();
       }

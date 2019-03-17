@@ -1,30 +1,34 @@
-package _00_init.tables;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.sql.Timestamp;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+package init.tables;
 
 import com.funwork.model.Application;
 import com.funwork.model.Job;
 import com.funwork.model.User;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Timestamp;
+import java.util.logging.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class ApplicationTableInit {
+  Logger logger = Logger.getLogger("com.funwork");
   private static final String UTF8_BOM = "\uFEFF";
   private SessionFactory factory;
-
+  
   public ApplicationTableInit(SessionFactory factory) {
     this.factory = factory;
   }
-
+  
+  /**
+   * Initialize Application table.
+   */
   public void initApplicatoin() {
     Session session = factory.getCurrentSession();
     String line = "";
     Transaction tx = null;
-    try (FileReader fr = new FileReader("data/Application.dat"); BufferedReader br = new BufferedReader(fr);) {
+    try (FileReader fr = new FileReader("data/Application.dat"); 
+         BufferedReader br = new BufferedReader(fr);) {
       tx = session.beginTransaction();
       while ((line = br.readLine()) != null) {
         if (line.startsWith(UTF8_BOM)) {
@@ -43,10 +47,10 @@ public class ApplicationTableInit {
         ab.setUser(ub);
         session.save(ab);
       }
-      System.out.println("Application資料新增成功");
+      logger.info("Application資料新增成功");
       tx.commit();
     } catch (Exception e) {
-      System.err.println("新建Application表格時發生例外: " + e.getMessage());
+      logger.warning("新建Application表格時發生例外: " + e.getMessage());
       if (tx != null) {
         tx.rollback();
       }

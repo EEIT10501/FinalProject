@@ -1,21 +1,19 @@
-package _00_init.tables;
+package init.tables;
 
+import com.funwork.model.Company;
+import com.funwork.model.User;
+import init.util.SystemUtils2018;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Blob;
 import java.sql.Clob;
-
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.funwork.model.Company;
-import com.funwork.model.User;
-
-import _00_init.util.SystemUtils2018;
-
 public class CompanyTableInit {
-
+  Logger logger = Logger.getLogger("com.funwork");
   private SessionFactory factory;
   private static final String UTF8_BOM = "\uFEFF";
 
@@ -23,19 +21,20 @@ public class CompanyTableInit {
     this.factory = factory;
   }
 
+  /**
+   * Initialize Company table.
+   */
   public void initCompany() {
-
     Session session = factory.getCurrentSession();
     Transaction tx = null;
     String line = "";
-
-    try (FileReader fr = new FileReader("data/Company.dat"); BufferedReader br = new BufferedReader(fr);) {
+    try (FileReader fr = new FileReader("data/Company.dat"); 
+         BufferedReader br = new BufferedReader(fr);) {
       tx = session.beginTransaction();
       while ((line = br.readLine()) != null) {
         if (line.startsWith(UTF8_BOM)) {
           line = line.substring(1);
         }
-
         String[] token = line.split("\\|");
         Company cb = new Company();
         cb.setName(token[0]);
@@ -53,20 +52,17 @@ public class CompanyTableInit {
         cb.setDescription(clob);
         cb.setSiteURL(token[10]);
         cb.setFileName(token[11]);
-        int userId = Integer.parseInt(token[5].trim());
-        User ub = session.get(User.class, userId);
+        User ub = session.get(User.class, Integer.parseInt(token[5].trim()));
         cb.setUser(ub);
         session.save(cb);
       }
       tx.commit();
-      System.out.println("Company資料新增成功");
+      logger.info("Company資料新增成功");
     } catch (Exception e) {
-      System.err.println("新建Company表格時發生例外: " + e.getMessage());
+      logger.warning("新建Company表格時發生例外: " + e.getMessage());
       if (tx != null) {
         tx.rollback();
       }
     }
-
   }
-
 }
