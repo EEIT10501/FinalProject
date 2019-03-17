@@ -27,7 +27,6 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	public WebAppConfig() {
-
 	}
 
 	@Bean
@@ -85,7 +84,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public JavaMailSenderImpl javaMailSenderImpl() {
 		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
-	
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", true);
 		properties.put("mail.smtp.starttls.enable", true);
@@ -95,7 +93,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		properties.put("mail.smtp.socketFactory.fallback", false);
 		javaMailSenderImpl.setJavaMailProperties(properties);
-		
 		javaMailSenderImpl.setJavaMailProperties(properties);
 		javaMailSenderImpl.setHost("smtp.gmail.com");
 		javaMailSenderImpl.setPort(465);
@@ -104,5 +101,4 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		javaMailSenderImpl.setPassword("mino810125");
 		return javaMailSenderImpl;
 	}
-
 }

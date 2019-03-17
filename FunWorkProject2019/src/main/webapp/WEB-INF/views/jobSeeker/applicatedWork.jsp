@@ -13,10 +13,34 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>公司詳細資料頁面</title>
 </head>
+<script>
+	$(document).ready(function() {
+		var text1;
 
+		$("#condit1").change(function() {
+			text1 = $("#condit1").find(":selected").text();
+		});
+
+		$("#butt1").click(function() {
+
+			$.ajax({
+				url : 'jobManCond',
+				data : {
+					condition1 : text1
+				},
+				type : 'post',
+				cache : false,
+				success : function(data) {
+					$('#content1').text(data);
+				}
+			});
+		});
+
+	});
+</script>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -93,7 +117,7 @@
 							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
 							<!-- demo page inserted -->
 							
-						
+							<div id="content-wrapper">
 
       <div class="container-fluid">
 
@@ -103,27 +127,7 @@
         </ol>
 
         <!-- Icon Cards-->
-        <a>當你應徵一份工作時，雇主可以看到你近三個月的信用評價，提升應約次數減少缺席次數，有助於提升你的錄取機率。</a><br>
-        <a href="" data-toggle="modal" data-target="#note"><span class="glyphicon glyphicon-thumbs-up"></span>了解更多</a>
-
-		<!--以下是了解更多彈出視窗的區塊 -->
-		<div class="modal fade" id="note" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class= "modal-content" ><br>
-					<div style="margin: 10px">
-					<h4 style="">什麼是出席/缺席次數</h4>
-					<p style="">出/缺席次數為平台中「邀約管理」的使用紀錄，當雇主邀請你來「面試/上工」，且確定有出席時，就可以增加出席次數；反之，雇主可以標記為缺席。</p><br>
-					<h4 style="">對我有什麼影響？</h4>
-					<p style="">越多的出席次數可以讓你越快找到工作！根據調查，出席次數越高，雇主願意採用的意願也越高。</p><br>
-					<h4 style="">要如何增加出席紀錄</h4>
-					<p style="">當你面試/上工一份工作時，雇主會發送一則「邀約」給你。確認「日期、時間、地點」都沒問題後，即可接受邀約。等到邀約約定時間一到，並且確實出席，雇主就可以標記「應約」，出席次數就會增加。</p><br>
-					<h4 style="">若有缺席紀錄怎麼辦</h4>
-					<p style="">若不幸有缺席紀錄，也別擔心，缺席紀錄只會保留 3 個月，3 個月後紀錄即重置。</p><br> 	
-					</div>							
-				</div>
-			</div>
-		</div>
-		
+        <a>當你應徵一份工作時，雇主可以看到你近三個月的信用評價，提升應約次數並減少缺席次數，有助於提升你的錄取機率。</a><nobr><a href="">了解更多</a></nobr>
         <div class="row">
           <div class="col-xl-3 col-sm-6 mb-3">
             <div class="card text-white bg-danger o-hidden h-100">
@@ -158,74 +162,83 @@
 				<div style="height: 30px;"></div>
 				<section class="container">
 					<div class="col-sm-12">
-						<c:forEach var="interview" items="${interviewList}">
+						<c:forEach var="interviewList" items="${interviewList}">
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="panel panel-default text-left">
 										<div class="panel-body">
 											<h6>
-												<stron>您收到一則「<a href="#">${interview.interviewType}</a>」邀約，來自您應徵的工作「
-												<a href='<c:url value="/jobDetail/${interview.application.job.jobId}"/>'>${interview.application.job.title}</a>」，請於到期前回覆此邀約</stron>
+												<stron>您收到一則「<a href="#">${interviewList.interviewType}</a>」邀約，來自您應徵的工作「<a href="#">${interviewList.application.job.title}</a>」，請在300分鐘內回覆此邀約</stron>
 											</h6>
 											<p></p>
-											<strong>地點:</strong> ${interview.interviewPlace}<br>
-											<strong>邀約時間:</strong> ${interview.interviewTime}<br>
-											<strong>雇主問題回應:</strong> ${interview.interviewComment}<br>
+											<strong>地點:</strong> ${interviewList.interviewPlace}<br>
+											<strong>邀約時間:</strong> ${interviewList.interviewTime}<br>
+											<strong>雇主問題回應:</strong> ${interviewList.interviewComment}<br>
 											<hr>
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn btn-warning btn-sm" data-toggle="modal" data-target="#interviewModal${interview.interviewId}">
+											<button type="button" class="btn btn btn-warning btn-sm" data-toggle="modal" data-target="#interviewModal">
 												<span class="glyphicon glyphicon-thumbs-up"></span> 確定前往
-											</button>																						
-											<button type="button" class="btn btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelinterviewModal${interview.interviewId}">
-													<span class="glyphicon glyphicon-thumbs-up"></span>回絕邀約
 											</button>
-											
-											
-											<!--以下是確定前往彈出視窗的區塊 -->
-											<div class="modal fade" id="interviewModal${interview.interviewId}" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal fade" id="interviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog" role="document">
-													<div class="modal-content"><br>
-														<a align="center"><img src='<c:url value="/image/prohibit.png"/>' title="編輯" alt="編輯" width="150px"></a><br>
-														<h2 style="text-align: center;">確定要前往此邀約?</h2>	
-														<p style="text-align: center;">臨時取消邀約可能會留下紀錄，請詳細閱讀邀約地點和時間</p>	 									
-														<form action="${pageContext.request.contextPath}/updateInterviewStatus" method="post">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">邀請${applicant.user.userName}面試/上工</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<form action="${pageContext.request.contextPath}/interSend" method="post">
 															<div class="modal-body">	
-																<input  type="hidden" name="interviewId" value="${interview.interviewId}" >
-																<input  type="hidden" name="interviewStatus" value="接受" >										
+																<fieldset class="form-group">
+																	<div class="row">
+																    	<legend class="col-form-label col-sm-3 pt-0">邀請類型：</legend>
+																    	<div class="col-sm-9">
+																        	<div class="form-check form-check-inline">
+																        		<input class="form-check-input" type="radio" name="interType" id="exampleRadios1" value="面試" checked required="required">
+																  				<label class="form-check-label" for="exampleRadios1">面試</label>
+																        	</div>
+																        	<div class="form-check form-check-inline">
+																       			<input class="form-check-input" type="radio" name="interType" id="exampleRadios2" value="上工">
+																  				<label class="form-check-label" for="exampleRadios2">上工</label>
+																        	</div>
+																    	</div>
+																	</div>
+																</fieldset>
+																<div class="form-group row">
+																	<label for="des" class="col-sm-3 col-form-label">描述：</label>
+																	<div class="col-sm-9">
+																    	<input type="text" class="form-control" name="interComment" id="des" required="required">
+																   	</div>
+																</div>
+																<div class="form-group row">
+																	<label for="place" class="col-sm-3 col-form-label">地點：</label>
+																	<div class="col-sm-9">
+																    	<input type="text" class="form-control" name="interPlace" id="place" required="required">
+																   	</div>
+																</div>
+																<div class="form-group row">
+																	<label for="time" class="col-sm-3 col-form-label">時間：</label>
+																	<div class="col-sm-9">
+																    	<input type="datetime-local" class="form-control" name="interTime" id="time" required="required">
+																   	</div>
+																</div>
+																<input type="hidden" name="apId" value="${applicant.applicationId}">
 															</div>							
 															<c:if test="${!empty sessionScope.loginUser}">
-																<div class="modal-footer">																	
+																<div class="modal-footer">
 																	<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">取消</button>		
-																	<button type="submit" class="btn btn-primary updateinterview">送出</button>
+																	<button type="submit" class="btn btn-primary addapplication">送出</button>
 																</div>
 															</c:if>
 														</form>
 													</div>
 												</div>
 											</div>
-											<!--以上是確定前往彈出視窗的區塊 -->
-											<!--以下是取消邀約彈出視窗的區塊 -->													
-											<div class="modal fade" id="cancelinterviewModal${interview.interviewId}" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content"><br>
-														<a align="center"><img src='<c:url value="/image/prohibit.png"/>' title="編輯" alt="編輯" width="150px"></a><br>
-														<h2 style="text-align: center;">確定要取消此邀約?</h2><br>		 						
-														<form action="${pageContext.request.contextPath}/updateInterviewStatus" method="post">
-															<div class="modal-body">	
-																<input  type="hidden" name="interviewId" value="${interview.interviewId}" >
-																<input  type="hidden" name="interviewStatus" value="拒絕" >										
-															</div>							
-															<c:if test="${!empty sessionScope.loginUser}">
-																<div class="modal-footer">																	
-																	<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">取消</button>		
-																	<button type="submit" class="btn btn-primary updateinterview">送出</button>
-																</div>
-															</c:if>
-														</form>
-													</div>
-												</div>
-											</div>
-											<!--以上是取消邀約彈出視窗的區塊 -->												
+											<a href="${pageContext.request.contextPath}/refuseUser/${applicant.applicationId}/${applicant.job.jobId}">
+												<button type="button" class="btn btn btn-danger btn-sm">
+													<span class="glyphicon glyphicon-thumbs-up"></span>回絕邀約
+												</button>
+											</a>
 										</div>
 										<p>
 									</div>
@@ -264,17 +277,25 @@
                     <th>聯絡雇主</th>
                   </tr>
                 </thead>
+<!--                 <tfoot> -->
+<!--                   <tr> -->
+<!--                     <th>工作</th> -->
+<!--                     <th>薪資</th> -->
+<!--                     <th>給僱主的話</th> -->
+<!--                     <th>狀態</th> -->
+<!--                     <th>應徵時間</th> -->
+<!--                     <th>聯絡雇主</th> -->
+<!--                   </tr> -->
+<!--                 </tfoot> -->
+                <tbody>
                 <c:forEach var="applicatioList" items="${applicatioList}">
                   <tr>
-                    <td><a href='<c:url value="/jobDetail/${applicatioList.job.jobId}"/>'>${applicatioList.job.title}</a></td>
+                    <td>${applicatioList.job.title}</td>
                     <td>${applicatioList.job.rateByHour}</td>
                     <td>${applicatioList.answer}</td>
                     <td>${applicatioList.appliedStatus}</td>
                     <td>${applicatioList.applicationTime}</td>
-                    <td><a href="${pageContext.request.contextPath}/chat/${applicatioList.applicationId}">
-						<button type="button" class="btn btn-primary btn-sm" style="float: a;">									
-						<span class="glyphicon glyphicon-thumbs-up"></span>傳訊給應徵者
-						</button></a></td>
+                    <td>${applicatioList.latestMsg}</td>
                   </tr>
                  </c:forEach>
                 </tbody>

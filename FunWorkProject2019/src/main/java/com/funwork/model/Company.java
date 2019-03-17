@@ -1,8 +1,9 @@
 package com.funwork.model;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Clob;
-import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +18,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @DynamicInsert
 @Entity

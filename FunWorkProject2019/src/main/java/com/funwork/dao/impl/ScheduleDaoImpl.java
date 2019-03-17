@@ -51,7 +51,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	@Override
 	public void insertSchedule(Schedule schedule) {
 		Session session = factory.getCurrentSession();
-		session.save(schedule);
+		session.merge(schedule);
 	}
 	
 	@Override
@@ -74,15 +74,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		Schedule schedule = session.get(Schedule.class, scheduleId);
 		if(schedule==null)throw new PropertyNotFoundException("scheduleId"+scheduleId+" Not Found:");
 		return schedule;
-		
-	
-		
-//		String hql = "FROM Schedule where scheduleId = :scheduleId";
-//		Session session = null;
-//		Schedule schedule = new Schedule();
-//		session = factory.getCurrentSession();
-//		schedule = (Schedule) session.createQuery(hql).setParameter("scheduleId",scheduleId);	
-//			return schedule;
+
 	}
 	
 

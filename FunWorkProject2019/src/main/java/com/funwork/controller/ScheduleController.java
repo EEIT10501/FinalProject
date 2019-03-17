@@ -1,9 +1,16 @@
 package com.funwork.controller;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +19,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.funwork.model.Schedule;
 import com.funwork.service.ScheduleService;
-import com.google.gson.Gson;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 @Controller
 public class ScheduleController {
@@ -35,7 +38,7 @@ public class ScheduleController {
 	}
 
 	@RequestMapping("/ScheduleCalendar")
-	public String calendarTestSave(Model model) {
+	public String calendarSave(Model model) {
 		List<Schedule> scheduleList = scheduleService.getAllSchedules();
 
 		JSONArray jsonArray = new JSONArray();
@@ -47,13 +50,8 @@ public class ScheduleController {
 			object.put("start", sj.getStartTime());
 			object.put("end", sj.getEndTime());
 			jsonArray.put(object);
-
 		}
-		String json = new Gson().toJson(jsonArray);
-		System.out.println(json);
 		System.out.println(jsonArray);
-
-		model.addAttribute("scheduleJson", json);
 		model.addAttribute("json", jsonArray);
 		model.addAttribute("scheduleList", scheduleList);
 
@@ -61,21 +59,60 @@ public class ScheduleController {
 	}
 
 	@RequestMapping("/ScheduleCalendar/change")
-	public String calendarTestChange(Model model) {
-
+	public String calendarChange(Model model) {
 		model.addAttribute("change", true);
 		List<Schedule> scheduleList = scheduleService.getAllSchedules();
-		String scheduleJson = new Gson().toJson(scheduleList);
-
-		model.addAttribute("scheduleJson", scheduleJson);
+		JSONArray jsonArray = new JSONArray();
+		JSONObject object = null;
+		for (Schedule sj : scheduleList) {
+			object = new JSONObject();
+			object.put("id", sj.getScheduleId());
+			object.put("title", sj.getScheduleName());
+			object.put("start", sj.getStartTime());
+			object.put("end", sj.getEndTime());
+			jsonArray.put(object);
+		}
+		model.addAttribute("json", jsonArray);
 		model.addAttribute("scheduleList", scheduleList);
 
 		return "schedule/ScheduleCalendar";
 	}
 
-	@RequestMapping("/calendarTest2")
-	public String calendarTest2() {
-		return "schedule/calendarTest2";
+	@RequestMapping(value = "/ScheduleCalendar/save", method = RequestMethod.POST)
+	public String calendarIntoSql(Model model, @RequestParam("scheduleJSONArray") String scheduleJSON,
+			@RequestParam("delString") String delString) throws JSONException, ParseException {
+		model.addAttribute("change", true);
+
+//		System.out.println(scheduleJSON);
+		System.out.println(delString);
+//		String[] delArray = delString.replaceAll(","," ").trim().split("\\s+");
+		String[] delArray=delString.split(",");
+		for (int i = 0; i < delArray.length; i++) {
+			if (delArray[i].length() != 0) {
+//				System.out.println(delArray[i]);
+				scheduleService.deleteScheduleByPrimaryKey(Integer.parseInt(delArray[i]));
+			}
+		}
+
+		JSONArray jsonArray = new JSONArray(scheduleJSON);
+
+		System.out.println(jsonArray);
+		for (int i = 0; i < jsonArray.length(); i++) {
+			Schedule schedule = new Schedule();
+			JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+			if (jsonObject.isNull("scheduleId") == false) {
+				schedule.setScheduleId((Integer) jsonObject.get("scheduleId"));
+			}
+			schedule.setScheduleName((String) jsonObject.get("scheduleName"));
+			String starttime = ((String) jsonObject.get("startTime")).replaceAll("[^(0-9),-:]", " ");
+//			System.out.println(starttime);
+			schedule.setStartTime(Timestamp.valueOf(starttime));
+			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
+			schedule.setEndTime(Timestamp.valueOf(endtime));
+			scheduleService.insertSchedule(schedule);
+		}
+
+		return "schedule/ScheduleCalendar";
 	}
 
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.GET)

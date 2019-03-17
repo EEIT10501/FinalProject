@@ -60,10 +60,16 @@ public class InterviewServiceImp implements InterviewService {
 		return dao.isInterviewExist(interview);
 	}
 	
+
 	@Transactional
 	@Override
-	public List<Application> getInterviewByApplicationId(Integer applicationId) {
-		return dao.getInterviewByApplicationId(applicationId);
+	public List<Interview> findByApplicationIds(int key) {
+		return dao.findByApplicationIds(key);
+	} 
+	
+	@Transactional
+	@Override
+	public List<Interview> findByApplicationIdAndTime(int key) {
+		return dao.findByApplicationIdAndTime(key);
 	}
-
 }

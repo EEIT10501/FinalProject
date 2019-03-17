@@ -13,13 +13,15 @@ public interface UserService {
 
 	User getUserById(Integer userId);
 
-	Serializable insertUser(User user);
+	Integer insertUser(String email, String name, String password);
 
 	public boolean idExists(String email);
 
 	User loginCheck(String email, String password);
 
 	void openUser(Serializable userId);
-	
+
 	User getUserByGoogleEmail(String email, String googleId);
+	
+	Integer insertGoogleUser(String email, String name, String googleId);
 }

@@ -25,8 +25,11 @@
 
 <title>排班</title>
 <script>
-var id = 1;
+var delCount = [];
 $(document).ready(function() {
+	$("#saveEvent").click(function(){
+		saveEvent();
+	});
 	
 	$('#external-events .fc-event').each(function() {
 
@@ -35,7 +38,7 @@ $(document).ready(function() {
 	      title: $.trim($(this).text()), // use the element's text as the event title
 	      stick: true , // maintain when user navigates (see docs on the renderEvent method)
 	      allDay: true,
-	      id:$(this).attr("id")
+// 	      id:parseInt($(this).attr("id"))
 	    });
 
 	    // make the event draggable using jQuery UI
@@ -54,35 +57,37 @@ $(document).ready(function() {
 			center : 'title,addEventButton',
 			right : 'month,agendaWeek,agendaDay'
 		},
-		customButtons: { //新增事件按鈕
-		      addEventButton: {
-		        text: '陳奕璋',
-		        click: function() {
-		          var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-		          var date = moment(dateStr);
+// 		customButtons: { //新增事件按鈕
+// 		      addEventButton: {
+// 		        text: '陳奕璋',
+// 		        click: function() {
+// 		          var dateStr = prompt('Enter a date in YYYY-MM-DD format');
+// 		          var date = moment(dateStr);
 
-		          if (date.isValid()) {
-		            $('#calendar').fullCalendar('renderEvent', {
-		            	id:id,
-		              title: '陳奕璋:'+id,
-		              start: date,
-		              allDay: true
+// 		          if (date.isValid()) {
+// 		            $('#calendar').fullCalendar('renderEvent', {
+// 		            	id:id,
+// 		              title: '陳奕璋:'+id,
+// 		              start: date,
+// 		              allDay: true
 		              
-		            });
-		            id=id+1;
-		            alert('Great. Now, update your database...');
-		          } else {
-		            alert('Invalid date.');
-		          }
-		        }
-		      }
-		    },
+// 		            });
+// 		            id=id+1;
+// 		            alert('Great. Now, update your database...');
+// 		          } else {
+// 		            alert('Invalid date.');
+// 		          }
+// 		        }
+// 		      }
+// 		    },
 		<c:if test="${change!=null}">
 		editable: ${change},   //是否可拖曳
 		</c:if>
-		businessHours: true, //顯示小時
 		eventLimit: true, // when too many events in a day, show the popover
 		events : <c:out value="${json}" escapeXml="false">${json}</c:out>,
+		timeFormat: "HH:mm",      // 所有事件24小時制
+		businessHours: true,      //顯示左側時間
+		slotLabelFormat:"HH:mm",  //左側時間24小時制 
 		<c:if test="${change!=null}">
 		eventMouseover:function(event,domEvent,view){
 
@@ -95,6 +100,7 @@ $(document).ready(function() {
 
 		    $("#delbut"+event.id).click(function(){
 		    	$('#calendar').fullCalendar('removeEvents', event._id);
+		    	delCount.push(event.id);
 		    });
 		},
 		
@@ -114,8 +120,40 @@ $(document).ready(function() {
 
 });
 
-function deleteEvent(){
-	window.alert(${scheduleJson})
+function saveEvent(){
+	var scheduleJSON =[];
+	var scheduleArray = $('#calendar').fullCalendar("clientEvents");
+// 	console.log(scheduleArray[0])
+// alert(delCount)
+	var delString = delCount.toString();
+	
+	for(i=0;i<scheduleArray.length;i++){
+// 		alert(scheduleArray[i].id)
+		var id = scheduleArray[i].id
+		var title = scheduleArray[i].title
+		var start = scheduleArray[i].start
+		var end = scheduleArray[i].end
+		var json = {"scheduleId":id,"scheduleName":title,"startTime":start,"endTime":end}
+// 		scheduleJSON = scheduleJSON+JSON.stringify(json);
+		scheduleJSON.push(json);
+	}
+	scheduleJSONArray = JSON.stringify(scheduleJSON);
+	
+	$.ajax({
+		url:"<c:url value='/ScheduleCalendar/save'/>",
+		type:"POST",
+		dataType:"JSON",
+		data:{"scheduleJSONArray":scheduleJSONArray,"delString":delString},
+		success:function(data){
+			window.alert("儲存成功");
+			window.location.replace("<c:url value='/ScheduleCalendar/'/>")
+		},
+		error:function(data){
+			window.alert("儲存失敗，請再檢查班表。");
+		}
+		
+	});
+// 	window.alert($('#calendar').fullCalendar("clientEvents"))
 // 	$("#calendar").fullCalendar("removeEvents",$("#eventId").val())
 }
 </script>
@@ -181,11 +219,12 @@ function deleteEvent(){
 					<p>
 						<strong>Draggable Events</strong>
 					</p>
-					<div class='fc-event' id="${scheduleList[0].scheduleId}">${scheduleList[0].job.title}</div>
-					<div class='fc-event' id="${scheduleList[1].scheduleId}">${scheduleList[1].job.title}</div>
-					<div class='fc-event' id="${scheduleList[2].scheduleId}">${scheduleList[2].job.title}</div>
-					<div class='fc-event' id="004">My Event 4</div>
-					<div class='fc-event' id="005">My Event 5</div>
+					<div class='fc-event' >石偉庭</div>
+					<div class='fc-event' >鄭揚</div>
+					<div class='fc-event' >涂哲賢</div>
+					<div class='fc-event' >陳奕璋</div>
+					<div class='fc-event' >毛尊佑</div>
+					<div class='fc-event' >楊立台</div>
 					<p>
 						<input type='checkbox' id='drop-remove' /> <label
 							for='drop-remove'>remove after drop</label>
@@ -195,10 +234,14 @@ function deleteEvent(){
 				<div id='calendar-container'>
 					<div id='calendar'></div>
 					<div style="float:right">
+				<c:if test="${empty change}">
 				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar/change'/>"><span class="glyphicon-info-sigh glyphicon"></span>編輯</a>
-				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar'/>"><span class="glyphicon-info-sigh glyphicon"></span>儲存</a>
+				</c:if>
+				<c:if test="${change!=null}">
+				<a class="btn btn-primary" id="saveEvent"><span class="glyphicon-info-sigh glyphicon"></span>儲存</a>
+				</c:if>
 				</div>
-				<input type="button" onclick="deleteEvent()" value="TEST">
+<!-- 				<input type="button" onclick="saveEvent()" value="TEST"> -->
 				</div>				
 
 			</div>

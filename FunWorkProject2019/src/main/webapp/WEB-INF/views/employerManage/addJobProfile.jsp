@@ -221,13 +221,11 @@
 				success : function(data) {
 					if(data >= ${sessionScope.loginUser.jobPostLimit}){
 						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作");
-// 						$("#submitBtn").hide();
 						$("#jobForm").hide();
 					}
 				}
 			});	
 		});
-		
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
