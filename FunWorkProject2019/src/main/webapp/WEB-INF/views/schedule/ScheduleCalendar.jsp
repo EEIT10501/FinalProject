@@ -83,9 +83,11 @@ $(document).ready(function() {
 		<c:if test="${change!=null}">
 		editable: ${change},   //是否可拖曳
 		</c:if>
-		businessHours: true, //顯示小時
 		eventLimit: true, // when too many events in a day, show the popover
 		events : <c:out value="${json}" escapeXml="false">${json}</c:out>,
+		timeFormat: "HH:mm",      // 所有事件24小時制
+		businessHours: true,      //顯示左側時間
+		slotLabelFormat:"HH:mm",  //左側時間24小時制 
 		<c:if test="${change!=null}">
 		eventMouseover:function(event,domEvent,view){
 
@@ -122,7 +124,7 @@ function saveEvent(){
 	var scheduleJSON =[];
 	var scheduleArray = $('#calendar').fullCalendar("clientEvents");
 // 	console.log(scheduleArray[0])
-alert(delCount)
+// alert(delCount)
 	var delString = delCount.toString();
 	
 	for(i=0;i<scheduleArray.length;i++){
