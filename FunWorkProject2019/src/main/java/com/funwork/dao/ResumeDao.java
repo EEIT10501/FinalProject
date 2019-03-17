@@ -11,7 +11,7 @@ public interface ResumeDao {
 
 	Resume getResumeByUserId(Integer userId);
 	
-//	void addResume(Resume resume);
+	void addResume(Resume resume);
 	
-//	User getUserById(int userId); 
+	User getUserById(int userId); 
 }

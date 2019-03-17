@@ -49,23 +49,82 @@
 <!-- 			</div> -->
 			<div class="col-sm-8">		
 <!-- 				請重這裡開始 -->
+		<form>		
 			
-			<form>
-		  <div class="form-group row">
-		    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-		    <div class="col-sm-10">
-		      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-		    </div>
-		  </div>
-		  <div class="form-group row">
-		    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-		    <div class="col-sm-10">
-		      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-		    </div>
-		  </div>
+			
+		
+		 <div class="form-group row">
+			   <label for="validationServer01">姓名</label>
+			   <input type="text" class="form-control is-valid" id="validationServer01" placeholder="請填真實名"  required>
+	     </div>
+	     	
+		 <div class="form-group row">
+		  <label for="gender">性別</label>
+		    <select class="custom-select" id="gender" required>
+		       <option value="">請選擇性別</option>
+		       <option value="1">男</option>
+		       <option value="2">女</option>
+		    </select>
+		 </div>
+		
+		<div class="form-group row">
+			<label for="mp">手機 (<samp>+886</samp>)</label>
+			<input type="tel" id="mp" name="mp" maxlength="12" placeholder="0987 654 321" 
+					pattern="09[1-8][0-9]([\-|\s]?)[0-9]{3}\1[0-9]{3}">
+		</div>
+		
+		<div class="form-group row">
+		 <label for="birth">生日</label>	   
+			<div class="input-append date form_datetime">
+			    <input size="16" type="text" id="birth" value="" readonly>
+			    <span class="add-on"><i class="icon-th"></i></span>
+			</div>
+		</div>
+		
+		<div class="form-group row">
+		<label for="education">教育程度</label>
+		   <select class="custom-select" required>
+		      <option value="">請選擇教育程度</option>
+		      <option value="1">國小</option>
+		      <option value="2">國中</option>
+		      <option value="3">高中</option>
+		      <option value="4">大學</option>
+		      <option value="5">碩士</option>
+		      <option value="6">博士</option>
+		   </select>
+		</div>
+		
+		<div class="form-group row">
+		<label for="education">工作經驗</label>
+		   <select class="custom-select" required>
+		      <option value="">請選擇工作類別</option>
+		      <option value="1">服務</option>
+		      <option value="2">辦工</option>
+		      <option value="3">活動</option>
+		      <option value="4">餐飲</option>
+		      <option value="5">勞力</option>
+		      <option value="6">補教</option>
+		      <option value="6">作業員</option>
+		      <option value="6">問卷調查</option>
+		   </select>
+		   <input type="text"  name="" placeholder="工作名稱">
+		</div>
+		
+		
+		<div class="form-group row">
+		    <label for="exampleFormControlTextarea1">簡單自我介紹</label>
+		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+	  </div>
+		
+		<div class="form-group row">
+				<div class="col-sm">
+					<input type="submit" name="submit" class="btn btn-primary"
+						id="submit" value="更新履歷" /> <input type="reset" name="cancel"
+						class="btn btn-primary" id="cancel" value="重填">
+				</div>
+		</div>
 		  
-		  
-		  
+		  </form>
 		  
 			</div>
 			<div class="col-sm-2">預留區塊</div>
@@ -77,7 +136,12 @@
 				reserved.</div>
 		</div>
 	</div>
-
+		<!--生日 :日期 -->
+	<script type="text/javascript">
+	    $(".form_datetime").datetimepicker({
+	        format: "dd MM yyyy"
+	    });
+	</script>            
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="

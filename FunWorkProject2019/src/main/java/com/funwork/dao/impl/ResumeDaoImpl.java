@@ -46,16 +46,20 @@ public class ResumeDaoImpl implements ResumeDao {
 		 }
 	}
 
-//	@Override
-//	public void addResume(Resume resume) {
-//	Session session = factory.getCurrentSession();
-//	User user =  getUserById(resume.getUserId());
-//	session.save(resume);
-//	
-//		
-//	}
+	@Override
+	public void addResume(Resume resume) {
+	Session session = factory.getCurrentSession();
+	User user =  getUserById(resume.getUser().getUserId());
+	session.save(resume);
+	
 
+	}
 
+	@Override
+	public User getUserById(int userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	

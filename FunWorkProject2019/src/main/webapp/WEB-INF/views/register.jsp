@@ -55,14 +55,12 @@
 				<!--如果要insert多筆資料可以用form:form直接傳物件 -->
 				<!-- onsubmit= "return formCheck() " +在form標籤中可以用(js)檢測密碼是否輸入相同-->
 				<form method="post"
-					action="${pageContext.request.contextPath}/register">
+					action="${pageContext.request.contextPath}/register" onsubmit= "return formCheck() " class="was-validated">
 					<fieldset>
 						<legend>
 							<em>註冊會員</em>
 						</legend>
 						<p>註冊成功請至信箱進行帳號驗證</p>
-
-
 
 						<div class="form-group row">
 							<label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
@@ -81,7 +79,7 @@
 							<div class="col-sm">
 								<input type="text" name="name" class="form-control"
 									id="inputPassword3"  required pattern="{1,15}"
-									title="請輸入姓名" style="width: 200px;"> <font color="red"
+									title="請輸入姓名" style="width: 230px;"> <font color="red"
 									size="-1">${Msg.errEmailEmpty}</font>
 							</div>
 						</div>
@@ -93,7 +91,7 @@
 									id="pwd1" placeholder="6~12英文數字組合" required
 									pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"
 									title="密碼：6~12英數字組合，至少有一個大寫、小寫英文字母及數字，如 A12Rd6"
-									style="width: 200px;"> <font color="red" size="-1">${Msg.errPdEmpty}</font>
+									style="width: 230px;"> <font color="red" size="-1">${Msg.errPdEmpty}</font>
 							</div>
 						</div>
 
@@ -101,7 +99,8 @@
 							<label for="inputPassword3" class="col-sm-2 col-form-label">密碼確認：</label>
 							<div class="col-sm">
 								<input type="password" name="password2" class="form-control"
-									id="pwd2" required="required" style="width: 200px;"> <font
+									id="pwd2" required pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"
+									 style="width: 230px;"> <font
 									color="red" size="-1">${Msg.errPd2Empty}</font>
 							</div>
 						</div>
