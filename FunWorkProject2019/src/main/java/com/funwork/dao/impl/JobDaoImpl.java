@@ -11,8 +11,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
-
 @Repository
 public class JobDaoImpl implements JobDao {
 
@@ -137,8 +135,7 @@ public class JobDaoImpl implements JobDao {
   public int getJobPostedCount(Integer userId) {
     Long count;
     Session session = factory.getCurrentSession();
-    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId "
-        + "AND j.postEndDate >= :nowdate";
+    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " + "AND j.postEndDate >= :nowdate";
     count = (Long) session.createQuery(hql).setParameter("userId", userId)
         .setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
     return count.intValue();

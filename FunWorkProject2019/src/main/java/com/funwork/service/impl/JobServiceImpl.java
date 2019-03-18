@@ -1,19 +1,5 @@
 package com.funwork.service.impl;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.funwork.dao.CityDao;
 import com.funwork.dao.CompanyDao;
 import com.funwork.dao.JobDao;
@@ -23,7 +9,20 @@ import com.funwork.model.City;
 import com.funwork.model.Job;
 import com.funwork.model.Notification;
 import com.funwork.service.JobService;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class JobServiceImpl implements JobService {
 
@@ -150,7 +149,6 @@ public class JobServiceImpl implements JobService {
     return cityDao.getCityByCityName(cityName);
   }
 
-  @Transactional
   @Override
   public Job insertJob(Job jbean, Integer userId) {
     // 地址轉經緯度
@@ -177,7 +175,6 @@ public class JobServiceImpl implements JobService {
     return jobDao.insertJob(jbean);
   }
 
-  @Transactional
   @Override
   public int getJobPostedCount(Integer userId) {
     return jobDao.getJobPostedCount(userId);
@@ -200,7 +197,6 @@ public class JobServiceImpl implements JobService {
       }
 
       String str = sb.toString();
-//			System.out.println(str);
 
       Map<String, String> map = null;
       if (StringUtils.isNotEmpty(str)) {
@@ -228,12 +224,4 @@ public class JobServiceImpl implements JobService {
     }
     return null;
   }
-
-//	public static void main(String[] args) {
-//		JobServiceImpl jobServiceImpl = new JobServiceImpl();
-//		Map<String, String> json = jobServiceImpl.getGeocoderLatitude("台北市大安區信義路三段168號");
-//		System.out.println("lng : " + json.get("lng"));
-//		System.out.println("lat : " + json.get("lat"));
-//	}
-
 }
