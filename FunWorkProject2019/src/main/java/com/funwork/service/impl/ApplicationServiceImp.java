@@ -102,5 +102,10 @@ public class ApplicationServiceImp implements ApplicationService {
 	public void refuseUser(Integer apId) {
 		dao.refuseUser(apId);
 	}
+	@Transactional
+	@Override
+	public List<Application> findByJobId(Integer jobId) {
+		return dao.findByJobId(jobId);
+	}
 
 }

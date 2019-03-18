@@ -28,8 +28,8 @@ public class InterviewDaoImp implements InterviewDao {
   @SuppressWarnings("unchecked")
   @Override
   public List<Interview> findByApplicationIdAndTimeProcessing(int key) {
-    String hql = "FROM Interview i WHERE i.application.user.userId = :userId" + " and i.interviewStatus = '待回應' "
-        + " and i.interviewTime >= (getdate())" + " ORDER BY i.interviewTime";
+    String hql = "FROM Interview i WHERE i.application.user.userId = :userId" + " and i.interviewTime >= (getdate())"
+        + " ORDER BY i.interviewTime";
     Session session = factory.getCurrentSession();
     List<Interview> list = session.createQuery(hql).setParameter("userId", key).getResultList();
     return list;
@@ -38,6 +38,7 @@ public class InterviewDaoImp implements InterviewDao {
   @SuppressWarnings("unchecked")
   @Override
   public List<Interview> findByApplicationIdAndTimeCompleted(int key) {
+
 //		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
 //				" and i.interviewStatus = '接受' "+
 //				" and i.interviewStatus = '拒絕' "+

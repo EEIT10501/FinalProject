@@ -37,4 +37,6 @@ public interface ApplicationService {
 
 	public List<Application> findAllApplications(Integer userId);
 
+	List<Application> findByJobId(Integer jobId);
+
 }

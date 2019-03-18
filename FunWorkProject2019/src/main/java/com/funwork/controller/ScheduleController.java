@@ -161,5 +161,10 @@ public class ScheduleController {
 		scheduleService.updateScheduleByPrimaryKey(schedule);
 		return "redirect:/scheduleManage";
 	}
+	
+	@RequestMapping("/wageManage")
+	public String wageManage() {
+		return "schedule/wageManage";
+	}
 
 }

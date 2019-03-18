@@ -34,4 +34,6 @@ public interface ApplicationDao {
 
   List<Application> findAllApplications(Integer userId);
 
+  List<Application> findByJobId(Integer userId);
+
 }
