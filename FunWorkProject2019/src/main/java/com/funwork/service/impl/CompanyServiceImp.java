@@ -1,93 +1,124 @@
 package com.funwork.service.impl;
 
+import com.funwork.dao.CompanyDao;
+import com.funwork.dao.NotificationDao;
+import com.funwork.model.Company;
+import com.funwork.model.Notification;
+import com.funwork.model.User;
+import com.funwork.service.CompanyService;
+import java.sql.Timestamp;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.funwork.dao.CompanyDao;
-import com.funwork.model.Company;
-import com.funwork.model.User;
-import com.funwork.service.CompanyService;
-
+@Transactional
 @Service
 public class CompanyServiceImp implements CompanyService {
 
-	@Autowired
-	CompanyDao dao;
+  @Autowired
+  CompanyDao companyDao;
+  @Autowired
+  NotificationDao notificationDao;
 
-	@Transactional
-	@Override
-	public Company findByPrimaryKey(int key) {
-		return dao.findByPrimaryKey(key);
-	}
+  @Override
+  public Company findByPrimaryKey(int key) {
+    return companyDao.findByPrimaryKey(key);
+  }
 
-	@Transactional
-	@Override
-	public void saveCompany(Company company) {
-		dao.saveCompany(company);
-	}
+  @Override
+  public void saveCompany(Company company) {
+    company.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+    companyDao.saveCompany(company);
+  }
 
-	@Transactional
-	@Override
-	public void updateCompanyById(int id, Company company) {
-		dao.updateCompanyById(id, company);
-	}
+  @Override
+  public void updateCompanyById(int id, Company company) {
+    companyDao.updateCompanyById(id, company);
+  }
 
-	@Transactional
-	@Override
-	public void deleteCompanyByPrimaryKey(int key) {
-		dao.deleteCompanyByPrimaryKey(key);
-	}
+  @Override
+  public void deleteCompanyByPrimaryKey(int key) {
+    companyDao.deleteCompanyByPrimaryKey(key);
+  }
 
-	@Transactional
-	@Override
-	public List<Company> findAllCompanys() {
-		return dao.findAllCompanys();
-	}
+  @Override
+  public List<Company> findAllCompanys() {
+    return companyDao.findAllCompanys();
+  }
+  
+  @Override
+  public List<Company> findAllCompanys(String reviewStatus) {
+    return companyDao.getAllCompanysByReviewStatus(reviewStatus);
+  }
 
-	@Transactional
-	@Override
-	public void deleteAllCompanys() {
-		dao.deleteAllCompanys();
-	}
+  @Override
+  public void deleteAllCompanys() {
+    companyDao.deleteAllCompanys();
+  }
 
-	@Transactional
-	@Override
-	public boolean isCompanyExist(Company company) {
-		return dao.isCompanyExist(company);
-	}
+  @Override
+  public boolean isCompanyExist(Company company) {
+    return companyDao.isCompanyExist(company);
+  }
 
-	@Transactional
-	@Override
-	public Company findByName(String name) {
-		return dao.findByName(name);
-	}
+  @Override
+  public Company findByName(String name) {
+    return companyDao.findByName(name);
+  }
 
-	@Transactional
-	@Override
-	public List<Company> findAllCompanys(String reviewStatus) {
-		System.out.println("parameter received in serviceImp is " + reviewStatus);
-		return dao.getAllCompanysByReviewStatus(reviewStatus);
-	}
+  @Override
+  public List<Company> findAllCompanyByUserId(Integer userId) {
+    return companyDao.findAllCompanyByUserId(userId);
+  }
 
-	@Transactional
-	@Override
-	public List<Company> findAllCompanyByUserId(Integer userId) {
-		return dao.findAllCompanyByUserId(userId);
-	}
+  @Override
+  public List<String> findAllCompanyByUser(User user) {
+    return companyDao.findAllCompanyByUser(user);
+  }
 
-	@Transactional
-	@Override
-	public List<String> findAllCompanyByUser(User user) {
-		return dao.findAllCompanyByUser(user);
-	}
+  @Override
+  public Company findCompanyByUserAndName(Integer userId, String companyName) {
+    return companyDao.findCompanyByUserAndName(userId, companyName);
+  }
 
-	@Transactional
-	@Override
-	public Company findCompanyByUserAndName(Integer userId, String companyName) {
-		return dao.findCompanyByUserAndName(userId, companyName);
-	}
+  @Override
+  public List<Company> getCompanyReviewList() {
+    return companyDao.getCompanyReviewList();
+  }
+
+  @Override
+  public void companyReviewPass(Integer companyId) {
+
+    Company company = companyDao.findByPrimaryKey(companyId);
+    company.setReviewStatus("已通過");
+    company.setReviewTime(new Timestamp(System.currentTimeMillis()));
+    companyDao.updateCompany(company);
+
+    Notification notification = new Notification();
+    notification.setContent("您的公司(" + company.getName() + ")已通過審核");
+    notification.setTime(new Timestamp(System.currentTimeMillis()));
+    notification.setType(3);
+    notification.setUser(company.getUser());
+    notificationDao.insertNotification(notification);
+
+  }
+
+  @Override
+  public void companyReviewPassReviewFail(Integer companyId, String failReason) {
+    Company company = companyDao.findByPrimaryKey(companyId);
+    company.setReviewStatus("審核失敗");
+    company.setReviewTime(new Timestamp(System.currentTimeMillis()));
+    company.setFailReason(failReason);
+    companyDao.updateCompany(company);
+    
+    Notification notification = new Notification();
+    notification.setContent("您的公司(" + company.getName() + ")審核失敗");
+    notification.setTime(new Timestamp(System.currentTimeMillis()));
+    notification.setType(3);
+    notification.setUser(company.getUser());
+    notificationDao.insertNotification(notification);
+
+  }
 
 }

@@ -1,14 +1,12 @@
 package com.funwork.dao.impl;
 
+import com.funwork.dao.NotificationDao;
+import com.funwork.model.Notification;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.funwork.dao.NotificationDao;
-import com.funwork.model.Notification;
 
 @Repository
 public class NotificationDaoImpl implements NotificationDao {

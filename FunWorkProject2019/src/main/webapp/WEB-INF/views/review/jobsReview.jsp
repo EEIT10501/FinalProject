@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/DataTables/datatables.min.css/' />">
-<title>工作審核</title>
+<title>職缺審核</title>
 </head>
 <style>
 .card-text-size {
@@ -37,12 +37,12 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="<c:url value='/jobsReview'/>" class="list-group-item list-group-item-action">工作審核</a> 
+					<a href="<c:url value='/jobsReview'/>" class="list-group-item list-group-item-action">職缺審核</a> 
 					<a href="<c:url value='/jobsReviewHistory'/>" class="list-group-item list-group-item-action">審核紀錄</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1>待審核工作</h1>
+				<h1>待審核職缺</h1>
 				<table class="table table-hover dataTable" id="jobTable">
 					<thead>
 						<tr>

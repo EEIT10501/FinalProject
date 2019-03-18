@@ -16,77 +16,74 @@ import javax.persistence.Table;
 @Table(name = "\"Order\"")
 public class Order {
 
-	private Integer orderId;
-	private Timestamp time;
-	private Integer status;
-	private Double price;
-	private Date expirationDate;
-	private User user;
-	private Product product;
+  private Integer orderId;
+  private Timestamp time;
+  private Integer status;
+  private Double price;
+  private Date expirationDate;
+  private User user;
+  private Product product;
 
-	public Order() {
-	}
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  public Integer getOrderId() {
+    return orderId;
+  }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getOrderId() {
-		return orderId;
-	}
+  public void setOrderId(Integer orderId) {
+    this.orderId = orderId;
+  }
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+  public Timestamp getTime() {
+    return time;
+  }
 
-	public Timestamp getTime() {
-		return time;
-	}
+  public void setTime(Timestamp time) {
+    this.time = time;
+  }
 
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
+  public Integer getStatus() {
+    return status;
+  }
 
-	public Integer getStatus() {
-		return status;
-	}
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+  public Double getPrice() {
+    return price;
+  }
 
-	public Double getPrice() {
-		return price;
-	}
+  public void setPrice(Double price) {
+    this.price = price;
+  }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+  public Date getExpirationDate() {
+    return expirationDate;
+  }
 
-	public Date getExpirationDate() {
-		return expirationDate;
-	}
+  public void setExpirationDate(Date expirationDate) {
+    this.expirationDate = expirationDate;
+  }
 
-	public void setExpirationDate(Date expirationDate) {
-		this.expirationDate = expirationDate;
-	}
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "Fk_User_Id")
+  public User getUser() {
+    return user;
+  }
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
-	public User getUser() {
-		return user;
-	}
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "Fk_Product_Id")
+  public Product getProduct() {
+    return product;
+  }
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_Product_Id")
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+  public void setProduct(Product product) {
+    this.product = product;
+  }
 
 }

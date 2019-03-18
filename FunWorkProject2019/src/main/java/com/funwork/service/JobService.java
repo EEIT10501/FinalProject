@@ -40,7 +40,7 @@ public interface JobService {
 
   City getCityByCityName(String cityName);
 
-  Job insertJob(Job jbean, Integer userId);
+  Job insertJob(Job job, Integer userId);
 
   int getJobPostedCount(Integer userId);
 

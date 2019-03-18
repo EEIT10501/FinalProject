@@ -1,32 +1,35 @@
 package com.funwork.dao;
 
-import java.util.List;
-
 import com.funwork.model.Company;
 import com.funwork.model.User;
+import java.util.List;
 
 public interface CompanyDao {
-	Company findByPrimaryKey(int key);
+  Company findByPrimaryKey(int key);
 
-	void saveCompany(Company company);
+  void saveCompany(Company company);
 
-	void deleteCompanyByPrimaryKey(int key);
+  void deleteCompanyByPrimaryKey(int key);
 
-	List<Company> findAllCompanys();
+  List<Company> findAllCompanys();
 
-	void deleteAllCompanys();
+  void deleteAllCompanys();
 
-	public boolean isCompanyExist(Company company);
+  public boolean isCompanyExist(Company company);
 
-	Company findByName(String name);
+  Company findByName(String name);
 
-	List<Company> getAllCompanysByReviewStatus(String reviewStatus);
+  List<Company> getAllCompanysByReviewStatus(String reviewStatus);
 
-	void updateCompanyById(int id, Company company);
+  void updateCompanyById(int id, Company company);
 
-	List<Company> findAllCompanyByUserId(Integer userId);
+  List<Company> findAllCompanyByUserId(Integer userId);
 
-	List<String> findAllCompanyByUser(User user);
+  List<String> findAllCompanyByUser(User user);
 
-	Company findCompanyByUserAndName(Integer userId, String companyName);
+  Company findCompanyByUserAndName(Integer userId, String companyName);
+  
+  List<Company> getCompanyReviewList();
+
+  void updateCompany(Company company);
 }

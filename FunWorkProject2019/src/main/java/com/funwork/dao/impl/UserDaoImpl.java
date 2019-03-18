@@ -1,16 +1,13 @@
 package com.funwork.dao.impl;
 
+import com.funwork.dao.UserDao;
+import com.funwork.model.User;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.funwork.dao.UserDao;
-import com.funwork.model.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -51,8 +48,8 @@ public class UserDaoImpl implements UserDao {
     User user = null;
     String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
     Session session = factory.getCurrentSession();
-    List<User> list = session.createQuery(hql).setParameter("email", email).setParameter("password", password)
-        .getResultList();
+    List<User> list = session.createQuery(hql).setParameter("email", email)
+        .setParameter("password", password).getResultList();
     if (list.isEmpty()) {
       user = null;
     } else {
@@ -81,7 +78,8 @@ public class UserDaoImpl implements UserDao {
   public void openUser(Serializable userId) {
     Session session = factory.getCurrentSession();
     String hql = "UPDATE User u SET u.isOpen = 1 WHERE u.userId = :userId";
-    session.createQuery(hql).setParameter("userId", Integer.valueOf(userId.toString())).executeUpdate();
+    session.createQuery(hql).setParameter("userId", Integer.valueOf(userId.toString()))
+    .executeUpdate();
   }
 
   @Override
@@ -89,7 +87,8 @@ public class UserDaoImpl implements UserDao {
     Session session = factory.getCurrentSession();
     String hql = "UPDATE User u SET u.google = :googleId WHERE u.email = :email";
     String hql2 = "FROM User u WHERE u.email = :email";
-    session.createQuery(hql).setParameter("googleId", googleId).setParameter("email", email).executeUpdate();
+    session.createQuery(hql).setParameter("googleId", googleId).setParameter("email", email)
+    .executeUpdate();
     return (User) session.createQuery(hql2).setParameter("email", email).uniqueResult();
   }
 

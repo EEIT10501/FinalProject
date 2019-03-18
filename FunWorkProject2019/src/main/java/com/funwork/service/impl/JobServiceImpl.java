@@ -4,9 +4,11 @@ import com.funwork.dao.CityDao;
 import com.funwork.dao.CompanyDao;
 import com.funwork.dao.JobDao;
 import com.funwork.dao.NotificationDao;
+import com.funwork.dao.UserDao;
 import com.funwork.model.City;
 import com.funwork.model.Job;
 import com.funwork.model.Notification;
+import com.funwork.model.User;
 import com.funwork.service.JobService;
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,6 +28,8 @@ public class JobServiceImpl implements JobService {
   CompanyDao companyDao;
   @Autowired
   NotificationDao notificationDao;
+  @Autowired
+  UserDao userDao;
 
   @Override
   public List<Job> getAllJobs() {
@@ -140,21 +144,23 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public Job insertJob(Job jbean, Integer userId) {
-    String cityName = jbean.getCityName();
-    jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
-    jbean.setIsExposure(false);
-    jbean.setIsFilled(false);
-    jbean.setReviewStatus("待審核");
-    jbean.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-    jbean.setViewTimes(0);
-    String companyName = jbean.getCompanyName();
+  public Job insertJob(Job job, Integer userId) {
+    User jobOwner = userDao.findByPrimaryKey(userId);
+    String cityName = job.getCityName();
+    job.setAddress(job.getCityArea() + cityName + job.getAddress());
+    job.setIsExposure(false);
+    job.setIsFilled(false);
+    job.setReviewStatus("待審核");
+    job.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+    job.setViewTimes(0);
+    job.setJobOwner(jobOwner);
+    String companyName = job.getCompanyName();
     if (!companyName.equals("-1")) {
-      jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
+      job.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
     }
-    jbean.setCity(cityDao.getCityByCityName(cityName));
+    job.setCity(cityDao.getCityByCityName(cityName));
 
-    return jobDao.insertJob(jbean, userId);
+    return jobDao.insertJob(job);
   }
 
   @Override

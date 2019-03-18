@@ -1,20 +1,17 @@
 package com.funwork.dao.impl;
 
+import com.funwork.dao.JobDao;
+import com.funwork.model.Job;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.funwork.dao.JobDao;
-import com.funwork.model.Job;
-import com.funwork.model.User;
+
 
 @Repository
 public class JobDaoImpl implements JobDao {
@@ -130,10 +127,8 @@ public class JobDaoImpl implements JobDao {
   }
 
   @Override
-  public Job insertJob(Job job, Integer userId) {
+  public Job insertJob(Job job) {
     Session session = factory.getCurrentSession();
-    User user = session.get(User.class, userId);
-    job.setJobOwner(user);
     session.save(job);
     return job;
   }
@@ -142,7 +137,8 @@ public class JobDaoImpl implements JobDao {
   public int getJobPostedCount(Integer userId) {
     Long count;
     Session session = factory.getCurrentSession();
-    String hql = "SELECT count(*) FROM Job j where j.jobOwner.userId = :userId and j.postEndDate >= :nowdate";
+    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId "
+        + "AND j.postEndDate >= :nowdate";
     count = (Long) session.createQuery(hql).setParameter("userId", userId)
         .setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
     return count.intValue();

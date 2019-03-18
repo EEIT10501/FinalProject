@@ -8,8 +8,7 @@ public interface MessageDao {
 
   List<Message> getOldMessageByApplicationId(Integer applicationId);
 
-  void insertMessage(String message, Integer userId, Integer toUserId, 
-      Integer apId, Integer isRead);
+  public void insertMessage(Message msg);
 
   void changeMsgStatusToRead(Integer userId, Integer adId);
 

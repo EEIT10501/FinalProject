@@ -28,7 +28,7 @@ public class ComplaintProcessController {
   }
 
   /**
-   * Return Pk = cpId 的申訴紀錄，供管理員進行申訴處理.
+   * Return Pk = cpId 的申訴紀錄.
    */
   @GetMapping(value = "/cpProcess/{cpId}")
   public String getComplaintDetail(Model model, @PathVariable Integer cpId) {
@@ -55,7 +55,7 @@ public class ComplaintProcessController {
   }
 
   /**
-   * Return審核過的的申訴歷史紀錄.
+   * Return申訴歷史紀錄.
    */
   @GetMapping(value = "/cpsHistory")
   public String getComplaintHistoryList(Model model) {
@@ -65,7 +65,7 @@ public class ComplaintProcessController {
   }
 
   /**
-   * Return Pk = cpId 的申訴歷史紀錄，供管理員檢視.
+   * Return Pk = cpId 的申訴歷史紀錄.
    */
   @GetMapping(value = "/cpsHistory/{cpId}")
   public String getComplaintHistoryDetail(Model model, @PathVariable Integer cpId) {

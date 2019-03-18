@@ -37,7 +37,7 @@
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobsReview'></c:url>">職缺審核</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/cpsProcess' />">申訴處理</a></li>			
-				<li class="nav-item"><a class="nav-link" href="<c:url value='#'></c:url>">評核系統</a></li>			
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/companysReview'></c:url>">公司審核</a></li>			
 				<li class="nav-item"><a class="nav-link" href="#">加值服務</a></li>
 			</ul>
 			

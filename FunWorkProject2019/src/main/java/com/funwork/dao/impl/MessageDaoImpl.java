@@ -1,10 +1,7 @@
 package com.funwork.dao.impl;
 
 import com.funwork.dao.MessageDao;
-import com.funwork.model.Application;
 import com.funwork.model.Message;
-import com.funwork.model.User;
-import java.sql.Timestamp;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,19 +32,8 @@ public class MessageDaoImpl implements MessageDao {
   }
 
   @Override
-  public void insertMessage(String message, Integer userId, Integer toUserId, 
-      Integer apId, Integer isRead) {
+  public void insertMessage(Message msg) {
     Session session = factory.getCurrentSession();
-    Application ap = session.get(Application.class, apId);
-    User sender = session.get(User.class, userId);
-    User receiver = session.get(User.class, toUserId);
-    Message msg = new Message();
-    msg.setContent(message);
-    msg.setTime(new Timestamp(System.currentTimeMillis()));
-    msg.setReceiver(receiver);
-    msg.setSender(sender);
-    msg.setApplication(ap);
-    msg.setStatus(isRead);
     session.save(msg);
   }
 
