@@ -36,6 +36,7 @@
 	function filterSelect() {
 
 		var status = $("#condit1").find(":selected").text();
+// 		alert(status);
 		if (status == '全部') {
 			table.column(3).search("").draw();
 		} else {
@@ -76,17 +77,11 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-<<<<<<< HEAD
-			<div class="col-sm-2">
-				<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
-			</div>
-=======
              <!-- 複製這裡↓ -->
 		<div class="col-sm-2">
 		<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
 		</div>
 		      <!-- 複製這裡 ↑ -->
->>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 			<div class="col-sm-8">
 				<input type="hidden" id="contextPath"
 					value="${pageContext.request.contextPath}">
@@ -97,8 +92,10 @@
 						<span class='label label-warning' id="filterPath"></span><p></p> 
 						<strong>請輸入選擇條件: </strong>
 						&nbsp; <select id="condit1">
-							<option>刊登中</option>
-							<option>已下架</option>
+							<option>發布中</option>
+							<option>已截止</option>
+							<option>待審核</option>
+							<option>審核失敗</option>
 							<option>全部</option>
 						</select> &nbsp;
 						<button id="butt1" style="width: auto;"  onclick="filterSelect()">確定送出</button>
@@ -124,14 +121,15 @@
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
-								<c:choose>
-									<c:when test="${job.postEndDate > now}">
-										<td>刊登中</td>
-									</c:when>
-									<c:otherwise>
-										<td>到期下架</td>
-									</c:otherwise>
-								</c:choose>
+<%-- 								<c:choose> --%>
+<%-- 									<c:when test="${job.postEndDate > now}"> --%>
+<!-- 										<td>發布中</td> -->
+<%-- 									</c:when> --%>
+<%-- 									<c:otherwise> --%>
+<!-- 										<td>已截止</td> -->
+<%-- 									</c:otherwise> --%>
+<%-- 								</c:choose> --%>
+								<td>${job.reviewStatus}</td>
 								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
 								<td><a
 									href='<spring:url value="jobProfile?id=${job.jobId}"/>'

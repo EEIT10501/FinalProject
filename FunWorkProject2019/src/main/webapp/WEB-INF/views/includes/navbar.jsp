@@ -71,14 +71,8 @@
 				</span>
 
 			</c:if>
-<<<<<<< HEAD
-			<span class="navbar-text my-2 my-sm-0"> <a
-				class="nav-link btn btn-outline-secondary" href="register">註冊</a>
-
-=======
 			<span class="navbar-text my-2 my-sm-0"> 
 				<a class="nav-link btn btn-outline-secondary" href="register">註冊</a>
->>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 			</span>
 		</div>
 	</nav>
