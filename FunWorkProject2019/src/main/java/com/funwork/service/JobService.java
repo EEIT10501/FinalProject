@@ -1,50 +1,47 @@
 package com.funwork.service;
 
-import java.util.List;
-
 import com.funwork.model.City;
 import com.funwork.model.Job;
+import java.util.List;
 
 public interface JobService {
 
-	List<Job> getAllJobs();
+  List<Job> getAllJobs();
 
-	List<Job> getJobReviewList();
+  List<Job> getJobReviewList();
 
-	List<Job> getJobPassed();
+  List<Job> getJobPassed();
 
-	List<Job> getJobByCityName(Integer cityId);
+  List<Job> getJobByCityName(Integer cityId);
 
-	List<Job> getJobByCityArea(Integer cityId);
+  List<Job> getJobByCityArea(Integer cityId);
 
-	Job getJobById(Integer jobId);
+  Job getJobById(Integer jobId);
 
-	Job jobReviewPass(Integer jobId);
+  Job jobReviewPass(Integer jobId);
 
-	Job jobReviewFail(Integer jobId, String failReason);
+  Job jobReviewFail(Integer jobId, String failReason);
 
-	Job jobRemove(Integer jobId, String removeReason);
+  List<City> getAllCitys();
 
-	List<City> getAllCitys();
+  List<City> getCityName(Integer cityId);
 
-	List<City> getCityName(Integer cityId);
+  List<Job> findJobByUserId(Integer userId);
 
-	List<Job> findJobByUserId(Integer userId);
+  List<Job> findJobByUserIdNJobStatus(Integer userId);
 
-	List<Job> findJobByUserIdNJobStatus(Integer userId);
+  List<Job> getCorrectJobs();
 
-	List<Job> getCorrectJobs();
+  List<Job> getReviewHistory();
 
-	List<Job> getReviewHistory();
+  List<String> getCityAreaList();
 
-	List<String> getCityAreaList();
+  String getCityNameList(String cityArea);
 
-	String getCityNameList(String cityArea);
+  City getCityByCityName(String cityName);
 
-	City getCityByCityName(String cityName);
+  Job insertJob(Job jbean, Integer userId);
 
-	Job insertJob(Job jbean, Integer userId);
-
-	int getJobPostedCount(Integer userId);
+  int getJobPostedCount(Integer userId);
 
 }

@@ -18,17 +18,17 @@ public class ComplaintProcessController {
   ComplaintService complaintService;
 
   /**
-   * 傳回 status = '待審核' 的申訴紀錄.
+   * Return status = '待審核' 的申訴紀錄.
    */
   @GetMapping(value = "/cpsProcess")
   public String getComplaintListForProcess(Model model) {
-    List<Complaint> complaintList = complaintService.getComplaintDealList();
+    List<Complaint> complaintList = complaintService.getComplaintProcessList();
     model.addAttribute("complaintList", complaintList);
     return "cpprocess/cpsProcess";
   }
 
   /**
-   * 傳回 Pk = cpId 的申訴紀錄，供管理員進行申訴處理.
+   * Return Pk = cpId 的申訴紀錄，供管理員進行申訴處理.
    */
   @GetMapping(value = "/cpProcess/{cpId}")
   public String getComplaintDetail(Model model, @PathVariable Integer cpId) {
@@ -55,7 +55,7 @@ public class ComplaintProcessController {
   }
 
   /**
-   * 傳回審核過的的申訴歷史紀錄.
+   * Return審核過的的申訴歷史紀錄.
    */
   @GetMapping(value = "/cpsHistory")
   public String getComplaintHistoryList(Model model) {
@@ -65,7 +65,7 @@ public class ComplaintProcessController {
   }
 
   /**
-   * 傳回 Pk = cpId 的申訴歷史紀錄，供管理員檢視.
+   * Return Pk = cpId 的申訴歷史紀錄，供管理員檢視.
    */
   @GetMapping(value = "/cpsHistory/{cpId}")
   public String getComplaintHistoryDetail(Model model, @PathVariable Integer cpId) {

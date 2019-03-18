@@ -18,7 +18,7 @@ public class JobReviewController {
   JobService jobService;
 
   /**
-   * 傳回待審核工作List.
+   * Return job status = '待審核'.
    */
   @GetMapping(value = "/jobsReview")
   public String getJobListForReview(Model model) {
@@ -28,7 +28,7 @@ public class JobReviewController {
   }
 
   /**
-   * 傳回欲審核工作之詳細資訊.
+   * Return job detail.
    */
   @GetMapping(value = "/jobReview/{jobId}")
   public String getJobDetail(Model model, @PathVariable Integer jobId) {
@@ -38,7 +38,7 @@ public class JobReviewController {
   }
 
   /**
-   * 依照審核結果呼叫Service.
+   * Call service base on review result.
    */
   @PostMapping(value = "/jobReview/{jobId}")
   public String processJobReview(@PathVariable Integer jobId, 
@@ -53,7 +53,7 @@ public class JobReviewController {
   }
 
   /**
-   * 取得工作審核紀錄List.
+   * Return jobs review history.
    */
   @GetMapping(value = "/jobsReviewHistory")
   public String getJobsReviewHistory(Model model) {
@@ -63,7 +63,7 @@ public class JobReviewController {
   }
 
   /**
-   * 取得單筆工作審核紀錄.
+   * Return job review history detail.
    */
   @GetMapping(value = "/jobReviewHistory/{jobId}")
   public String getJobReviewHistory(Model model, @PathVariable Integer jobId) {

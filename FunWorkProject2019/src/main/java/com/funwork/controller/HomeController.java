@@ -48,7 +48,7 @@ public class HomeController {
   SendGmailService sendGmailService;
 
   /**
-   * 傳回首頁，如果登入的是管理員，傳回管理員View.
+   * Return index.jsp，如果登入的是管理員，傳回管理員View.
    */
   @GetMapping("/")
   public String home(HttpServletRequest req) {
@@ -66,7 +66,7 @@ public class HomeController {
   }
 
   /**
-   * 依userId取得會員大頭照.
+   * Return user picture based on userId.
    */
   @GetMapping(value = "/getPicture/{userId}")
   public ResponseEntity<byte[]> getUserPicture(@PathVariable Integer userId) {
@@ -102,7 +102,7 @@ public class HomeController {
   }
 
   /**
-   * 處理User登入.
+   * Process user login.
    */
   @PostMapping("/login")
   @ResponseBody
@@ -128,7 +128,7 @@ public class HomeController {
   }
 
   /**
-   * 處理會員註冊.
+   * Process user register.
    */
   @PostMapping(value = "/register")
   public String register(@RequestParam("email") String email, @RequestParam("name") String name,
@@ -173,7 +173,7 @@ public class HomeController {
   }
 
   /**
-   * 處理User登出.
+   * Process User logout.
    */
   @GetMapping("/logout")
   public String logout(HttpServletRequest req) {

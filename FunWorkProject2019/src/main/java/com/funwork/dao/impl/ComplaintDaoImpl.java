@@ -1,15 +1,12 @@
 package com.funwork.dao.impl;
 
-import java.sql.Timestamp;
+import com.funwork.dao.ComplaintDao;
+import com.funwork.model.Complaint;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.funwork.dao.ComplaintDao;
-import com.funwork.model.Complaint;
 
 @Repository
 public class ComplaintDaoImpl implements ComplaintDao {
@@ -27,7 +24,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 
   @SuppressWarnings("unchecked")
   @Override
-  public List<Complaint> getComplaintDealList() {
+  public List<Complaint> getComplaintProcessList() {
     String hql = "FROM Complaint WHERE status = '待處理' ORDER BY submitTime ASC";
     Session session = factory.getCurrentSession();
     return session.createQuery(hql).getResultList();
@@ -38,15 +35,11 @@ public class ComplaintDaoImpl implements ComplaintDao {
     Session session = factory.getCurrentSession();
     return session.get(Complaint.class, cpId);
   }
-
+ 
   @Override
-  public Complaint processComplaint(Integer cpId, String closeReason) {
+  public void processComplaint(Complaint cp) {
     Session session = factory.getCurrentSession();
-    Complaint complaint = session.get(Complaint.class, cpId);
-    complaint.setProcessDescription(closeReason);
-    complaint.setStatus("已處理");
-    complaint.setProcessTime(new Timestamp(System.currentTimeMillis()));
-    return complaint;
+    session.update(cp);
   }
 
   @Override
@@ -62,5 +55,4 @@ public class ComplaintDaoImpl implements ComplaintDao {
     Session session = factory.getCurrentSession();
     return session.createQuery(hql).getResultList();
   }
-
 }

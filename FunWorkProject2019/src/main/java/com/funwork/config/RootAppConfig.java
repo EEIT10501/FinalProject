@@ -20,7 +20,7 @@ public class RootAppConfig {
   public static final Logger logger = Logger.getLogger("com.funwork");
 
   /**
-   * DataSource bean, bulid by com.mchange.v2.c3p0.
+   * DataSource bean, build by com.mchange.v2.c3p0.
    */
   @Bean
   public DataSource dataSource() {
@@ -62,7 +62,7 @@ public class RootAppConfig {
   }
 
   /**
-   * 提供SessionFactory bean 進階組態資訊.
+   * Give LocalSessionFactoryBean 進階組態資訊.
    */
   public Properties additionalProperties() {
     Properties properties = new Properties();

@@ -52,7 +52,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
   }
   
   /**
-   * 解析文字訊息，國際化用.
+   * For globalization.
    */
   @Bean
   public MessageSource messageSource() {
@@ -62,7 +62,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
   }
 
   /**
-   * 上傳檔案需要此組態資訊.
+   * For upload file.
    * MaxUploadSize定義上傳檔案限制的大小.
    */
   @Bean
@@ -84,7 +84,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
   }
 
   /**
-   * 內容協商視圖解析器，可以自動轉換成Json、PDF、XML、Excel等視圖.
+   * For Json、PDF、XML、Excel等視圖解析.
    */
   @Bean
   public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {

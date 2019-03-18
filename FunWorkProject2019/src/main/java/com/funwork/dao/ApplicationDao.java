@@ -1,10 +1,9 @@
 package com.funwork.dao;
 
-import java.util.Date;
-import java.util.List;
-
 import com.funwork.model.Application;
 import com.funwork.model.Job;
+import java.util.Date;
+import java.util.List;
 
 public interface ApplicationDao {
   Application findByPrimaryKey(int key);
