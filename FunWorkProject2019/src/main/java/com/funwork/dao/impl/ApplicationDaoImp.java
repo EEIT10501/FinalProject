@@ -118,5 +118,13 @@ public class ApplicationDaoImp implements ApplicationDao {
 		Application ap = session.get(Application.class, apId);
 		ap.setAppliedStatus("已婉拒");
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Application> findAllApplications(Integer userId) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Application WHERE job.jobOwner.userId = :userId";
+		List<Application> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
+		return list;
+	}
 
 }

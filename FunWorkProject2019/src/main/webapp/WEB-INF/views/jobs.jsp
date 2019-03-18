@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,6 +158,8 @@
 							<th>所在地區</th>
 							<th>所屬公司</th>
 							<th>是否額滿</th>
+							<th>poster</th>
+							<th>截止時間</th>
 							<th>詳細內容</th>
 						</tr>
 					</thead>
@@ -169,6 +172,8 @@
 								<td>${job.city.cityName}</td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.isFilled}</td>
+								<td>${job.jobOwner.userId}</td>
+								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
 								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
 									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
@@ -182,6 +187,8 @@
 								<td>${job.city.cityName}</td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.isFilled}</td>
+								<td>${job.jobOwner.userId}</td>
+								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
 								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
 									class="btn btn-primary"><span
 										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
