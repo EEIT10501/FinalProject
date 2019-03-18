@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:useBean id="now" class="java.util.Date" />
 <!DOCTYPE html>
 <html>
@@ -36,9 +37,9 @@
 
 		var status = $("#condit1").find(":selected").text();
 		if (status == '全部') {
-			table.column(4).search("").draw();
+			table.column(3).search("").draw();
 		} else {
-			table.column(4).search(status).draw();
+			table.column(3).search(status).draw();
 		}
 		$('#filterPath').text(status);
 	}
@@ -89,7 +90,8 @@
 						<strong>請輸入選擇條件: </strong>
 						&nbsp; <select id="condit1">
 							<option>刊登中</option>
-							<option>到期下架</option>
+							<option>已下架</option>
+							<option>全部</option>
 						</select> &nbsp;
 						<button id="butt1" style="width: auto;"  onclick="filterSelect()">確定送出</button>
 						<button id="jobPostBut" style="width: auto;"
@@ -100,18 +102,17 @@
 				<table class="table table-hover display" id="example">
 					<thead>
 						<tr>
-							<th>筆數</th>
 							<th>公司單位</th>
 							<th>職缺編號</th>
 							<th>職位</th>
 							<th>狀態</th>
+							<th>刊登截止時間</th>
 							<th>職缺內容</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}" varStatus="loop">
 							<tr>
-								<td><c:out value="${loop.count}" /></td>
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
@@ -119,10 +120,11 @@
 									<c:when test="${job.postEndDate > now}">
 										<td>刊登中</td>
 									</c:when>
-									<c:when test="${job.postEndDate < now}">
+									<c:otherwise>
 										<td>到期下架</td>
-									</c:when>
+									</c:otherwise>
 								</c:choose>
+								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
 								<td><a
 									href='<spring:url value="jobProfile?id=${job.jobId}"/>'
 									class="btn btn-primary"> <span
