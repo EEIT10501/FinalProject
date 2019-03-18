@@ -1,7 +1,6 @@
 package com.funwork.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.funwork.model.Application;
 import com.funwork.model.City;
 import com.funwork.model.Job;
 import com.funwork.model.Notification;
@@ -90,10 +90,19 @@ public class JobController {
 		resume = resumeService.getResumeByUserId(user.getUserId());
 		model.addAttribute("resumeBean", resume);
 		}
-
-		List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
-		model.addAttribute("jobBean", job);
 		
+		if(session.getAttribute("loginUser")!=null && applicationService.findByJobId(jobId)!=null){
+		List<Application> applist = applicationService.findByJobId(jobId);
+		for(int i=0;i<applist.size();i++) {
+			if(applist.get(i).getUser().getUserId()==user.getUserId()) {
+				model.addAttribute("applicationBean",applist.get(i));
+			}
+		}
+		
+		}
+		
+		List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
+		model.addAttribute("jobBean", job);		
 		model.addAttribute("schedules", schedulelist);
 		return "jobDetail";
 	}

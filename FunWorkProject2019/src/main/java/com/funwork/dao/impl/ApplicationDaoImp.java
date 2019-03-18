@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -102,13 +101,15 @@ public class ApplicationDaoImp implements ApplicationDao {
 		ap.setLatestMsg(msg);
 		ap.setLatestMsgTime(new Timestamp(System.currentTimeMillis()));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Application> getApplicationByUserIdByTime(Integer userId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"+"ORDER BY a.applicationTime ";
-		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId).getResultList();
+		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"
+				+ "ORDER BY a.applicationTime ";
+		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId)
+				.getResultList();
 		return list;
 	}
 
@@ -118,6 +119,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 		Application ap = session.get(Application.class, apId);
 		ap.setAppliedStatus("已婉拒");
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Application> findAllApplications(Integer userId) {
@@ -125,6 +127,21 @@ public class ApplicationDaoImp implements ApplicationDao {
 		String hql = "FROM Application WHERE job.jobOwner.userId = :userId";
 		List<Application> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Application> findByJobId(Integer jobId) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Application a WHERE a.job.jobId = :jobId";
+		if (session.createQuery(hql).setParameter("jobId", jobId).getResultList().size() != 0) {
+			
+			List<Application> list =  session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+			return list;
+		} else {
+			return null;
+		}
+
 	}
 
 }
