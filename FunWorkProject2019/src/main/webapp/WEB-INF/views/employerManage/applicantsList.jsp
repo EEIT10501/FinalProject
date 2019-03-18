@@ -39,9 +39,10 @@
 			function() {
 				var jobTitle = $("#jobTitleInput").val();
 				$("#JobTitle").val(jobTitle);
-				// 		alert($("#JobTitle").val());
+				if(jobTitle!=null){
 				document.getElementById("JobTitle").innerHTML = "["
 						+ $("#JobTitle").val() + "]";
+				}
 			});
 </script>
 <body>
@@ -54,7 +55,7 @@
 				<br>
 				<section>
 					<div style="float: right">
-						<button>匯出Excel</button>
+						<a href='resumes?jobId=${jobId}'><button>匯出Excel</button></a>
 					</div>
 					<div>
 						<div class="container" style="text-align: center">

@@ -70,7 +70,15 @@
 								<div class="col-lg-10">
 									<form:input id="taxId" path="taxId" type='text'
 										class='form:input-large' />
+									
+									<c:if test="${empty errors}">
+									<span></span>
+									</c:if>
+									<c:if test="${errors != null}">
+									<span><c:out value="${errors.error_TaxId}"/></span>
+									</c:if>
 								</div>
+								
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-2 col-lg-2" for='address'>

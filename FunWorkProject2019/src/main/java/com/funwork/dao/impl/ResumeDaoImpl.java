@@ -44,5 +44,5 @@ public class ResumeDaoImpl implements ResumeDao {
 			 return null;
 		 }
 	}
-
+	
 }

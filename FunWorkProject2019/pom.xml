@@ -167,6 +167,12 @@
 			<artifactId>google-api-client</artifactId>
 			<version>1.24.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.10-beta2</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
