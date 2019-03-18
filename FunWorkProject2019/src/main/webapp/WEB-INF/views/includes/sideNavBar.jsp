@@ -90,7 +90,7 @@ background-color: #e3f2fd;
 			<div id="collapse3" class="collapse" aria-labelledby="heading3"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">管理邀約</a> <a
+					<a class="btn btn-link" href="<c:url value='/manageApplications'></c:url>">管理邀約</a> <a
 						class="btn btn-link" href="<c:url value='#'></c:url>">管理面試</a>
 				</div>
 			</div>
@@ -107,8 +107,8 @@ background-color: #e3f2fd;
 			<div id="collapse4" class="collapse" aria-labelledby="heading4"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">公司編輯</a> <a
-						class="btn btn-link" href="<c:url value='#'></c:url>">新增公司</a>
+					<a class="btn btn-link" href="<c:url value='/manageCompanyPage'></c:url>">公司編輯</a> <a
+						class="btn btn-link" href="<c:url value='/registerCompany'></c:url>">新增公司</a>
 				</div>
 			</div>
 		</div>

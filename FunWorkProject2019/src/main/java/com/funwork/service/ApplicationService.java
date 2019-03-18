@@ -19,8 +19,6 @@ public interface ApplicationService {
 
 	void deleteApplicationByPrimaryKey(int key);
 
-	List<Application> findAllApplications();
-
 	void deleteAllApplications();
 
 	public boolean isApplicationExist(Application Application);
@@ -36,5 +34,7 @@ public interface ApplicationService {
 	
 	void refuseUser(Integer apId);
 
+
+	public List<Application> findAllApplications(Integer userId);
 
 }

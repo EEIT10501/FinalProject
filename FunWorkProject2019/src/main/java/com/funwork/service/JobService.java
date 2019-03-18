@@ -1,6 +1,7 @@
 package com.funwork.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.funwork.model.City;
 import com.funwork.model.Job;
@@ -46,5 +47,7 @@ public interface JobService {
 	Job insertJob(Job jbean, Integer userId);
 
 	int getJobPostedCount(Integer userId);
+
+	Map<String, String> getGeocoderLatitude(String address);
 
 }

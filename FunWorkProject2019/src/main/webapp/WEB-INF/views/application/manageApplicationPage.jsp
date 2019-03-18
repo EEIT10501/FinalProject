@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="now" class="java.util.Date" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,63 +65,22 @@
 
 	var table;
 	function filterSelect() {
-			
-			var status = $("#condit1").find(":selected").text();
-			if(status == '全部' ){
-				table.column(4).search("").draw();
-			}else{
-				table.column(4).search(status).draw();
-			}
-// 			var path = $('#filterPath').html();
-			$('#filterPath').text(status);
+
+		var status = $("#condit1").find(":selected").text();
+		if (status == '全部') {
+			table.column(4).search("").draw();
+		} else {
+			table.column(4).search(status).draw();
+		}
+		$('#filterPath').text(status);
 	}
+
 	$(document).ready(function() {
 		$.noConflict();
- 		 table = $('#example').DataTable();
-		
+		table = $('#example').DataTable();
+
 		var contextPath = $("#contextPath").attr('value');
-		
 
-		// 		$("#butt1").click(function() {
-
-		// 			$.ajax({
-		// 				url : contextPath +  "/resultCorStatsJSON/"+status,
-		// 				cache : false,
-		// 				type : "GET",
-		// 				dataType: 'json',
-		// 				success: function(json) {
-		// 					   console.log(JSON.stringify(json));
-		// 					   jQuery.fn.exists = function(){ return this.length > 0; }
-		// 					   $('#clearTable').hide();
-		// 					   var rowHead  = '<thead><tr><th>筆數 </th>'+
-		// 							'<th>名稱 </th>'+
-		// 							'<th>統編 </th>'+
-		// 							'<th>地址 </th>'+
-		// 							'<th>狀態 </th>'+
-		// 							'<th>資料 </th></tr></thead><tbody>';
-		// 						var tableContent ="";
-		// 					   $.each(json, function(index, element){
-		// 						 var idx = parseInt(index);
-		// 						 var n = parseInt(1);
-		// 					     var dataRow = '<tr><td>'+ (idx+n) +'</td>'+
-		// 					    		 		'<td>'+element.name+'</td>'+
-		// 					    		 		'<td>'+element.taxId+'</td>'+
-		// 					    		 		'<td>'+element.address+'</td>'+
-		// 					    		 		'<td>'+element.reviewStatus+'</td>'+
-		// 					  "<td><a href='<spring:url value='company?id="+element.companyId+"'/>' class='btn btn-info btn-sm'>"+
-		// 					  "<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a></td>"+
-		// 					  "</tr>";
-		// 					    	tableContent += dataRow;
-		// 					   	});
-		// 					   var myTable = rowHead + tableContent+'</tbody>';
-		// 					   	$('#testField').html(myTable);
-		// 						$('#testField').DataTable();
-		// 				},
-		// 				error : function(xhr) {
-		// 					alert("failure");
-		// 				}
-		// 			});
-		// 		});
 	});
 </script>
 <body>
@@ -139,62 +100,60 @@
 				<section
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
 					<nav>
-						<strong>目前篩選條件: </strong> 
-						<span class='label label-warning' id="filterPath"></span><p></p>
-<!-- 							<input type="text" id="column4_search">  -->
-						<strong>請輸入選擇條件: </strong> 
-						&nbsp; <select id="condit1">
-							<option>審查中</option>
-<!-- 							<option>已通過</option> -->
-<!-- 							<option>未通過</option> -->
+						<strong>目前篩選條件: </strong>
+						<span class='label label-warning' id="filterPath"></span><p></p> 
+						<strong>請輸入選擇條件: </strong>
+						<select id="condit1">
 							<option>全部</option>
-							<option>公司完成建檔</option>
-						</select> 
-<!-- 						或是輸入關鍵字: &nbsp;  -->
-<!-- 						<input placeholder="please enter"> -->
+							<option>已邀約</option>
+							<option>未邀約</option>
+							<option>已婉拒</option>
+<!-- 							<option>全部</option> -->
+<!-- 							<option>公司完成建檔</option> -->
+						</select>
+						<!-- 						或是輸入關鍵字: &nbsp; <input placeholder="please enter"> -->
 						<button id="butt1" style="width: auto" onclick="filterSelect()">確定送出</button>
 
-						<button id="jobPostBut" style="width: auto;"
-							onclick="window.location='registerCompany'">建立公司</button>
+						<!-- 						<button id="jobPostBut" style="width: auto;" -->
+						<!-- 							onclick="window.location='registerCompany'">建立公司</button> -->
 						<div class="list-group2"></div>
 						<hr>
 						<div id="clearTable">
 							<table class="table table-hover display" id="example">
 								<thead>
 									<tr>
-										<th>筆數</th>
-										<th>名稱</th>
-										<th>統編</th>
-										<th>地址</th>
+<!-- 										<th>筆數</th> -->
+										<th>邀約編號</th>
+										<th>應徵者名稱</th>
+										<th>給雇主的回應</th>
+										<th>應徵時間</th>
 										<th>狀態</th>
-										<th>資料</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="company" items="${companys}" varStatus="loop">
+									<c:forEach var="application" items="${applications}"
+										varStatus="loop">
 										<tr>
-											<td><c:out value="${loop.count}" /></td>
-											<td>${company.name}</td>
-											<td>${company.taxId}</td>
-											<td>${company.address}</td>
-											<td>${company.reviewStatus}</td>
+<%-- 											<td><c:out value="${loop.count}" /></td> --%>
+											<td>${application.applicationId}</td>
+											<td>${application.user.userName}</td>
+											<td>${application.answer}</td>
+											<td><fmt:formatDate type="both" value="${application.applicationTime}"/></td>
 											<c:choose>
-												<c:when test="${company.reviewStatus =='已通過'}">
+												<c:when test="${application.appliedStatus == '已邀約'}">
 													<td><a
 														href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
 														class="btn btn-info btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
-													</a></td>
-												</c:when>
-												<c:when test="${company.reviewStatus =='公司完成建檔'}">
-													<td><a
-														href='<spring:url value="company?id=${company.companyId}"/>'
-														class="btn btn-success btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+															class="glyphicon-info-sigh glyphicon"></span>${application.appliedStatus}
 													</a></td>
 												</c:when>
 												<c:otherwise>
-													<td></td>
+													<td><a
+														href='<spring:url value="company?id=${company.companyId}"/>'
+														class="btn btn-success btn-sm"> <span
+															class="glyphicon-info-sigh glyphicon"></span>${application.appliedStatus}
+													</a>
+													</td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
@@ -202,6 +161,46 @@
 								</tbody>
 							</table>
 						</div>
+						
+ <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">請選擇登入方式</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- 彈出視窗：寫程式的地方 -->
+					<form action="#" method="post" id="loginForm">
+						<div class="form-group">
+							<label for="exampleInputEmail1">電子郵件</label> <input type="email"
+								class="form-control" id="exampleInputEmail1"
+								aria-describedby="emailHelp" placeholder="Enter email"
+								name="email"> <small id="emailHelp"
+								class="form-text text-muted"></small>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">輸入密碼</label> <input
+								type="password" class="form-control" id="exampleInputPassword1"
+								placeholder="Password" name="password">
+						</div>
+						<div class="form-group form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1" name="rememberMe"> <label
+								class="form-check-label" for="exampleCheck1">請記住我</label><br>
+							<label id="loginError"></label>
+						</div>
+						<button id="login" type="button" class="btn btn-primary"
+							style="float: right">確認送出</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 						<table class="table table-hover display" id="testField">
 						</table>
