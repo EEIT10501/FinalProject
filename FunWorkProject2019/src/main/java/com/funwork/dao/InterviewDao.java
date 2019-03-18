@@ -21,6 +21,10 @@ public interface InterviewDao {
 
 	List<Interview> findByApplicationIds(int key);
 
-	List<Interview> findByApplicationIdAndTime(int key);
+	List<Interview> findByApplicationIdAndTimeProcessing(int key);
+
+	List<Interview> findByApplicationIdAndTimeCompleted(int key);
+
+	List<Interview> findByApplicationIdAndTimeExpired(int key);
 
 }

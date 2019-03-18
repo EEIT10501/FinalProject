@@ -22,107 +22,79 @@ import com.funwork.service.UserService;
 @Controller
 public class JobSeekerController {
 
-	@Autowired
-	UserService userService;
-	@Autowired
-	ApplicationService applicationService;
-	@Autowired
-	InterviewService interviewService;
+  @Autowired
+  UserService userService;
+  @Autowired
+  ApplicationService applicationService;
+  @Autowired
+  InterviewService interviewService;
 
-	public JobSeekerController() {
-	}
+  public JobSeekerController() {
+  }
 
-	@RequestMapping("/jobSeekerInfo")
-	public String jobSeekerInfo(Model model, HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		model.addAttribute("user", loginUser);
-		List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
-		model.addAttribute("applicatioList", applicatioList);
-		List<Interview> interviewList = interviewService.findByApplicationIdAndTime(loginUser.getUserId());
-		System.out.println("size" + interviewList.size());
-		System.out.println("toString" + interviewList.toString());
-		model.addAttribute("interviewList", interviewList);
+  @RequestMapping("/jobSeekerInfo")
+  public String jobSeekerInfo(Model model, HttpServletRequest req) {
+    HttpSession session = req.getSession();
+    User loginUser = (User) session.getAttribute("loginUser");
+    model.addAttribute("user", loginUser);
+    List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
+    model.addAttribute("applicatioList", applicatioList);
+    List<Interview> interviewList = interviewService.findByApplicationIdAndTimeProcessing(loginUser.getUserId());
+    model.addAttribute("interviewList", interviewList);
 
-		return "jobSeeker/jobSeekerInfo";
-	}
+    return "jobSeeker/jobSeekerInfo";
+  }
 
-	@RequestMapping(value = "/updateInterviewStatus", method = RequestMethod.POST)
-	public String updateInterviewStatus(@RequestParam("interviewId") Integer interviewId,
-			@RequestParam("interviewStatus") String interviewStatus) {
-		System.out.println(interviewId);
-		System.out.println(interviewStatus);
-		Interview interview = interviewService.findByPrimaryKey(interviewId);
-		interview.setInterviewStatus(interviewStatus);
-		interviewService.updateInterview(interview);
+  @RequestMapping(value = "/updateInterviewStatus", method = RequestMethod.POST)
+  public String updateInterviewStatus(@RequestParam("interviewId") Integer interviewId,
+      @RequestParam("interviewStatus") String interviewStatus) {
+    System.out.println(interviewId);
+    System.out.println(interviewStatus);
+    Interview interview = interviewService.findByPrimaryKey(interviewId);
+    interview.setInterviewStatus(interviewStatus);
+    interviewService.updateInterview(interview);
 
-		return "redirect:/jobSeekerInfo";
-	}
+    return "redirect:/jobSeekerInfo";
+  }
 
-	@RequestMapping("/applicatedWork")
-	public String applicatedWork(Model model, HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		model.addAttribute("user", loginUser);
-		List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
-		model.addAttribute("applicatioList", applicatioList);
-		List<Interview> interviewList = interviewService.findByApplicationIds(loginUser.getUserId());
-		model.addAttribute("interviewList", interviewList);
+  @RequestMapping("/invitationManage")
+  public String invitationManage(Model model, HttpServletRequest req) {
+    HttpSession session = req.getSession();
+    User loginUser = (User) session.getAttribute("loginUser");
+    model.addAttribute("user", loginUser);
+    List<Interview> interviewListProcessing = interviewService
+        .findByApplicationIdAndTimeProcessing(loginUser.getUserId());
+    List<Interview> interviewListCompleted = interviewService
+        .findByApplicationIdAndTimeCompleted(loginUser.getUserId());
+    List<Interview> interviewListExpired = interviewService.findByApplicationIdAndTimeExpired(loginUser.getUserId());
+    model.addAttribute("interviewListProcessing", interviewListProcessing);
+    model.addAttribute("interviewListCompleted", interviewListCompleted);
+    model.addAttribute("interviewListExpired", interviewListExpired);
 
-		return "jobSeeker/applicatedWork";
-	}
+    return "jobSeeker/invitationManage";
+  }
 
-//	@RequestMapping(value = "/cpApply", method = RequestMethod.POST)
-//	public String complaintApply(@RequestParam("type") String type, @RequestParam("content") String content,
-//			@RequestParam("jobId") Integer jobId) {
-//
-//		Complaint cp = new Complaint();
-//		cp.setContent(content);
-//		cp.setJob(jobService.getJobById(jobId));
-//		cp.setStatus("待處理");
-//		cp.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-//		cp.setType(type);
-//		complaintService.insertCp(cp);
-//		
-//		return "redirect:/jobDetail/" + jobId;
-//	}
+  @RequestMapping(value = "/updateInterviewStatusOther", method = RequestMethod.POST)
+  public String updateInterviewStatusOther(@RequestParam("interviewId") Integer interviewId,
+      @RequestParam("interviewStatus") String interviewStatus) {
+    System.out.println(interviewId);
+    System.out.println(interviewStatus);
+    Interview interview = interviewService.findByPrimaryKey(interviewId);
+    interview.setInterviewStatus(interviewStatus);
+    interviewService.updateInterview(interview);
 
-//	@RequestMapping(value = "/interSend",)
-//	public String pullApplicantsByJob(Model model, HttpServletRequest req, @RequestParam("interType") String interType,
-//			@RequestParam("interComment") String interComment, @RequestParam("interPlace") String interPlace,
-//			@RequestParam("interTime") String interTime, @RequestParam("apId") String apId) {
-//
-//		Interview interview = new Interview();
-//		interview.setInterviewType(interType);
-//		interview.setInterviewComment(interComment);
-//		interview.setInterviewPlace(interPlace);
-//		interview.setInterviewTime(Timestamp.valueOf(interTime.replace("T", " ") + ":00"));
-//		Application ap = applicationService.findByPrimaryKey(Integer.valueOf(apId));
-//		Integer jobId = ap.getJob().getJobId();
-//		interview.setApplication(ap);
-//		interview.setInterviewStatus("待回應");
-//		interviewService.saveInterview(interview);
-//		return "redirect:/applications?id=" + jobId;
-//	}
-//	
-//	@RequestMapping(value = "/updateSchedule", method = RequestMethod.GET)
-//	public String getUpdateScheduleForm(Model model, @RequestParam("scheduleId") Integer scheduleId) {
-//		Schedule updateSchedule = scheuleService.getScheduleByPrimaryKey(scheduleId);
-//		model.addAttribute("schedule", updateSchedule);
-//		return "schedule/updateSchedule";
-//	}
-//
-//	@RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
-//	public String UpdateScheduleForm(@ModelAttribute("schedule")Schedule schedule, BindingResult result,
-//			HttpServletRequest request) {
-//		scheuleService.updateScheduleByPrimaryKey(schedule);
-//		return "redirect:/scheduleManage";
-//	}
-//	@RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
-//	public String UpdateScheduleForm(@ModelAttribute("schedule")Schedule schedule, BindingResult result,
-//			HttpServletRequest request) {
-//		scheuleService.updateScheduleByPrimaryKey(schedule);
-//		return "redirect:/scheduleManage";
-//	}
+    return "redirect:/invitationManage";
+  }
+
+  @RequestMapping("/applicatedWork")
+  public String applicatedWork(Model model, HttpServletRequest req) {
+    HttpSession session = req.getSession();
+    User loginUser = (User) session.getAttribute("loginUser");
+    model.addAttribute("user", loginUser);
+    List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
+    model.addAttribute("applicatioList", applicatioList);
+
+    return "jobSeeker/applicatedWork";
+  }
 
 }
