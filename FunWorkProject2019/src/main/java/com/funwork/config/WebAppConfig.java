@@ -25,7 +25,9 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @EnableWebMvc
 @ComponentScan("com.funwork")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
-
+  /**
+   * ViewResolver for jsp.
+   */
   @Bean
   public ViewResolver internalResourceViewResolver() {
     InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -41,12 +43,17 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     registry.addResourceHandler("/image/**").addResourceLocations("/WEB-INF/views/images/");
     registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/schedule/js/");
     registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/schedule/css/");
-    registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/workimages/");
-    registry.addResourceHandler("/DataTables/**").addResourceLocations("/WEB-INF/views/DataTables/datatables/");
+    registry.addResourceHandler("/images/**")
+      .addResourceLocations("/WEB-INF/views/images/workimages/");
+    registry.addResourceHandler("/DataTables/**")
+      .addResourceLocations("/WEB-INF/views/DataTables/datatables/");
     registry.addResourceHandler("/datatableimages/**")
         .addResourceLocations("/WEB-INF/views/DataTables/datatableimages/");
   }
-
+  
+  /**
+   * 解析文字訊息，國際化用.
+   */
   @Bean
   public MessageSource messageSource() {
     ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
@@ -54,6 +61,10 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     return resource;
   }
 
+  /**
+   * 上傳檔案需要此組態資訊.
+   * MaxUploadSize定義上傳檔案限制的大小.
+   */
   @Bean
   public CommonsMultipartResolver multipartResolver() {
     CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -62,6 +73,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     return resolver;
   }
 
+  /**
+   * Json view bean, 提供內容協商視圖解析器用. 
+   */
   @Bean
   public MappingJackson2JsonView jsonView() {
     MappingJackson2JsonView view = new MappingJackson2JsonView();
@@ -69,6 +83,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     return view;
   }
 
+  /**
+   * 內容協商視圖解析器，可以自動轉換成Json、PDF、XML、Excel等視圖.
+   */
   @Bean
   public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
     ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
@@ -79,6 +96,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     return resolver;
   }
 
+  /**
+   * Mail Bean.
+   */
   @Bean
   public JavaMailSenderImpl javaMailSenderImpl() {
     Properties properties = new Properties();

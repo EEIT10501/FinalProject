@@ -37,7 +37,7 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="<c:url value='/cpsDeal'/>" class="list-group-item list-group-item-action">申訴處理</a>
+					<a href="<c:url value='/cpsProcess'/>" class="list-group-item list-group-item-action">申訴處理</a>
 					<a href="<c:url value='/cpsHistory'/>" class="list-group-item list-group-item-action">申訴紀錄</a>
 				</div>
 			</div>

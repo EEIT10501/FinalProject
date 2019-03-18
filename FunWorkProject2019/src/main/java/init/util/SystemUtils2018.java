@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -34,10 +35,15 @@ public class SystemUtils2018 {
     File imageFile = new File(imageFileName);
     long size = imageFile.length();
     byte[] b = new byte[(int) size];
+    int currentBytesRead = 0;
+    int totalBytesRead = 0;
     SerialBlob sb = null;
     try (FileInputStream fis = new FileInputStream(imageFile);) {
-      fis.read(b);
+      while ((currentBytesRead = fis.read(b)) > 0) {
+        totalBytesRead += currentBytesRead;
+      }
       sb = new SerialBlob(b);
+      logger.log(Level.ALL, "totalBytesRead:{0}", totalBytesRead);
     }
     return sb;
   }
@@ -48,8 +54,13 @@ public class SystemUtils2018 {
   public static Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {
     byte[] b = new byte[(int) size];
     SerialBlob sb = null;
-    is.read(b);
+    int currentBytesRead = 0;
+    int totalBytesRead = 0;
+    while ((currentBytesRead = is.read(b)) > 0) {
+      totalBytesRead += currentBytesRead;
+    }
     sb = new SerialBlob(b);
+    logger.log(Level.ALL, "totalBytesRead:{0}", totalBytesRead);
     return sb;
   }
 

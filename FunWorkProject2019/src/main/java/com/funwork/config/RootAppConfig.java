@@ -1,10 +1,11 @@
 package com.funwork.config;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,12 +14,14 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-
 @Configuration
 @EnableTransactionManagement
 public class RootAppConfig {
+  public static final Logger logger = Logger.getLogger("com.funwork");
 
+  /**
+   * DataSource bean, bulid by com.mchange.v2.c3p0.
+   */
   @Bean
   public DataSource dataSource() {
     ComboPooledDataSource ds = new ComboPooledDataSource();
@@ -27,7 +30,7 @@ public class RootAppConfig {
     try {
       ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     } catch (PropertyVetoException e) {
-      e.printStackTrace();
+      logger.warning(e.getMessage());
     }
     ds.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=funwork");
     ds.setInitialPoolSize(4);
@@ -35,6 +38,9 @@ public class RootAppConfig {
     return ds;
   }
 
+  /**
+   * IOC容器透過這個Bean建立SessionFactory，並自動注入給HibernateTransactionManager.
+   */
   @Bean
   public LocalSessionFactoryBean sessionFactory() {
     LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
@@ -44,6 +50,9 @@ public class RootAppConfig {
     return factory;
   }
 
+  /**
+   * HibernateTransactionManager bean.
+   */
   @Bean
   @Autowired
   public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
@@ -52,6 +61,9 @@ public class RootAppConfig {
     return txManager;
   }
 
+  /**
+   * 提供SessionFactory bean 進階組態資訊.
+   */
   public Properties additionalProperties() {
     Properties properties = new Properties();
     properties.put("hibernate.dialect", org.hibernate.dialect.SQLServer2012Dialect.class);

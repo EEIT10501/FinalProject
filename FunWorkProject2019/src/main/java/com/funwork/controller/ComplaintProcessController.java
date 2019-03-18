@@ -1,7 +1,8 @@
 package com.funwork.controller;
 
+import com.funwork.model.Complaint;
+import com.funwork.service.ComplaintService;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,56 +11,67 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.funwork.model.Complaint;
-import com.funwork.service.ComplaintService;
-
 @Controller
-public class ComplaintDealController {
+public class ComplaintProcessController {
 
   @Autowired
   ComplaintService complaintService;
 
-  @GetMapping(value = "/cpsDeal")
-  public String complaintDealList(Model model) {
+  /**
+   * 傳回 status = '待審核' 的申訴紀錄.
+   */
+  @GetMapping(value = "/cpsProcess")
+  public String getComplaintListForProcess(Model model) {
     List<Complaint> complaintList = complaintService.getComplaintDealList();
     model.addAttribute("complaintList", complaintList);
-    return "cpdeal/cpsDeal";
+    return "cpprocess/cpsProcess";
   }
 
-  @GetMapping(value = "/cpDeal/{cpId}")
-  public String complaintDeal(Model model, @PathVariable Integer cpId) {
+  /**
+   * 傳回 Pk = cpId 的申訴紀錄，供管理員進行申訴處理.
+   */
+  @GetMapping(value = "/cpProcess/{cpId}")
+  public String getComplaintDetail(Model model, @PathVariable Integer cpId) {
     Complaint complaint = complaintService.getComplaintById(cpId);
     model.addAttribute("cpBean", complaint);
-    return "cpdeal/cpDeal";
+    return "cpprocess/cpProcess";
   }
 
-  @PostMapping(value = "/cpDeal/{cpId}")
-  public String processComplaintDealForm(@PathVariable Integer cpId, @RequestParam(name = "isRemove") String isRemove,
+  @PostMapping(value = "/cpProcess/{cpId}")
+  public String processComplaint(@PathVariable Integer cpId, 
+      @RequestParam(name = "isRemove") String isRemove,
       @RequestParam(name = "closeReason", required = false) String closeReason,
       @RequestParam(name = "jobId") Integer jobId) {
     complaintService.processComplaint(cpId, closeReason, isRemove, jobId);
-    return "redirect:/cpsDeal";
+    return "redirect:/cpsProcess";
   }
 
   @PostMapping(value = "/cpApply")
-  public String complaintApply(@RequestParam("type") String type, @RequestParam("content") String content,
+  public String applyComplaint(@RequestParam("type") String type, 
+      @RequestParam("content") String content,
       @RequestParam("jobId") Integer jobId) {
     complaintService.insertCp(type, content, jobId);
     return "redirect:/jobDetail/" + jobId;
   }
 
+  /**
+   * 傳回審核過的的申訴歷史紀錄.
+   */
   @GetMapping(value = "/cpsHistory")
-  public String complaintHistoryList(Model model) {
+  public String getComplaintHistoryList(Model model) {
     List<Complaint> complaintList = complaintService.getComplaintHistoryList();
     model.addAttribute("complaintList", complaintList);
-    return "cpdeal/cpsDealHistory";
+    return "cpprocess/cpsProcessHistory";
   }
 
+  /**
+   * 傳回 Pk = cpId 的申訴歷史紀錄，供管理員檢視.
+   */
   @GetMapping(value = "/cpsHistory/{cpId}")
-  public String complaintHistory(Model model, @PathVariable Integer cpId) {
+  public String getComplaintHistoryDetail(Model model, @PathVariable Integer cpId) {
     Complaint complaint = complaintService.getComplaintById(cpId);
     model.addAttribute("cpBean", complaint);
-    return "cpdeal/cpDealHistory";
+    return "cpprocess/cpProcessHistory";
   }
 
 }

@@ -1,16 +1,24 @@
 package com.funwork.controller;
 
+import com.funwork.model.Resume;
+import com.funwork.model.User;
+import com.funwork.service.ResumeService;
+import com.funwork.service.UserService;
+import com.funwork.service.impl.SendGmailService;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -25,20 +33,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.funwork.model.Resume;
-import com.funwork.model.User;
-import com.funwork.service.ResumeService;
-import com.funwork.service.UserService;
-import com.funwork.service.impl.SendGmailService;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-
 @Controller
 public class HomeController {
-
+  public static final Logger logger = Logger.getLogger("com.funwork");
   private static final String REDIRECT_TO_INDEX = "redirect:/";
   private static final String LOGIN_USER = "loginUser";
-
   @Autowired
   ResumeService resumeService;
   @Autowired
@@ -48,6 +47,9 @@ public class HomeController {
   @Autowired
   SendGmailService sendGmailService;
 
+  /**
+   * 傳回首頁，如果登入的是管理員，傳回管理員View.
+   */
   @GetMapping("/")
   public String home(HttpServletRequest req) {
     HttpSession session = req.getSession();
@@ -63,9 +65,11 @@ public class HomeController {
     return "pages/form";
   }
 
+  /**
+   * 依userId取得會員大頭照.
+   */
   @GetMapping(value = "/getPicture/{userId}")
   public ResponseEntity<byte[]> getUserPicture(@PathVariable Integer userId) {
-
     String filePath = "/resources/images/NoImage.jpg";
     byte[] media = null;
     HttpHeaders headers = new HttpHeaders();
@@ -80,7 +84,7 @@ public class HomeController {
           len = (int) blob.length();
           media = blob.getBytes(1, len);
         } catch (SQLException e) {
-          System.out.println("HomeController的getPicture()發生SQLException:" + e.getMessage());
+          logger.warning("HomeController的getPicture()發生SQLException:" + e.getMessage());
         }
       } else {
         media = toByteArray(filePath);
@@ -97,12 +101,14 @@ public class HomeController {
     return new ResponseEntity<>(media, headers, HttpStatus.OK);
   }
 
+  /**
+   * 處理User登入.
+   */
   @PostMapping("/login")
   @ResponseBody
-  public String login(@RequestParam("email") String email, @RequestParam("password") String password,
-      HttpServletRequest req) {
+  public String login(@RequestParam("email") String email, 
+      @RequestParam("password") String password, HttpServletRequest req) {
     User user = userService.loginCheck(email, password);
-
     if (user != null) {
 //			if (user.getIsOpen()) {
       HttpSession session = req.getSession();
@@ -121,14 +127,16 @@ public class HomeController {
     return "register";
   }
 
+  /**
+   * 處理會員註冊.
+   */
   @PostMapping(value = "/register")
   public String register(@RequestParam("email") String email, @RequestParam("name") String name,
-      @RequestParam("password") String password, @RequestParam("password2") String password2, HttpServletRequest req) {
-
+      @RequestParam("password") String password, 
+      @RequestParam("password2") String password2, HttpServletRequest req) {
     // 存放錯誤訊息errorMeg
     Map<String, String> errorMeg = new HashMap<String, String>();
     req.setAttribute("Msg", errorMeg); // 顯示錯誤訊息, errorMeg傳到前端用EL接
-
     if (email == null || email.trim().length() == 0) {
       errorMeg.put("errEmailEmpty", "帳號欄必須輸入");
     }
@@ -141,20 +149,18 @@ public class HomeController {
     if (password2 == null || password2.trim().length() == 0) {
       errorMeg.put("errPd2Empty", "密碼確認欄必須輸入");
     }
-    if ((password != null && password2 != null) && (password.trim().length() > 0 && password2.trim().length() > 0)
+    if ((password != null && password2 != null) 
+        && (password.trim().length() > 0 && password2.trim().length() > 0)
         && !password.trim().equals(password2.trim())) {
       errorMeg.put("errPd2Empty", "密碼欄必須與確認欄一致");
       errorMeg.put("errPdEmpty", "*");
-
     }
     // 回傳上面的錯誤訊息到/register頁面
     if (!errorMeg.isEmpty()) {
       return "/register";
     }
-
     if (userService.idExists(email)) {
       errorMeg.put("errorIDExs", "帳號已存在請重新更新");
-
     } else {
       Integer userId = userService.insertUser(email, name, password);
 //			sendGmailService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
@@ -166,6 +172,9 @@ public class HomeController {
     return "/register";
   }
 
+  /**
+   * 處理User登出.
+   */
   @GetMapping("/logout")
   public String logout(HttpServletRequest req) {
     HttpSession session = req.getSession();
@@ -180,6 +189,9 @@ public class HomeController {
     return REDIRECT_TO_INDEX;
   }
 
+  /**
+   * Google第三方登入.
+   */
   @PostMapping("/googleLogin")
   @ResponseBody
   public String googleLogin(@RequestParam("idtoken") String idtoken, HttpServletRequest req) {
@@ -191,7 +203,6 @@ public class HomeController {
       Payload payload = idToken.getPayload();
       String googleId = payload.getSubject();
       String email = payload.getEmail();
-//			String name = (String) payload.get("name");	這個name 是 偉廷石	
       String familyName = (String) payload.get("family_name");
       String givenName = (String) payload.get("given_name");
       String name = givenName.trim() + familyName.trim();
@@ -216,14 +227,19 @@ public class HomeController {
     root = root.substring(0, root.length() - 1);
     String fileLocation = root + filePath;
     byte[] b = null;
+    int currentBytesRead = 0;
+    int totalBytesRead = 0;
     try {
       java.io.File file = new java.io.File(fileLocation);
       long size = file.length();
       b = new byte[(int) size];
       InputStream fis = context.getResourceAsStream(filePath);
-      fis.read(b);
+      while ((currentBytesRead = fis.read(b)) > 0) {
+        totalBytesRead += currentBytesRead;
+      }
+      logger.log(Level.ALL, "totalBytesRead:{0}", totalBytesRead);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.warning(e.getMessage());
     }
     return b;
   }

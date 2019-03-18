@@ -37,7 +37,7 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="<c:url value='/cpsDeal'/>" class="list-group-item list-group-item-action">申訴處理</a>
+					<a href="<c:url value='/cpsProcess'/>" class="list-group-item list-group-item-action">申訴處理</a>
 					<a href="<c:url value='/cpsHistory'/>" class="list-group-item list-group-item-action">申訴紀錄</a>
 				</div>
 			</div>
@@ -58,7 +58,7 @@
 						<c:forEach var="cp" items="${complaintList}">
 							<tr>
 								<td>${cp.complaintId}</td>
-								<td><a href="<c:url value='/cpDeal/${cp.complaintId}'/>">${cp.type}</a></td>
+								<td><a href="<c:url value='/cpProcess/${cp.complaintId}'/>">${cp.type}</a></td>
 								<td>${cp.job.title}</td>
 								<td>${cp.job.jobOwner.userName}</td>
 								<td><fmt:formatDate value="${cp.submitTime}" pattern="yyyy/MM/dd HH:mm" /></td>
