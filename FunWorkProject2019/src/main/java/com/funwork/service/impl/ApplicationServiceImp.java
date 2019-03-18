@@ -93,8 +93,8 @@ public class ApplicationServiceImp implements ApplicationService {
 
 	@Transactional
 	@Override
-	public List<Application> findAllApplications() {
-		return null;
+	public List<Application> findAllApplications(Integer userId) {
+		return dao.findAllApplications(userId);
 	}
 
 	@Transactional

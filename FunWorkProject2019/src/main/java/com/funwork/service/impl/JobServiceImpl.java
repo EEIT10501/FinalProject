@@ -1,5 +1,19 @@
 package com.funwork.service.impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.funwork.dao.CityDao;
 import com.funwork.dao.CompanyDao;
 import com.funwork.dao.JobDao;
@@ -8,15 +22,8 @@ import com.funwork.dao.UserDao;
 import com.funwork.model.City;
 import com.funwork.model.Job;
 import com.funwork.model.Notification;
-import com.funwork.model.User;
 import com.funwork.service.JobService;
-import java.sql.Timestamp;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 @Service
 public class JobServiceImpl implements JobService {
 
@@ -80,13 +87,13 @@ public class JobServiceImpl implements JobService {
 
   @Override
   public Job jobReviewFail(Integer jobId, String failReason) {
-    
+
     Job job = jobDao.getJobById(jobId);
     job.setReviewStatus("審核失敗");
     job.setReviewTime(new Timestamp(System.currentTimeMillis()));
     job.setFailReason(failReason);
     jobDao.updateJob(job);
-    
+
     Notification notification = new Notification();
     notification.setContent("您的職缺(" + job.getTitle() + ")審核失敗");
     notification.setTime(new Timestamp(System.currentTimeMillis()));
@@ -143,29 +150,90 @@ public class JobServiceImpl implements JobService {
     return cityDao.getCityByCityName(cityName);
   }
 
+  @Transactional
   @Override
-  public Job insertJob(Job job, Integer userId) {
-    User jobOwner = userDao.findByPrimaryKey(userId);
-    String cityName = job.getCityName();
-    job.setAddress(job.getCityArea() + cityName + job.getAddress());
-    job.setIsExposure(false);
-    job.setIsFilled(false);
-    job.setReviewStatus("待審核");
-    job.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-    job.setViewTimes(0);
-    job.setJobOwner(jobOwner);
-    String companyName = job.getCompanyName();
-    if (!companyName.equals("-1")) {
-      job.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
-    }
-    job.setCity(cityDao.getCityByCityName(cityName));
+  public Job insertJob(Job jbean, Integer userId) {
+    // 地址轉經緯度
+    JobServiceImpl jobServiceImpl = new JobServiceImpl();
+    Map<String, String> latlng = jobServiceImpl.getGeocoderLatitude(jbean.getAddress());
 
-    return jobDao.insertJob(job);
+    String cityName = jbean.getCityName();
+    jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
+    // 設定經緯度
+    jbean.setJobLat(latlng.get("lat"));
+    jbean.setJobLng(latlng.get("lng"));
+    jbean.setIsExposure(false);
+    jbean.setIsFilled(false);
+    jbean.setReviewStatus("待審核");
+    jbean.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+    jbean.setViewTimes(0);
+    jbean.setJobOwner(userDao.getUserById(userId));
+    String companyName = jbean.getCompanyName();
+    if (!companyName.equals("-1")) {
+      jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
+    }
+    jbean.setCity(cityDao.getCityByCityName(cityName));
+
+    return jobDao.insertJob(jbean);
   }
 
+  @Transactional
   @Override
   public int getJobPostedCount(Integer userId) {
     return jobDao.getJobPostedCount(userId);
   }
+
+  @Override
+  public Map<String, String> getGeocoderLatitude(String address) {
+    String apiKey = "AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus";
+    BufferedReader jsonres = null;
+
+    try {
+      URL url = new URL(
+          "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" + address + "&key=" + apiKey);
+
+      jsonres = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+      String res;
+      StringBuilder sb = new StringBuilder("");
+      while ((res = jsonres.readLine()) != null) {
+        sb.append(res.trim());
+      }
+
+      String str = sb.toString();
+//			System.out.println(str);
+
+      Map<String, String> map = null;
+      if (StringUtils.isNotEmpty(str)) {
+        int latStart = str.indexOf("{\"location\" : {\"lat\" :");
+        int latEnd = str.indexOf(",\"lng");
+        int lngEnd = str.indexOf("},\"location_type\"");
+        if (latStart > 0 && lngEnd > 0 && latEnd > 0) {
+          String lat = str.substring(latStart + 23, latEnd);
+          String lng = str.substring(latEnd + 9, lngEnd);
+          map = new HashMap<String, String>();
+          map.put("lng", lng);
+          map.put("lat", lat);
+          return map;
+        }
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        jsonres.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+
+//	public static void main(String[] args) {
+//		JobServiceImpl jobServiceImpl = new JobServiceImpl();
+//		Map<String, String> json = jobServiceImpl.getGeocoderLatitude("台北市大安區信義路三段168號");
+//		System.out.println("lng : " + json.get("lng"));
+//		System.out.println("lat : " + json.get("lat"));
+//	}
 
 }

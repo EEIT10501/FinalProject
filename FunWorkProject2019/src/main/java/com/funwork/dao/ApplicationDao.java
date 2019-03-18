@@ -32,4 +32,6 @@ public interface ApplicationDao {
 
   void refuseUser(Integer apId);
 
+  List<Application> findAllApplications(Integer userId);
+
 }
