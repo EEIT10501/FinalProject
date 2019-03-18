@@ -121,4 +121,10 @@ public class CompanyServiceImp implements CompanyService {
 
   }
 
+  @Override
+  public List<Company> getReviewHistory() {
+    // TODO Auto-generated method stub
+    return companyDao.getReviewHistory();
+  }
+
 }

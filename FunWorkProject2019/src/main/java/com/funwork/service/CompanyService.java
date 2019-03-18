@@ -35,4 +35,6 @@ public interface CompanyService {
   void companyReviewPass(Integer companyId);
 
   void companyReviewPassReviewFail(Integer companyId, String failReason);
+
+  List<Company> getReviewHistory();
 }

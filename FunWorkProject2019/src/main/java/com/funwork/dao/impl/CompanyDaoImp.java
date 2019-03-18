@@ -149,4 +149,12 @@ public class CompanyDaoImp implements CompanyDao {
     session.update(company);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Company> getReviewHistory() {
+    String hql = "FROM Company WHERE reviewStatus != '審核中' ORDER BY submitTime ASC";
+    Session session = factory.getCurrentSession();
+    return session.createQuery(hql).getResultList();
+  }
+
 }

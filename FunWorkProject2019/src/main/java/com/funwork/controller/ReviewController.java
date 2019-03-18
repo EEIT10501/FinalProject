@@ -110,4 +110,24 @@ public class ReviewController {
     }
     return "redirect:/companysReview";
   }
+  
+  /**
+   * Return companys review history.
+   */
+  @GetMapping(value = "/companysReviewHistory")
+  public String getCompanysReviewHistory(Model model) {
+    List<Company> companyList = companyService.getReviewHistory();
+    model.addAttribute("companyList", companyList);
+    return "review/companysReviewHistory";
+  }
+
+  /**
+   * Return company review history detail.
+   */
+  @GetMapping(value = "/companyReviewHistory/{companyId}")
+  public String getCompanyReviewHistory(Model model, @PathVariable Integer companyId) {
+    Company company = companyService.findByPrimaryKey(companyId);
+    model.addAttribute("companyBean", company);
+    return "review/companyReviewHistory";
+  }
 }

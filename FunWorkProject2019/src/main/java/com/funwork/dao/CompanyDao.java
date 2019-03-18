@@ -32,4 +32,6 @@ public interface CompanyDao {
   List<Company> getCompanyReviewList();
 
   void updateCompany(Company company);
+
+  List<Company> getReviewHistory();
 }

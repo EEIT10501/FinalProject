@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/DataTables/datatables.min.css/' />">
-<title>職缺審核</title>
+<title>公司審核紀錄</title>
 </head>
 <style>
 .card-text-size {
@@ -38,31 +38,31 @@
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
 					<a href="<c:url value='/companysReview'/>" class="list-group-item list-group-item-action">公司審核</a> 
-					<a href="<c:url value='/companysReviewHistory'/>" class="list-group-item list-group-item-action">審核紀錄</a>
+                    <a href="<c:url value='/companysReviewHistory'/>" class="list-group-item list-group-item-action">審核紀錄</a>
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1>待審核公司</h1>
-				<table class="table table-hover dataTable" id="companyTable">
+				<h1>公司審核紀錄</h1>
+				<table class="table table-hover dataTable" id="jobTable">
 					<thead>
 						<tr>
 							<th>公司編號</th>
-							<th>公司名稱</th>
-							<th>公司統一編號</th>
-							<th>公司登記地址</th>
-							<th>雇主姓名</th>
-							<th>審核時間</th>
+                            <th>公司名稱</th>
+                            <th>公司統一編號</th>
+                            <th>公司登記地址</th>
+                            <th>雇主姓名</th>
+                            <th>審核時間</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="company" items="${companyList}">
 							<tr>
 								<td>${company.companyId}</td>
-								<td><a href="<c:url value='/companyReview/${company.companyId}'/>">${company.name}</a></td>
+								<td><a href="<c:url value='/companyReviewHistory/${company.companyId}'/>">${company.name}</a></td>
 								<td>${company.taxId}</td>
 								<td>${company.address}</td>
 								<td>${company.user.userName}</td>
-								<td><fmt:formatDate value="${company.reviewTime}" pattern="yyyy/MM/dd HH:mm" /></td>
+                                <td><fmt:formatDate value="${company.reviewTime}" pattern="yyyy/MM/dd HH:mm" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -78,7 +78,7 @@
 	</div>
 	<script>
 		$(document).ready(function() {
-			$("#companyTable").DataTable();
+			$("#jobTable").DataTable();
 		});
 	</script>
 	<script src="<c:url value='/DataTables/datatables.min.js/'/>"></script>
