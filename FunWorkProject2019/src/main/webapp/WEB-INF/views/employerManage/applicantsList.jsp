@@ -39,6 +39,7 @@
 			function() {
 				var jobTitle = $("#jobTitleInput").val();
 				$("#JobTitle").val(jobTitle);
+				
 				if(jobTitle!=null){
 				document.getElementById("JobTitle").innerHTML = "["
 						+ $("#JobTitle").val() + "]";
