@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,29 +169,41 @@
 																	<div class="panel-body">
 																		<h6>
 																			<strong>您收到一則「<a href="#">${interview.interviewType}</a>」邀約，來自您應徵的工作「
-																			<a
-																				href='<c:url value="/jobDetail/${interview.application.job.jobId}"/>'>${interview.application.job.title}</a>」，請於到期前回覆此邀約</strong>
+																				<a
+																				href='<c:url value="/jobDetail/${interview.application.job.jobId}"/>'>${interview.application.job.title}</a>」，請於到期前回覆此邀約
+																			</strong>
 																		</h6>
 																		<p></p>
 																		<strong>地點:</strong> ${interview.interviewPlace}<br>
-																		<strong>邀約時間:</strong><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${interview.interviewTime}" /><br>
-																		<strong>雇主問題回應:</strong> ${interview.interviewComment}<br>
-																		<hr>
+																		<strong>邀約時間:</strong>
+																		<fmt:formatDate type="both" dateStyle="short"
+																			timeStyle="short" value="${interview.interviewTime}" />
+																		<br> <strong>雇主問題回應:</strong>
+																		${interview.interviewComment}<br>
 																		<!-- Button trigger modal -->
-																		<button type="button"
-																			class="btn btn btn-warning btn-sm"
-																			data-toggle="modal"
-																			data-target="#interviewModal${interview.interviewId}">
-																			<span class="glyphicon glyphicon-thumbs-up"></span>
-																			確定前往
-																		</button>
-																		<button type="button"
-																			class="btn btn btn-danger btn-sm" data-toggle="modal"
-																			data-target="#cancelinterviewModal${interview.interviewId}">
-																			<span class="glyphicon glyphicon-thumbs-up"></span>回絕邀約
-																		</button>
-
-
+																		<c:choose>																																			
+																		<c:when test="${interview.interviewStatus == '待回應'}">
+																				<br>
+																				<button type="button"
+																					class="btn btn btn-warning btn-sm"
+																					data-toggle="modal"
+																					data-target="#interviewModal${interview.interviewId}">
+																					<span class="glyphicon glyphicon-thumbs-up"></span>
+																					確定前往
+																				</button>
+																				<button type="button"
+																					class="btn btn btn-danger btn-sm"
+																					data-toggle="modal"
+																					data-target="#cancelinterviewModal${interview.interviewId}">
+																					<span class="glyphicon glyphicon-thumbs-up"></span>回絕邀約
+																				</button>
+																			</c:when>
+																			<c:otherwise>
+																				<br>
+																				<a href="">您已${interview.interviewStatus}此邀約。</a>
+																			</c:otherwise>
+																		</c:choose>
+																		<hr>
 																		<!--以下是確定前往彈出視窗的區塊 -->
 																		<div class="modal fade"
 																			id="interviewModal${interview.interviewId}"
@@ -269,13 +281,14 @@
 														</div>
 													</c:forEach>
 												</div>
-												</section>
-												<!-- ------------------------------------------------------------------------- -->
+											</section>
+											<!-- ------------------------------------------------------------------------- -->
 										</c:if>
 									</div>
 								</div>
-								
-								<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+
+								<div class="card-footer small text-muted">Updated
+									yesterday at 11:59 PM</div>
 							</div>
 
 							<!-- DataTables Example -->
@@ -309,7 +322,9 @@
 														<td>${applicatioList.job.rateByHour}</td>
 														<td>${applicatioList.answer}</td>
 														<td>${applicatioList.appliedStatus}</td>
-														<td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${applicatioList.applicationTime}" /></td>
+														<td><fmt:formatDate type="both" dateStyle="short"
+																timeStyle="short"
+																value="${applicatioList.applicationTime}" /></td>
 														<td><a
 															href="${pageContext.request.contextPath}/chat/${applicatioList.applicationId}">
 																<button type="button" class="btn btn-primary btn-sm"
@@ -324,8 +339,8 @@
 										</c:if>
 									</div>
 								</div>
-								<div class="card-footer small text-muted">
-								Updated yesterday at 11:59 PM</div>
+								<div class="card-footer small text-muted">Updated
+									yesterday at 11:59 PM</div>
 							</div>
 							<!-- /.container-fluid -->
 
