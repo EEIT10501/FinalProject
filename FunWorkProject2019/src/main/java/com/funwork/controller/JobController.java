@@ -86,7 +86,7 @@ public class JobController {
 		HttpSession session = req.getSession(); //取得session物件
 		User user = (User) session.getAttribute("loginUser"); //取的在session裡面名為loginUser的物件
 		
-		if(session.getAttribute("loginUser")!=null) {
+		if(session.getAttribute("loginUser")!=null && resumeService.getResumeByUserId(user.getUserId())!=null) {
 		resume = resumeService.getResumeByUserId(user.getUserId());
 		model.addAttribute("resumeBean", resume);
 		}

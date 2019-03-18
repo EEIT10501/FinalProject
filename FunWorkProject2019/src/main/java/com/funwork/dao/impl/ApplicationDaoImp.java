@@ -46,6 +46,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 		application.setUser(user);
 		application.setJob(job);
 		application.setAnswer(question);
+		application.setAppliedStatus("待回應");
 		session.save(application);
 	}
 
@@ -106,7 +107,7 @@ public class ApplicationDaoImp implements ApplicationDao {
 	@Override
 	public List<Application> getApplicationByUserIdByTime(Integer userId) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"+"ORDER BY a.applicationTime DESC";
+		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"+"ORDER BY a.applicationTime ";
 		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId).getResultList();
 		return list;
 	}

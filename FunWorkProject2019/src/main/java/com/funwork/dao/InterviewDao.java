@@ -20,7 +20,12 @@ public interface InterviewDao {
 
 	public boolean isInterviewExist(Interview interview);
 
-	List<Application> getInterviewByApplicationId(Integer applicationId);
+	List<Interview> findByApplicationIds(int key);
 
-	
+	List<Interview> findByApplicationIdAndTimeProcessing(int key);
+
+	List<Interview> findByApplicationIdAndTimeCompleted(int key);
+
+	List<Interview> findByApplicationIdAndTimeExpired(int key);
+
 }

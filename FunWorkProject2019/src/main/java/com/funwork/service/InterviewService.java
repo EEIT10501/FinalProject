@@ -20,6 +20,12 @@ public interface InterviewService {
 	void deleteAllInterviews();
 
 	public boolean isInterviewExist(Interview interview);
+	
+	List<Interview> findByApplicationIds(int key);
+	 
+	List<Interview> findByApplicationIdAndTimeProcessing(int key);
 
-	List<Application> getInterviewByApplicationId(Integer applicationId);
+	List<Interview> findByApplicationIdAndTimeCompleted(int key);
+
+	List<Interview> findByApplicationIdAndTimeExpired(int key);
 }

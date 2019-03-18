@@ -21,7 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funwork.model.Application;
-import com.funwork.model.Company;
 import com.funwork.model.Job;
 import com.funwork.model.Resume;
 import com.funwork.model.User;
@@ -86,28 +84,32 @@ public class PostJobController {
 		model.addAttribute("users", userlist);
 		return "employerManage/applicantsList";
 	}
-	
+
 	@RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
-	public String getRegisterCompanyForm(Model model) {
+	public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
 		Job jbean = new Job();
+		HttpSession session = request.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
+		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
+		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+
 		model.addAttribute("newJobPost", jbean);
+		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
+		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
+		model.addAttribute("companyNameList", companyNameList);
+
 		return "employerManage/addJobProfile";
 	}
 
-	@RequestMapping(value = "/addJobProfile", method = RequestMethod.POST, produces = { "application/json" })
-	public @ResponseBody String processPostNewJob(@ModelAttribute("newJobPost") Model model,BindingResult result, 
-			HttpServletRequest request) {
-		System.out.println("here");
+	@RequestMapping(value = "/addJobProfile", method = RequestMethod.POST)
+	public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-		Integer times = user.getJobPostLimit();
-		List<Job> list = jobService.findJobByUserIdNJobStatus(user.getUserId());
-		int activeJobNumber = list.size();
-		if (user != null && activeJobNumber < 3) {
-			return "OK";
-		} else {
-			return "quotaMeet";
-		}
+		User loginUser = (User) session.getAttribute("loginUser");
+
+		jobService.insertJob(jbean, loginUser.getUserId());
+
+		return "redirect:/manageJob";
 	}
 	@RequestMapping(value = "/getProfilePic/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getLogoPicture(HttpServletResponse resp, @PathVariable Integer userId) {
@@ -173,6 +175,12 @@ public class PostJobController {
 			e.printStackTrace();
 		}
 		return b;
+	}
+	@RequestMapping(value = "/getJobPostedCount/{userId}", method = RequestMethod.GET)
+	@ResponseBody
+	public Integer getJobPostedCount(@PathVariable("userId") Integer userId) {
+		Integer count = jobService.getJobPostedCount(userId);
+		return count;
 	}
 
 }

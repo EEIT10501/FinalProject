@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1>待處理申訴</h1>
+				<h1>申訴處理紀錄</h1>
 				<br>
 				<table class="table table-hover dataTable" id="cpTable">
 					<thead>
@@ -51,17 +51,17 @@
 							<th>申訴類別</th>
 							<th>申訴職缺</th>
 							<th>雇主姓名</th>
-							<th>提交時間</th>
+							<th>處理時間</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="cp" items="${complaintList}">
 							<tr>
 								<td>${cp.complaintId}</td>
-								<td><a href="<c:url value='/cpDeal/${cp.complaintId}'/>">${cp.type}</a></td>
+								<td><a href="<c:url value='/cpsHistory/${cp.complaintId}'/>">${cp.type}</a></td>
 								<td>${cp.job.title}</td>
 								<td>${cp.job.jobOwner.userName}</td>
-								<td><fmt:formatDate value="${cp.submitTime}" pattern="yyyy/MM/dd HH:mm" /></td>
+								<td><fmt:formatDate value="${cp.processTime}" pattern="yyyy/MM/dd HH:mm" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>

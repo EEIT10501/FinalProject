@@ -10,7 +10,7 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 
-<title>首頁</title>
+<title>訂單</title>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -24,14 +24,13 @@
 .asideblock {
 	height: 600px;
 }
-
 </style>
 </head>
 
 <body>
-	
-	<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
-	
+
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
+
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
@@ -49,6 +48,10 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
+				<h3>填寫訂單</h3>
+				<form method="POST" action="<c:url value='/orderCheck1'/>">			
+					<button type="submit" class="btn btn-primary">確認送出</button> 
+				</form>
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>

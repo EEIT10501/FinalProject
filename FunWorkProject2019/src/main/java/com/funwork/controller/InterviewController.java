@@ -44,8 +44,7 @@ public class InterviewController {
 
 	@RequestMapping(value = "/refuseUser/{apId}/{jobId}")
 	public String pullApplicantsByJob(@PathVariable("apId") String apId,@PathVariable("jobId") String jobId) {
-		applicationService.refuseUser(Integer.valueOf(apId));
-	
+		applicationService.refuseUser(Integer.valueOf(apId));	
 		return "redirect:/applications?id=" + jobId;
 	}
 

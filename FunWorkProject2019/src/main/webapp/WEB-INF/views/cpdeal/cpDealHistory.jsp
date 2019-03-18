@@ -42,7 +42,7 @@
 			<div class="col-sm-8 showjobdetail">
 				<div class="row">
 					<div class="col-sm-12">
-						<h3>申訴處理</h3>
+						<h3>申訴處理紀錄</h3>
 					</div>
 				</div>
 				<div class="row justify-content-center">
@@ -144,46 +144,10 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-sm-3">
-						<h5>提交時間</h5>
+						<h5>處理說明</h5>
 					</div>
-					<div class="col-sm-5"><fmt:formatDate value="${cpBean.submitTime}" pattern="yyyy/MM/dd HH:mm" /></div>
+					<div class="col-sm-5">${cpBean.processDescription}(<fmt:formatDate value="${cpBean.processTime}" pattern="yyyy/MM/dd HH:mm" />)</div>
 				</div>
-				<div class="row justify-content-center">
-					<form action="<c:url value='/cpDeal/${cpBean.complaintId}'/>" method="post" id="isRemoveForm">
-						<input type="hidden" id="isRemove" name="isRemove" value="">
-						<input type="hidden" id="jobid" name="jobId" value="${cpBean.job.jobId}">
-						<input type="button" class="btn btn-info btn-lg" id="remove" value="職缺下架" />
-						<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">結案</button>
-						<div class="modal fade" id="myModal" role="dialog">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title">請輸入結案原因</h4>
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-									</div>
-									<div class="modal-body">
-										<p>結案原因</p>
-										<input type="text" name="closeReason" class="form-control">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-info" data-dismiss="modal" id="close">送出</button>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-				<script>
-					$("#remove").click(function() {
-						$("#isRemove").attr("value", "remove");
-						$("#isRemoveForm").submit();
-					});
-					$("#close").click(function() {
-						$("#isRemove").attr("value", "close");
-						$("#isRemoveForm").submit();
-					});
-				</script>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

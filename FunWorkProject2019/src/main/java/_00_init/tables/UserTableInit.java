@@ -44,10 +44,11 @@ public class UserTableInit {
 				String abscence = token[10];
 				String facebook = token[11];
 				String google = token[12];
+				String isOpen = token[13];
 				User user = new User();
 				user.setUserName(userName);
 				user.setPassword(password);
-				user.setPhoneNum(Integer.valueOf(phoneNum));
+				user.setPhoneNum(phoneNum);
 				user.setEmail(email);
 				user.setMebershipLevel(Integer.valueOf(mebershipLevel));
 				user.setExposureLimit(Integer.valueOf(exposureLimit));
@@ -58,6 +59,7 @@ public class UserTableInit {
 				user.setAbscence(Integer.valueOf(abscence));
 				user.setFacebook(facebook);
 				user.setGoogle(google);
+				user.setIsOpen(Boolean.valueOf(isOpen));
 				session.save(user);
 			}
 			tx.commit();

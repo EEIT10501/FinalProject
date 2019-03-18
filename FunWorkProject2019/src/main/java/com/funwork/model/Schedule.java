@@ -2,8 +2,7 @@ package com.funwork.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -24,17 +23,18 @@ public class Schedule implements Serializable {
 	private Integer scheduleId;
 	private String scheduleName;
 	private String color;
-	private Time endTime;
-	private Time startTime;
+	private Timestamp endTime;
+	private Timestamp startTime;
 	private Float restHour;
 	private Date workDate;
 	private Job job;// fk
 	private Float workingHours;
+	private User user;
 
 	public Schedule() {
 	}
 
-	public Schedule(Integer scheduleId, String scheduleName, String color, Time endTime, Time startTime, Float restHour,
+	public Schedule(Integer scheduleId, String scheduleName, String color, Timestamp endTime, Timestamp startTime, Float restHour,
 			Date workDate, Job job, Float workingHours) {
 		super();
 		this.scheduleId = scheduleId;
@@ -58,19 +58,19 @@ public class Schedule implements Serializable {
 		this.scheduleId = scheduleId;
 	}
 
-	public Time getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Time endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 
-	public Time getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
@@ -116,6 +116,16 @@ public class Schedule implements Serializable {
 		this.restHour = restHour;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_User_Id")
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Transient
 	public Float getWorkingHours() throws ParseException {
 		SimpleDateFormat simpleFormat = new SimpleDateFormat("HH:mm");
@@ -129,6 +139,7 @@ public class Schedule implements Serializable {
 		float dayhours = hours - getRestHour();
 		return dayhours;
 	}
+
 	@Transient
 	public void setWorkingHours(Float workingHours) throws ParseException {
 		this.workingHours = workingHours;

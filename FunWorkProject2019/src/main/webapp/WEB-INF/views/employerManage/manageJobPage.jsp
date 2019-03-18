@@ -76,9 +76,17 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
+<<<<<<< HEAD
 			<div class="col-sm-2">
 				<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			</div>
+=======
+             <!-- 複製這裡↓ -->
+		<div class="col-sm-2">
+		<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
+		</div>
+		      <!-- 複製這裡 ↑ -->
+>>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 			<div class="col-sm-8">
 				<input type="hidden" id="contextPath"
 					value="${pageContext.request.contextPath}">

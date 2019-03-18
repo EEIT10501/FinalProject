@@ -1,6 +1,6 @@
 package com.funwork.dao.impl;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -24,10 +24,8 @@ public class ComplaintDaoImpl implements ComplaintDao {
 	@Override
 	public List<Complaint> getAllComplaints() {
 		String hql = "FROM Complaint";
-		Session session = null;
-		List<Complaint> list = new ArrayList<>();
-		session = factory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
+		Session session = factory.getCurrentSession();
+		List<Complaint> list = session.createQuery(hql).getResultList();
 		return list;
 	}
 
@@ -35,9 +33,8 @@ public class ComplaintDaoImpl implements ComplaintDao {
 	@Override
 	public List<Complaint> getComplaintDealList() {
 		String hql = "FROM Complaint WHERE status = '待處理' ORDER BY submitTime ASC";
-		List<Complaint> list = new ArrayList<>();
 		Session session = factory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
+		List<Complaint> list = session.createQuery(hql).getResultList();
 		return list;
 	}
 
@@ -54,6 +51,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
 		Complaint complaint = session.get(Complaint.class, cpId);
 		complaint.setProcessDescription(closeReason);
 		complaint.setStatus("已處理");
+		complaint.setProcessTime(new Timestamp(System.currentTimeMillis()));
 		return complaint;
 	}
 
@@ -61,6 +59,15 @@ public class ComplaintDaoImpl implements ComplaintDao {
 	public void insertCp(Complaint cp) {
 		Session session = factory.getCurrentSession();
 		session.save(cp);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Complaint> getComplaintHistoryList() {
+		String hql = "FROM Complaint WHERE status = '已處理' ORDER BY submitTime ASC";
+		Session session = factory.getCurrentSession();
+		List<Complaint> list = session.createQuery(hql).getResultList();
+		return list;
 	}
 
 }
