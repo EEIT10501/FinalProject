@@ -4,20 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -28,6 +26,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.funwork.viewResolver.ExcelViewResolver;
 import com.funwork.viewResolver.JsonViewResolver;
+import com.funwork.viewResolver.PdfViewResolver;
 
 
 @Configuration
@@ -35,6 +34,9 @@ import com.funwork.viewResolver.JsonViewResolver;
 @ComponentScan("com.funwork")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
+	@Autowired
+	ServletContext context;
+	
 	public WebAppConfig() {
 	}
 	
@@ -87,6 +89,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		List<ViewResolver> resolvers = new ArrayList<ViewResolver>();
 		resolvers.add(jsonViewResolver());
 		resolvers.add(excelViewResolver());
+		resolvers.add(pdfViewResolver(context));
 		resolvers.add(internalResourceViewResolver());
 		resolver.setViewResolvers(resolvers);
 		return resolver;
@@ -102,6 +105,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ViewResolver jsonViewResolver() {
 		return new JsonViewResolver();
+	}
+	
+	@Bean
+	public ViewResolver pdfViewResolver(ServletContext context) {
+		return new PdfViewResolver(context);
 	}
 
 	@Bean

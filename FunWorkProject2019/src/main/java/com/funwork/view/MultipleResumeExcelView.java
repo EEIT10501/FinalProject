@@ -66,6 +66,7 @@ public class MultipleResumeExcelView extends AbstractXlsView  {
 
 	private void populateExcelCells(Map<String, Object> model, Workbook workbook) {
 		Sheet sheet = workbook.getSheet(sheetName);
+		sheet.setColumnWidth(3, 5500);
 		
 		HSSFCellStyle styleCenter = (HSSFCellStyle)workbook.createCellStyle();
 		styleCenter.setFont(engTextFont);
@@ -117,7 +118,8 @@ public class MultipleResumeExcelView extends AbstractXlsView  {
 		styleDate.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
 		styleDate.setAlignment(CellStyle.ALIGN_CENTER);
 		
-        List<Resume> resumes = (List<Resume>) model.get("allMembers");
+        @SuppressWarnings("unchecked")
+		List<Resume> resumes = (List<Resume>) model.get("allMembers");
         
 		Set<String> set = model.keySet();
 		Row row = null;
@@ -127,6 +129,7 @@ public class MultipleResumeExcelView extends AbstractXlsView  {
 			row = sheet.createRow(rowCount++);
 			cell = row.createCell(colCount++);
 			cell.setCellStyle(styleCenter);
+//			cell.s
 			cell.setCellValue(m.getResumeId());
 			
 			cell = row.createCell(colCount++);
@@ -141,6 +144,7 @@ public class MultipleResumeExcelView extends AbstractXlsView  {
 			
 			cell = row.createCell(colCount++);
 			cell.setCellStyle(styleDate);
+//			cell.set
 			cell.setCellValue(m.getPhoneNum());
 		}
 //		int columnCount = sheet.getRow(0).getLastCellNum();

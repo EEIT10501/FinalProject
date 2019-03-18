@@ -186,16 +186,13 @@ public class PostJobController {
 	}
 
 	@RequestMapping(value = "/resumes", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
-	public String queryAllMembersExcel(Model model,@RequestParam("jobId") Integer jobId) {
-		System.out.println(jobId);
-		System.out.println("queryResumesExcel");
+	public String queryAllResumesExcel(Model model,@RequestParam("jobId") Integer jobId) {
 		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
 		List<Resume> reslist = new LinkedList<>();
 		for (Application app : list) {
 			Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
 			reslist.add(resume);
 		}
-//		List<Resume> list = resumeService.getAllResumes();
 		model.addAttribute("allMembers", reslist);
 		return "fileDownload/showMembers";
 	}
@@ -207,6 +204,22 @@ public class PostJobController {
 		Resume resume = resumeService.getResumeByUserId(key);
 		model.addAttribute(resume);
 		return "fileDownload/showMember";
+	}
+	
+	@RequestMapping(value = "/resumes", method = RequestMethod.GET, 
+			produces = "application/pdf")
+	public String queryAllResumesPDF(Model model, @RequestParam("jobId") Integer jobId) {
+		System.out.println(jobId);
+		System.out.println("queryResumesPDF");
+		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
+		List<Resume> reslist = new LinkedList<>();
+		for (Application app : list) {
+			Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
+			reslist.add(resume);
+		}
+		model.addAttribute("allMembers", reslist);
+		model.addAttribute("job", jobService.getJobById(jobId));
+		return "fileDownload/showMembers";
 	}
 
 }

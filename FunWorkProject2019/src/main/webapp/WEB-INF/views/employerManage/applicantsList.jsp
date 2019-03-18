@@ -56,7 +56,8 @@
 				<br>
 				<section>
 					<div style="float: right">
-						<a href='resumes?jobId=${jobId}'><button>匯出Excel</button></a>
+						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>
+						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
 					</div>
 					<div>
 						<div class="container" style="text-align: center">
@@ -76,7 +77,7 @@
 									<div class="col-sm-12" style="background-color: #F8F8FF">
 										<div class="panel panel-default text-left">
 											<div class="panel-body">
-												<h3>
+												<h3 style="margin: 10px">
 													<strong><a href="#">${applicant.user.userName}</a></strong>
 												</h3>
 												<div class="row">
@@ -135,7 +136,7 @@
 																				</c:if>
 																				<fieldset class="form-group">
 																					<div class="row">
-																						<legend class="col-form-label col-sm-3 pt-0">邀請類型：</legend>
+																						<label class="col-form-label col-sm-3 pt-0">邀請類型：</label>
 																						<div class="col-sm-9">
 																							<div class="form-check form-check-inline">
 																								<input class="form-check-input" type="radio"
@@ -208,6 +209,8 @@
 											</div>
 										</div>
 									</div>
+								</div>
+							</div>
 						</c:forEach>
 					</div>
 				</section>
