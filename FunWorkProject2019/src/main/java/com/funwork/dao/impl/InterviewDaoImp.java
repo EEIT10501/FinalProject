@@ -33,7 +33,6 @@ public class InterviewDaoImp implements InterviewDao {
 	@Override
 	public List<Interview> findByApplicationIdAndTimeProcessing(int key) {
 		String hql = "FROM Interview i WHERE i.application.user.userId = :userId"+
-				" and i.interviewStatus = '待回應' "+
 				" and i.interviewTime >= (getdate())"+
 				" ORDER BY i.interviewTime";
 		Session session = factory.getCurrentSession();

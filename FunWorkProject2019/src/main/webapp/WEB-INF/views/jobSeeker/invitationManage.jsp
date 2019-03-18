@@ -14,6 +14,11 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script language="javascript">
+　var Today=new Date();
+</script>
+
 <title>基本資訊</title>
 </head>
 
@@ -144,8 +149,10 @@
 																					value="${interview1.interviewTime}" />
 																				<br> <strong>雇主問題回應:</strong>
 																				${interview1.interviewComment}<br>
-																				<hr>
-																				<!-- Button trigger modal -->
+																				
+																				<!-- Button trigger modal -->	
+																				<c:choose>																																			
+																				<c:when test="${interview1.interviewStatus == '待回應'}"><br>
 																				<button type="button"
 																					class="btn btn btn-warning btn-sm"
 																					data-toggle="modal"
@@ -159,8 +166,13 @@
 																					data-target="#cancelinterviewModal${interview1.interviewId}">
 																					<span class="glyphicon glyphicon-thumbs-up"></span>回絕邀約
 																				</button>
-
-
+																				</c:when>
+																				<c:otherwise>
+																				<br>
+																				<a href="">您已${interview1.interviewStatus}此邀約。</a>
+																				</c:otherwise>	
+																				</c:choose>
+																				<hr>
 																				<!--以下是確定前往彈出視窗的區塊 -->
 																				<div class="modal fade"
 																					id="interviewModal${interview1.interviewId}"
