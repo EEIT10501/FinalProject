@@ -17,9 +17,6 @@ public class SuggestionDaoImpl implements SuggestionDao {
 	@Autowired
 	SessionFactory factory;
 
-	public SuggestionDaoImpl() {
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Suggestion> getAllSuggestions() {

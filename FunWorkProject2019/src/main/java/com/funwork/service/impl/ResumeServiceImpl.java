@@ -16,9 +16,6 @@ public class ResumeServiceImpl implements ResumeService {
 	@Autowired
 	ResumeDao dao;
 
-	public ResumeServiceImpl() {
-	}
-
 	@Transactional
 	@Override
 	public List<Resume> getAllResumes() {

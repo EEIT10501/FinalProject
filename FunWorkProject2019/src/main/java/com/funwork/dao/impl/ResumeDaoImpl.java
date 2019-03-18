@@ -17,10 +17,6 @@ public class ResumeDaoImpl implements ResumeDao {
 	@Autowired
 	SessionFactory factory;
 
-	public ResumeDaoImpl() {
-
-	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Resume> getAllResumes() {
@@ -36,13 +32,12 @@ public class ResumeDaoImpl implements ResumeDao {
 	public Resume getResumeByUserId(Integer userId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Resume WHERE Fk_User_Id = :userId";
-		if(session.createQuery(hql).setParameter("userId", userId).getResultList().size()!=0){
-		Resume resume = (Resume) session.createQuery(hql).setParameter("userId", userId).getSingleResult();
-		return resume;
+		if (session.createQuery(hql).setParameter("userId", userId).getResultList().size() != 0) {
+			Resume resume = (Resume) session.createQuery(hql).setParameter("userId", userId).getSingleResult();
+			return resume;
+		} else {
+			return null;
 		}
-		 else {
-			 return null;
-		 }
 	}
 	
 }

@@ -38,14 +38,14 @@ public class ApplicationServiceImp implements ApplicationService {
 
 	@Transactional
 	@Override
-	public void saveApplication(Application Application) {
-		dao.saveApplication(Application);
+	public void saveApplication(Application application) {
+		dao.saveApplication(application);
 	}
 
 	@Transactional
 	@Override
-	public void updateApplication(Application Application) {
-		dao.updateApplication(Application);
+	public void updateApplication(Application application) {
+		dao.updateApplication(application);
 	}
 
 	@Transactional
@@ -68,8 +68,8 @@ public class ApplicationServiceImp implements ApplicationService {
 
 	@Transactional
 	@Override
-	public boolean isApplicationExist(Application Application) {
-		return dao.isApplicationExist(Application);
+	public boolean isApplicationExist(Application application) {
+		return dao.isApplicationExist(application);
 	}
 
 	@Transactional
@@ -101,6 +101,11 @@ public class ApplicationServiceImp implements ApplicationService {
 	@Override
 	public void refuseUser(Integer apId) {
 		dao.refuseUser(apId);
+	}
+	@Transactional
+	@Override
+	public List<Application> findByJobId(Integer jobId) {
+		return dao.findByJobId(jobId);
 	}
 
 }

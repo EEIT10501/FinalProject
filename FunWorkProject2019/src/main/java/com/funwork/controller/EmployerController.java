@@ -104,7 +104,6 @@ public class EmployerController {
 		if (user != null) {
 			List<Company> list = companyService.findAllCompanyByUserId(user.getUserId());
 			model.addAttribute("companys", list);
-			System.out.println("check here");
 			return "employerManage/manageCompanyPage";
 		} else {
 			return "redirect:/";

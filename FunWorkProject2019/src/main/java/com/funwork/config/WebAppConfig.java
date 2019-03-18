@@ -28,7 +28,6 @@ import com.funwork.viewResolver.ExcelViewResolver;
 import com.funwork.viewResolver.JsonViewResolver;
 import com.funwork.viewResolver.PdfViewResolver;
 
-
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.funwork")
@@ -36,10 +35,13 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	ServletContext context;
-	
+
 	public WebAppConfig() {
 	}
-	
+
+	/**
+	 * ViewResolver for jsp.
+	 */
 	@Bean
 	public ViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -49,6 +51,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/css/");
 		registry.addResourceHandler("/image/**").addResourceLocations("/WEB-INF/views/images/");
@@ -60,6 +63,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 				.addResourceLocations("/WEB-INF/views/DataTables/datatableimages/");
 	}
 
+	/**
+	 * For globalization.
+	 */
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
@@ -67,6 +73,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resource;
 	}
 
+	/**
+	 * For upload file. MaxUploadSize定義上傳檔案限制的大小.
+	 */
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -75,6 +84,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 
+	/**
+	 * Json view bean, 提供內容協商視圖解析器用.
+	 */
 	@Bean
 	public MappingJackson2JsonView jsonView() {
 		MappingJackson2JsonView view = new MappingJackson2JsonView();
@@ -82,6 +94,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return view;
 	}
 
+	/**
+	 * For Json、PDF、XML、Excel等視圖解析.
+	 */
 	@Bean
 	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
 		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
@@ -94,24 +109,26 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		resolver.setViewResolvers(resolvers);
 		return resolver;
 	}
-	
-	
+
 	@Bean
 	public ViewResolver excelViewResolver() {
 		System.out.println("excelViewResolver");
 		return new ExcelViewResolver();
 	}
-	
+
 	@Bean
 	public ViewResolver jsonViewResolver() {
 		return new JsonViewResolver();
 	}
-	
+
 	@Bean
 	public ViewResolver pdfViewResolver(ServletContext context) {
 		return new PdfViewResolver(context);
 	}
 
+	/**
+	 * Mail Bean.
+	 */
 	@Bean
 	public JavaMailSenderImpl javaMailSenderImpl() {
 		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
@@ -132,5 +149,4 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		javaMailSenderImpl.setPassword("mino810125");
 		return javaMailSenderImpl;
 	}
-	
 }

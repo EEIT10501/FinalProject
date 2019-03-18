@@ -1,86 +1,87 @@
 package com.funwork.service.impl;
 
-import java.util.List;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import com.funwork.dao.ApplicationDao;
 import com.funwork.dao.InterviewDao;
 import com.funwork.model.Application;
 import com.funwork.model.Interview;
 import com.funwork.service.InterviewService;
+import java.sql.Timestamp;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class InterviewServiceImp implements InterviewService {
 
-	@Autowired
-	InterviewDao dao;
-	
-	@Transactional
-	@Override
-	public Interview findByPrimaryKey(int key) {
-		return dao.findByPrimaryKey(key);
-	}
+  @Autowired
+  InterviewDao interviewDao;
+  @Autowired
+  ApplicationDao applicationDao;
 
-	@Transactional
-	@Override
-	public void saveInterview(Interview interview) {
-		dao.saveInterview(interview);
-	}
+  @Override
+  public Interview findByPrimaryKey(int key) {
+    return interviewDao.findByPrimaryKey(key);
+  }
 
-	@Transactional
-	@Override
-	public void updateInterview(Interview interview) {
-		dao.updateInterview(interview);
-	}
+  @Override
+  public Integer saveInterview(String interType, String interComment, 
+      String interPlace, String interTime, Integer apId) {
+    Interview interview = new Interview();
+    interview.setInterviewType(interType);
+    interview.setInterviewComment(interComment);
+    interview.setInterviewPlace(interPlace);
+    interview.setInterviewTime(Timestamp.valueOf(interTime.replace("T", " ") + ":00"));
+    Application ap = applicationDao.findByPrimaryKey(apId);
+    interview.setApplication(ap);
+    interview.setInterviewStatus("待回應");
+    interviewDao.saveInterview(interview);
+    return ap.getJob().getJobId();
+  }
 
-	@Transactional
-	@Override
-	public void deleteInterviewByPrimaryKey(int key) {
-		dao.deleteInterviewByPrimaryKey(key);
-	}
+  @Override
+  public void updateInterview(Interview interview) {
+    interviewDao.updateInterview(interview);
+  }
 
-	@Transactional
-	@Override
-	public List<Interview> findAllInterviews() {
-		return dao.findAllInterviews();
-	}
+  @Override
+  public void deleteInterviewByPrimaryKey(int key) {
+    interviewDao.deleteInterviewByPrimaryKey(key);
+  }
 
-	@Transactional
-	@Override
-	public void deleteAllInterviews() {
-		dao.deleteAllInterviews();
-	}
+  @Override
+  public List<Interview> findAllInterviews() {
+    return interviewDao.findAllInterviews();
+  }
 
-	@Transactional
-	@Override
-	public boolean isInterviewExist(Interview interview) {
-		return dao.isInterviewExist(interview);
-	}
-	
+  @Override
+  public void deleteAllInterviews() {
+    interviewDao.deleteAllInterviews();
+  }
 
-	@Transactional
-	@Override
-	public List<Interview> findByApplicationIds(int key) {
-		return dao.findByApplicationIds(key);
-	} 
-	
-	@Transactional
-	@Override
-	public List<Interview> findByApplicationIdAndTimeProcessing(int key) {
-		return dao.findByApplicationIdAndTimeProcessing(key);
-	}
-	@Transactional
-	@Override
-	public List<Interview> findByApplicationIdAndTimeCompleted(int key) {
-		return dao.findByApplicationIdAndTimeCompleted(key);
-	}
-	@Transactional
-	@Override
-	public List<Interview> findByApplicationIdAndTimeExpired(int key) {
-		return dao.findByApplicationIdAndTimeExpired(key);
-	}
-	
+  @Override
+  public boolean isInterviewExist(Interview interview) {
+    return interviewDao.isInterviewExist(interview);
+  }
+
+  @Override
+
+  public List<Interview> findByApplicationIds(int key) {
+    return interviewDao.findByApplicationIds(key);
+  }
+
+  public List<Interview> findByApplicationIdAndTimeProcessing(int key) {
+    return interviewDao.findByApplicationIdAndTimeProcessing(key);
+  }
+
+  @Override
+  public List<Interview> findByApplicationIdAndTimeCompleted(int key) {
+    return interviewDao.findByApplicationIdAndTimeCompleted(key);
+  }
+
+  @Override
+  public List<Interview> findByApplicationIdAndTimeExpired(int key) {
+    return interviewDao.findByApplicationIdAndTimeExpired(key);
+  }
 }

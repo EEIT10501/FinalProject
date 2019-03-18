@@ -40,7 +40,7 @@
 					<h1>張貼工作</h1>
 					<p id="noPost" style="color:red"></p>
 				</div>
-				<form:form modelAttribute="newJobPost" method="POST" id="jobForm">			
+				<form:form modelAttribute="jobBean" method="POST" id="jobForm">			
 						<hr>
 						<div class="form-group row">
 						    <label for="type" class="col-sm-2 col-form-label">工作類型</label>
@@ -90,11 +90,17 @@
 						    </div>
 						</div>
 						<div class="form-group row">
-							<label for="workDate" class="col-sm-2 col-form-label">工作時間</label>
+							<label for="workDate" class="col-sm-2 col-form-label">工作日期</label>
 						    <div class="col-sm-10">
-						    	<form:input type="text" path="workDate" class="form-control" id="workDate" placeholder="ex:早上8:00~下午16:00，中間休息一小時" required="required"/>
+						    	<form:input type="text" path="workDate" class="form-control" id="workDate" placeholder="ex:即日起至2019-03-22" required="required"/>
 						    </div>
 						</div>
+						<div class="form-group row">
+                            <label for="workTime" class="col-sm-2 col-form-label">工作時間</label>
+                            <div class="col-sm-10">
+                                <form:input type="text" path="workTime" class="form-control" id="workTime" placeholder="ex:早上8:00~下午16:00，中間休息一小時" required="required"/>
+                            </div>
+                        </div>
 						<div class="form-group row">
 							<label for="address" class="col-sm-2 col-form-label">工作地址</label>
 							<div class="col-sm-2">

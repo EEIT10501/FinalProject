@@ -39,7 +39,6 @@ import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
 
 @Controller
-@RequestMapping
 public class PostJobController {
 
 	@Autowired
@@ -60,13 +59,6 @@ public class PostJobController {
 	@Autowired
 	ServletContext context;
 
-	@RequestMapping(value = "/jobProfile")
-	public String getJobPostById(@RequestParam("id") Integer id, Model model) {
-		System.out.println("job selected: " + id);
-		model.addAttribute("job", jobService.getJobById(id));
-		return "employerManage/jobProfile";
-	}
-
 	@RequestMapping(value = "/applications")
 	public String pullApplicantsByJob(@RequestParam("id") Integer id, Model model) {
 		System.out.println("ready to pull applicant by jobId" + id);
@@ -86,20 +78,24 @@ public class PostJobController {
 		return "employerManage/applicantsList";
 	}
 
+	@RequestMapping(value = "/jobProfile")
+	public String getJobPostById(@RequestParam("id") Integer id, Model model) {
+		model.addAttribute("job", jobService.getJobById(id));
+		return "employerManage/jobProfile";
+	}
+
 	@RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
-		Job jbean = new Job();
+		Job job = new Job();
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
 		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
 		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
-
-		model.addAttribute("newJobPost", jbean);
+		model.addAttribute("jobBean", job);
 		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
 		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
 		model.addAttribute("companyNameList", companyNameList);
-
 		return "employerManage/addJobProfile";
 	}
 
@@ -107,9 +103,7 @@ public class PostJobController {
 	public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-
 		jobService.insertJob(jbean, loginUser.getUserId());
-
 		return "redirect:/manageJob";
 	}
 
@@ -118,13 +112,14 @@ public class PostJobController {
 
 		System.out.println("UserId" + userId);
 		System.out.println("Enter Profile getPicture");
+		System.out.println("UserId" + userId);
+		System.out.println("Enter Profile getPicture");
 
 		String filePath = "/resources/images/NoImage.jpg";
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
 		String filename = "";
 		int len = 0;
-//		Company bean = companyService.findByPrimaryKey(companyId);
 		Resume bean = resumeService.getResumeByUserId(userId);
 
 		if (bean != null) {
@@ -151,7 +146,6 @@ public class PostJobController {
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		System.out.println(filename);
 		String mimeType = context.getMimeType(filename);
-
 		MediaType mediatype = MediaType.valueOf(mimeType);
 		System.out.println("mediaType: " + mediatype);
 		headers.setContentType(mediatype);
@@ -186,7 +180,7 @@ public class PostJobController {
 	}
 
 	@RequestMapping(value = "/resumes", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
-	public String queryAllResumesExcel(Model model,@RequestParam("jobId") Integer jobId) {
+	public String queryAllResumesExcel(Model model, @RequestParam("jobId") Integer jobId) {
 		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
 		List<Resume> reslist = new LinkedList<>();
 		for (Application app : list) {
@@ -197,7 +191,7 @@ public class PostJobController {
 		return "fileDownload/showMembers";
 	}
 
-	 //顯示單筆Member資料，然後導向顯示畫面
+	// 顯示單筆Member資料，然後導向顯示畫面
 	@RequestMapping(value = "resumesAAA/{key}.xls", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
 	public String displayMemberEXCEL(@PathVariable Integer key, Model model) {
 		System.out.println("queryResumeExcel");
@@ -205,9 +199,8 @@ public class PostJobController {
 		model.addAttribute(resume);
 		return "fileDownload/showMember";
 	}
-	
-	@RequestMapping(value = "/resumes", method = RequestMethod.GET, 
-			produces = "application/pdf")
+
+	@RequestMapping(value = "/resumes", method = RequestMethod.GET, produces = "application/pdf")
 	public String queryAllResumesPDF(Model model, @RequestParam("jobId") Integer jobId) {
 		System.out.println(jobId);
 		System.out.println("queryResumesPDF");

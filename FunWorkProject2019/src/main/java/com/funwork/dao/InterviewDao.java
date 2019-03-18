@@ -2,7 +2,6 @@ package com.funwork.dao;
 
 import java.util.List;
 
-import com.funwork.model.Application;
 import com.funwork.model.Interview;
 
 public interface InterviewDao {
