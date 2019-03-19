@@ -6,6 +6,8 @@ import com.funwork.model.Schedule;
 
 public interface ScheduleService {
 	List<Schedule> getAllSchedules();
+	
+	List<Schedule> getSchedulesByDate();
 
 	List<Schedule> getSchedulesByJobId(Integer jobId);
 

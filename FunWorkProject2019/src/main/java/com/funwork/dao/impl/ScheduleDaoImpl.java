@@ -1,6 +1,11 @@
 package com.funwork.dao.impl;
 
+
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.PropertyNotFoundException;
@@ -26,6 +31,20 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		List<Schedule> list = new ArrayList<>();
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+	
+	@Override
+	public List<Schedule> getSchedulesByDate() {
+		String hql = "FROM Schedule where endTime > :endTime";
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		
+		Date date = new Date();
+//		System.out.println(date);
+		
+		list = session.createQuery(hql).setParameter("endTime", date).getResultList();
 		return list;
 	}
 
