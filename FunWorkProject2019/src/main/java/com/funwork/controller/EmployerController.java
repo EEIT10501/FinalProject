@@ -178,7 +178,6 @@ public class EmployerController {
 			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
 
-
 		MultipartFile image = cb.getCompanyLicensureImage();
 		String originalFilename = image.getOriginalFilename();
 		cb.setFileName(originalFilename);
