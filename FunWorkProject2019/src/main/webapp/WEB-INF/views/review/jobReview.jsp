@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -6,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>職缺審核</title>
 </head>
@@ -34,10 +36,7 @@
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="<c:url value='/jobsReview'/>" class="list-group-item list-group-item-action">職缺審核</a> 
-					<a href="<c:url value='/jobsReviewHistory'/>" class="list-group-item list-group-item-action">審核紀錄</a>
-				</div>
+				<jsp:include page="/WEB-INF/views/includes/adminSideBar.jsp"></jsp:include>
 			</div>
 			<div class="col-sm-8 showjobdetail">
 				<div class="row">
@@ -115,13 +114,19 @@
 					<div class="col-sm-3">
 						<h5>張貼期限</h5>
 					</div>
-					<div class="col-sm-5"><fmt:formatDate value="${jobBean.postEndDate}" pattern="yyyy/MM/dd HH:mm" /></div>
+					<div class="col-sm-5">
+						<fmt:formatDate value="${jobBean.postEndDate}"
+							pattern="yyyy/MM/dd HH:mm" />
+					</div>
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-sm-3">
 						<h5>提交時間</h5>
 					</div>
-					<div class="col-sm-5"><fmt:formatDate value="${jobBean.submitTime}" pattern="yyyy/MM/dd HH:mm" /></div>
+					<div class="col-sm-5">
+						<fmt:formatDate value="${jobBean.submitTime}"
+							pattern="yyyy/MM/dd HH:mm" />
+					</div>
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-sm-3">
@@ -149,10 +154,12 @@
 					<div class="col-sm-5">${jobBean.comment}</div>
 				</div>
 				<div class="row justify-content-center">
-					<form action="<c:url value='/jobReview/${jobBean.jobId}'/>" method="post" id="isPassForm">
-						<input type="hidden" id="isPass" name="isPass" value=""> 
-						<input type="button" class="btn btn-info btn-lg" id="pass" value="審核通過" />
-						<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">審核失敗</button>
+					<form action="<c:url value='/jobReview/${jobBean.jobId}'/>"
+						method="post" id="isPassForm">
+						<input type="hidden" id="isPass" name="isPass" value=""> <input
+							type="button" class="btn btn-info btn-lg" id="pass" value="審核通過" />
+						<button type="button" class="btn btn-danger btn-lg"
+							data-toggle="modal" data-target="#myModal">審核失敗</button>
 						<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -165,8 +172,10 @@
 										<input type="text" name="failReason" class="form-control">
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-info" data-dismiss="modal" id="fail">送出</button>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">關閉</button>
+										<button type="button" class="btn btn-info"
+											data-dismiss="modal" id="fail">送出</button>
+										<button type="button" class="btn btn-danger"
+											data-dismiss="modal">關閉</button>
 									</div>
 								</div>
 							</div>
@@ -189,11 +198,14 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
+			<div class="col text-center">Copyright© 2019 趣打工 All rights
+				reserved.</div>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
