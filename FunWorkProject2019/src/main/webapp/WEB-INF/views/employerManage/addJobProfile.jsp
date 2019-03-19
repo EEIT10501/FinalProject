@@ -226,7 +226,7 @@
 				type : "GET",
 				success : function(data) {
 					if(data >= ${sessionScope.loginUser.jobPostLimit}){
-						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作");
+						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作。");
 						$("#jobForm").hide();
 					}
 				}

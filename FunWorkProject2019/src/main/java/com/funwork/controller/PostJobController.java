@@ -111,7 +111,7 @@ public class PostJobController {
   public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
     HttpSession session = request.getSession();
     User loginUser = (User) session.getAttribute("loginUser");
-
+    jobService.insertJob(jbean, loginUser.getUserId());
     return "redirect:/manageJob";
   }
 

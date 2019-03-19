@@ -160,6 +160,9 @@ public class JobServiceImpl implements JobService {
     // 設定經緯度
     jbean.setJobLat(latlng.get("lat"));
     jbean.setJobLng(latlng.get("lng"));
+    if (jbean.getOther() == null) {
+      jbean.setOther("給雇主的話");
+    }
     jbean.setIsExposure(false);
     jbean.setIsFilled(false);
     jbean.setReviewStatus("待審核");
@@ -171,7 +174,7 @@ public class JobServiceImpl implements JobService {
       jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
     }
     jbean.setCity(cityDao.getCityByCityName(cityName));
-
+    
     return jobDao.insertJob(jbean);
   }
 
@@ -223,5 +226,39 @@ public class JobServiceImpl implements JobService {
       }
     }
     return null;
+  }
+
+  @Override
+  public List<Job> getJobsBySearchStr(String searchStr) {
+    return jobDao.getJobsBySearchStr(searchStr);
+  }
+
+  @Override
+  public void changeJobExposure(Integer jobId) {
+    Job job = jobDao.getJobById(jobId);
+    if (job.getIsExposure()) {
+      job.setIsExposure(false);
+      jobDao.updateJob(job);
+    } else {
+      job.setIsExposure(true);     
+      jobDao.updateJob(job);
+    }
+  }
+
+  @Override
+  public Integer getJobExposureCount(Integer userId) {
+    return jobDao.getJobExposureCount(userId);
+  }
+
+  @Override
+  public void changeJobFilled(Integer jobId) {
+    Job job = jobDao.getJobById(jobId);
+    if (job.getIsFilled()) {
+      job.setIsFilled(false);
+      jobDao.updateJob(job);
+    } else {
+      job.setIsFilled(true);     
+      jobDao.updateJob(job);
+    }
   }
 }

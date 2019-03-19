@@ -31,4 +31,8 @@ public interface JobDao {
 
   int getJobPostedCount(Integer userId);
 
+  List<Job> getJobsBySearchStr(String searchStr);
+
+  Integer getJobExposureCount(Integer userId);
+
 }
