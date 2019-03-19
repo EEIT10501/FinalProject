@@ -132,7 +132,7 @@
 					websocket.send(message);
 
 					$.ajax({
-						url : "${pageContext.request.contextPath}/message/TestWS?userId="
+						url : "${pageContext.request.contextPath}/message/connWS?userId="
 								+ userId + "&toUserId=" + toUserId
 								+ "&message=" + message + "&apId=" + apId,
 						type : "GET",

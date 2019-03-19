@@ -1,23 +1,16 @@
 package com.funwork.dao;
 
-import java.io.Serializable;
+import com.funwork.model.Message;
 import java.util.List;
 
-import com.funwork.model.Message;
-import com.funwork.model.User;
-
 public interface MessageDao {
-	List<Message> getAllMessages();
+  List<Message> getAllMessages();
 
-	List<Message> getOldMessageByApplicationId(Integer applicationId);
+  List<Message> getOldMessageByApplicationId(Integer applicationId);
 
-	Serializable insertMessage(Message message);
+  public void insertMessage(Message msg);
 
-	void insertReceiver(Serializable msgId, User user);
+  void changeMsgStatusToRead(Integer userId, Integer adId);
 
-	void insertMessage(String message, String userId, String toUserId, String apId, Integer isRead);
-
-	void changeMsgStatusToRead(Integer userId, Integer adId);
-
-	int getNewMsgCount(Integer userId);
+  int getNewMsgCount(Integer userId);
 }

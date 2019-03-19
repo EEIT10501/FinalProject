@@ -31,6 +31,7 @@ $(document).ready(function() {
 		saveEvent();
 	});
 	
+	<c:if test="${change!=null}">
 	$('#external-events .fc-event').each(function() {
 
 	    // store data so the calendar knows to render an event upon drop
@@ -49,6 +50,7 @@ $(document).ready(function() {
 	    });
 
 	  });
+	</c:if>
 
 	$('#calendar').fullCalendar({
 		defaultView : 'month',
@@ -172,11 +174,8 @@ function saveEvent(){
 }
 
 #external-events {
-	position: fixed;
-	z-index: 2;
-	top: 20px;
-	left: 20px;
-	width: 150px;
+	float: left;
+	width: 100px;
 	padding: 0 10px;
 	border: 1px solid #ccc;
 	background: #eee;
@@ -187,15 +186,12 @@ function saveEvent(){
 	cursor: move;
 }
 
-#calendar-container {
-	position: relative;
-	z-index: 1;
-	margin-left: 200px;
+#calendar-container {	
+ 	z-index: 1; 
 }
 
 #calendar {
-	max-width: 900px;
-	margin: 20px auto;
+	margin: 10px;
 }
 
 .btn {
@@ -211,41 +207,46 @@ function saveEvent(){
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-		<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-2">預留區塊</div>
 
 			<div class="col-sm-10 align-self-center">
-				<!--             程式寫在這 -->
-				<div id='external-events'>
-					<p>
-						<strong>Draggable Events</strong>
-					</p>
-					<div class='fc-event' >石偉庭</div>
-					<div class='fc-event' >鄭揚</div>
-					<div class='fc-event' >涂哲賢</div>
-					<div class='fc-event' >陳奕璋</div>
-					<div class='fc-event' >毛尊佑</div>
-					<div class='fc-event' >楊立台</div>
-					<p>
-						<input type='checkbox' id='drop-remove' /> <label
-							for='drop-remove'>remove after drop</label>
-					</p>
+				<div class="row m-3 justify-content-around">
+					<div class="col-sm-2">
+						<div id='external-events'>
+							<p>
+								<strong>Draggable Events</strong>
+							</p>
+							<c:if test="${empty interviewList}"><h3>此工作尚無錄取者</h3></c:if>
+							<c:forEach var="interviewList" items="${interviewList}">
+							<div class='fc-event'>${interviewList.application.user.userName}</div>
+							</c:forEach>
+							<p>
+								<input type='checkbox' id='drop-remove' /> <label
+									for='drop-remove'>remove after drop</label>
+							</p>
+						</div>
+					</div>
+					<div class="col-sm-10">
+						<div id='calendar-container'>
+							<div id='calendar'></div>
+							<div style="float: right">
+								<c:if test="${empty change}">
+									<a class="btn btn-primary"
+										href="<c:url value='/ScheduleCalendar/change'/>"><span
+										class="glyphicon-info-sigh glyphicon"></span>編輯</a>
+								</c:if>
+								<c:if test="${change!=null}">
+									<a class="btn btn-primary" id="saveEvent"><span
+										class="glyphicon-info-sigh glyphicon"></span>儲存</a>
+								</c:if>
+							</div>
+							<!-- 				<input type="button" onclick="saveEvent()" value="TEST"> -->
+						</div>
+					</div>
 				</div>
-
-				<div id='calendar-container'>
-					<div id='calendar'></div>
-					<div style="float:right">
-				<c:if test="${empty change}">
-				<a class="btn btn-primary" href="<c:url value='/ScheduleCalendar/change'/>"><span class="glyphicon-info-sigh glyphicon"></span>編輯</a>
-				</c:if>
-				<c:if test="${change!=null}">
-				<a class="btn btn-primary" id="saveEvent"><span class="glyphicon-info-sigh glyphicon"></span>儲存</a>
-				</c:if>
-				</div>
-<!-- 				<input type="button" onclick="saveEvent()" value="TEST"> -->
-				</div>				
 
 			</div>
-			
+
 		</div>
 	</div>
 	<div class="container-fluid">
@@ -254,10 +255,11 @@ function saveEvent(){
 				reserved.</div>
 		</div>
 	</div>
-	
-<script type="text/javascript" src="<c:url value='/js/moment.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/fullcalendar.min.js'/>"></script>
-<script src='https://code.jquery.com/ui/1.11.3/jquery-ui.min.js'></script>
+
+	<script type="text/javascript" src="<c:url value='/js/moment.min.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value='/js/fullcalendar.min.js'/>"></script>
+	<script src='https://code.jquery.com/ui/1.11.3/jquery-ui.min.js'></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

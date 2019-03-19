@@ -16,9 +16,6 @@ public class ExperienceServiceImpl implements ExperienceService {
 	@Autowired
 	ExperienceDao dao;
 
-	public ExperienceServiceImpl() {
-	}
-
 	@Transactional
 	@Override
 	public List<Experience> getAllExperiences() {

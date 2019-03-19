@@ -1,8 +1,9 @@
 package com.funwork.dao.impl;
 
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.PropertyNotFoundException;
@@ -12,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.ScheduleDao;
-import com.funwork.model.Interview;
-import com.funwork.model.Job;
-import com.funwork.model.Notification;
 import com.funwork.model.Schedule;
 
 @Repository
@@ -22,9 +20,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
 	@Autowired
 	SessionFactory factory;
-
-	public ScheduleDaoImpl() {
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -37,6 +32,21 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return list;
 	}
 
+	@Override
+	public List<Schedule> getSchedulesByDate(Integer jobId) {
+		String hql = "FROM Schedule s WHERE endTime > :endTime AND s.interview.interviewType='錄取' AND s.interview.application.job.jobId=:jobId";
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+
+		Date date = new Date();
+//		System.out.println(date);
+
+		list = session.createQuery(hql).setParameter("endTime", date).setParameter("jobId", jobId).getResultList();
+		return list;
+	}
+	
+
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<Schedule> getSchedulesByJobId(Integer jobId) {
@@ -44,16 +54,16 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		Session session = null;
 		List<Schedule> list = new ArrayList<>();
 		session = factory.getCurrentSession();
-		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();		
-			return list;
+		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+		return list;
 	}
-	
+
 	@Override
 	public void insertSchedule(Schedule schedule) {
 		Session session = factory.getCurrentSession();
 		session.merge(schedule);
 	}
-	
+
 	@Override
 	public void deleteScheduleByPrimaryKey(int scheduleId) {
 		Session session = factory.getCurrentSession();
@@ -61,22 +71,21 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		schedule.setScheduleId(scheduleId);
 		session.delete(schedule);
 	}
-	
+
 	@Override
 	public void updateScheduleByPrimaryKey(Schedule schedule) {
 		Session session = factory.getCurrentSession();
 		session.update(schedule);
 	}
-	
+
 	@Override
 	public Schedule getScheduleByPrimaryKey(int scheduleId) {
-		Session session = factory.getCurrentSession();		
+		Session session = factory.getCurrentSession();
 		Schedule schedule = session.get(Schedule.class, scheduleId);
-		if(schedule==null)throw new PropertyNotFoundException("scheduleId"+scheduleId+" Not Found:");
+		if (schedule == null)
+			throw new PropertyNotFoundException("scheduleId" + scheduleId + " Not Found:");
 		return schedule;
 
 	}
-	
-
 
 }

@@ -1,9 +1,7 @@
 package com.funwork.controller;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,19 +19,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.funwork.model.Application;
 import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
 import com.funwork.model.User;
 import com.funwork.model.Job;
+import com.funwork.service.InterviewService;
 import com.funwork.service.JobService;
 import com.funwork.service.ScheduleService;
+
 
 @Controller
 public class ScheduleController {
 
 	@Autowired
 	ScheduleService scheduleService;
+	
+	@Autowired
+	InterviewService interviewService;
 
 
 	public ScheduleController() {
@@ -46,8 +50,11 @@ public class ScheduleController {
 
 	@RequestMapping("/ScheduleCalendar")
 	public String calendarSave(Model model) {
-		List<Schedule> scheduleList = scheduleService.getAllSchedules();
-
+		
+		int jobId = 1; //測試用
+		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+		
+		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
 		for (Schedule sj : scheduleList) {
@@ -60,7 +67,7 @@ public class ScheduleController {
 		}
 		System.out.println(jsonArray);
 		model.addAttribute("json", jsonArray);
-		model.addAttribute("scheduleList", scheduleList);
+		model.addAttribute("interviewList", interviewList);
 
 		return "schedule/ScheduleCalendar";
 	}
@@ -68,7 +75,11 @@ public class ScheduleController {
 	@RequestMapping("/ScheduleCalendar/change")
 	public String calendarChange(Model model) {
 		model.addAttribute("change", true);
-		List<Schedule> scheduleList = scheduleService.getAllSchedules();
+		
+		int jobId = 1; //測試用
+		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+		
+		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
 		for (Schedule sj : scheduleList) {
@@ -80,7 +91,7 @@ public class ScheduleController {
 			jsonArray.put(object);
 		}
 		model.addAttribute("json", jsonArray);
-		model.addAttribute("scheduleList", scheduleList);
+		model.addAttribute("interviewList", interviewList);
 
 		return "schedule/ScheduleCalendar";
 	}
@@ -116,6 +127,11 @@ public class ScheduleController {
 			schedule.setStartTime(Timestamp.valueOf(starttime));
 			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
+			
+			int jobId = 1; //測試用
+			Interview interview = interviewService.findByAdmit_Job_UserName(jobId, (String) jsonObject.get("scheduleName"));		
+			schedule.setInterview(interview);
+			
 			scheduleService.insertSchedule(schedule);
 		}
 
@@ -175,28 +191,12 @@ public class ScheduleController {
 		HttpSession session = req.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");	
 		if (loginUser != null) {
-			model.addAttribute("user", loginUser);
-			
+			model.addAttribute("user", loginUser);			
 			return "schedule/wageManage";
 		} else {
 			return "redirect:/";
 		}	
 	}
 	
-//	@RequestMapping("/jobSeekerInfo")
-//	public String jobSeekerInfo(Model model, HttpServletRequest req) {
-//		HttpSession session = req.getSession();
-//		User loginUser = (User) session.getAttribute("loginUser");		
-//		if (loginUser != null) {
-//			model.addAttribute("user", loginUser);
-//			List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
-//			model.addAttribute("applicatioList", applicatioList);
-//			List<Interview> interviewList = interviewService.findByApplicationIdAndTimeProcessing(loginUser.getUserId());
-//			model.addAttribute("interviewList", interviewList);		
-//			return "jobSeeker/jobSeekerInfo";
-//		} else {
-//			return "redirect:/";
-//		}	
-//	}
 
 }
