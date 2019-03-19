@@ -21,5 +21,12 @@ public class ExperienceServiceImpl implements ExperienceService {
 	public List<Experience> getAllExperiences() {
 		return dao.getAllExperiences();
 	}
+	@Transactional
+	@Override
+	public void insertExperience(Experience experience) {
+		dao.insertExperience(experience);
+		
+	}
+	
 
 }

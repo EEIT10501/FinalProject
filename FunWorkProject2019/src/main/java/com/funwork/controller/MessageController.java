@@ -5,7 +5,8 @@ import com.funwork.model.Message;
 import com.funwork.model.User;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.MessageService;
-import com.funwork.service.impl.WSMessageService;
+import com.funwork.service.impl.WsMessageService;
+
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class MessageController {
   private static final String NO_CACHE = "no-cache";
 
   @Autowired
-  private WSMessageService wsMessageService;
+  private WsMessageService wsMessageService;
   @Autowired
   MessageService messageService;
   @Autowired

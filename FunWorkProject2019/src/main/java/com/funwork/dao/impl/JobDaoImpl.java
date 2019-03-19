@@ -135,10 +135,30 @@ public class JobDaoImpl implements JobDao {
   public int getJobPostedCount(Integer userId) {
     Long count;
     Session session = factory.getCurrentSession();
-    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " + "AND j.postEndDate >= :nowdate";
+    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " 
+        + "AND j.postEndDate >= :nowdate";
     count = (Long) session.createQuery(hql).setParameter("userId", userId)
         .setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
     return count.intValue();
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Job> getJobsBySearchStr(String searchStr) {
+    String hql = "FROM Job j WHERE j.title like :searchStr";
+    Session session = factory.getCurrentSession();
+    return session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%")
+        .getResultList();
+  }
+
+  @Override
+  public Integer getJobExposureCount(Integer userId) {
+    Long count;
+    Session session = factory.getCurrentSession();
+    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " 
+        + "AND j.postEndDate >= :nowdate AND j.isExposure = true";
+    count = (Long) session.createQuery(hql).setParameter("userId", userId)
+        .setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
+    return count.intValue();
+  }
 }

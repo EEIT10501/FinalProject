@@ -2,7 +2,6 @@ package com.funwork.dao.impl;
 
 import com.funwork.dao.UserDao;
 import com.funwork.model.User;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -70,16 +69,13 @@ public class UserDaoImpl implements UserDao {
     } else {
       exist = false;
     }
-
     return exist;
   }
 
   @Override
-  public void openUser(Serializable userId) {
+  public void updateUser(User user) {
     Session session = factory.getCurrentSession();
-    String hql = "UPDATE User u SET u.isOpen = 1 WHERE u.userId = :userId";
-    session.createQuery(hql).setParameter("userId", Integer.valueOf(userId.toString()))
-    .executeUpdate();
+    session.update(user);
   }
 
   @Override
@@ -91,5 +87,4 @@ public class UserDaoImpl implements UserDao {
     .executeUpdate();
     return (User) session.createQuery(hql2).setParameter("email", email).uniqueResult();
   }
-
 }
