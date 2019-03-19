@@ -18,10 +18,6 @@ public class ResumeDaoImpl implements ResumeDao {
 	@Autowired
 	SessionFactory factory;
 
-	public ResumeDaoImpl() {
-
-	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Resume> getAllResumes() {
@@ -43,6 +39,7 @@ public class ResumeDaoImpl implements ResumeDao {
 		} else {
 			return null;
 		}
+
 	}
 
 	@Override
@@ -65,6 +62,7 @@ public class ResumeDaoImpl implements ResumeDao {
 	public Resume getResumeByResumeId(Integer resumeId) {
 		Session session = factory.getCurrentSession();
 		return session.get(Resume.class, resumeId);
-	}
 
+	}
+	
 }

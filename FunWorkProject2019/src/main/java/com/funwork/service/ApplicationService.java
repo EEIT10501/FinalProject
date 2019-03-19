@@ -13,17 +13,15 @@ public interface ApplicationService {
 	
 	void insertApplication(Integer userId, Integer jobId,String question);
 
-	void saveApplication(Application Application);
+	void saveApplication(Application application);
 
-	void updateApplication(Application Application);
+	void updateApplication(Application application);
 
 	void deleteApplicationByPrimaryKey(int key);
 
-	List<Application> findAllApplications();
-
 	void deleteAllApplications();
 
-	public boolean isApplicationExist(Application Application);
+	public boolean isApplicationExist(Application application);
 	
 	List<Application> getApplicationByUserId(Integer userId);
 	
@@ -36,5 +34,9 @@ public interface ApplicationService {
 	
 	void refuseUser(Integer apId);
 
+
+	public List<Application> findAllApplications(Integer userId);
+
+	List<Application> findByJobId(Integer jobId);
 
 }

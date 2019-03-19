@@ -17,10 +17,6 @@ public class AttendenceDaoImpl implements AttendenceDao {
 	@Autowired
 	SessionFactory factory;
 
-	public AttendenceDaoImpl() {
-
-	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Attendence> getAllAttendences() {

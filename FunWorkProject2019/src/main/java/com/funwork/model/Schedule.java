@@ -27,15 +27,16 @@ public class Schedule implements Serializable {
 	private Timestamp startTime;
 	private Float restHour;
 	private Date workDate;
-	private Job job;// fk
+//	private Job job;// fk
 	private Float workingHours;
-	private User user;
+//	private User user;
+	private Interview interview;
 
 	public Schedule() {
 	}
 
 	public Schedule(Integer scheduleId, String scheduleName, String color, Timestamp endTime, Timestamp startTime, Float restHour,
-			Date workDate, Job job, Float workingHours) {
+			Date workDate, Interview interview, Float workingHours) {
 		super();
 		this.scheduleId = scheduleId;
 		this.scheduleName = scheduleName;
@@ -44,8 +45,9 @@ public class Schedule implements Serializable {
 		this.startTime = startTime;
 		this.restHour = restHour;
 		this.workDate = workDate;
-		this.job = job;
-		this.workingHours = workingHours;
+		this.interview =  interview;
+//		this.job = job;
+		
 	}
 
 	@Id
@@ -82,15 +84,15 @@ public class Schedule implements Serializable {
 		this.workDate = workDate;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_Job_Id")
-	public Job getJob() {
-		return job;
-	}
-
-	public void setJob(Job job) {
-		this.job = job;
-	}
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "Fk_Job_Id")
+//	public Job getJob() {
+//		return job;
+//	}
+//
+//	public void setJob(Job job) {
+//		this.job = job;
+//	}
 
 	public String getScheduleName() {
 		return scheduleName;
@@ -116,15 +118,15 @@ public class Schedule implements Serializable {
 		this.restHour = restHour;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "Fk_User_Id")
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	@Transient
 	public Float getWorkingHours() throws ParseException {
@@ -143,6 +145,16 @@ public class Schedule implements Serializable {
 	@Transient
 	public void setWorkingHours(Float workingHours) throws ParseException {
 		this.workingHours = workingHours;
+	}
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Fk_Interview_Id")
+	public Interview getInterview() {
+		return interview;
+	}
+
+	public void setInterview(Interview interview) {
+		this.interview = interview;
 	}
 
 }

@@ -11,8 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@DynamicInsert
 @Entity
 public class Application {
 	private Integer applicationId;
@@ -55,7 +58,7 @@ public class Application {
 		this.applicationTime = applicationTime;
 	}
 
-//	@Column(nullable = false)
+	@Column(columnDefinition = "nvarchar(255) default '未邀約' ")
 	public String getAppliedStatus() {
 		return appliedStatus;
 	}

@@ -1,9 +1,8 @@
 package com.funwork.dao;
 
+import com.funwork.model.Attendence;
 import java.util.List;
 
-import com.funwork.model.Attendence;
-
 public interface AttendenceDao {
-	List<Attendence> getAllAttendences();
+  List<Attendence> getAllAttendences();
 }

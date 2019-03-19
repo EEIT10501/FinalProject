@@ -1,65 +1,63 @@
 package com.funwork.service.impl;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import com.funwork.dao.ApplicationDao;
 import com.funwork.dao.MessageDao;
+import com.funwork.dao.UserDao;
+import com.funwork.model.Application;
 import com.funwork.model.Message;
 import com.funwork.model.User;
 import com.funwork.service.MessageService;
 
+import java.sql.Timestamp;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 @Service
 public class MessageServiceImpl implements MessageService {
 
-	@Autowired
-	MessageDao dao;
+  @Autowired
+  MessageDao messageDao;
+  @Autowired
+  UserDao userDao;
+  @Autowired
+  ApplicationDao apDao;
 
-	public MessageServiceImpl() {
-	}
+  @Override
+  public List<Message> getAllMessages() {
+    return messageDao.getAllMessages();
+  }
 
-	@Transactional
-	@Override
-	public List<Message> getAllMessages() {
-		return dao.getAllMessages();
-	}
+  @Override
+  public List<Message> getOldMessageByApplicationId(Integer applicationId) {
+    return messageDao.getOldMessageByApplicationId(applicationId);
+  }
 
-	@Transactional
-	@Override
-	public List<Message> getOldMessageByApplicationId(Integer applicationId) {
-		return dao.getOldMessageByApplicationId(applicationId);
-	}
+  @Override
+  public void insertMessage(String message, Integer userId, Integer toUserId, 
+      Integer apId, Integer isRead) {
+    User sender = userDao.getUserById(userId);
+    User receiver = userDao.getUserById(toUserId);
+    Application ap = apDao.findByPrimaryKey(apId);
+    Message msg = new Message();
+    msg.setContent(message);
+    msg.setTime(new Timestamp(System.currentTimeMillis()));
+    msg.setReceiver(receiver);
+    msg.setSender(sender);
+    msg.setApplication(ap);
+    msg.setStatus(isRead);
+    messageDao.insertMessage(msg);
+  }
 
-	@Transactional
-	@Override
-	public Serializable insertMessage(Message message) {
-		return dao.insertMessage(message);
-	}
+  @Override
+  public void changeMsgStatusToRead(Integer userId, Integer adId) {
+    messageDao.changeMsgStatusToRead(userId, adId);
+  }
 
-	@Transactional
-	@Override
-	public void insertReceiver(Serializable msgId, User user) {
-		dao.insertReceiver(msgId, user);
-	}
-
-	@Transactional
-	@Override
-	public void insertMessage(String message, String userId, String toUserId, String apId, Integer isRead) {
-		dao.insertMessage(message, userId, toUserId, apId, isRead);
-	}
-
-	@Transactional
-	@Override
-	public void changeMsgStatusToRead(Integer userId, Integer adId) {
-		dao.changeMsgStatusToRead(userId, adId);
-	}
-
-	@Transactional
-	@Override
-	public int getNewMsgCount(Integer userId) {
-		return dao.getNewMsgCount(userId);
-	}
+  @Override
+  public int getNewMsgCount(Integer userId) {
+    return messageDao.getNewMsgCount(userId);
+  }
 }

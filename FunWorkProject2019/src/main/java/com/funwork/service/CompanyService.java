@@ -1,33 +1,40 @@
 package com.funwork.service;
 
-import java.util.List;
-
 import com.funwork.model.Company;
 import com.funwork.model.User;
+import java.util.List;
 
 public interface CompanyService {
-	
-	Company findByPrimaryKey(int key);
 
-	void saveCompany(Company company);
+  Company findByPrimaryKey(int key);
 
-	void deleteCompanyByPrimaryKey(int key);
+  void saveCompany(Company company);
 
-	List<Company> findAllCompanys();
+  void deleteCompanyByPrimaryKey(int key);
 
-	void deleteAllCompanys();
+  List<Company> findAllCompanys();
 
-	public boolean isCompanyExist(Company company);
+  List<Company> findAllCompanys(String reviewStatus);
 
-	Company findByName(String name);
-	
-	List<Company> findAllCompanys(String reviewStatus);
+  void deleteAllCompanys();
 
-	void updateCompanyById(int id, Company company);
-	
-	public List<Company> findAllCompanyByUserId(Integer userId);
+  public boolean isCompanyExist(Company company);
 
-	List<String> findAllCompanyByUser(User user);
-	
-	Company findCompanyByUserAndName(Integer userId, String companyName);
+  Company findByName(String name);
+
+  void updateCompanyById(int id, Company company);
+
+  public List<Company> findAllCompanyByUserId(Integer userId);
+
+  List<String> findAllCompanyByUser(User user);
+
+  Company findCompanyByUserAndName(Integer userId, String companyName);
+
+  List<Company> getCompanyReviewList();
+
+  void companyReviewPass(Integer companyId);
+
+  void companyReviewPassReviewFail(Integer companyId, String failReason);
+
+  List<Company> getReviewHistory();
 }

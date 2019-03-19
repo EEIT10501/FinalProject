@@ -26,6 +26,8 @@ public class ResumeServiceImpl implements ResumeService {
 	public ResumeServiceImpl() {
 	}
 
+
+
 	@Transactional
 	@Override
 	public List<Resume> getAllResumes() {

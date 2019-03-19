@@ -38,7 +38,7 @@
 					<a class="nav-link" href="<c:url value='/jobs' />">想找打工</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="manageCompanyPage">想要徵人</a>
+					<a class="nav-link" href="<c:url value='/manageCompanyPage' />">想要徵人</a>
 				</li>
 				<c:if test="${loginUser!=null}">
 					<li class="nav-item">
@@ -69,7 +69,6 @@
 						<c:out value="${loginUser.userName} : 您好"></c:out>
 					</a>
 				</span>
-
 			</c:if>
 			<span class="navbar-text my-2 my-sm-0"> 
 				<a class="nav-link btn btn-outline-secondary" href="register">註冊</a>

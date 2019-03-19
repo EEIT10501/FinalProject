@@ -3,6 +3,7 @@ package com.funwork.model;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Clob;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,237 +25,250 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @DynamicInsert
 @Entity
 @Table(name = "Company")
-public class Company implements Serializable{
-	private static final long serialVersionUID = 1L;
-	private Integer companyId;
-	private String name;
-	private String taxId;
-	private String address;
-	@JsonIgnore
-	private Blob licensure;
-	private String reviewStatus;
-	private Integer notificationTimes;
-	@JsonIgnore
-	private Blob logo;
-	@JsonIgnore
-	private Blob coverPic;
-	@JsonIgnore
-	private Clob description;
-	private String siteURL;
-	private String fileName;
+public class Company implements Serializable {
+  private static final long serialVersionUID = 1L;
+  private Integer companyId;
+  private String name;
+  private String taxId;
+  private String address;
+  @JsonIgnore
+  private Blob licensure;
+  private String reviewStatus;
+  private Integer notificationTimes;
+  private Timestamp submitTime;
+  private Timestamp reviewTime;
+  private String failReason;
+  @JsonIgnore
+  private Blob logo;
+  @JsonIgnore
+  private Blob coverPic;
+  @JsonIgnore
+  private Clob description;
+  private String siteURL;
+  private String fileName;
 
-	@JsonIgnore
-	private MultipartFile companyLicensureImage;
-	@JsonIgnore
-	private MultipartFile companyLogo;
-	@JsonIgnore
-	private MultipartFile companyCoverPic;
-	
-    @XmlTransient
-    @Transient
-	public MultipartFile getCompanyLicensureImage() {
-		return companyLicensureImage;
-	}
+  @JsonIgnore
+  private MultipartFile companyLicensureImage;
+  @JsonIgnore
+  private MultipartFile companyLogo;
+  @JsonIgnore
+  private MultipartFile companyCoverPic;
 
-	public void setCompanyLicensureImage(MultipartFile companyLicensureImage) {
-		this.companyLicensureImage = companyLicensureImage;
-	}
-	
-	@XmlTransient
-    @Transient
-	public MultipartFile getCompanyLogo() {
-		return companyLogo;
-	}
+  @XmlTransient
+  @Transient
+  public MultipartFile getCompanyLicensureImage() {
+    return companyLicensureImage;
+  }
 
-	public void setCompanyLogo(MultipartFile companyLogo) {
-		this.companyLogo = companyLogo;
-	}
+  public void setCompanyLicensureImage(MultipartFile companyLicensureImage) {
+    this.companyLicensureImage = companyLicensureImage;
+  }
 
-	@XmlTransient
-    @Transient
-	public MultipartFile getCompanyCoverPic() {
-		return companyCoverPic;
-	}
+  @XmlTransient
+  @Transient
+  public MultipartFile getCompanyLogo() {
+    return companyLogo;
+  }
 
-	public void setCompanyCoverPic(MultipartFile companyCoverPic) {
-		this.companyCoverPic = companyCoverPic;
-	}
+  public void setCompanyLogo(MultipartFile companyLogo) {
+    this.companyLogo = companyLogo;
+  }
 
+  @XmlTransient
+  @Transient
+  public MultipartFile getCompanyCoverPic() {
+    return companyCoverPic;
+  }
 
+  public void setCompanyCoverPic(MultipartFile companyCoverPic) {
+    this.companyCoverPic = companyCoverPic;
+  }
 
-	@JsonIgnore
-	private User user;
+  @JsonIgnore
+  private User user;
 
-	public Company() {
-	}
-	
-	
+  public Company() {
+  }
 
-	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
-			Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
-			MultipartFile companyLicensureImage,MultipartFile companyLogo,MultipartFile companyCoverPic,String forRecordColumn) {
-		super();
-		this.companyId = companyId;
-		this.name = name;
-		this.taxId = taxId;
-		this.address = address;
-		this.licensure = licensure;
-		this.reviewStatus = reviewStatus;
-		this.notificationTimes = notificationTimes;
-		this.logo = logo;
-		this.coverPic = coverPic;
-		this.description = description;
-		this.siteURL = siteURL;
-		this.fileName = fileName;
-		this.companyLicensureImage = companyLicensureImage;
-		this.companyLogo = companyLogo;
-		this.coverPic = coverPic;
-	}
+  public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
+      Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
+      MultipartFile companyLicensureImage, MultipartFile companyLogo, MultipartFile companyCoverPic,
+      String forRecordColumn) {
+    super();
+    this.companyId = companyId;
+    this.name = name;
+    this.taxId = taxId;
+    this.address = address;
+    this.licensure = licensure;
+    this.reviewStatus = reviewStatus;
+    this.notificationTimes = notificationTimes;
+    this.logo = logo;
+    this.coverPic = coverPic;
+    this.description = description;
+    this.siteURL = siteURL;
+    this.fileName = fileName;
+    this.companyLicensureImage = companyLicensureImage;
+    this.companyLogo = companyLogo;
+    this.coverPic = coverPic;
+  }
 
+  public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
+      Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
+      MultipartFile companyLicensureImage, MultipartFile companyLogo, MultipartFile companyCoverPic, User user) {
+    super();
+    this.companyId = companyId;
+    this.name = name;
+    this.taxId = taxId;
+    this.address = address;
+    this.licensure = licensure;
+    this.reviewStatus = reviewStatus;
+    this.notificationTimes = notificationTimes;
+    this.logo = logo;
+    this.coverPic = coverPic;
+    this.description = description;
+    this.siteURL = siteURL;
+    this.fileName = fileName;
+    this.companyLicensureImage = companyLicensureImage;
+    this.companyLogo = companyLogo;
+    this.coverPic = coverPic;
+    this.user = user;
+  }
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  public Integer getCompanyId() {
+    return companyId;
+  }
 
-	public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
-			Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
-			MultipartFile companyLicensureImage, MultipartFile companyLogo,MultipartFile companyCoverPic, User user) {
-		super();
-		this.companyId = companyId;
-		this.name = name;
-		this.taxId = taxId;
-		this.address = address;
-		this.licensure = licensure;
-		this.reviewStatus = reviewStatus;
-		this.notificationTimes = notificationTimes;
-		this.logo = logo;
-		this.coverPic = coverPic;
-		this.description = description;
-		this.siteURL = siteURL;
-		this.fileName = fileName;
-		this.companyLicensureImage = companyLicensureImage;
-		this.companyLogo = companyLogo;
-		this.coverPic = coverPic;
-		this.user = user;
-	}
+  public void setCompanyId(Integer companyId) {
+    this.companyId = companyId;
+  }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getCompanyId() {
-		return companyId;
-	}
+  @Column(nullable = false, columnDefinition = "nvarchar(255)")
+  public String getName() {
+    return name;
+  }
 
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	@Column(nullable = false, columnDefinition = "nvarchar(255)")
-	public String getName() {
-		return name;
-	}
+  @Column(nullable = false, unique = true)
+  public String getTaxId() {
+    return taxId;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setTaxId(String taxId) {
+    this.taxId = taxId;
+  }
 
-	@Column(nullable = false, unique = true)
-	public String getTaxId() {
-		return taxId;
-	}
+  @Column(nullable = false)
+  public String getAddress() {
+    return address;
+  }
 
-	public void setTaxId(String taxId) {
-		this.taxId = taxId;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-	
-	@Column(nullable = false)
-	public String getAddress() {
-		return address;
-	}
+  public Blob getLicensure() {
+    return licensure;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setLicensure(Blob licensure) {
+    this.licensure = licensure;
+  }
 
-	public Blob getLicensure() {
-		return licensure;
-	}
+  @Column(columnDefinition = "nvarchar(255) default '審查中' ")
+  public String getReviewStatus() {
+    return reviewStatus;
+  }
 
-	public void setLicensure(Blob licensure) {
-		this.licensure = licensure;
-	}
+  public void setReviewStatus(String reviewStatus) {
+    this.reviewStatus = reviewStatus;
+  }
 
-	@Column(columnDefinition = "nvarchar(255) default '審查中' ")
-	public String getReviewStatus() {
-		return reviewStatus;
-	}
+  @Column(nullable = true, columnDefinition = "int default 3")
+  public Integer getNotificationTimes() {
+    return notificationTimes;
+  }
 
-	public void setReviewStatus(String reviewStatus) {
-		this.reviewStatus = reviewStatus;
-	}
+  public void setNotificationTimes(Integer notificationTimes) {
+    this.notificationTimes = notificationTimes;
+  }
 
-	@Column(nullable = true, columnDefinition = "int default 3")
-	public Integer getNotificationTimes() {
-		return notificationTimes;
-	}
+  public Blob getCoverPic() {
+    return coverPic;
+  }
 
-	public void setNotificationTimes(Integer notificationTimes) {
-		this.notificationTimes = notificationTimes;
-	}
+  public void setCoverPic(Blob coverPic) {
+    this.coverPic = coverPic;
+  }
 
-	public Blob getCoverPic() {
-		return coverPic;
-	}
+  public Clob getDescription() {
+    return description;
+  }
 
-	public void setCoverPic(Blob coverPic) {
-		this.coverPic = coverPic;
-	}
+  public void setDescription(Clob description) {
+    this.description = description;
+  }
 
-	public Clob getDescription() {
-		return description;
-	}
+  public Blob getLogo() {
+    return logo;
+  }
 
-	public void setDescription(Clob description) {
-		this.description = description;
-	}
+  public void setLogo(Blob logo) {
+    this.logo = logo;
+  }
 
-	public Blob getLogo() {
-		return logo;
-	}
+  public String getSiteURL() {
+    return siteURL;
+  }
 
-	public void setLogo(Blob logo) {
-		this.logo = logo;
-	}
+  public void setSiteURL(String siteURL) {
+    this.siteURL = siteURL;
+  }
 
-	public String getSiteURL() {
-		return siteURL;
-	}
+  public String getFileName() {
+    return fileName;
+  }
 
-	public void setSiteURL(String siteURL) {
-		this.siteURL = siteURL;
-	}
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
+  }
 
-	public String getFileName() {
-		return fileName;
-	}
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "Fk_User_Id")
+  public User getUser() {
+    return user;
+  }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-	
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Fk_User_Id")
-	public User getUser() {
-		return user;
-	}
+  public Timestamp getSubmitTime() {
+    return submitTime;
+  }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+  public void setSubmitTime(Timestamp submitTime) {
+    this.submitTime = submitTime;
+  }
 
-	@Override
-	public String toString() {
-		return "Company [companyId=" + companyId + ", name=" + name + ", taxId=" + taxId + ", address=" + address
-				+ ", licensure=" + licensure + ", reviewStatus=" + reviewStatus + ", notificationTimes="
-				+ notificationTimes + ", coverPic=" + coverPic + ", description=" + description + ", logo=" + logo
-				+ ", siteURL=" + siteURL + ", userId=" + user.getUserId() + "]";
-	}
+  public Timestamp getReviewTime() {
+    return reviewTime;
+  }
+
+  public void setReviewTime(Timestamp reviewTime) {
+    this.reviewTime = reviewTime;
+  }
+
+  public String getFailReason() {
+    return failReason;
+  }
+
+  public void setFailReason(String failReason) {
+    this.failReason = failReason;
+  }
+
 }

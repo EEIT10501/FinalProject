@@ -17,9 +17,6 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory factory;
 
-	public ProductDaoImpl() {
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getAllProducts() {

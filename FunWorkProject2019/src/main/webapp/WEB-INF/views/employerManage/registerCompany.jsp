@@ -34,51 +34,15 @@
 }
 </style>
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-		<a class="navbar-brand" href="#"> <img
-			src="/FunWorkProject2019/image/LOGO.jpg" width="30" height="30"
-			class="d-inline-block align-top"> EEIT趣打工
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarTogglerDemo03"
-			aria-controls="navbarTogglerDemo03" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="/FunWorkProject2019/">首頁 <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">想找打工</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">想要徵人</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">聯絡我們</a></li>
-			</ul>
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</form>
-			<span class="navbar-text"> <a class="nav-link" href="#">登入</a>
-			</span> <span class="navbar-text"> <a class="nav-link" href="#">註冊</a>
-			</span>
-		</div>
-	</nav>
+	<%@ include file="/WEB-INF/views/includes/adminnavbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-				</div>
-			</div>
+             <!-- 複製這裡↓ -->
+		<div class="col-sm-2">
+		<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
+		</div>
+		      <!-- 複製這裡 ↑ -->
 			<div class="col-sm-8">
 				<form:form class='form-horizontal' modelAttribute="companyBean"
 					method="POST" enctype="multipart/form-data">
@@ -106,7 +70,15 @@
 								<div class="col-lg-10">
 									<form:input id="taxId" path="taxId" type='text'
 										class='form:input-large' />
+									
+									<c:if test="${empty errors}">
+									<span></span>
+									</c:if>
+									<c:if test="${errors != null}">
+									<span><c:out value="${errors.error_TaxId}"/></span>
+									</c:if>
 								</div>
+								
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-2 col-lg-2" for='address'>

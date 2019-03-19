@@ -17,10 +17,6 @@ public class ExperienceDaoImpl implements ExperienceDao {
 	@Autowired
 	SessionFactory factory;
 
-	public ExperienceDaoImpl() {
-
-	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Experience> getAllExperiences() {

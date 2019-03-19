@@ -2,7 +2,6 @@ package com.funwork.dao;
 
 import java.util.List;
 
-import com.funwork.model.Application;
 import com.funwork.model.Interview;
 
 public interface InterviewDao {
@@ -22,6 +21,14 @@ public interface InterviewDao {
 
 	List<Interview> findByApplicationIds(int key);
 
-	List<Interview> findByApplicationIdAndTime(int key);
+	List<Interview> findByApplicationIdAndTimeProcessing(int key);
+
+	List<Interview> findByApplicationIdAndTimeCompleted(int key);
+
+	List<Interview> findByApplicationIdAndTimeExpired(int key);
+	
+	List<Interview> findInterviewByAdmit(Integer jobId);
+	
+	Interview findByAdmit_Job_UserName(Integer jobId,String userName);
 
 }

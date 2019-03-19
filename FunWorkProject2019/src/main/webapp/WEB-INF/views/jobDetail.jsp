@@ -250,13 +250,13 @@
 							<div class="modal-body">
 								<!-- 彈出視窗：寫程式的地方 -->
 								<c:if test="${empty resumeBean}">
-									<h5 style="color: red">請先登入系統及填寫履歷</h5>
+									<h5 style="color: red;margin-left:10px">請先登入系統及填寫履歷</h5>
 								</c:if>
 								<table class="table table-striped">
 
 									<tbody>
 										<tr>
-											<td>${resumeBean.profilePic}</td>
+											<td><img src="/getPicture/${resumeBean.user.userId}"></td>
 											<td></td>
 										</tr>
 										<tr>
@@ -281,7 +281,7 @@
 										</tr>
 										<tr>
 											<td>自我介紹</td>
-											<td>${jobBean.jobCompany.name}</td>
+											<td>${resumeBean.selfIntro}</td>
 										</tr>
 										<tr>
 											<td>${jobBean.other}</td>
@@ -293,6 +293,10 @@
 								</table>
 							</div>
 							<c:if test="${resumeBean!=null}">
+							<c:if test="${resumeBean.user.userId==applicationBean.user.userId}">
+							<h5 style="color: red;margin-left:10px">您已應徵過此工作</h5>
+							</c:if>
+							<c:if test="${empty applicationBean}">		
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary cancel"
 										data-dismiss="modal">取消</button>
@@ -300,6 +304,7 @@
 									<button type="button" class="btn btn-primary addapplication">送出</button>
 
 								</div>
+							</c:if>
 							</c:if>
 						</div>
 					</div>

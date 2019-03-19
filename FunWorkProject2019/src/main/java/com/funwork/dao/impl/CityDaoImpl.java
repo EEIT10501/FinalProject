@@ -18,9 +18,6 @@ public class CityDaoImpl implements CityDao {
 	@Autowired
 	SessionFactory factory;
 
-	public CityDaoImpl() {
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

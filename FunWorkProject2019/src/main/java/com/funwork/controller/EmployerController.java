@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.funwork.exception.CompanyNotFoundException;
 import com.funwork.model.Company;
@@ -167,10 +170,29 @@ public class EmployerController {
 
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
 	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
-			HttpServletRequest request) {
+
+			HttpServletRequest request, final RedirectAttributes redirectAttrs) {
+		System.out.println("Enter controller");
+		String[] suppressedFields = result.getSuppressedFields();
+		if (suppressedFields.length > 0) {
+			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+		}
+
+
 		MultipartFile image = cb.getCompanyLicensureImage();
 		String originalFilename = image.getOriginalFilename();
 		cb.setFileName(originalFilename);
+
+		List<Company> companyList = companyService.findAllCompanys();
+		Map<String, String> errors = new HashMap<>();
+		for (Company com : companyList) {
+			if (cb.getTaxId().equals(com.getTaxId())) {
+				System.out.println("here");
+				errors.put("error_TaxId", "重複的Tax ID");
+				redirectAttrs.addFlashAttribute("errors", errors);
+				return "redirect:/registerCompany";
+			}
+		}
 
 		if (image != null && !image.isEmpty()) {
 			try {

@@ -2,14 +2,13 @@ package com.funwork.service;
 
 import java.util.List;
 
-import com.funwork.model.Application;
 import com.funwork.model.Interview;
 
 public interface InterviewService {
 
 	Interview findByPrimaryKey(int key);
 
-	void saveInterview(Interview interview);
+	Integer saveInterview(String interType, String interComment, String interPlace, String interTime, Integer apId);
 
 	void updateInterview(Interview interview);
 
@@ -23,6 +22,13 @@ public interface InterviewService {
 	
 	List<Interview> findByApplicationIds(int key);
 	 
+	List<Interview> findByApplicationIdAndTimeProcessing(int key);
 
-	List<Interview> findByApplicationIdAndTime(int key);
+	List<Interview> findByApplicationIdAndTimeCompleted(int key);
+
+	List<Interview> findByApplicationIdAndTimeExpired(int key);
+	
+	List<Interview> findInterviewByAdmit(Integer jobId);
+	
+	Interview findByAdmit_Job_UserName(Integer jobId,String userName);
 }

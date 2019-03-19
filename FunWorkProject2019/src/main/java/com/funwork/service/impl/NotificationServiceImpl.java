@@ -16,8 +16,7 @@ public class NotificationServiceImpl implements NotificationService {
 	@Autowired
 	NotificationDao dao;
 
-	public NotificationServiceImpl() {
-	}
+
 
 	@Transactional
 	@Override

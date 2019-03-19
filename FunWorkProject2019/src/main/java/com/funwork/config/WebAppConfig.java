@@ -1,8 +1,12 @@
 package com.funwork.config;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +15,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,14 +24,24 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import com.funwork.viewResolver.ExcelViewResolver;
+import com.funwork.viewResolver.JsonViewResolver;
+import com.funwork.viewResolver.PdfViewResolver;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.funwork")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
+	@Autowired
+	ServletContext context;
+
 	public WebAppConfig() {
 	}
 
+	/**
+	 * ViewResolver for jsp.
+	 */
 	@Bean
 	public ViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -38,6 +51,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/css/");
 		registry.addResourceHandler("/image/**").addResourceLocations("/WEB-INF/views/images/");
@@ -49,6 +63,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 				.addResourceLocations("/WEB-INF/views/DataTables/datatableimages/");
 	}
 
+	/**
+	 * For globalization.
+	 */
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
@@ -56,6 +73,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resource;
 	}
 
+	/**
+	 * For upload file. MaxUploadSize定義上傳檔案限制的大小.
+	 */
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -64,6 +84,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 
+	/**
+	 * Json view bean, 提供內容協商視圖解析器用.
+	 */
 	@Bean
 	public MappingJackson2JsonView jsonView() {
 		MappingJackson2JsonView view = new MappingJackson2JsonView();
@@ -71,16 +94,41 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return view;
 	}
 
+	/**
+	 * For Json、PDF、XML、Excel等視圖解析.
+	 */
 	@Bean
 	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
 		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
 		resolver.setContentNegotiationManager(manager);
-		ArrayList<View> views = new ArrayList<>();
-		views.add(jsonView());
-		resolver.setDefaultViews(views);
+		List<ViewResolver> resolvers = new ArrayList<ViewResolver>();
+		resolvers.add(jsonViewResolver());
+		resolvers.add(excelViewResolver());
+		resolvers.add(pdfViewResolver(context));
+		resolvers.add(internalResourceViewResolver());
+		resolver.setViewResolvers(resolvers);
 		return resolver;
 	}
 
+	@Bean
+	public ViewResolver excelViewResolver() {
+		System.out.println("excelViewResolver");
+		return new ExcelViewResolver();
+	}
+
+	@Bean
+	public ViewResolver jsonViewResolver() {
+		return new JsonViewResolver();
+	}
+
+	@Bean
+	public ViewResolver pdfViewResolver(ServletContext context) {
+		return new PdfViewResolver(context);
+	}
+
+	/**
+	 * Mail Bean.
+	 */
 	@Bean
 	public JavaMailSenderImpl javaMailSenderImpl() {
 		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
