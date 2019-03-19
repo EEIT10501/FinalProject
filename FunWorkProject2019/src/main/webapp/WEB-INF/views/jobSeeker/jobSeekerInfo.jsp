@@ -73,7 +73,7 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-<<<<<<< HEAD
+
 					<a href="resume" class="list-group-item list-group-item-action">基本資訊</a>
 					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
 					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
@@ -82,14 +82,14 @@
 					<a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
 					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
 					<a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-=======
+
 					<a href='<c:url value="/jobSeekerInfo"/>'
 						class="list-group-item list-group-item-action">基本資訊</a> <a
 						href='<c:url value="/applicatedWork"/>'
 						class="list-group-item list-group-item-action">已應徵工作</a> <a
 						href='<c:url value="/invitationManage"/>'
 						class="list-group-item list-group-item-action">邀約管理</a>
->>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
+
 				</div>
 			</div>
 			<div class="col-sm-8">
