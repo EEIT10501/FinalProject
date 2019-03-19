@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.funwork.model.Product;
 import com.funwork.service.JobService;
+import com.funwork.service.OrderService;
 import com.funwork.service.UserService;
 import allPay.payment.integration.*;
 import allPay.payment.integration.allPayOperator.AllPayFunction;
@@ -31,6 +35,9 @@ public class OrderController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	OrderService orderService;
 
 	AllInOne all;
 
@@ -45,34 +52,45 @@ public class OrderController {
 		return "order";
 	}
 
-	@RequestMapping(value = "/orderCheck", method = RequestMethod.POST)
-	public String OrderCheck(Model model, HttpServletRequest req) {
+	@RequestMapping(value = "/orderCheck/{productId}")
+	public String OrderCheck(Model model, @PathVariable("productId") Integer productId,HttpServletRequest req) {
+		List<Product> prolist = orderService.getAllProducts();
+		
+		
 		allPay = new AllPayFunction();
 		Hashtable<String, String> params = new Hashtable<>();
-		String random = Integer.toString((int) (Math.random() * 100));
-		params.put("MerchantID", req.getParameter("MerchantID"));
-		params.put("MerchantTradeNo", req.getParameter("MerchantTradeNo") + random);
-		params.put("MerchantTradeDate", req.getParameter("MerchantTradeDate"));
-		params.put("TotalAmount", req.getParameter("TotalAmount"));
-		params.put("TradeDesc", req.getParameter("TradeDesc"));
-		params.put("ItemName", req.getParameter("ItemName"));
-		params.put("ReturnURL", req.getParameter("ReturnURL"));
-		params.put("ChoosePayment", req.getParameter("ChoosePayment"));
-		params.put("PaymentType", req.getParameter("PaymentType"));
+		params.put("MerchantID", "2000132");
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		params.put("MerchantTradeNo", sdf.format(date));
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		params.put("MerchantTradeDate", sdf2.format(date));
+		params.put("TotalAmount",Integer.toString(prolist.get(productId-1).getPrice()));
+		params.put("TradeDesc", prolist.get(productId-1).getDescription());
+		params.put("ItemName", prolist.get(productId-1).getProductName());
+		params.put("ReturnURL", "http://localhost:8080/FunWorkProject2019//FunWorkProject2019/orderReturn");
+		params.put("ChoosePayment", "Credit");
+		params.put("PaymentType", "aio");
 
 		model.addAttribute("params", params);
 		model.addAttribute("CheckMacValue", allPay.genCheckMacValue("5294y06JbISpM5x9", "v77hoKGq4kWxNNIS", params));
 
 		return "order";
 	}
+	
+	@RequestMapping("/product")
+	public String product(Model model) {
+		List<Product> productList =  orderService.getAllProducts();
+		
+		model.addAttribute("productList",productList);
+		return "product";
+	}
 
 	@RequestMapping(value = "/orderReturn", method = RequestMethod.POST)
 	public String OrderReturn(Model model, HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("1");
 		System.out.println("交易成功" + req.getParameter("RtnCode"));
-
-//		return "order";
-		return "ordertest";
+		return "order";
 	}
 
 	@RequestMapping("/order2")

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.funwork.dao.OrderDao;
 import com.funwork.model.Order;
+import com.funwork.model.Product;
 import com.funwork.service.OrderService;
 
 @Service
@@ -20,6 +21,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getAllOrders() {
 		return dao.getAllOrders();
+	}
+	
+	@Transactional
+	@Override
+	public List<Product> getAllProducts(){
+		return dao.getAllProducts();
 	}
 
 }
