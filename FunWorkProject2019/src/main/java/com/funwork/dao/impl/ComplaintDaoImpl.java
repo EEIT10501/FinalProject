@@ -35,7 +35,7 @@ public class ComplaintDaoImpl implements ComplaintDao {
     Session session = factory.getCurrentSession();
     return session.get(Complaint.class, cpId);
   }
- 
+
   @Override
   public void processComplaint(Complaint cp) {
     Session session = factory.getCurrentSession();

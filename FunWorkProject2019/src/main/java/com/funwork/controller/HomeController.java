@@ -35,9 +35,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
+  
   public static final Logger logger = Logger.getLogger("com.funwork");
   private static final String REDIRECT_TO_INDEX = "redirect:/";
   private static final String LOGIN_USER = "loginUser";
+  
   @Autowired
   ResumeService resumeService;
   @Autowired
@@ -184,7 +186,7 @@ public class HomeController {
   }
 
   @GetMapping("/userOpen/{userId}")
-  public String userOpen(@PathVariable("userId") String userId) {
+  public String userOpen(@PathVariable("userId") Integer userId) {
     userService.openUser(userId);
     return REDIRECT_TO_INDEX;
   }
