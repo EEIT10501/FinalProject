@@ -1,6 +1,7 @@
 package com.funwork.controller;
 
 import java.sql.Blob;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -113,12 +114,15 @@ public class ResumeController {
 				
 				break;
 			}
-}
-	
+}	
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("loginUser");
 		resumeService.addResume(rb,user.getUserId());
         
+
+		
+		
+		
 		return "redirect:/resume";
 
 	}
