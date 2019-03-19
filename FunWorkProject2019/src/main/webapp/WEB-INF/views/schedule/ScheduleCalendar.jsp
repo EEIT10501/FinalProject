@@ -216,12 +216,10 @@ function saveEvent(){
 							<p>
 								<strong>Draggable Events</strong>
 							</p>
-							<div class='fc-event'>石偉庭</div>
-							<div class='fc-event'>鄭揚</div>
-							<div class='fc-event'>涂哲賢</div>
-							<div class='fc-event'>陳奕璋</div>
-							<div class='fc-event'>毛尊佑</div>
-							<div class='fc-event'>楊立台</div>
+							<c:if test="${empty interviewList}"><h3>此工作尚無錄取者</h3></c:if>
+							<c:forEach var="interviewList" items="${interviewList}">
+							<div class='fc-event'>${interviewList.application.user.userName}</div>
+							</c:forEach>
 							<p>
 								<input type='checkbox' id='drop-remove' /> <label
 									for='drop-remove'>remove after drop</label>

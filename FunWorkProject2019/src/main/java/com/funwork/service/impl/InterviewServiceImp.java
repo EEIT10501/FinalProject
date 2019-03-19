@@ -84,4 +84,13 @@ public class InterviewServiceImp implements InterviewService {
   public List<Interview> findByApplicationIdAndTimeExpired(int key) {
     return interviewDao.findByApplicationIdAndTimeExpired(key);
   }
+  
+  @Override
+  public List<Interview> findInterviewByAdmit(Integer jobId){
+	  return interviewDao.findInterviewByAdmit(jobId);
+  }
+  @Override
+  public Interview findByAdmit_Job_UserName(Integer jobId,String userName) {
+	  return interviewDao.findByAdmit_Job_UserName(jobId, userName);
+  }
 }

@@ -17,12 +17,7 @@
 .asideblock {
 	height: 600px;
 }
-fieldset {
-	border: solid green;
-	text-align: center;
-	width: default;
-	background-position: center;
-}
+
 </style>
 </head>
 <body>
@@ -30,14 +25,18 @@ fieldset {
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-5 justify-content-around">
-			<div class="col-sm-8">
+<div class="col-sm-2"></div>
+			<div class="col-sm-8 align-self-center">
 				<!-- 程式寫在這 -->
 				<!--如果要insert多筆資料可以用form:form直接傳物件 -->
 				<!-- onsubmit= "return formCheck() " +在form標籤中可以用(js)檢測密碼是否輸入相同-->
-				<form method="post" action="${pageContext.request.contextPath}/register">
+
+				<form class="was-validated"  method="post" action="${pageContext.request.contextPath}/register"onsubmit= "return formCheck() ">
 					<fieldset>
+
 						<legend>註冊會員</legend>
 						<p style="color:red">註冊成功請至信箱進行帳號驗證</p>
+
 						<div class="form-group row">
 							<label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
 							<div class="col-sm">
@@ -47,32 +46,39 @@ fieldset {
 								<font color="red" size="-1">${Msg.errorEmail}${Msg.errorIDExs}</font>
 							</div>
 						</div>
+
 						<div class="form-group row">
 							<label for="inputPassword3" class="col-sm-2 col-form-label">姓名:</label>
 							<div class="col-sm">
 								<input type="text" name="name" class="form-control"
+
 										id="inputPassword3"  required pattern="{1,15}" title="請輸入姓名" 
-										style="width: 200px;"> 
+										style="width: 230px;"> 
 								<font color="red" size="-1">${Msg.errEmailEmpty}</font>
+
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="pwd1" class="col-sm-2 col-form-label">密碼：</label>
 							<div class="col-sm">
 								<input type="password" name="password" class="form-control"
+
 										id="pwd1" placeholder="6~12英文數字組合" required
 										pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"
 										title="密碼：6~12英數字組合，至少有一個大寫、小寫英文字母及數字，如 A12Rd6"
-										style="width: 200px;"> 
+										style="width: 230px;"> 
 								<font color="red" size="-1">${Msg.errPdEmpty}</font>
+
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="pwd2" class="col-sm-2 col-form-label">密碼確認：</label>
 							<div class="col-sm">
+
 								<input type="password" name="password2" class="form-control" id="pwd2" 
-										required="required" style="width: 200px;"> 
+										required="required" style="width: 230px;"> 
 								<font color="red" size="-1">${Msg.errPd2Empty}</font>
+
 							</div>
 						</div>
 						<div class="form-group row">
@@ -86,8 +92,9 @@ fieldset {
 					</fieldset>
 				</form>
 			</div>
+			<div class="col-sm-2">預留區塊</div>
 		</div>
-		<div class="col-sm-2">預留區塊</div>
+		
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">

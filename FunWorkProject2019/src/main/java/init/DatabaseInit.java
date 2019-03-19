@@ -32,13 +32,13 @@ public class DatabaseInit {
     new ExperienceTableInit(factory).initExperience();
     new NotificationTableInit(factory).initNotification();
     new CityTableInit(factory).initCity();
-    new JobTableInit(factory).initJob();
-    new ScheduleTableInit(factory).initSchedule();
+    new JobTableInit(factory).initJob();  
     new ComplaintTableInit(factory).initComplaint();
     new SalaryTableInit(factory).initSalary();
     new AttendenceTableInit(factory).initAttendence();
     new ApplicationTableInit(factory).initApplicatoin();
     new InterviewTableInit(factory).initInterview();
+    new ScheduleTableInit(factory).initSchedule();
     new ProductTableInit(factory).initProduct();
     new OrderTableInit(factory).initOrder();
     new SuggestionTableInit(factory).initSuggestion();

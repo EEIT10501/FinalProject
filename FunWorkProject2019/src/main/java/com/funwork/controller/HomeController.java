@@ -128,6 +128,7 @@ public class HomeController {
     return "register";
   }
 
+
   /**
    * Process user register.
    */
@@ -164,6 +165,7 @@ public class HomeController {
       errorMeg.put("errorIDExs", "帳號已存在請重新更新");
     } else {
       Integer userId = userService.insertUser(email, name, password);
+
 //			googleService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
 //					"<h1>哈囉!" + name
 //							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"

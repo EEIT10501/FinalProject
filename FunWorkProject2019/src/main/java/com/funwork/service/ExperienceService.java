@@ -7,4 +7,6 @@ import com.funwork.model.Experience;
 public interface ExperienceService {
 
 	List<Experience> getAllExperiences();
+	
+	public void insertExperience(Experience experience);
 }
