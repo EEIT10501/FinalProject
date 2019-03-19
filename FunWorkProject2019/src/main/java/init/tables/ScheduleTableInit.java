@@ -1,5 +1,6 @@
 package init.tables;
 
+import com.funwork.model.Interview;
 import com.funwork.model.Job;
 import com.funwork.model.Schedule;
 import java.io.BufferedReader;
@@ -41,7 +42,7 @@ public class ScheduleTableInit {
         String startime = token[3];
         String restHour = token[4];
         String workdate = token[5];
-        String jobId = token[6];
+        String interviewId = token[6];
         Schedule schedule = new Schedule();
         Float restHour1 = Float.parseFloat(restHour);
         schedule.setScheduleName(scheduleName);
@@ -50,8 +51,8 @@ public class ScheduleTableInit {
         schedule.setStartTime(Timestamp.valueOf(startime));
         schedule.setRestHour(restHour1);
         schedule.setWorkDate(Date.valueOf(workdate));
-        Job job = session.get(Job.class, Integer.valueOf(jobId));
-        schedule.setJob(job);
+        Interview interview = session.get(Interview.class, Integer.valueOf(interviewId));
+        schedule.setInterview(interview);
         session.save(schedule);
       }
       tx.commit();
