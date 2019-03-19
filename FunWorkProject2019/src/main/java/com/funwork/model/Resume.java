@@ -11,6 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Resume {
@@ -18,12 +24,15 @@ public class Resume {
 	private Integer resumeId;
 	private String name;
 	private String phoneNum;
-	private Date birth; 
+	private Date birth;
 	private String educationLevel;
 	private Blob profilePic;
 	private String selfIntro;
 	private String fileName;
+	private String gender;
 	private User user;
+	@JsonIgnore
+	private MultipartFile profilePart;
 
 	public Resume() {
 	}
@@ -103,6 +112,23 @@ public class Resume {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	@Transient
+	public MultipartFile getProfilePart() {
+		return profilePart;
+	}
+
+	public void setProfilePart(MultipartFile profilePart) {
+		this.profilePart = profilePart;
 	}
 
 

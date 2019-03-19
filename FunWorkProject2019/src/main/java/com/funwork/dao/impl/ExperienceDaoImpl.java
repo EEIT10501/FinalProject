@@ -32,4 +32,16 @@ public class ExperienceDaoImpl implements ExperienceDao {
 		return list;
 	}
 
+	@Override
+	public void insertExperience(Experience experience) {
+		Session session = factory.getCurrentSession();
+		Integer experienceId = (Integer) session.save(experience);
+		return ;//因有void所以return後不用回傳值;
+	}
+
+
+
+	
+	
+
 }

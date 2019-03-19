@@ -9,9 +9,12 @@ public interface ResumeDao {
 
 	List<Resume> getAllResumes();
 
+	Resume getResumeByResumeId(Integer userId);
+
 	Resume getResumeByUserId(Integer userId);
-	
-	void addResume(Resume resume);
-	
-	User getUserById(int userId); 
+
+	Integer addResume(Resume resume);
+
+	User getUserById(int userId);
+
 }

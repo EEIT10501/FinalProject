@@ -73,7 +73,7 @@
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
 				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
+					<a href="resume" class="list-group-item list-group-item-action">基本資訊</a>
 					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
 					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
 					<a href="#" class="list-group-item list-group-item-action">公司單位管理</a>

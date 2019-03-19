@@ -168,17 +168,9 @@ public class EmployerController {
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
 	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
 			HttpServletRequest request) {
-		System.out.println("Enter controller");
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-		}
-
 		MultipartFile image = cb.getCompanyLicensureImage();
 		String originalFilename = image.getOriginalFilename();
 		cb.setFileName(originalFilename);
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		String rootDirectory = context.getRealPath("/");
 
 		if (image != null && !image.isEmpty()) {
 			try {

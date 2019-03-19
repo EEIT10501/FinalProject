@@ -37,30 +37,34 @@ public class ResumeDaoImpl implements ResumeDao {
 	public Resume getResumeByUserId(Integer userId) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM Resume WHERE Fk_User_Id = :userId";
-		if(session.createQuery(hql).setParameter("userId", userId).getResultList().size()!=0){
-		Resume resume = (Resume) session.createQuery(hql).setParameter("userId", userId).getSingleResult();
-		return resume;
+		if (session.createQuery(hql).setParameter("userId", userId).getResultList().size() != 0) {
+			Resume resume = (Resume) session.createQuery(hql).setParameter("userId", userId).getSingleResult();
+			return resume;
+		} else {
+			return null;
 		}
-		 else {
-			 return null;
-		 }
 	}
 
 	@Override
-	public void addResume(Resume resume) {
-	Session session = factory.getCurrentSession();
-	User user =  getUserById(resume.getUser().getUserId());
-	session.save(resume);
-	
+	public Integer addResume(Resume resume) {
+		Session session = factory.getCurrentSession();
+		Integer resumeId = (Integer) session.save(resume);
+		return resumeId;
 
 	}
 
 	@Override
 	public User getUserById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User ur = null;
+		Session session = factory.getCurrentSession();
+		ur = session.get(User.class, userId);
+		return ur;
 	}
 
+	@Override
+	public Resume getResumeByResumeId(Integer resumeId) {
+		Session session = factory.getCurrentSession();
+		return session.get(Resume.class, resumeId);
+	}
 
-	
 }
