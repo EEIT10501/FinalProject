@@ -151,12 +151,13 @@ public class JobServiceImpl implements JobService {
 
   @Override
   public Job insertJob(Job jbean, Integer userId) {
-    // 地址轉經緯度
-    JobServiceImpl jobServiceImpl = new JobServiceImpl();
-    Map<String, String> latlng = jobServiceImpl.getGeocoderLatitude(jbean.getAddress());
-
     String cityName = jbean.getCityName();
     jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
+//    System.out.println(jbean.getAddress());
+    
+ // 地址轉經緯度
+    JobServiceImpl jobServiceImpl = new JobServiceImpl();
+    Map<String, String> latlng = jobServiceImpl.getGeocoderLatitude(jbean.getCityArea() + cityName + jbean.getAddress());
     // 設定經緯度
     jbean.setJobLat(latlng.get("lat"));
     jbean.setJobLng(latlng.get("lng"));
@@ -197,6 +198,7 @@ public class JobServiceImpl implements JobService {
       }
 
       String str = sb.toString();
+      System.out.println(str);
 
       Map<String, String> map = null;
       if (StringUtils.isNotEmpty(str)) {
@@ -224,4 +226,10 @@ public class JobServiceImpl implements JobService {
     }
     return null;
   }
+//  public static void main(String[] args) {  //測試用
+//	  JobServiceImpl test = new JobServiceImpl();
+//	  HashMap<String, String> map =  (HashMap<String, String>) test.getGeocoderLatitude("台北市大安區和平東路一段162號");
+//	  System.out.println(map.get("lat"));
+//	  System.out.println(map.get("lng"));
+//  }
 }
