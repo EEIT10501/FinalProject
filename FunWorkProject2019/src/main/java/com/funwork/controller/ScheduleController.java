@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
+import com.funwork.service.InterviewService;
 import com.funwork.service.ScheduleService;
 
 
@@ -27,6 +29,9 @@ public class ScheduleController {
 
 	@Autowired
 	ScheduleService scheduleService;
+	
+	@Autowired
+	InterviewService interviewService;
 
 	public ScheduleController() {
 	}
@@ -38,8 +43,11 @@ public class ScheduleController {
 
 	@RequestMapping("/ScheduleCalendar")
 	public String calendarSave(Model model) {
-		List<Schedule> scheduleList = scheduleService.getSchedulesByDate();
-
+		
+		int jobId = 1; //測試用
+		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+		
+		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
 		for (Schedule sj : scheduleList) {
@@ -52,7 +60,7 @@ public class ScheduleController {
 		}
 		System.out.println(jsonArray);
 		model.addAttribute("json", jsonArray);
-		model.addAttribute("scheduleList", scheduleList);
+		model.addAttribute("interviewList", interviewList);
 
 		return "schedule/ScheduleCalendar";
 	}
@@ -60,7 +68,11 @@ public class ScheduleController {
 	@RequestMapping("/ScheduleCalendar/change")
 	public String calendarChange(Model model) {
 		model.addAttribute("change", true);
-		List<Schedule> scheduleList = scheduleService.getSchedulesByDate();
+		
+		int jobId = 1; //測試用
+		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+		
+		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
 		for (Schedule sj : scheduleList) {
@@ -72,7 +84,7 @@ public class ScheduleController {
 			jsonArray.put(object);
 		}
 		model.addAttribute("json", jsonArray);
-		model.addAttribute("scheduleList", scheduleList);
+		model.addAttribute("interviewList", interviewList);
 
 		return "schedule/ScheduleCalendar";
 	}
@@ -108,6 +120,11 @@ public class ScheduleController {
 			schedule.setStartTime(Timestamp.valueOf(starttime));
 			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
+			
+			int jobId = 1; //測試用
+			Interview interview = interviewService.findByAdmit_Job_UserName(jobId, (String) jsonObject.get("scheduleName"));		
+			schedule.setInterview(interview);
+			
 			scheduleService.insertSchedule(schedule);
 		}
 
