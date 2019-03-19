@@ -9,9 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>首頁</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
@@ -39,9 +37,11 @@
 			function() {
 				var jobTitle = $("#jobTitleInput").val();
 				$("#JobTitle").val(jobTitle);
-				// 		alert($("#JobTitle").val());
+				
+				if(jobTitle!=null){
 				document.getElementById("JobTitle").innerHTML = "["
 						+ $("#JobTitle").val() + "]";
+				}
 			});
 </script>
 <body>
@@ -54,7 +54,8 @@
 				<br>
 				<section>
 					<div style="float: right">
-						<button>匯出Excel</button>
+						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>
+						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
 					</div>
 					<div>
 						<div class="container" style="text-align: center">
@@ -74,7 +75,7 @@
 									<div class="col-sm-12" style="background-color: #F8F8FF">
 										<div class="panel panel-default text-left">
 											<div class="panel-body">
-												<h3>
+												<h3 style="margin: 10px">
 													<strong><a href="#">${applicant.user.userName}</a></strong>
 												</h3>
 												<div class="row">
@@ -133,7 +134,7 @@
 																				</c:if>
 																				<fieldset class="form-group">
 																					<div class="row">
-																						<legend class="col-form-label col-sm-3 pt-0">邀請類型：</legend>
+																						<label class="col-form-label col-sm-3 pt-0">邀請類型：</label>
 																						<div class="col-sm-9">
 																							<div class="form-check form-check-inline">
 																								<input class="form-check-input" type="radio"
@@ -206,6 +207,8 @@
 											</div>
 										</div>
 									</div>
+								</div>
+							</div>
 						</c:forEach>
 					</div>
 				</section>
@@ -215,8 +218,7 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights
-				reserved.</div>
+			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>

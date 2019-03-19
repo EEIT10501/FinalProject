@@ -14,69 +14,66 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Notification {
 
-	private Integer notificationId;
-	private String content;
-	private Timestamp time;
-	private Integer type;
-	private User relatedUser;
-	private User user;
+  private Integer notificationId;
+  private String content;
+  private Timestamp time;
+  private Integer type;
+  private User relatedUser;
+  private User user;
 
-	public Notification() {
-	}
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  public Integer getNotificationId() {
+    return notificationId;
+  }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getNotificationId() {
-		return notificationId;
-	}
+  public void setNotificationId(Integer notificationId) {
+    this.notificationId = notificationId;
+  }
 
-	public void setNotificationId(Integer notificationId) {
-		this.notificationId = notificationId;
-	}
+  @Column(columnDefinition = "nvarchar(255)")
+  public String getContent() {
+    return content;
+  }
 
-	@Column(columnDefinition = "nvarchar(255)")
-	public String getContent() {
-		return content;
-	}
+  public void setContent(String content) {
+    this.content = content;
+  }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+  public Timestamp getTime() {
+    return time;
+  }
 
-	public Timestamp getTime() {
-		return time;
-	}
+  public void setTime(Timestamp time) {
+    this.time = time;
+  }
 
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
+  public Integer getType() {
+    return type;
+  }
 
-	public Integer getType() {
-		return type;
-	}
+  public void setType(Integer type) {
+    this.type = type;
+  }
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "FK_RelatedUser_Id")
+  public User getRelatedUser() {
+    return relatedUser;
+  }
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_RelatedUser_Id")
-	public User getRelatedUser() {
-		return relatedUser;
-	}
+  public void setRelatedUser(User relatedUser) {
+    this.relatedUser = relatedUser;
+  }
 
-	public void setRelatedUser(User relatedUser) {
-		this.relatedUser = relatedUser;
-	}
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "FK_User_Id")
+  public User getUser() {
+    return user;
+  }
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_User_Id")
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+  public void setUser(User user) {
+    this.user = user;
+  }
 
 }

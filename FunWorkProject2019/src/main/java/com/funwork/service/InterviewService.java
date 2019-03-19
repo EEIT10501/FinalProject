@@ -2,14 +2,13 @@ package com.funwork.service;
 
 import java.util.List;
 
-import com.funwork.model.Application;
 import com.funwork.model.Interview;
 
 public interface InterviewService {
 
 	Interview findByPrimaryKey(int key);
 
-	void saveInterview(Interview interview);
+	Integer saveInterview(String interType, String interComment, String interPlace, String interTime, Integer apId);
 
 	void updateInterview(Interview interview);
 

@@ -1,19 +1,18 @@
 package com.funwork.service;
 
+import com.funwork.model.Complaint;
 import java.util.List;
 
-import com.funwork.model.Complaint;
-
 public interface ComplaintService {
-	List<Complaint> getAllComplaints();
+  List<Complaint> getAllComplaints();
 
-	List<Complaint> getComplaintDealList();
+  List<Complaint> getComplaintProcessList();
 
-	Complaint getComplaintById(Integer cpId);
+  Complaint getComplaintById(Integer cpId);
 
-	Complaint processComplaint(Integer cpId, String closeReason, String isRemove, Integer jobId);
+  Complaint processComplaint(Integer cpId, String closeReason, String isRemove, Integer jobId);
 
-	void insertCp(String type, String content, Integer jobId);
+  void insertCp(String type, String content, Integer jobId);
 
-	List<Complaint> getComplaintHistoryList();
+  List<Complaint> getComplaintHistoryList();
 }

@@ -1,11 +1,10 @@
 package com.funwork.dao;
 
+import com.funwork.model.Notification;
 import java.util.List;
 
-import com.funwork.model.Notification;
-
 public interface NotificationDao {
-	List<Notification> getAllNotifications();
-	
-	void insertNotification(Notification notification);
+  List<Notification> getAllNotifications();
+
+  void insertNotification(Notification notification);
 }

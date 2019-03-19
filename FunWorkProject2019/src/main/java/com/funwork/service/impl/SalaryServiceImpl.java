@@ -9,16 +9,11 @@ import com.funwork.dao.SalaryDao;
 import com.funwork.model.Salary;
 import com.funwork.service.SalaryService;
 
-
-
 @Service
 public class SalaryServiceImpl implements SalaryService {
 
 	@Autowired
 	SalaryDao dao;
-
-	public SalaryServiceImpl() {
-	}
 
 	@Transactional
 	@Override

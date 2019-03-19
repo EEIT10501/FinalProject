@@ -42,7 +42,6 @@ public class OrderController {
 
 	@RequestMapping("/order")
 	public String Order(Model model) {
-
 		return "order";
 	}
 
@@ -66,28 +65,27 @@ public class OrderController {
 
 		return "order";
 	}
-	
+
 	@RequestMapping(value = "/orderReturn", method = RequestMethod.POST)
-	public String OrderReturn(Model model,HttpServletRequest req,HttpServletResponse res) {
+	public String OrderReturn(Model model, HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("1");
 		System.out.println("交易成功" + req.getParameter("RtnCode"));
-		
+
 //		return "order";
 		return "ordertest";
 	}
-	
+
 	@RequestMapping("/order2")
 	public String Order2(Model model) {
 
 		return "ordertest";
 	}
-	
+
 	@RequestMapping(value = "/orderCheck1", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public @ResponseBody String aioCheckOutDevide(AioCheckOutOneTime aio) {
 		try {
 			all = new AllInOne("");
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		System.out.println(aio.getRemark());

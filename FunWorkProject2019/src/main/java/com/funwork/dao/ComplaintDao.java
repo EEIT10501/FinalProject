@@ -1,19 +1,18 @@
 package com.funwork.dao;
 
+import com.funwork.model.Complaint;
 import java.util.List;
 
-import com.funwork.model.Complaint;
-
 public interface ComplaintDao {
-	List<Complaint> getAllComplaints();
+  List<Complaint> getAllComplaints();
 
-	List<Complaint> getComplaintDealList();
+  List<Complaint> getComplaintProcessList();
 
-	Complaint getComplaintById(Integer cpId);
+  Complaint getComplaintById(Integer cpId);
 
-	Complaint processComplaint(Integer cpId, String closeReason);
-	
-	void insertCp(Complaint cp);
-	
-	List<Complaint> getComplaintHistoryList();
+  void processComplaint(Complaint cp);
+
+  void insertCp(Complaint cp);
+
+  List<Complaint> getComplaintHistoryList();
 }

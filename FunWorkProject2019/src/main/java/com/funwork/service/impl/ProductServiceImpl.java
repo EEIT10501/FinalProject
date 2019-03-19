@@ -16,9 +16,6 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao dao;
 
-	public ProductServiceImpl() {
-	}
-
 	@Transactional
 	@Override
 	public List<Product> getAllProducts() {

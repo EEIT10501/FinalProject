@@ -1,39 +1,34 @@
 package com.funwork.dao;
 
-import java.util.List;
-
 import com.funwork.model.Job;
+import java.util.List;
 
 public interface JobDao {
 
-	List<Job> getAllJobs();
+  List<Job> getAllJobs();
 
-	List<Job> getJobReviewList();
+  List<Job> getJobReviewList();
 
-	List<Job> getJobPassed();
+  List<Job> getJobPassed();
 
-	List<Job> getJobByCityName(Integer cityId);
+  List<Job> getJobByCityName(Integer cityId);
 
-	List<Job> getJobByCityArea(Integer cityId);
+  List<Job> getJobByCityArea(Integer cityId);
 
-	Job getJobById(Integer jobId);
+  Job getJobById(Integer jobId);
 
-	Job jobReviewPass(Integer jobId);
+  Job updateJob(Job job);
 
-	Job jobReviewFail(Integer jobId, String failReason);
+  List<Job> getCorrectJobs();
 
-	Job jobRemove(Integer jobId, String removeReason);
+  List<Job> getReviewHistory();
 
-	List<Job> getCorrectJobs();
+  List<Job> findJobByUserId(Integer userId);
 
-	List<Job> getReviewHistory();
+  List<Job> findJobByUserIdNJobStatus(Integer userId);
 
-	List<Job> findJobByUserId(Integer userId);
+  Job insertJob(Job job);
 
-	List<Job> findJobByUserIdNJobStatus(Integer userId);
-
-	Job insertJob(Job job, Integer userId);
-
-	int getJobPostedCount(Integer userId);
+  int getJobPostedCount(Integer userId);
 
 }

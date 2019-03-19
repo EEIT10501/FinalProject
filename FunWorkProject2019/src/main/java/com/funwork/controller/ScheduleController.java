@@ -1,9 +1,7 @@
 package com.funwork.controller;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.funwork.model.Schedule;
 import com.funwork.service.ScheduleService;
+
 
 @Controller
 public class ScheduleController {

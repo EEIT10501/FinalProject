@@ -17,10 +17,6 @@ public class SalaryDaoImpl implements SalaryDao {
 	@Autowired
 	SessionFactory factory;
 
-	public SalaryDaoImpl() {
-
-	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Salary> getAllSalarys() {

@@ -16,9 +16,6 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderDao dao;
 
-	public OrderServiceImpl() {
-	}
-
 	@Transactional
 	@Override
 	public List<Order> getAllOrders() {
