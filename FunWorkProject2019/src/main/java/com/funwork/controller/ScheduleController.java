@@ -38,7 +38,7 @@ public class ScheduleController {
 
 	@RequestMapping("/ScheduleCalendar")
 	public String calendarSave(Model model) {
-		List<Schedule> scheduleList = scheduleService.getAllSchedules();
+		List<Schedule> scheduleList = scheduleService.getSchedulesByDate();
 
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
@@ -60,7 +60,7 @@ public class ScheduleController {
 	@RequestMapping("/ScheduleCalendar/change")
 	public String calendarChange(Model model) {
 		model.addAttribute("change", true);
-		List<Schedule> scheduleList = scheduleService.getAllSchedules();
+		List<Schedule> scheduleList = scheduleService.getSchedulesByDate();
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
 		for (Schedule sj : scheduleList) {

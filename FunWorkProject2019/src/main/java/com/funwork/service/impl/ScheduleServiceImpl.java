@@ -21,6 +21,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public List<Schedule> getAllSchedules() {
 		return dao.getAllSchedules();
 	}
+	
+	@Transactional
+	@Override
+	public List<Schedule> getSchedulesByDate() {
+		return dao.getSchedulesByDate();
+	}
 
 	@Transactional
 	@Override
