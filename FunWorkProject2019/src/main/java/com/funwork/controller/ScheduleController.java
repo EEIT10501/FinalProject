@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.funwork.model.Application;
+import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
+import com.funwork.model.User;
+import com.funwork.model.Job;
+import com.funwork.service.JobService;
 import com.funwork.service.ScheduleService;
 
 @Controller
@@ -28,6 +34,7 @@ public class ScheduleController {
 
 	@Autowired
 	ScheduleService scheduleService;
+
 
 	public ScheduleController() {
 	}
@@ -164,8 +171,32 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("/wageManage")
-	public String wageManage() {
-		return "schedule/wageManage";
+	public String wageManage(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");	
+		if (loginUser != null) {
+			model.addAttribute("user", loginUser);
+			
+			return "schedule/wageManage";
+		} else {
+			return "redirect:/";
+		}	
 	}
+	
+//	@RequestMapping("/jobSeekerInfo")
+//	public String jobSeekerInfo(Model model, HttpServletRequest req) {
+//		HttpSession session = req.getSession();
+//		User loginUser = (User) session.getAttribute("loginUser");		
+//		if (loginUser != null) {
+//			model.addAttribute("user", loginUser);
+//			List<Application> applicatioList = applicationService.getApplicationByUserIdByTime(loginUser.getUserId());
+//			model.addAttribute("applicatioList", applicatioList);
+//			List<Interview> interviewList = interviewService.findByApplicationIdAndTimeProcessing(loginUser.getUserId());
+//			model.addAttribute("interviewList", interviewList);		
+//			return "jobSeeker/jobSeekerInfo";
+//		} else {
+//			return "redirect:/";
+//		}	
+//	}
 
 }

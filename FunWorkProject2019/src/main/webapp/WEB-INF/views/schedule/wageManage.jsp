@@ -29,7 +29,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-       
+
 <title>薪資概算</title>
 
 </head>
@@ -53,115 +53,18 @@
 	height: 600px;
 }
 
-/* section:after { */
-/* 	content: ""; */
-/* 	display: table; */
-/* 	clear: both; */
-/* } */
 </style>
 <script>
-	$(document)
-			.ready(
-					function() {
-						$.noConflict();
-						$('#example').DataTable();
-						var contextPath = $("#contextPath").attr('value');
+	$(document).ready(function() {
+		$.noConflict();
+		$('#example').DataTable({
+			"bLengthChange": false, //改變每頁顯示數據數量
+			"bFilter":false,
+		});
 
-						var status = $("#condit1").find(":selected").text();
-
-						$("#condit1").change(function() {
-							status = $("#condit1").find(":selected").text();
-						});
-
-						$("#butt1")
-								.click(
-										function() {
-
-											// 			$('#testField').DataTable({
-											// 				'ajax':{
-											// 			        'url': contextPath +  "/resultCorStatsJSON/"+status,
-											// 			        'type': "POST",
-											// 			        'data': { 'qstr': status },
-											// 			        'dataSrc': 'history'
-											// 				},
-											// 			    'autoWidth': false,
-											// 			    'lengthChange': false,
-											// 			    'ordering': false,
-											// 			    'pageLength': 50
-											// 		});
-
-											$
-													.ajax({
-														url : contextPath
-																+ "/resultCorStatsJSON/"
-																+ status,
-														cache : false,
-														type : "GET",
-														dataType : 'json',
-														success : function(json) {
-															console
-																	.log(JSON
-																			.stringify(json));
-															jQuery.fn.exists = function() {
-																return this.length > 0;
-															}
-															// 					   if($('#example_wrapper').exists()){
-															// 					   	$('#example_wrapper').hide();
-															// 					   }
-															$('#clearTable')
-																	.hide();
-															var rowHead = '<thead><tr><th>筆數 </th>'
-																	+ '<th>名稱 </th>'
-																	+ '<th>統編 </th>'
-																	+ '<th>地址 </th>'
-																	+ '<th>狀態 </th>'
-																	+ '<th>資料 </th></tr></thead><tbody>';
-															var tableContent = "";
-															$
-																	.each(
-																			json,
-																			function(
-																					index,
-																					element) {
-																				var idx = parseInt(index);
-																				var n = parseInt(1);
-																				var dataRow = '<tr><td>'
-																						+ (idx + n)
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.name
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.taxId
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.address
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.reviewStatus
-																						+ '</td>'
-																						+ "<td><a href='<spring:url value='company?id="
-																						+ element.companyId
-																						+ "'/>' class='btn btn-info btn-sm'>"
-																						+ "<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a></td></tr>";
-																				tableContent += dataRow;
-																			});
-															var myTable = rowHead
-																	+ tableContent
-																	+ '</tbody>';
-															$('#testField')
-																	.html(
-																			myTable);
-															$('#testField')
-																	.DataTable();
-														},
-														error : function(xhr) {
-															alert("failure");
-														}
-													});
-										});
-					});
+	});
 </script>
+
 <body>
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
@@ -175,61 +78,58 @@
 			<div class="col-sm-8">
 				<h2>薪資明細</h2>
 				<hr>
-				<!-- 				<h1>公司單位管理</h1> -->
-				<input type="hidden" id="contextPath"
-					value="${pageContext.request.contextPath}">
+				<!--		日期篩選條件			-->
+				<form action='<c:url value="/wageManage"/> ' method="post">
+					<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}">
+						請輸入欲查詢的月份:<input type="month">
+					<input type="submit" value="查詢" >
+				</form>
+				<!--		薪資資料表			-->
 				<section
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-						 <span class='label label-warning'> </span>
-						 請輸入欲查詢的月份: 						
-						<input type="month">
-						<hr>
-						<div id="clearTable">
-							<table class="table table-hover display" id="example">
-								<thead>
+						<table class="table table-hover display" id="example">
+							<thead>
+								<tr>
+									<th>姓名</th>
+									<th>月工時</th>
+									<th>時薪</th>
+									<th>小計</th>
+									<th>明細</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="company" items="${companys}" varStatus="loop">
 									<tr>
-										<th>姓名</th>
-										<th>月工時</th>
-										<th>時薪</th>
-										<th>小計</th>
-										<th>明細</th>
+										<td><c:out value="${loop.count}" /></td>
+										<td>${company.name}</td>
+										<td>${company.taxId}</td>
+										<td>${company.address}</td>
+										<td>${company.reviewStatus}</td>
+										<c:choose>
+											<c:when test="${company.reviewStatus =='已通過'}">
+												<td><a
+													href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
+													class="btn btn-info btn-sm"> <span
+														class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
+												</a></td>
+											</c:when>
+											<c:when test="${company.reviewStatus =='公司完成建檔'}">
+												<td><a
+													href='<spring:url value="company?id=${company.companyId}"/>'
+													class="btn btn-success btn-sm"> <span
+														class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+												</a></td>
+											</c:when>
+											<c:otherwise>
+												<td></td>
+											</c:otherwise>
+										</c:choose>
 									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="company" items="${companys}" varStatus="loop">
-										<tr>
-											<td><c:out value="${loop.count}" /></td>
-											<td>${company.name}</td>
-											<td>${company.taxId}</td>
-											<td>${company.address}</td>
-											<td>${company.reviewStatus}</td>
-											<c:choose>
-												<c:when test="${company.reviewStatus =='已通過'}">
-													<td><a
-														href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
-														class="btn btn-info btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
-													</a></td>
-												</c:when>
-												<c:when test="${company.reviewStatus =='公司完成建檔'}">
-													<td><a
-														href='<spring:url value="company?id=${company.companyId}"/>'
-														class="btn btn-success btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 詳細資料
-													</a></td>
-												</c:when>
-												<c:otherwise>
-													<td></td>
-												</c:otherwise>
-											</c:choose>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-
-						<table class="table table-hover display" id="testField">
+								</c:forEach>
+							</tbody>
 						</table>
+					<table class="table table-hover display" id="testField">
+					</table>
 				</section>
 
 			</div>
