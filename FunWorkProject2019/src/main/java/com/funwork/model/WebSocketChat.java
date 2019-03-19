@@ -84,7 +84,7 @@ public class WebSocketChat {
         try {
           ws.session.getBasicRemote().sendText(message);
         } catch (IOException e) {
-          logger.log(Level.WARNING, "給userID為：{0}發送訊息失敗", userId);
+          logger.log(Level.WARNING, "給userId為：{0}發送訊息失敗", userId);
           logger.warning(e.getMessage());
           return false;
         }

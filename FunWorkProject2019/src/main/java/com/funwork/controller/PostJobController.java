@@ -21,8 +21,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,23 +85,30 @@ public class PostJobController {
     return "employerManage/applicantsList";
   }
 
-  @RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
+  /**
+   * Provide Job for form.
+   */
+  @GetMapping(value = "/addJobProfile")
   public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
     Job job = new Job();
     HttpSession session = request.getSession();
     User loginUser = (User) session.getAttribute("loginUser");
     List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
-    String taipeiCityNameJSON = jobService.getCityNameList("台北市");
-    String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+    String taipeiCityNameJson = jobService.getCityNameList("台北市");
+    String newTaipeiCityNameJson = jobService.getCityNameList("新北市");
     model.addAttribute("jobBean", job);
-    model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
-    model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
+    model.addAttribute("taipeiCityNameJSON", taipeiCityNameJson);
+    model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJson);
     model.addAttribute("companyNameList", companyNameList);
     return "employerManage/addJobProfile";
   }
 
-  @RequestMapping(value = "/addJobProfile", method = RequestMethod.POST)
-  public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
+  /**
+   * Process new Job.
+   */
+  @PostMapping(value = "/addJobProfile")
+  public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, 
+      HttpServletRequest request) {
     HttpSession session = request.getSession();
     User loginUser = (User) session.getAttribute("loginUser");
 
@@ -173,11 +182,10 @@ public class PostJobController {
     return b;
   }
 
-  @RequestMapping(value = "/getJobPostedCount/{userId}", method = RequestMethod.GET)
+  @GetMapping(value = "/getJobPostedCount/{userId}")
   @ResponseBody
   public Integer getJobPostedCount(@PathVariable("userId") Integer userId) {
-    Integer count = jobService.getJobPostedCount(userId);
-    return count;
+    return jobService.getJobPostedCount(userId);
   }
 
 }
