@@ -87,11 +87,11 @@ public class ScheduleController {
 		return "schedule/ScheduleCalendar";
 	}
 
-	@RequestMapping("/ScheduleCalendar/change")
-	public String calendarChange(Model model) {
+	@RequestMapping("/ScheduleCalendar/change/{jobId}")
+	public String calendarChange(Model model, @PathVariable("jobId") Integer jobId) {
 		model.addAttribute("change", true);
 
-		int jobId = 1; // 測試用
+//		int jobId = 1; // 測試用
 		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
 
 		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
@@ -111,9 +111,9 @@ public class ScheduleController {
 		return "schedule/ScheduleCalendar";
 	}
 
-	@RequestMapping(value = "/ScheduleCalendar/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/ScheduleCalendar/save/{jobId}", method = RequestMethod.POST)
 	public String calendarIntoSql(Model model, @RequestParam("scheduleJSONArray") String scheduleJSON,
-			@RequestParam("delString") String delString) throws JSONException, ParseException {
+			@RequestParam("delString") String delString, @PathVariable("jobId") Integer jobId) throws JSONException, ParseException {
 		model.addAttribute("change", true);
 
 //		System.out.println(scheduleJSON);
@@ -143,15 +143,15 @@ public class ScheduleController {
 			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
 
-			int jobId = 1; // 測試用
+//			int jobId = 1; // 測試用
 			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,
 					(String) jsonObject.get("scheduleName"));
 			schedule.setInterview(interview);
-
+//			System.out.println(interview.getInterviewId());
 			scheduleService.insertSchedule(schedule);
 		}
 
-		return "schedule/ScheduleCalendar";
+		return "schedule/ScheduleCalendar"+jobId;
 	}
 
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.GET)
