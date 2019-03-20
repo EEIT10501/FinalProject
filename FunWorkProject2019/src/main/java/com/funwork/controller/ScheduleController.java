@@ -28,6 +28,7 @@ import com.funwork.model.Job;
 import com.funwork.service.InterviewService;
 import com.funwork.service.JobService;
 import com.funwork.service.ScheduleService;
+import com.funwork.service.UserService;
 
 
 @Controller
@@ -38,8 +39,14 @@ public class ScheduleController {
 	
 	@Autowired
 	InterviewService interviewService;
-
-
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	JobService jobService;
+	
+	
 	public ScheduleController() {
 	}
 
@@ -191,12 +198,37 @@ public class ScheduleController {
 		HttpSession session = req.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");	
 		if (loginUser != null) {
-			model.addAttribute("user", loginUser);			
+			model.addAttribute("user", loginUser);									
+		    List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+		      model.addAttribute("postJobList", postJobList);
+//			Interview interview = interviewService.findInterviewByAdmit(jobId);
 			return "schedule/wageManage";
 		} else {
 			return "redirect:/";
 		}	
 	}
+	
+	@RequestMapping(value = "/selectWage", method = RequestMethod.POST)
+	public String selectWage(@RequestParam("jobId") Integer jobId, @RequestParam("date") String date,HttpServletRequest request) {
+		System.out.println(jobId);
+		System.out.println(date);
+//		scheduleService.updateScheduleByPrimaryKey(schedule);
+		return "redirect:/wageManage";
+	}
+
+
+	
+//	  @RequestMapping(value = "/updateInterviewStatusOther", method = RequestMethod.POST)
+//	  public String updateInterviewStatusOther(@RequestParam("interviewId") Integer interviewId,
+//	      @RequestParam("interviewStatus") String interviewStatus) {
+//	    System.out.println(interviewId);
+//	    System.out.println(interviewStatus);
+//	    Interview interview = interviewService.findByPrimaryKey(interviewId);
+//	    interview.setInterviewStatus(interviewStatus);
+//	    interviewService.updateInterview(interview);
+//	    return "redirect:/invitationManage";
+//	  }
+
 	
 
 }

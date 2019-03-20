@@ -217,9 +217,7 @@
 																						title="編輯" alt="編輯" width="150px"></a><br>
 																					<h2 style="text-align: center;">確定要前往此邀約?</h2>
 																					<p style="text-align: center;">臨時取消邀約可能會留下紀錄，請詳細閱讀邀約地點和時間</p>
-																					<form
-																						action="${pageContext.request.contextPath}/updateInterviewStatus"
-																						method="post">
+																					<form action="${pageContext.request.contextPath}/updateInterviewStatus" method="post">
 																						<div class="modal-body">
 																							<input type="hidden" name="interviewId"
 																								value="${interview.interviewId}"> <input
