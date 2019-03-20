@@ -27,6 +27,7 @@
 <script>
 var delCount = [];
 $(document).ready(function() {
+	$("#collapse5").addClass("show"); //讓排班管理載入此頁面時便展開
 	$("#saveEvent").click(function(){
 		saveEvent();
 	});

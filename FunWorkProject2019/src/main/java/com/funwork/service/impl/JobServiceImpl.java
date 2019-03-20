@@ -287,4 +287,9 @@ public class JobServiceImpl implements JobService {
 	public void updateJobPost(Job job) {
 		jobDao.updateJob(job);
 	}
+	
+	@Override
+	public City getCityByPk(Integer cityId) {
+		return cityDao.getCityByPk(cityId);
+	}
 }

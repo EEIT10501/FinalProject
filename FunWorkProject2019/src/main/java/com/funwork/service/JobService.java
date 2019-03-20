@@ -57,5 +57,7 @@ public interface JobService {
   Integer getJobExposureCount(Integer userId);
 
   void changeJobFilled(Integer jobId);
+  
+  City getCityByPk(Integer cityId);
 
 }

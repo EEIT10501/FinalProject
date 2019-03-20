@@ -15,5 +15,7 @@ public interface CityDao {
 	String getCityNameList(String cityArea);
 	
 	City getCityByCityName(String cityName);
+	
+	City getCityByPk(Integer cityId);
 
 }
