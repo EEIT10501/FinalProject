@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.OrderDao;
 import com.funwork.model.Order;
+import com.funwork.model.Product;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -23,6 +24,17 @@ public class OrderDaoImpl implements OrderDao {
 		String hql = "FROM Order";
 		Session session = null;
 		List<Order> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Product> getAllProducts() {
+		String hql = "FROM Product";
+		Session session = null;
+		List<Product> list = new ArrayList<Product>();
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
 		return list;

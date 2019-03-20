@@ -11,8 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funwork.model.Application;
 import com.funwork.model.City;
@@ -148,6 +152,33 @@ public class JobController {
 
     notificationService.insertNotification(notification);
     return "jobDetail";
+  }
+
+  @GetMapping("/searchJob")
+  public String searchJob(Model model, @RequestParam String searchStr) {
+    List<Job> joblist = jobService.getJobsBySearchStr(searchStr);
+    List<City> citylist = jobService.getCityName(15);
+    model.addAttribute("citys", citylist);
+    model.addAttribute("jobs", joblist);
+    return "jobs";
+  }
+  
+  @GetMapping("/jobExposure/{jobId}")
+  public String jobExposure(Model model, @PathVariable Integer jobId) {
+    jobService.changeJobExposure(jobId);
+    return "redirect:/jobProfile?id=" + jobId;
+  }
+  
+  @ResponseBody
+  @GetMapping("/jobExposureCount/{userId}")
+  public Integer jobExposureCount(Model model, @PathVariable Integer userId) {
+    return jobService.getJobExposureCount(userId);
+  }
+  
+  @GetMapping("/jobFilled/{jobId}")
+  public String jobFilled(Model model, @PathVariable Integer jobId) {
+    jobService.changeJobFilled(jobId);
+    return "redirect:/jobProfile?id=" + jobId;
   }
 
 }

@@ -1,27 +1,25 @@
 package com.funwork.service;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.funwork.model.User;
+import java.util.List;
 
 public interface UserService {
 
-	List<User> getAllUsers();
+  List<User> getAllUsers();
 
-	User findByPrimaryKey(int key);
+  User findByPrimaryKey(int key);
 
-	User getUserById(Integer userId);
+  User getUserById(Integer userId);
 
-	Integer insertUser(String email, String name, String password);
+  Integer insertUser(String email, String name, String password);
 
-	public boolean idExists(String email);
+  public boolean idExists(String email);
 
-	User loginCheck(String email, String password);
+  User loginCheck(String email, String password);
 
-	void openUser(Serializable userId);
+  void openUser(Integer userId);
 
-	User getUserByGoogleEmail(String email, String googleId);
-	
-	Integer insertGoogleUser(String email, String name, String googleId);
+  User getUserByGoogleEmail(String email, String googleId);
+
+  Integer insertGoogleUser(String email, String name, String googleId);
 }

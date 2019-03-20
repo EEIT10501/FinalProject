@@ -1,7 +1,6 @@
 package init.tables;
 
 import com.funwork.model.Interview;
-import com.funwork.model.Job;
 import com.funwork.model.Schedule;
 import java.io.BufferedReader;
 import java.io.FileReader;

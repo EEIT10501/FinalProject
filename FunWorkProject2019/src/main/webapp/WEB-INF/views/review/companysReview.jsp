@@ -51,7 +51,7 @@
 							<th>公司統一編號</th>
 							<th>公司登記地址</th>
 							<th>雇主姓名</th>
-							<th>審核時間</th>
+							<th>提交時間</th>
 						</tr>
 					</thead>
 					<tbody>
