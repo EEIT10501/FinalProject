@@ -27,7 +27,7 @@ height:600px;
 }
 </style>
 <body>
-<%@ include file="/WEB-INF/views/includes/adminnavbar.jsp"%>
+<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 <div style="height:4rem"></div>
     <div class="container-fluid">
         <div class="row m-3 justify-content-around">
@@ -75,15 +75,15 @@ height:600px;
                     src="<c:url value='/getLicPicture/${company.companyId}'/>"/>
 						</span>
 				</p>
-				<p>
-					<a href="<spring:url value='/manageCompanyPage' />" class="btn btn-default">
-						<span class="glyphicon-hand-left glyphicon"></span>返回
-					</a> 
-					<a href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
-					class='btn btn-warning btn-large'> 
-					    <span class='glyphicon-shopping-cart glyphicon'></span>修改內容
-					</a>
-				</p>
+<!-- 				<p> -->
+<%-- 					<a href="<spring:url value='/manageCompanyPage' />" class="btn btn-default"> --%>
+<!-- 						<span class="glyphicon-hand-left glyphicon"></span>返回 -->
+<!-- 					</a>  -->
+<%-- 					<a href='<spring:url value="addCorpProfile?id=${company.companyId}"/>' --%>
+<!-- 					class='btn btn-warning btn-large'>  -->
+<!-- 					    <span class='glyphicon-shopping-cart glyphicon'></span>修改內容 -->
+<!-- 					</a> -->
+<!-- 				</p> -->
 			</div>
 				<div class="col-md-2"></div>
 				<div class="col-md-5" style="float: right">

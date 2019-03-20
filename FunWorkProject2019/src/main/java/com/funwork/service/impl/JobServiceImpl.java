@@ -204,10 +204,9 @@ public class JobServiceImpl implements JobService {
 			}
 
 			String str = sb.toString();
-//      System.out.println(str);
-
+			System.out.println(str);
+			
 			if (StringUtils.isNotEmpty(str)) {
-
 				JSONObject json = new JSONObject(str);
 				JSONArray ja = json.getJSONArray("results");
 				String lat = String.valueOf(
@@ -223,20 +222,20 @@ public class JobServiceImpl implements JobService {
 				}
 			}
 
-//      Map<String, String> map = null;
-//      if (StringUtils.isNotEmpty(str)) {
-//        int latStart = str.indexOf("{\"location\" : {\"lat\" :");
-//        int latEnd = str.indexOf(",\"lng");
-//        int lngEnd = str.indexOf("},\"location_type\"");
-//        if (latStart > 0 && lngEnd > 0 && latEnd > 0) {
-//          String lat = str.substring(latStart + 23, latEnd);
-//          String lng = str.substring(latEnd + 9, lngEnd);
-//          map = new HashMap<String, String>();
-//          map.put("lng", lng);
-//          map.put("lat", lat);
-//          return map;
-//        }
-//      }
+//			Map<String, String> map = null;
+//			if (StringUtils.isNotEmpty(str)) {
+//				int latStart = str.indexOf("{\"location\" : {\"lat\" :");
+//				int latEnd = str.indexOf(",\"lng");
+//				int lngEnd = str.indexOf("},\"location_type\"");
+//				if (latStart > 0 && lngEnd > 0 && latEnd > 0) {
+//					String lat = str.substring(latStart + 23, latEnd);
+//					String lng = str.substring(latEnd + 9, lngEnd);
+//					map = new HashMap<String, String>();
+//					map.put("lng", lng);
+//					map.put("lat", lat);
+//					return map;
+//				}
+//			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -284,10 +283,8 @@ public class JobServiceImpl implements JobService {
 		}
 	}
 
-//	public static void main(String args[]) {
-//		JobServiceImpl test = new JobServiceImpl();
-//		Map<String, String> map = test.getGeocoderLatitude("台北市大安區信義路三段168號");
-//		System.out.println(map.get("lat"));
-//		System.out.println(map.get("lng"));
-//	}
+	@Override
+	public void updateJobPost(Job job) {
+		jobDao.updateJob(job);
+	}
 }

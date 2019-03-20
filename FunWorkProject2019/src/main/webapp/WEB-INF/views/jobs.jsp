@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +104,6 @@
 	margin-bottom: 5px;
 }
 
-
 #map {
 	height: 400px;
 	margin-bottom: 5px;
@@ -165,34 +164,39 @@
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}">
-						<c:if test="${job.isExposure==true}">
-							<tr>
-								<td>
-								<span class="text-info" style="margin-right:5px">★推薦</span>${job.title}</td>
-								<td>${job.city.cityName}</td>
-								<td>${job.jobCompany.name}</td>
-								<td>${job.isFilled}</td>
-								<td>${job.jobOwner.userId}</td>
-								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
-								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
-									class="btn btn-primary"><span
-										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
-							</tr>
+							<c:if test="${job.isExposure==true}">
+								<tr>
+									<td><span class="text-info" style="margin-right: 5px">★推薦</span>${job.title}</td>
+									<td>${job.city.cityName}</td>
+									<td>${job.jobCompany.name}<br><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
+										class="glyphicon-info-sigh glyphicon">公司專頁</span>
+									</a>
+									</td>
+									<td>${job.isFilled}</td>
+									<td>${job.jobOwner.userId}</td>
+									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
+									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
+										class="btn btn-primary"><span
+											class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+								</tr>
 							</c:if>
-							</c:forEach>
-							<c:forEach var="job" items="${jobs}">
+						</c:forEach>
+						<c:forEach var="job" items="${jobs}">
 							<c:if test="${job.isExposure==false}">
-							<tr>
-								<td>${job.title}</td>
-								<td>${job.city.cityName}</td>
-								<td>${job.jobCompany.name}</td>
-								<td>${job.isFilled}</td>
-								<td>${job.jobOwner.userId}</td>
-								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
-								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
-									class="btn btn-primary"><span
-										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
-							</tr>
+								<tr>
+									<td>${job.title}</td>
+									<td>${job.city.cityName}</td>
+									<td>${job.jobCompany.name}<br><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
+										class="glyphicon-info-sigh glyphicon">公司專頁</span>
+									</a>
+									</td>
+									<td>${job.isFilled}</td>
+									<td>${job.jobOwner.userId}</td>
+									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
+									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
+										class="btn btn-primary"><span
+											class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+								</tr>
 							</c:if>
 						</c:forEach>
 					</tbody>
@@ -200,7 +204,7 @@
 
 			</div>
 			<div class="col-sm-5">
-<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
+				<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
 				<div id="map"></div>
 			</div>
 		</div>

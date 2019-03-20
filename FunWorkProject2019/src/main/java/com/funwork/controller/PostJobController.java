@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.funwork.model.Application;
 import com.funwork.model.Job;
@@ -40,6 +43,35 @@ import com.funwork.service.JobService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
 
+/**
+ * @author user
+ *
+ */
+/**
+ * @author user
+ *
+ */
+/**
+ * @param jbean
+ * @param redirectAttrs
+ * @param request
+ * @param model
+ * @return
+ */
+/**
+ * @param jbean
+ * @param redirectAttrs
+ * @param request
+ * @param model
+ * @return
+ */
+/**
+ * @param jbean
+ * @param redirectAttrs
+ * @param request
+ * @param model
+ * @return
+ */
 @Controller
 public class PostJobController {
 
@@ -60,6 +92,8 @@ public class PostJobController {
 
   @Autowired
   ServletContext context;
+  
+  Job jobBean = new Job();
 
   @RequestMapping(value = "/applications")
   public String pullApplicantsByJob(@RequestParam("id") Integer id, Model model) {
@@ -89,21 +123,79 @@ public class PostJobController {
   /**
    * Provide Job for form.
    */
-  @GetMapping(value = "/addJobProfile")
-  public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
-    Job job = new Job();
-    HttpSession session = request.getSession();
-    User loginUser = (User) session.getAttribute("loginUser");
-    List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
-    String taipeiCityNameJson = jobService.getCityNameList("台北市");
-    String newTaipeiCityNameJson = jobService.getCityNameList("新北市");
-    model.addAttribute("jobBean", job);
-    model.addAttribute("taipeiCityNameJSON", taipeiCityNameJson);
-    model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJson);
-    model.addAttribute("companyNameList", companyNameList);
-    return "employerManage/addJobProfile";
-  }
+	@RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
+	public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
+		Job job = new Job();
+		HttpSession session = request.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
+		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
+		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+		model.addAttribute("jobBean", job);
+		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
+		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
+		model.addAttribute("companyNameList", companyNameList);
+		return "employerManage/addJobProfile";
+	}
 
+	/*
+	 * Add the evaluating step on active job posting count and then check if job posting is to 
+	 * update previous record or insert new record
+	 */
+//	@RequestMapping(value = {"/addJobProfile","/modJobProfilePage"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/modJobProfilePage"}, method = RequestMethod.POST)
+	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean,
+			HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		System.out.println(jobBean.getJobId());
+		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
+		Integer limit = loginUser.getJobPostLimit();
+		
+
+		if (activePost < limit) {
+			if(jbean.getJobId()!=null) {
+				jobService.updateJobPost(jbean);
+			} else {
+				jobService.insertJob(jbean, loginUser.getUserId());
+			}
+		}else {
+			model.addAttribute("error2", "超出工作刊登上限額度");
+			return "employerManage/addJobProfile";
+		}
+		return "redirect:/manageJob";
+	}
+	
+	/**
+	 * Method below is for modifying job post "編輯工作". Add additional evaluation on
+	 * whether job posting is active or the active job postings are over the set
+	 * limit.
+	 */
+	@RequestMapping(value = "/modJobProfile", method = RequestMethod.GET)
+	public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId, HttpServletRequest request) {
+		System.out.println("modJobProfile here");
+		Job job = jobService.getJobById(jobId);
+		boolean isActive = job.getReviewStatus().equalsIgnoreCase("發布中");
+		if (!isActive) {
+				System.out.println("modJobProfile isActive here");
+				HttpSession session = request.getSession();
+				User loginUser = (User) session.getAttribute("loginUser");
+				List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
+				String taipeiCityNameJSON = jobService.getCityNameList("台北市");
+				String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+				model.addAttribute("jobBean", job);
+				jobBean = job;
+				model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
+				model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
+				model.addAttribute("companyNameList", companyNameList);
+				return "employerManage/modJobProfilePage";
+		} else {
+			model.addAttribute("error1", "發布中的工作無法修改");
+			model.addAttribute("job", job);
+			return "employerManage/jobProfile";
+		}
+
+	}
   /**
    * Process new Job.
    */
