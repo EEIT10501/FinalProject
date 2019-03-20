@@ -305,8 +305,11 @@ public class JobServiceImpl implements JobService {
 		jobToChange.setCompanyName(jbean.getCompanyName());
 		jobToChange.setComment(jbean.getComment());
 		jobDao.updateJob(jobToChange);
+
 	}
 	
-	
-
+	@Override
+	public City getCityByPk(Integer cityId) {
+		return cityDao.getCityByPk(cityId);
+	}
 }

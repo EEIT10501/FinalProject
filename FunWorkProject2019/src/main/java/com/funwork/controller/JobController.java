@@ -75,8 +75,8 @@ public class JobController {
 //		}
 //		List<Job> joblist = jobService.getJobByCity(5);      //依城市搜尋
 //		List<Job> joblist = jobService.getJobByCityArea(13); //依地區搜尋
-    List<City> citylist = jobService.getCityName(15);
-    model.addAttribute("citys", citylist);
+//    List<City> citylist = jobService.getCityName(15);
+//    model.addAttribute("citys", citylist);
     model.addAttribute("jobs", joblist);
     return "jobs";
   }
@@ -126,6 +126,8 @@ public class JobController {
     model.addAttribute("jobs", joblist);
     List<City> citylist = jobService.getCityName(cityId);
     model.addAttribute("citys", citylist);
+    City city = jobService.getCityByPk(cityId);
+    model.addAttribute("city", city);
     return "jobs";
   }
 

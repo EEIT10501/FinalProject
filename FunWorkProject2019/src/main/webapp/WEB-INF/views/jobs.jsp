@@ -126,7 +126,7 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						選擇縣市</button>
+						<c:if test="${citys!=null}">${citys[0].cityArea}</c:if><c:if test="${empty citys}">選擇縣市</c:if></button>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="<c:url value='/cityArea/5'/>">台北市</a>
 						<a class="dropdown-item" href="<c:url value='/cityArea/15'/>">新北市</a>
@@ -137,7 +137,7 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						選擇行政區</button>
+						<c:if test="${city!=null}">${city.cityName}</c:if><c:if test="${empty city}">選擇行政區</c:if></button>
 					<div class="dropdown-menu">
 						<c:forEach var="city" items="${citys}">
 							<a class="dropdown-item"
@@ -156,8 +156,7 @@
 							<th>職缺名稱</th>
 							<th>所在地區</th>
 							<th>所屬公司</th>
-							<th>是否額滿</th>
-							<th>poster</th>
+							<th>聯絡人</th>
 							<th>截止時間</th>
 							<th>詳細內容</th>
 						</tr>
@@ -172,8 +171,7 @@
 										class="glyphicon-info-sigh glyphicon">公司專頁</span>
 									</a>
 									</td>
-									<td>${job.isFilled}</td>
-									<td>${job.jobOwner.userId}</td>
+									<td>${job.jobOwner.userName}</td>
 									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
 									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
 										class="btn btn-primary"><span
@@ -190,8 +188,7 @@
 										class="glyphicon-info-sigh glyphicon">公司專頁</span>
 									</a>
 									</td>
-									<td>${job.isFilled}</td>
-									<td>${job.jobOwner.userId}</td>
+									<td>${job.jobOwner.userName}</td>
 									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
 									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
 										class="btn btn-primary"><span
