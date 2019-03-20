@@ -69,6 +69,9 @@ public class ResumeServiceImpl implements ResumeService {
       } catch (Exception e) {
         logger.log(Level.WARNING, "檔案上傳發生異常: {0}", e.getMessage());
       }
+    }else {
+    	
+    	     	 
     }
     resumeDao.addResume(resume);
   }

@@ -44,13 +44,13 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
-				<form  action="" method="post">
+				<form  action="${pageContext.request.contextPath}/accountSetting" method="post" class="">
 					<fieldset>
 						<legend>帳號設定</legend>
 
 						<div class="form-group row">
-							<label>email</label> <input type="email" class="" value="${user.email}"
-								name="">
+							<label>email</label> <input type="email" class="" value="${users.email}"
+								name="email">
 						</div>
 
 						<div class="form- group row">

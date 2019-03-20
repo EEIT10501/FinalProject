@@ -36,7 +36,7 @@ public class ResumeController {
     if (rb == null) {
       rb = new Resume();
     }
-    model.addAttribute("resume", rb);
+    model.addAttribute("resume",rb);
     return "/resume";
   }
 
