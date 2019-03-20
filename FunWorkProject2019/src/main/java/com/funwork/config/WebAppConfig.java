@@ -102,6 +102,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     return new JsonViewResolver();
   }
 
+
   @Bean
   public ViewResolver pdfViewResolver(ServletContext context) {
     return new PdfViewResolver(context);

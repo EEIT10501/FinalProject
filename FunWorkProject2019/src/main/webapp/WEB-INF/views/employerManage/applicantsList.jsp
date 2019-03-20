@@ -34,7 +34,7 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(
-			function() {
+			  
 				var jobTitle = $("#jobTitleInput").val();
 				$("#JobTitle").val(jobTitle);
 				

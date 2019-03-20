@@ -96,6 +96,7 @@
 							<option>已截止</option>
 							<option>待審核</option>
 							<option>審核失敗</option>
+							<option>下架</option>
 							<option>全部</option>
 						</select> &nbsp;
 						<button id="butt1" style="width: auto;"  onclick="filterSelect()">確定送出</button>

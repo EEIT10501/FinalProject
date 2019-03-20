@@ -11,7 +11,6 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>首頁</title>
 </head>
 <style>
@@ -34,7 +33,7 @@
 }
 </style>
 <body>
-	<%@ include file="/WEB-INF/views/includes/adminnavbar.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
@@ -68,8 +67,8 @@
 									<spring:message code='spring.registerCompany.form.taxId.label' />
 								</label>
 								<div class="col-lg-10">
-									<form:input id="taxId" path="taxId" type='text'
-										class='form:input-large' />
+									<form:input id="taxId" path="taxId" type='number'
+										class='form:input-large'  />
 									
 									<c:if test="${empty errors}">
 									<span></span>

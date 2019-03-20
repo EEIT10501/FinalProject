@@ -46,6 +46,9 @@
 					</li>
 				</c:if>
 				<li class="nav-item">
+					<a class="nav-link" href="<c:url value='/qapage'/>">常見問題</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="#">聯絡我們</a>
 				</li>
 				<c:if test="${loginUser!=null}">
