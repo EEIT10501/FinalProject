@@ -141,7 +141,6 @@
 					<nav>
 						<strong>目前篩選條件: </strong> 
 						<span class='label label-warning' id="filterPath"></span><p></p>
-<!-- 							<input type="text" id="column4_search">  -->
 						<strong>請輸入選擇條件: </strong> 
 						&nbsp; <select id="condit1">
 							<option>待審核</option>
@@ -150,8 +149,6 @@
 							<option>全部</option>
 							<option>公司完成建檔</option>
 						</select> 
-<!-- 						或是輸入關鍵字: &nbsp;  -->
-<!-- 						<input placeholder="please enter"> -->
 						<button id="butt1" style="width: auto" onclick="filterSelect()">確定送出</button>
 
 						<button id="jobPostBut" style="width: auto;"

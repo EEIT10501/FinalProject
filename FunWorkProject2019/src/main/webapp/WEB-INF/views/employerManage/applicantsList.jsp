@@ -96,9 +96,9 @@
 													</div>
 
 													<div class="col-sm-3 rows">
-														<strong>最高學歷: </strong>
+														<strong>最高學歷: </strong><br>
 														${resumes[loop.count-1].educationLevel}<p></p>
-														<strong>工作經驗: </strong><br>
+														<strong>自我介紹: </strong><br>
 														${resumes[loop.count-1].selfIntro}
 													</div>
 													<div class="col-sm-3 row">
