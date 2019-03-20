@@ -45,10 +45,12 @@ public class ResumeServiceImpl implements ResumeService {
     return resumeDao.getUserById(userId);
   }
 
+
   @Override
   public Resume getResumeById(Integer resumeId) {
     return resumeDao.getResumeById(resumeId);
   }
+
 
   @Override
   public void addResume(Resume resume, Integer userId) {
