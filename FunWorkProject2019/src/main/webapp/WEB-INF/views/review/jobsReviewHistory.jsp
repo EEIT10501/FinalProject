@@ -36,11 +36,8 @@
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="<c:url value='/jobsReview'/>" class="list-group-item list-group-item-action">職缺審核</a> 
-					<a href="<c:url value='/jobsReviewHistory'/>" class="list-group-item list-group-item-action">審核紀錄</a>
-				</div>
-			</div>
+                <jsp:include page="/WEB-INF/views/includes/adminSideBar.jsp"></jsp:include>
+            </div>
 			<div class="col-sm-8">
 				<h1>職缺審核紀錄</h1>
 				<table class="table table-hover dataTable" id="jobTable">
