@@ -87,9 +87,11 @@
 											<span class="glyphicon glyphicon-thumbs-up"></span>編輯
 										</button>
 										</a>
+										<a href="<c:url value="/modJobProfile?jobId=${job.jobId}"/>">
 										<button type="button" class="btn btn btn-primary btn-sm">
 											<span class="glyphicon glyphicon-thumbs-up"></span>複製
 										</button>
+										</a>
 										<c:choose>
                                             <c:when test="${job.isFilled}">
 												<a href="<c:url value="/jobFilled/${job.jobId}"/>">
