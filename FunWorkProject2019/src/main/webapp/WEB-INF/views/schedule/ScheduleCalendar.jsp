@@ -143,7 +143,7 @@ function saveEvent(){
 	scheduleJSONArray = JSON.stringify(scheduleJSON);
 	
 	$.ajax({
-		url:"<c:url value='/ScheduleCalendar/save'/>",
+		url:"<c:url value='/ScheduleCalendar/save/'/>"+${interviewList[0].application.job.jobId},
 		type:"POST",
 		dataType:"JSON",
 		data:{"scheduleJSONArray":scheduleJSONArray,"delString":delString},
@@ -230,7 +230,7 @@ function saveEvent(){
 						</div>
 					</div>
 					<div class="col-sm-10">
-					
+					<c:if test="${jobs!=null}">	
 					<table class="table table-hover dataTable" id="jobtable">
 					<thead>
 						<tr>
@@ -246,29 +246,26 @@ function saveEvent(){
 						<c:forEach var="job" items="${jobs}">
 							<c:if test="${job.reviewStatus=='發布中'}">
 								<tr>
-									<td><span class="text-info" style="margin-right: 5px">★推薦</span>${job.title}</td>
+									<td>${job.title}</td>
 									<td>${job.city.cityName}</td>
-									<td>${job.jobCompany.name}<br><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
-										class="glyphicon-info-sigh glyphicon">公司專頁</span>
-									</a>
-									</td>
-									<td>${job.jobOwner.userName}</td>
-									
+									<td>${job.jobCompany.name}</td>
+									<td>${job.jobOwner.userName}</td>									
 									<td><a href="<c:url value='/ScheduleCalendar/${job.jobId}'/>"
 										class="btn btn-primary"><span
-											class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+											class="glyphicon-info-sigh glyphicon"></span>排班作業 </a></td>
 								</tr>
 							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
-					
+				</c:if>
+				<c:if test="${empty jobs}">			
 						<div id='calendar-container'>
 							<div id='calendar'></div>
 							<div style="float: right">
 								<c:if test="${empty change}">
 									<a class="btn btn-primary"
-										href="<c:url value='/ScheduleCalendar/change'/>"><span
+										href="<c:url value='/ScheduleCalendar/change/'/>${interviewList[0].application.job.jobId}"><span
 										class="glyphicon-info-sigh glyphicon"></span>編輯</a>
 								</c:if>
 								<c:if test="${change!=null}">
@@ -278,6 +275,7 @@ function saveEvent(){
 							</div>
 							<!-- 				<input type="button" onclick="saveEvent()" value="TEST"> -->
 						</div>
+						</c:if>	
 					</div>
 				</div>
 
