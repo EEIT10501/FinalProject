@@ -46,6 +46,8 @@ public class ResumeServiceImpl implements ResumeService {
 	public void addResume(Resume resume, Integer userId) {
 		User user = userDao.findByPrimaryKey(userId);//取得userID
 		resume.setUser(user);//設定履歷對應的userID	
+//		Resume Idrs =resumeDao.getResumeByResumeId(userId);//取得resumeID
+		
 		resumeDao.addResume(resume); 
 //		Experience experience = new Experience();
 //		experience.setResume(rs);//設這行才能關聯到resume的id

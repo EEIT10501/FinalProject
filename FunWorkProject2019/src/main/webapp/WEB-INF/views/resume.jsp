@@ -50,10 +50,9 @@
 							class='form:input-large' />
 
 
-
 						<div class="form-group row">
 							<label for="name">姓名 :</label>
-							<form:input type="text" path="name" class="form-control is-valid"
+							<form:input type="text" path="name" class="form-control"
 								value="${d}" id="name" placeholder="請填真實名 " required="required" />
 						</div>
 
@@ -85,7 +84,7 @@
 
 						<div class="form-group row ">
 							<label for="educationLevel">教育程度:</label>
-							<form:select class="custom-select" path="educationLevel"
+							<form:select class="form-control" path="educationLevel"
 								required="required">
 								<form:option value="${d}">請選擇教育程度</form:option>
 								<form:option value="國小">國小</form:option>
@@ -133,7 +132,7 @@
 		</div>
 		<div class="col-sm-2">預留區塊</div>
 	</div>
-	</div>
+	
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
