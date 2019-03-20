@@ -207,7 +207,9 @@ function saveEvent(){
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-2">
+			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
+			</div>
 
 			<div class="col-sm-10 align-self-center">
 				<div class="row m-3 justify-content-around">

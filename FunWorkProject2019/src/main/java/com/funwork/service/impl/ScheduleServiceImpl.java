@@ -29,11 +29,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return dao.getSchedulesByDate(jobId);
 	}
 
-	@Transactional
-	@Override
-	public List<Schedule> getSchedulesByJobId(Integer jobId) {
-		return dao.getSchedulesByJobId(jobId);
-	}
+//	@Transactional
+//	@Override
+//	public List<Schedule> getSchedulesByJobId(Integer jobId) {
+//		return dao.getSchedulesByJobId(jobId);
+//	}
 
 	@Transactional
 	@Override

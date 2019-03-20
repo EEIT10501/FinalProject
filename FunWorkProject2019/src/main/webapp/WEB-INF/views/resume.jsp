@@ -29,7 +29,10 @@
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
-		<div class="row m-3 justify-content-around">
+		<div class="row m-3 justify-content-around">	
+		<div class="col-sm-2">
+				<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
+			</div>		
 			<div class="col-sm-8">
 				<form:form method="POST" modelAttribute="resume"
 					enctype="multipart/form-data">

@@ -38,7 +38,7 @@
 					<a class="nav-link" href="<c:url value='/jobs' />">想找打工</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<c:url value='/manageCompanyPage' />">想要徵人</a>
+					<a class="nav-link" href="<c:url value='/addJobProfile' />">想要徵人</a>
 				</li>
 				<c:if test="${loginUser!=null}">
 					<li class="nav-item">

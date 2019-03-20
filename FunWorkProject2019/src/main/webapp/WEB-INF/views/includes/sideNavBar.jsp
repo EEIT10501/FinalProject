@@ -123,8 +123,8 @@ background-color: #e3f2fd;
 			<div id="collapse5" class="collapse" aria-labelledby="heading5"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='scheduleManage'></c:url>">新增班別</a><br>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">管理班表</a>
+					<a class="btn btn-link" href="<c:url value='/scheduleManage'></c:url>">新增排班</a><br>
+					<a class="btn btn-link" href="<c:url value='/ScheduleCalendar'></c:url>">新增班表</a>
 				</div>
 			</div>
 		</div>
@@ -139,8 +139,8 @@ background-color: #e3f2fd;
 			<div id="collapse6" class="collapse" aria-labelledby="heading6"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">加值服務</a><br>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">訂單管理</a><br>
+					<a class="btn btn-link" href="<c:url value='/product'></c:url>">加值服務</a><br>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">訂單查詢</a><br>
 					<a class="btn btn-link" href="<c:url value='#'></c:url>">優惠券兌換</a>
 				</div>
 			</div>

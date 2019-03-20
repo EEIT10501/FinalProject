@@ -31,18 +31,9 @@ height:600px;
 <div style="height:4rem"></div>
     <div class="container-fluid">
         <div class="row m-3 justify-content-around">
-            <div class="col-sm-2 asideblock">
-            <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-  <a href="manageJob" class="list-group-item list-group-item-action">工作管理</a>
-  <a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-  <a href="manageCompanyPage" class="list-group-item list-group-item-action">公司單位管理</a>
-  <a href="#" class="list-group-item list-group-item-action">加值服務</a>
-  <a href="#" class="list-group-item list-group-item-action">PREMIUM會員</a>
-  <a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-  <a href="#" class="list-group-item list-group-item-action">優惠卷兌換</a>
-  </div>
-            </div>
+            <div class="col-sm-2">
+			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
+			</div>
             <div class="col-sm-8">
 
 			<section>
