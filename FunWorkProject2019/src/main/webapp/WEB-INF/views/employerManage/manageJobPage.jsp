@@ -123,7 +123,7 @@
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
-								<td>${job.applicant }</td>
+<%-- 								<td>${job.applicant }</td> --%>
 								<td>${job.reviewStatus}</td>
 								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
 								<td><a
