@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,10 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import com.funwork.model.Application;
 import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
+import com.funwork.model.User;
+import com.funwork.model.Job;
 import com.funwork.service.InterviewService;
+import com.funwork.service.JobService;
 import com.funwork.service.ScheduleService;
+import com.funwork.service.UserService;
 
 
 @Controller
@@ -32,7 +39,14 @@ public class ScheduleController {
 	
 	@Autowired
 	InterviewService interviewService;
-
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	JobService jobService;
+	
+	
 	public ScheduleController() {
 	}
 
@@ -180,8 +194,41 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("/wageManage")
-	public String wageManage() {
-		return "schedule/wageManage";
+	public String wageManage(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");	
+		if (loginUser != null) {
+			model.addAttribute("user", loginUser);									
+		    List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+		      model.addAttribute("postJobList", postJobList);
+//			Interview interview = interviewService.findInterviewByAdmit(jobId);
+			return "schedule/wageManage";
+		} else {
+			return "redirect:/";
+		}	
 	}
+	
+	@RequestMapping(value = "/selectWage", method = RequestMethod.POST)
+	public String selectWage(@RequestParam("jobId") Integer jobId, @RequestParam("date") String date,HttpServletRequest request) {
+		System.out.println(jobId);
+		System.out.println(date);
+//		scheduleService.updateScheduleByPrimaryKey(schedule);
+		return "redirect:/wageManage";
+	}
+
+
+	
+//	  @RequestMapping(value = "/updateInterviewStatusOther", method = RequestMethod.POST)
+//	  public String updateInterviewStatusOther(@RequestParam("interviewId") Integer interviewId,
+//	      @RequestParam("interviewStatus") String interviewStatus) {
+//	    System.out.println(interviewId);
+//	    System.out.println(interviewStatus);
+//	    Interview interview = interviewService.findByPrimaryKey(interviewId);
+//	    interview.setInterviewStatus(interviewStatus);
+//	    interviewService.updateInterview(interview);
+//	    return "redirect:/invitationManage";
+//	  }
+
+	
 
 }
