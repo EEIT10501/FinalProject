@@ -29,7 +29,21 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-       
+
+<link type="text/css" rel="stylesheet"
+	href='<c:url value="/css/bootstrap-datetimepicker.css"/>'
+	media="screen, projection" />
+
+
+
+<!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="bootstrap-datepicker3.css"> -->
+<!-- <script src="jquery.min.js"></script> -->
+<!-- <script src="bootstrap.min.js"></script> -->
+<!-- <script src="bootstrap-datepicker.js"></script> -->
+
+
+
 <title>薪資概算</title>
 
 </head>
@@ -52,116 +66,19 @@
 .asideblock {
 	height: 600px;
 }
-
-/* section:after { */
-/* 	content: ""; */
-/* 	display: table; */
-/* 	clear: both; */
-/* } */
 </style>
 <script>
-	$(document)
-			.ready(
-					function() {
-						$.noConflict();
-						$('#example').DataTable();
-						var contextPath = $("#contextPath").attr('value');
+	$(document).ready(function() {
+		$.noConflict();
+		$('#example').DataTable({
+			"bLengthChange" : false, //改變每頁顯示數據數量
+			"bFilter" : false,
+		});
 
-						var status = $("#condit1").find(":selected").text();
-
-						$("#condit1").change(function() {
-							status = $("#condit1").find(":selected").text();
-						});
-
-						$("#butt1")
-								.click(
-										function() {
-
-											// 			$('#testField').DataTable({
-											// 				'ajax':{
-											// 			        'url': contextPath +  "/resultCorStatsJSON/"+status,
-											// 			        'type': "POST",
-											// 			        'data': { 'qstr': status },
-											// 			        'dataSrc': 'history'
-											// 				},
-											// 			    'autoWidth': false,
-											// 			    'lengthChange': false,
-											// 			    'ordering': false,
-											// 			    'pageLength': 50
-											// 		});
-
-											$
-													.ajax({
-														url : contextPath
-																+ "/resultCorStatsJSON/"
-																+ status,
-														cache : false,
-														type : "GET",
-														dataType : 'json',
-														success : function(json) {
-															console
-																	.log(JSON
-																			.stringify(json));
-															jQuery.fn.exists = function() {
-																return this.length > 0;
-															}
-															// 					   if($('#example_wrapper').exists()){
-															// 					   	$('#example_wrapper').hide();
-															// 					   }
-															$('#clearTable')
-																	.hide();
-															var rowHead = '<thead><tr><th>筆數 </th>'
-																	+ '<th>名稱 </th>'
-																	+ '<th>統編 </th>'
-																	+ '<th>地址 </th>'
-																	+ '<th>狀態 </th>'
-																	+ '<th>資料 </th></tr></thead><tbody>';
-															var tableContent = "";
-															$
-																	.each(
-																			json,
-																			function(
-																					index,
-																					element) {
-																				var idx = parseInt(index);
-																				var n = parseInt(1);
-																				var dataRow = '<tr><td>'
-																						+ (idx + n)
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.name
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.taxId
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.address
-																						+ '</td>'
-																						+ '<td>'
-																						+ element.reviewStatus
-																						+ '</td>'
-																						+ "<td><a href='<spring:url value='company?id="
-																						+ element.companyId
-																						+ "'/>' class='btn btn-info btn-sm'>"
-																						+ "<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a></td></tr>";
-																				tableContent += dataRow;
-																			});
-															var myTable = rowHead
-																	+ tableContent
-																	+ '</tbody>';
-															$('#testField')
-																	.html(
-																			myTable);
-															$('#testField')
-																	.DataTable();
-														},
-														error : function(xhr) {
-															alert("failure");
-														}
-													});
-										});
-					});
+	});
 </script>
+
+
 <body>
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
@@ -175,73 +92,144 @@
 			<div class="col-sm-8">
 				<h2>薪資明細</h2>
 				<hr>
-				<!-- 				<h1>公司單位管理</h1> -->
-				<input type="hidden" id="contextPath"
-					value="${pageContext.request.contextPath}">
+
+				<!--		日期篩選條件			-->
+				<form action="${pageContext.request.contextPath}/selectWage" method="post">
+					<div style="background-color: aqua;">
+						<span style="padding-left: 10px">請輸入您所刊登的職缺： <select
+							name="jobId">
+								<c:forEach var="postJob" items="${postJobList}">
+									<option value="${postJob.jobId}">${postJob.title}</option>
+								</c:forEach>
+						</select></span> <br> <span style="padding-left: 10px">請輸入欲查詢的月份：</span>
+
+
+						<div class="form-group" style="">
+							<label for="dtp_input2" class="col-md-2 control-label">Date
+								Picking</label>
+							<div class="input-group date form_date col-md-5" data-date=""
+								data-date-format="dd MM yyyy" data-link-field="dtp_input2"
+								data-link-format="yyyy-mm-dd">
+								<input class="form-control" type="text" value="" readonly>
+
+									<span class="input-group-addon"><span
+									class="glyphicon glyphicon-remove"></span></span> <span
+									class="input-group-addon"><span
+									class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+							<input type="hidden" id="dtp_input2" value="" /><br />
+						</div>
+						
+						
+						<!-- -------------- -->
+
+					<!-- -------------- -->
+					<input class="btn btn-primary" type="submit" value="查詢"></div>
+				</form>
+				<!--		薪資資料表			-->
 				<section
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-						 <span class='label label-warning'> </span>
-						 請輸入欲查詢的月份: 						
-						<input type="month">
-						<hr>
-						<div id="clearTable">
-							<table class="table table-hover display" id="example">
-								<thead>
-									<tr>
-										<th>姓名</th>
-										<th>月工時</th>
-										<th>時薪</th>
-										<th>小計</th>
-										<th>明細</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="company" items="${companys}" varStatus="loop">
-										<tr>
-											<td><c:out value="${loop.count}" /></td>
-											<td>${company.name}</td>
-											<td>${company.taxId}</td>
-											<td>${company.address}</td>
-											<td>${company.reviewStatus}</td>
-											<c:choose>
-												<c:when test="${company.reviewStatus =='已通過'}">
-													<td><a
-														href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
-														class="btn btn-info btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
-													</a></td>
-												</c:when>
-												<c:when test="${company.reviewStatus =='公司完成建檔'}">
-													<td><a
-														href='<spring:url value="company?id=${company.companyId}"/>'
-														class="btn btn-success btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 詳細資料
-													</a></td>
-												</c:when>
-												<c:otherwise>
-													<td></td>
-												</c:otherwise>
-											</c:choose>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-
-						<table class="table table-hover display" id="testField">
-						</table>
+					<table class="table table-hover display" id="example">
+						<thead>
+							<tr>
+								<th>姓名</th>
+								<th>月工時</th>
+								<th>時薪</th>
+								<th>小計</th>
+								<th>明細</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="company" items="${companys}" varStatus="loop">
+								<tr>
+									<td><c:out value="${loop.count}" /></td>
+									<td>${company.name}</td>
+									<td>${company.taxId}</td>
+									<td>${company.address}</td>
+									<td>${company.reviewStatus}</td>
+									<c:choose>
+										<c:when test="${company.reviewStatus =='已通過'}">
+											<td><a
+												href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
+												class="btn btn-info btn-sm"> <span
+													class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
+											</a></td>
+										</c:when>
+										<c:when test="${company.reviewStatus =='公司完成建檔'}">
+											<td><a
+												href='<spring:url value="company?id=${company.companyId}"/>'
+												class="btn btn-success btn-sm"> <span
+													class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+											</a></td>
+										</c:when>
+										<c:otherwise>
+											<td></td>
+										</c:otherwise>
+									</c:choose>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<table class="table table-hover display" id="testField">
+					</table>
 				</section>
 
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
-	</div>
+
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>
 	</div>
+
+	<script type="text/javascript" src='<c:url value="/js/bootstrap.js"/>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/js/bootstrap-datetimepicker.js"/>'></script>
+	<script type="text/javascript"
+		src='<c:url value="/js/bootstrap-datetimepicker.zh-TW.js"/>'></script>
+	<script type="text/javascript" src='<c:url value="/js/moment.min.js"/>'></script>
+
+	<script type="text/javascript">
+
+		$('.form_date').datetimepicker({
+			language : 'zh-TW',
+			weekStart : 1,
+			todayBtn : 1,
+			autoclose : 1,
+			todayHighlight : 1,
+			startView : 2,
+			minView : 2,
+			forceParse : 0
+
+		});
+
+		$(function() {
+
+			$('input[name="datefilter"]').daterangepicker({
+				autoUpdateInput : false,
+				locale : {
+					cancelLabel : 'Clear'
+				}
+			});
+
+			$('input[name="datefilter"]').on(
+					'apply.daterangepicker',
+					function(ev, picker) {
+						$(this).val(
+								picker.startDate.format('MM/DD/YYYY') + ' - '
+										+ picker.endDate.format('MM/DD/YYYY'));
+					});
+
+			$('input[name="datefilter"]').on('cancel.daterangepicker',
+					function(ev, picker) {
+						$(this).val('');
+					});
+
+		});
+	</script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

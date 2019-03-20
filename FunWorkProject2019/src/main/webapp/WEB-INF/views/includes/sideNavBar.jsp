@@ -49,16 +49,16 @@ background-color: #e3f2fd;
 				<h2 class="mb-0">
 					<button class="btn collapsed" type="button" data-toggle="collapse"
 						data-target="#collapse1" aria-expanded="true"
-						aria-controls="collapse1">後台資訊</button>
+						aria-controls="collapse1">會員資訊</button>
 				</h2>
 			</div>
 
 			<div id="collapse1" class="collapse" aria-labelledby="heading1"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='/infoSector'></c:url>">會員資訊</a><br>
-					<a class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據管理</a><br>
-					<a class="btn btn-link" href="<c:url value='/docSector'></c:url>">表單下載</a><br>
+					<a class="btn btn-link" href="<c:url value='/resume'></c:url>">我的履歷</a>
+					<a class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據資訊</a>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">圖形表單</a>
 				</div>
 			</div>
 		</div>
