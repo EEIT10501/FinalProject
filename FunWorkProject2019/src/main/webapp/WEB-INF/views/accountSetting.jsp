@@ -66,7 +66,8 @@
 								name="password1" value="" placeholder="如有需要再更改" id="pwd2"
 								class="form-control" style="width: 230px;" />
 						</div>
-
+ 
+ 
 					</fieldset>
 
 				</form>
