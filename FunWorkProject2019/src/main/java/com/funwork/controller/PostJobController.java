@@ -142,20 +142,22 @@ public class PostJobController {
 	 * Add the evaluating step on active job posting count and then check if job posting is to 
 	 * update previous record or insert new record
 	 */
-//	@RequestMapping(value = {"/addJobProfile","/modJobProfilePage"}, method = RequestMethod.POST)
-	@RequestMapping(value = {"/modJobProfilePage"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/modJobProfilePage","/addJobProfile"}, method = RequestMethod.POST)
 	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean,
 			HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-		System.out.println(jobBean.getJobId());
 		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
+		
+		System.out.println("active post"+activePost);
+		
 		Integer limit = loginUser.getJobPostLimit();
 		
+		System.out.println("post limit"+limit);
 
 		if (activePost < limit) {
-			if(jbean.getJobId()!=null) {
-				jobService.updateJobPost(jbean);
+			if(jobBean.getJobId()!=null) {
+				jobService.updateJobPostById(jobBean.getJobId(),jbean);
 			} else {
 				jobService.insertJob(jbean, loginUser.getUserId());
 			}
@@ -196,16 +198,16 @@ public class PostJobController {
 		}
 
 	}
-  /**
-   * Process new Job.
-   */
-  @PostMapping(value = "/addJobProfile")
-  public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
-    HttpSession session = request.getSession();
-    User loginUser = (User) session.getAttribute("loginUser");
-    jobService.insertJob(jbean, loginUser.getUserId());
-    return "redirect:/manageJob";
-  }
+//  /**
+//   * Process new Job.
+//   */
+//  @PostMapping(value = "/addJobProfile")
+//  public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
+//    HttpSession session = request.getSession();
+//    User loginUser = (User) session.getAttribute("loginUser");
+//    jobService.insertJob(jbean, loginUser.getUserId());
+//    return "redirect:/manageJob";
+//  }
 
   @RequestMapping(value = "/getProfilePic/{userId}", method = RequestMethod.GET)
   public ResponseEntity<byte[]> getLogoPicture(HttpServletResponse resp, @PathVariable Integer userId) {

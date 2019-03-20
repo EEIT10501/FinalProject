@@ -153,7 +153,6 @@ public class JobServiceImpl implements JobService {
 	public Job insertJob(Job jbean, Integer userId) {
 		String cityName = jbean.getCityName();
 		jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
-//    System.out.println(jbean.getAddress());
 
 		// 地址轉經緯度
 		JobServiceImpl jobServiceImpl = new JobServiceImpl();
@@ -266,7 +265,28 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public void updateJobPost(Job job) {
-		jobDao.updateJob(job);
+	public void updateJobPostById(Integer jobId, Job jbean) {
+		Job jobToChange = jobDao.getJobById(jobId);
+		jobToChange.setIndustry(jbean.getIndustry());
+		jobToChange.setTitle(jbean.getTitle());
+		jobToChange.setDescription(jbean.getDescription());
+		jobToChange.setPositionNum(jbean.getPositionNum());
+		jobToChange.setOther(jbean.getOther());
+		jobToChange.setPostEndDate(jbean.getPostEndDate());
+		jobToChange.setWorkDate(jbean.getWorkDate());
+		jobToChange.setWorkTime(jbean.getWorkTime());
+		String cityName = jbean.getCityName();
+		String addr = jbean.getCityArea() + cityName + jbean.getAddress();
+		jobToChange.setAddress(addr);
+		jobToChange.setAddresssup(jbean.getAddresssup());
+		jobToChange.setPaidDate(jbean.getPaidDate());
+		jobToChange.setRateByHour(jbean.getRateByHour());
+		jobToChange.setJobPhone(jbean.getJobPhone());
+		jobToChange.setJobEmail(jbean.getJobEmail());
+		jobToChange.setContact(jbean.getContact());
+		jobToChange.setCompanyName(jbean.getCompanyName());
+		jobToChange.setComment(jbean.getComment());
+		jobDao.updateJob(jobToChange);
 	}
+
 }

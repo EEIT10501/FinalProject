@@ -324,6 +324,19 @@ public class Job {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
+	@Override
+	public String toString() {
+		return "Job [jobId=" + jobId + ", comment=" + comment + ", isExposure=" + isExposure + ", isFilled=" + isFilled
+				+ ", postEndDate=" + postEndDate + ", reviewStatus=" + reviewStatus + ", title=" + title
+				+ ", viewTimes=" + viewTimes + ", city=" + city + ", address=" + address + ", addresssup=" + addresssup
+				+ ", contact=" + contact + ", description=" + description + ", jobEmail=" + jobEmail + ", industry="
+				+ industry + ", other=" + other + ", paidDate=" + paidDate + ", jobPhone=" + jobPhone + ", positionNum="
+				+ positionNum + ", rateByHour=" + rateByHour + ", submitTime=" + submitTime + ", jobOwnerId=" + jobOwner.getUserId()
+				+ ", jobLat=" + jobLat + ", jobLng=" + jobLng + ", workDate=" + workDate + ", workTime=" + workTime
+				+ ", cityArea=" + cityArea + ", cityName=" + cityName + ", companyName=" + companyName + "]";
+	}
+	
 	
 	
 
