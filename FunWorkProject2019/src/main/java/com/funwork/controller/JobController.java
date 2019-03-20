@@ -105,9 +105,9 @@ public class JobController {
 
     }
 
-    List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
+//    List<Schedule> schedulelist = scheduleService.getSchedulesByJobId(jobId);
     model.addAttribute("jobBean", job);
-    model.addAttribute("schedules", schedulelist);
+//    model.addAttribute("schedules", schedulelist);
     return "jobDetail";
   }
 
