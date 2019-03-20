@@ -60,4 +60,8 @@ public interface JobService {
 
 	Integer getJobExposureCount(Integer userId);
 
+  Integer getAllJobPostingCount();
+
+  String getAllPostingJobTypeJson();
+
 }

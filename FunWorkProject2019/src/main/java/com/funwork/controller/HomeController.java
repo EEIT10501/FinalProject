@@ -2,6 +2,7 @@ package com.funwork.controller;
 
 import com.funwork.model.Resume;
 import com.funwork.model.User;
+import com.funwork.service.JobService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
 import com.funwork.service.impl.GoogleService;
@@ -45,6 +46,8 @@ public class HomeController {
   @Autowired
   UserService userService;
   @Autowired
+  JobService jobService;
+  @Autowired
   ServletContext context;
   @Autowired
   GoogleService googleService;
@@ -57,7 +60,7 @@ public class HomeController {
     HttpSession session = req.getSession();
     User loginUser = (User) session.getAttribute(LOGIN_USER);
     if (loginUser != null && loginUser.getRole() == 1) {
-      return "redirect:/jobsReview";
+      return "redirect:/adminHome";
     }
     return "index";
   }
@@ -258,6 +261,13 @@ public class HomeController {
   public String qaPage(Model model) {
     
     return "qapage";
+  }
+  
+  @GetMapping("/adminHome")
+  public String adminHome(Model model) {
+    String jobTypeJson = jobService.getAllPostingJobTypeJson();
+    model.addAttribute("jobTypeJson", jobTypeJson);
+    return "adminHomePage";
   }
   
 }

@@ -2,6 +2,8 @@ package com.funwork.dao.impl;
 
 import com.funwork.dao.JobDao;
 import com.funwork.model.Job;
+import com.google.gson.Gson;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,5 +162,26 @@ public class JobDaoImpl implements JobDao {
 	    session.update(job);
 	    return job;
 	  }
+
+  @Override
+  public Integer getAllJobPostingCount() {
+    Long count;
+    Session session = factory.getCurrentSession();
+    String hql = "SELECT count(*) FROM Job j WHERE j.reviewStatus = '發布中'"
+            + "AND j.postEndDate >= :nowdate AND j.isFilled = false";
+    count = (Long) session.createQuery(hql)
+        .setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
+    return count.intValue();
+  }
+
+  @Override
+  public String getAllPostingJobTypeJson() {
+    Session session = factory.getCurrentSession();
+    String hql = "SELECT j.industry ,count(*) FROM Job j WHERE j.reviewStatus = '發布中'"
+            + "AND j.postEndDate >= :nowdate AND j.isFilled = false GROUP BY j.industry";
+    List<?> list = session.createQuery(hql)
+        .setParameter("nowdate", new Date(System.currentTimeMillis())).getResultList();
+    return new Gson().toJson(list);
+  }
 
 }

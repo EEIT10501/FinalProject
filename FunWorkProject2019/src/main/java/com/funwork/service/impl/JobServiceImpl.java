@@ -311,4 +311,14 @@ public class JobServiceImpl implements JobService {
 	public City getCityByPk(Integer cityId) {
 		return cityDao.getCityByPk(cityId);
 	}
+
+  @Override
+  public Integer getAllJobPostingCount() {
+    return jobDao.getAllJobPostingCount();
+  }
+
+  @Override
+  public String getAllPostingJobTypeJson() {  
+    return jobDao.getAllPostingJobTypeJson();
+  }
 }

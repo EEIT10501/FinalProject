@@ -20,7 +20,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: #e3f2fd;">
-		<a class="navbar-brand" href="<c:url value='/jobsReview'></c:url>"> <img
+		<a class="navbar-brand" href="<c:url value='/adminHome'></c:url>"> <img
 			src="<c:url value='/image/LOGO.jpg'></c:url>" width="30" height="30"
 			class="d-inline-block align-top"> EEIT趣打工管理
 		</a>
@@ -33,7 +33,7 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link"
-					href="<c:url value='/jobsReview'></c:url>">首頁 <span class="sr-only"></span>
+					href="<c:url value='/adminHome'></c:url>">首頁 <span class="sr-only"></span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobsReview'></c:url>">職缺審核</a></li>			
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/companysReview'></c:url>">公司審核</a></li>
