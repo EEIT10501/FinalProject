@@ -60,11 +60,6 @@ public class EmployerController {
 	@Autowired
 	ServletContext context;
 
-	// 沒用到就刪掉
-	@RequestMapping("/employerPortal")
-	public String accessCompanyMain() {
-		return "employerManage/employerPortal";
-	}
 
 	// 沒用到就刪掉
 	@RequestMapping("/mainHub")
@@ -123,10 +118,6 @@ public class EmployerController {
 		}
 		model.addAttribute("companys", companys);
 		model.addAttribute("flag", companys);
-//		return "redirect:/employerManage/manageCompanyPage";
-//		return "redirect:employerManage/manageCompanyPage";
-//		return "redirect:/manageCompanyPage";
-//		return "employerManage/manageCompanyPage" + "";
 		return "OK";
 	}
 

@@ -47,5 +47,7 @@ public interface JobService {
   int getJobPostedCount(Integer userId);
 
   Map<String, String> getGeocoderLatitude(String address);
+  
+  public void updateJobPost(Job job);
 
 }

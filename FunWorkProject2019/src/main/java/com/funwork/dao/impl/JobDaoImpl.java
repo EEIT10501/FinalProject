@@ -140,5 +140,4 @@ public class JobDaoImpl implements JobDao {
         .setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
     return count.intValue();
   }
-
 }

@@ -33,11 +33,6 @@ import com.funwork.viewResolver.PdfViewResolver;
 @ComponentScan("com.funwork")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
-	@Autowired
-	ServletContext context;
-
-	public WebAppConfig() {
-	}
 
 	/**
 	 * ViewResolver for jsp.
@@ -98,7 +93,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	 * For Json、PDF、XML、Excel等視圖解析.
 	 */
 	@Bean
-	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
+	public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager,ServletContext context) {
 		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
 		resolver.setContentNegotiationManager(manager);
 		List<ViewResolver> resolvers = new ArrayList<ViewResolver>();

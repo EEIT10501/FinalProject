@@ -144,9 +144,9 @@
 <!-- 							<input type="text" id="column4_search">  -->
 						<strong>請輸入選擇條件: </strong> 
 						&nbsp; <select id="condit1">
-							<option>審查中</option>
-<!-- 							<option>已通過</option> -->
-<!-- 							<option>未通過</option> -->
+							<option>待審核</option>
+							<option>審核失敗</option>
+							<option>審核通過</option>
 							<option>全部</option>
 							<option>公司完成建檔</option>
 						</select> 
@@ -162,22 +162,22 @@
 							<table class="table table-hover display" id="example">
 								<thead>
 									<tr>
-										<th>筆數</th>
 										<th>名稱</th>
 										<th>統編</th>
 										<th>地址</th>
 										<th>狀態</th>
-										<th>資料</th>
+										<th>公司專頁</th>
+										<th>功能</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="company" items="${companys}" varStatus="loop">
 										<tr>
-											<td><c:out value="${loop.count}" /></td>
 											<td>${company.name}</td>
 											<td>${company.taxId}</td>
 											<td>${company.address}</td>
 											<td>${company.reviewStatus}</td>
+											
 											<c:choose>
 												<c:when test="${company.reviewStatus =='已通過'}">
 													<td><a
@@ -189,13 +189,24 @@
 												<c:when test="${company.reviewStatus =='公司完成建檔'}">
 													<td><a
 														href='<spring:url value="company?id=${company.companyId}"/>'
-														class="btn btn-success btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+														class="btn btn-info btn-sm"> <span
+															class="glyphicon-info-sigh glyphicon"></span> 公司專頁
 													</a></td>
 												</c:when>
 												<c:otherwise>
 													<td></td>
 												</c:otherwise>
+											</c:choose>
+											<c:choose>
+											<c:when test="${company.reviewStatus =='公司完成建檔'}">
+											<td><a href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
+														class="btn btn-warning btn-sm"> <span
+															class="glyphicon-info-sigh glyphicon"></span> 編輯
+													</a></td>
+											</c:when>
+											<c:otherwise>
+											<td></td>
+											</c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>
