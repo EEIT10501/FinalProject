@@ -54,8 +54,8 @@
 					</li>
 				</c:if>
 			</ul>
-			<form class="form-inline">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<form class="form-inline" action="<c:url value='/searchJob' />">
+				<input class="form-control mr-sm-2" name="searchStr" type="search" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 			<c:if test="${empty loginUser}">
@@ -189,7 +189,7 @@
 							setCookie("user", "", 0);
 							setCookie("password", "", 0);
 						}
-						location.reload();
+						document.location.href="${pageContext.request.contextPath}/";
 					} else if (data == "fail") {
 						alert("帳號或密碼錯誤!");
 					} else if (data == "notOpen") {
@@ -224,7 +224,6 @@
 					}
 				}
 			});
-
 		};
 	  function signOut() {
 	    var auth2 = gapi.auth2.getAuthInstance();
@@ -232,7 +231,6 @@
 	      console.log('User signed out.');
 	    });
 	  }
-		
 	</script>
 </body>
 </html>

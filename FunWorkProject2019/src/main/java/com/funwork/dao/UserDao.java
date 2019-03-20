@@ -1,25 +1,23 @@
 package com.funwork.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.funwork.model.User;
+import java.util.List;
 
 public interface UserDao {
 
-	List<User> getAllUsers();
+  List<User> getAllUsers();
 
-	User findByPrimaryKey(int key);
+  User findByPrimaryKey(int key);
 
-	User getUserById(Integer userId);
+  User getUserById(Integer userId);
 
-	Integer insertUser(User user);
+  Integer insertUser(User user);
 
-	public boolean idExists(String email);
+  public boolean idExists(String email);
 
-	User loginCheck(String email, String password);
+  User loginCheck(String email, String password);
 
-	void openUser(Serializable userId);
+  void updateUser(User user);
 
-	User getUserByGoogleEmail(String email, String googleId);
+  User getUserByGoogleEmail(String email, String googleId);
 }

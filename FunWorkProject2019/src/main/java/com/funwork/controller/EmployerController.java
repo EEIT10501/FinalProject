@@ -161,6 +161,7 @@ public class EmployerController {
 
 	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
 	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
+
 			HttpServletRequest request, final RedirectAttributes redirectAttrs) {
 		System.out.println("Enter controller");
 		String[] suppressedFields = result.getSuppressedFields();
@@ -171,8 +172,6 @@ public class EmployerController {
 		MultipartFile image = cb.getCompanyLicensureImage();
 		String originalFilename = image.getOriginalFilename();
 		cb.setFileName(originalFilename);
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		String rootDirectory = context.getRealPath("/");
 
 		List<Company> companyList = companyService.findAllCompanys();
 		Map<String, String> errors = new HashMap<>();

@@ -129,4 +129,21 @@ public class InterviewDaoImp implements InterviewDao {
     }
     return exist;
   }
+  
+  @Override
+  public List<Interview> findInterviewByAdmit(Integer jobId) {
+    String hql = "FROM Interview i WHERE interviewType = '錄取' AND i.application.job.jobId = :jobId";
+    Session session = factory.getCurrentSession();
+    List<Interview> list = session.createQuery(hql).setParameter("jobId",jobId).getResultList();
+    return list;
+  }
+  
+  @Override
+  public Interview findByAdmit_Job_UserName(Integer jobId,String userName) {
+    String hql = "FROM Interview i WHERE interviewType = '錄取' AND i.application.job.jobId = :jobId AND i.application.user.userName = :userName";
+    Session session = factory.getCurrentSession();
+    Interview interview = (Interview) session.createQuery(hql).setParameter("jobId",jobId).setParameter("userName",userName).getSingleResult();
+    return interview;
+  }
+  
 }

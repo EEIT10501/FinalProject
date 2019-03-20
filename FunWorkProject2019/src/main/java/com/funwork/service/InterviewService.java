@@ -27,4 +27,8 @@ public interface InterviewService {
 	List<Interview> findByApplicationIdAndTimeCompleted(int key);
 
 	List<Interview> findByApplicationIdAndTimeExpired(int key);
+	
+	List<Interview> findInterviewByAdmit(Integer jobId);
+	
+	Interview findByAdmit_Job_UserName(Integer jobId,String userName);
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funwork.dao.ScheduleDao;
+import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
 import com.funwork.service.ScheduleService;
 
@@ -20,6 +21,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public List<Schedule> getAllSchedules() {
 		return dao.getAllSchedules();
+	}
+	
+	@Transactional
+	@Override
+	public List<Schedule> getSchedulesByDate(Integer jobId) {
+		return dao.getSchedulesByDate(jobId);
 	}
 
 	@Transactional

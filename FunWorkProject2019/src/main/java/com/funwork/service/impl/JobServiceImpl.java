@@ -151,15 +151,20 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public Job insertJob(Job jbean, Integer userId) {
-		// 地址轉經緯度
-		JobServiceImpl jobServiceImpl = new JobServiceImpl();
-		Map<String, String> latlng = jobServiceImpl.getGeocoderLatitude(jbean.getAddress());
-
 		String cityName = jbean.getCityName();
 		jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
+//    System.out.println(jbean.getAddress());
+
+		// 地址轉經緯度
+		JobServiceImpl jobServiceImpl = new JobServiceImpl();
+		Map<String, String> latlng = jobServiceImpl
+				.getGeocoderLatitude(jbean.getCityArea() + cityName + jbean.getAddress());
 		// 設定經緯度
 		jbean.setJobLat(latlng.get("lat"));
 		jbean.setJobLng(latlng.get("lng"));
+		if (jbean.getOther() == null) {
+			jbean.setOther("給雇主的話");
+		}
 		jbean.setIsExposure(false);
 		jbean.setIsFilled(false);
 		jbean.setReviewStatus("待審核");
@@ -197,6 +202,7 @@ public class JobServiceImpl implements JobService {
 			}
 
 			String str = sb.toString();
+			System.out.println(str);
 
 			Map<String, String> map = null;
 			if (StringUtils.isNotEmpty(str)) {
@@ -223,6 +229,40 @@ public class JobServiceImpl implements JobService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<Job> getJobsBySearchStr(String searchStr) {
+		return jobDao.getJobsBySearchStr(searchStr);
+	}
+
+	@Override
+	public void changeJobExposure(Integer jobId) {
+		Job job = jobDao.getJobById(jobId);
+		if (job.getIsExposure()) {
+			job.setIsExposure(false);
+			jobDao.updateJob(job);
+		} else {
+			job.setIsExposure(true);
+			jobDao.updateJob(job);
+		}
+	}
+
+	@Override
+	public Integer getJobExposureCount(Integer userId) {
+		return jobDao.getJobExposureCount(userId);
+	}
+
+	@Override
+	public void changeJobFilled(Integer jobId) {
+		Job job = jobDao.getJobById(jobId);
+		if (job.getIsFilled()) {
+			job.setIsFilled(false);
+			jobDao.updateJob(job);
+		} else {
+			job.setIsFilled(true);
+			jobDao.updateJob(job);
+		}
 	}
 
 	@Override

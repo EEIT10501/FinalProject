@@ -138,7 +138,7 @@ public class CompanyDaoImp implements CompanyDao {
   @SuppressWarnings("unchecked")
   @Override
   public List<Company> getCompanyReviewList() {
-    String hql = "FROM Company WHERE reviewStatus = '審查中' ORDER BY submitTime ASC";
+    String hql = "FROM Company WHERE reviewStatus = '待審核' ORDER BY submitTime ASC";
     Session session = factory.getCurrentSession();
     return session.createQuery(hql).getResultList();
   }
@@ -152,7 +152,7 @@ public class CompanyDaoImp implements CompanyDao {
   @SuppressWarnings("unchecked")
   @Override
   public List<Company> getReviewHistory() {
-    String hql = "FROM Company WHERE reviewStatus != '審核中' ORDER BY submitTime ASC";
+    String hql = "FROM Company WHERE reviewStatus != '待審核' ORDER BY submitTime ASC";
     Session session = factory.getCurrentSession();
     return session.createQuery(hql).getResultList();
   }

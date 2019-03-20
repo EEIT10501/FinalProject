@@ -10,9 +10,9 @@ import javax.persistence.Id;
 public class Product {
 
   private Integer productId;
-  private String name;
+  private String productName;
   private String description;
-  private Double price;
+  private Integer price;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +25,12 @@ public class Product {
   }
 
   @Column(columnDefinition = "nvarchar(255)")
-  public String getName() {
-    return name;
+  public String getProductName() {
+    return productName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setProductName(String productName) {
+    this.productName = productName;
   }
 
   @Column(columnDefinition = "nvarchar(255)")
@@ -42,11 +42,11 @@ public class Product {
     this.description = description;
   }
 
-  public Double getPrice() {
+  public Integer getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(Integer price) {
     this.price = price;
   }
 

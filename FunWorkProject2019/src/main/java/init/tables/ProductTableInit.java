@@ -34,9 +34,9 @@ public class ProductTableInit {
         }
         String[] token = line.split("\\|");
         Product product = new Product();
-        product.setName(token[0]);
+        product.setProductName(token[0]);
         product.setDescription(token[1]);
-        product.setPrice(Double.valueOf(token[2]));
+        product.setPrice(Integer.valueOf(token[2]));
         session.save(product);
       }
       tx.commit();

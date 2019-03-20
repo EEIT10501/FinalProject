@@ -7,6 +7,8 @@ import com.funwork.model.Schedule;
 public interface ScheduleDao {
 	List<Schedule> getAllSchedules();
 	
+	List<Schedule> getSchedulesByDate(Integer jobId);
+	
 	List<Schedule> getSchedulesByJobId(Integer jobId);
 
 	void insertSchedule(Schedule schedule);

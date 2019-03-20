@@ -50,4 +50,12 @@ public interface JobService {
   
   public void updateJobPost(Job job);
 
+  List<Job> getJobsBySearchStr(String searchStr);
+
+  void changeJobExposure(Integer jobId);
+
+  Integer getJobExposureCount(Integer userId);
+
+  void changeJobFilled(Integer jobId);
+
 }

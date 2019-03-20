@@ -42,24 +42,32 @@
 					<h1>張貼工作</h1>
 					<p id="noPost" style="color: red"></p>
 				</div>
-				<form:form modelAttribute="newJobPost" method="POST" id="jobForm">
-					<hr>
-					<div class="form-group row">
-						<label for="type" class="col-sm-2 col-form-label">工作類型</label>
-						<div class="col-sm-10">
-							<form:select path="industry" id="type" class="form-control">
-								<form:option value="餐飲">餐飲(餐廳、飲料店、小吃攤販)</form:option>
-								<form:option value="服務">服務(收銀員、促銷)</form:option>
-								<form:option value="銷售">銷售(賣場販賣、推銷)</form:option>
-								<form:option value="辦公">辦公(文書處理、行政、設計)</form:option>
-								<form:option value="活動">活動(演唱會、展場、家庭日)</form:option>
-								<form:option value="作業員">作業員(零件加工、包裝)</form:option>
-								<form:option value="勞力">勞力(搬運貨物、理貨、保全、清潔、佈/撤展)</form:option>
-								<form:option value="問券調查">問券調查(座談會、問券填寫)</form:option>
-								<form:option value="補教">補教(家教、補習班職務)</form:option>
-							</form:select>
+				<form:form modelAttribute="jobBean" method="POST" id="jobForm">			
+						<hr>
+						<div class="form-group row">
+						    <label for="type" class="col-sm-2 col-form-label">工作類型</label>
+						    <div class="col-sm-10">
+						    <form:select path="industry" id="type" class="form-control">
+						    	<form:option value="餐飲">餐飲(餐廳、飲料店、小吃攤販)</form:option>
+						        <form:option value="服務">服務(收銀員、促銷)</form:option>
+						        <form:option value="銷售">銷售(賣場販賣、推銷)</form:option>
+						        <form:option value="辦公">辦公(文書處理、行政、設計)</form:option>
+						        <form:option value="活動">活動(演唱會、展場、家庭日)</form:option>
+						        <form:option value="作業員">作業員(零件加工、包裝)</form:option>
+						        <form:option value="勞力">勞力(搬運貨物、理貨、保全、清潔、佈/撤展)</form:option>
+						        <form:option value="問券調查">問券調查(座談會、問券填寫)</form:option>
+						        <form:option value="補教">補教(家教、補習班職務)</form:option>
+						        <form:option value="其他">其他</form:option>
+						    </form:select>
+						    </div>
+					    </div>
+						<div class="form-group row">
+							<label for="title" class="col-sm-2 col-form-label">標題</label>
+						    <div class="col-sm-10">
+						      <form:input type="text" path="title" class="form-control" id="title" placeholder="ex:徵餐廳外場服務生" required="required" />
+						    </div>
 						</div>
-					</div>
+<!-- 					</div> -->
 					<div class="form-group row">
 						<label for="title" class="col-sm-2 col-form-label">標題</label>
 						<div class="col-sm-10">
@@ -199,12 +207,12 @@
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
-	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>
+	</div>
 	</div>
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -257,7 +265,7 @@
 				type : "GET",
 				success : function(data) {
 					if(data >= ${sessionScope.loginUser.jobPostLimit}){
-						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作");
+						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作。");
 						$("#jobForm").hide();
 					}
 				}
