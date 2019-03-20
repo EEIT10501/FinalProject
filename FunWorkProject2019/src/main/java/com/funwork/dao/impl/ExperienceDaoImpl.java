@@ -14,30 +14,25 @@ import com.funwork.model.Experience;
 @Repository
 public class ExperienceDaoImpl implements ExperienceDao {
 
-	@Autowired
-	SessionFactory factory;
+  @Autowired
+  SessionFactory factory;
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Experience> getAllExperiences() {
-		String hql = "FROM Experience";
-		Session session = null;
-		List<Experience> list = new ArrayList<>();
-		session = factory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
-		return list;
-	}
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<Experience> getAllExperiences() {
+    String hql = "FROM Experience";
+    Session session = null;
+    List<Experience> list = new ArrayList<>();
+    session = factory.getCurrentSession();
+    list = session.createQuery(hql).getResultList();
+    return list;
+  }
 
-	@Override
-	public void insertExperience(Experience experience) {
-		Session session = factory.getCurrentSession();
-		Integer experienceId = (Integer) session.save(experience);
-		return ;//因有void所以return後不用回傳值;
-	}
-
-
-
-	
-	
+  @Override
+  public void insertExperience(Experience experience) {
+    Session session = factory.getCurrentSession();
+    Integer experienceId = (Integer) session.save(experience);
+    return;// 因有void所以return後不用回傳值;
+  }
 
 }

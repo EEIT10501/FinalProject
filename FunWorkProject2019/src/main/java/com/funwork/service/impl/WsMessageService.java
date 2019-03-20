@@ -1,11 +1,10 @@
 package com.funwork.service.impl;
 
+import com.funwork.model.WebSocketChat;
 import org.springframework.stereotype.Service;
 
-import com.funwork.model.WebSocketChat;
-
 @Service("webSocketMessageService")
-public class WSMessageService {
+public class WsMessageService {
 
   private WebSocketChat webSocketChat = new WebSocketChat();
 

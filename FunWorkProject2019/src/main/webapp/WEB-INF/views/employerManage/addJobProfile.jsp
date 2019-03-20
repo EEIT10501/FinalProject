@@ -55,6 +55,7 @@
 						        <form:option value="勞力">勞力(搬運貨物、理貨、保全、清潔、佈/撤展)</form:option>
 						        <form:option value="問券調查">問券調查(座談會、問券填寫)</form:option>
 						        <form:option value="補教">補教(家教、補習班職務)</form:option>
+						        <form:option value="其他">其他</form:option>
 						    </form:select>
 						    </div>
 					    </div>
@@ -226,7 +227,7 @@
 				type : "GET",
 				success : function(data) {
 					if(data >= ${sessionScope.loginUser.jobPostLimit}){
-						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作");
+						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作。");
 						$("#jobForm").hide();
 					}
 				}

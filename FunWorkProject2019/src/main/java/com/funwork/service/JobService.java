@@ -48,4 +48,12 @@ public interface JobService {
 
   Map<String, String> getGeocoderLatitude(String address);
 
+  List<Job> getJobsBySearchStr(String searchStr);
+
+  void changeJobExposure(Integer jobId);
+
+  Integer getJobExposureCount(Integer userId);
+
+  void changeJobFilled(Integer jobId);
+
 }

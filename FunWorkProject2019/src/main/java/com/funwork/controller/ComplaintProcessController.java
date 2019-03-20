@@ -73,5 +73,4 @@ public class ComplaintProcessController {
     model.addAttribute("cpBean", complaint);
     return "cpprocess/cpProcessHistory";
   }
-
 }

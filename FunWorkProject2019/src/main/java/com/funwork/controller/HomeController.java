@@ -4,7 +4,7 @@ import com.funwork.model.Resume;
 import com.funwork.model.User;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
-import com.funwork.service.impl.SendGmailService;
+import com.funwork.service.impl.GoogleService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import java.io.IOException;
@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,9 +34,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
+  
   public static final Logger logger = Logger.getLogger("com.funwork");
   private static final String REDIRECT_TO_INDEX = "redirect:/";
   private static final String LOGIN_USER = "loginUser";
+  
   @Autowired
   ResumeService resumeService;
   @Autowired
@@ -45,7 +46,7 @@ public class HomeController {
   @Autowired
   ServletContext context;
   @Autowired
-  SendGmailService sendGmailService;
+  GoogleService googleService;
 
   /**
    * Return index.jsp，如果登入的是管理員，傳回管理員View.
@@ -165,7 +166,7 @@ public class HomeController {
     } else {
       Integer userId = userService.insertUser(email, name, password);
 
-//			sendGmailService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
+//			googleService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
 //					"<h1>哈囉!" + name
 //							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
 //							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
@@ -186,7 +187,7 @@ public class HomeController {
   }
 
   @GetMapping("/userOpen/{userId}")
-  public String userOpen(@PathVariable("userId") String userId) {
+  public String userOpen(@PathVariable("userId") Integer userId) {
     userService.openUser(userId);
     return REDIRECT_TO_INDEX;
   }
@@ -199,7 +200,7 @@ public class HomeController {
   public String googleLogin(@RequestParam("idtoken") String idtoken, HttpServletRequest req) {
 
     GoogleIdToken idToken = null;
-    idToken = sendGmailService.idTokenVertify(idtoken);
+    idToken = googleService.idTokenVerify(idtoken);
 
     if (idToken != null) {
       Payload payload = idToken.getPayload();
