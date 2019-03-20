@@ -128,8 +128,6 @@ public class HomeController {
   public String register(Model model) {
     return "register";
   }
-
-
   /**
    * Process user register.
    */
@@ -192,7 +190,15 @@ public class HomeController {
     userService.openUser(userId);
     return REDIRECT_TO_INDEX;
   }
+  
+  /**
+   * Process User Account setting.
+   */
 
+  
+  
+  
+  
   /**
    * Google第三方登入.
    */

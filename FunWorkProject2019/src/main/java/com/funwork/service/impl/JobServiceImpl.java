@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -202,21 +204,37 @@ public class JobServiceImpl implements JobService {
 
 			String str = sb.toString();
 			System.out.println(str);
-
-			Map<String, String> map = null;
+			
 			if (StringUtils.isNotEmpty(str)) {
-				int latStart = str.indexOf("{\"location\" : {\"lat\" :");
-				int latEnd = str.indexOf(",\"lng");
-				int lngEnd = str.indexOf("},\"location_type\"");
-				if (latStart > 0 && lngEnd > 0 && latEnd > 0) {
-					String lat = str.substring(latStart + 23, latEnd);
-					String lng = str.substring(latEnd + 9, lngEnd);
-					map = new HashMap<String, String>();
-					map.put("lng", lng);
+				JSONObject json = new JSONObject(str);
+				JSONArray ja = json.getJSONArray("results");
+				String lat = String.valueOf(
+						ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
+				String lng = String.valueOf(
+						ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+				Map<String, String> map = new HashMap<String, String>();
+				if (lat != null && lng != null) {
 					map.put("lat", lat);
+					map.put("lng", lng);
+					System.out.println(map.get("lat")+","+map.get("lng"));
 					return map;
 				}
 			}
+
+//			Map<String, String> map = null;
+//			if (StringUtils.isNotEmpty(str)) {
+//				int latStart = str.indexOf("{\"location\" : {\"lat\" :");
+//				int latEnd = str.indexOf(",\"lng");
+//				int lngEnd = str.indexOf("},\"location_type\"");
+//				if (latStart > 0 && lngEnd > 0 && latEnd > 0) {
+//					String lat = str.substring(latStart + 23, latEnd);
+//					String lng = str.substring(latEnd + 9, lngEnd);
+//					map = new HashMap<String, String>();
+//					map.put("lng", lng);
+//					map.put("lat", lat);
+//					return map;
+//				}
+//			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -21,9 +21,6 @@
 	color: white;
 }
 
-.asideblock {
-	height: 600px;
-}
 </style>
 </head>
 
@@ -34,17 +31,8 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
-			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">基本資訊</a>
-					<a href="#" class="list-group-item list-group-item-action">工作管理</a>
-					<a href="#" class="list-group-item list-group-item-action">邀約管理</a>
-					<a href="#" class="list-group-item list-group-item-action">公司管理</a>
-					<a href="#" class="list-group-item list-group-item-action">加值服務</a>
-					<a href="#" class="list-group-item list-group-item-action">黃金會員</a>
-					<a href="#" class="list-group-item list-group-item-action">訂單管理</a>
-					<a href="#" class="list-group-item list-group-item-action">優惠兌換</a>
-				</div>
+			<div class="col-sm-2">
+			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->

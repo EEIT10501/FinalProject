@@ -34,11 +34,8 @@
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
-				<div class="list-group">
-					<a href="<c:url value='/companysReview'/>" class="list-group-item list-group-item-action">公司審核</a> 
-                    <a href="<c:url value='/companysReviewHistory'/>" class="list-group-item list-group-item-action">審核紀錄</a>
-				</div>
-			</div>
+                <jsp:include page="/WEB-INF/views/includes/adminSideBar.jsp"></jsp:include>
+            </div>
 			<div class="col-sm-8 showjobdetail">
 				<div class="row">
 					<div class="col-sm-12">

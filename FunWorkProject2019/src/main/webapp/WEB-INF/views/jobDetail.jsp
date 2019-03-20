@@ -168,10 +168,10 @@
 						<h5>工作時間</h5>
 					</div>
 					<div class="col-sm-5">
-						<c:forEach var="schedules" items="${schedules}">
-							<h6>${schedules.workDate}</h6>
-				${schedules.startTime}-${schedules.endTime}
-				</c:forEach>
+<%-- 						<c:forEach var="schedules" items="${schedules}"> --%>
+							<h6>${jobBean.workDate}</h6>
+				${jobBean.workTime}
+<%-- 				</c:forEach> --%>
 					</div>
 				</div>
 				<div class="row justify-content-center">

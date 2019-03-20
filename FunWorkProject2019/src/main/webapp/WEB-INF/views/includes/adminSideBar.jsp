@@ -57,7 +57,7 @@ background-color: #e3f2fd;
 				data-parent="#accordionExample">
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/jobsReview'></c:url>">職缺審核</a>
-					<a class="btn btn-link" href="<c:url value='/#'></c:url>">職缺紀錄</a>
+					<a class="btn btn-link" href="<c:url value='/jobsReviewHistory'></c:url>">職缺紀錄</a>
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@ background-color: #e3f2fd;
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/companysReview'></c:url>">公司審核</a>
 					<a class="btn btn-link"
-						href="<c:url value='/#'></c:url>">公司紀錄</a>
+						href="<c:url value='/companysReviewHistory'></c:url>">公司紀錄</a>
 				</div>
 			</div>
 		</div>
@@ -90,7 +90,7 @@ background-color: #e3f2fd;
 				data-parent="#accordionExample">
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/cpsProcess'></c:url>">申訴處理</a> <a
-						class="btn btn-link" href="<c:url value='#'></c:url>">申訴紀錄</a>
+						class="btn btn-link" href="<c:url value='/cpsHistory'></c:url>">申訴紀錄</a>
 				</div>
 			</div>
 		</div>
@@ -105,8 +105,8 @@ background-color: #e3f2fd;
 			<div id="collapse4" class="collapse" aria-labelledby="heading4"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='/manageCompanyPage'></c:url>">查詢會員</a> <a
-						class="btn btn-link" href="<c:url value='/registerCompany'></c:url>">加值紀錄</a>
+					<a class="btn btn-link" href="<c:url value='#'></c:url>">查詢會員</a> <a
+						class="btn btn-link" href="<c:url value='#'></c:url>">加值紀錄</a>
 				</div>
 			</div>
 		</div>

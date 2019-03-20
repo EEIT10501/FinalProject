@@ -36,7 +36,9 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
+		    <div class="col-sm-2 asideblock">
 			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
+			</div>
 			<div class="col-sm-8">
 				<div class="form-group">
 					<h1>張貼工作</h1>

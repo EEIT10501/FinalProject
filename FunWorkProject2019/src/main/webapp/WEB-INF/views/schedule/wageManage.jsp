@@ -177,7 +177,7 @@
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
-
+</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
