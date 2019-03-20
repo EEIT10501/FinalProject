@@ -93,6 +93,7 @@ public class PostJobController {
 	@Autowired
 	ServletContext context;
 
+	/* container to receive jobBean from backend server when calling updating job */
 	Job jobBean = new Job();
 
 	@RequestMapping(value = "/applications")
@@ -121,7 +122,7 @@ public class PostJobController {
 	}
 
 	/**
-	 * Provide Job for form.
+	 * Provide blank form for making job profile.
 	 */
 	@RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
@@ -139,16 +140,15 @@ public class PostJobController {
 	}
 
 	/*
-	 * Add the evaluating step on active job posting count and then check if job
-	 * posting is to update previous record or insert new record
+	 * create a new job or to update one both enter same controller here. check
+	 * active job posting count against limit and then check if job posting is to
+	 * update previous record or insert new record
 	 */
 	@RequestMapping(value = { "/modJobProfilePage", "/addJobProfile" }, method = RequestMethod.POST)
 	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
-
-		System.out.println("active post" + activePost);
 
 		Integer limit = loginUser.getJobPostLimit();
 
@@ -164,31 +164,39 @@ public class PostJobController {
 				jobService.insertJob(jbean, loginUser.getUserId());
 			}
 		} else {
-			model.addAttribute("error2", "超出工作刊登上限額度");
-			return "employerManage/addJobProfile";
+			if (jobBean.getJobId() != null) {
+				jobService.updateJobPostById(jobBean.getJobId(), jbean);
+				jobBean = null;
+			} else {
+				model.addAttribute("error2", "超出工作刊登上限額度");
+				return "employerManage/addJobProfile";
+			}
 		}
 		System.out.println("here okay");
 		return "redirect:/manageJob";
 	}
 
 	/**
-	 * Method below is for modifying job post "編輯工作". Add additional evaluation on
-	 * whether job posting is active or the active job postings are over the set
-	 * limit.
+	 * Method below is for updating job post "編輯工作". Add additional evaluation on
+	 * whether job posting is active.
 	 */
 	@RequestMapping(value = "/modJobProfile", method = RequestMethod.GET)
 	public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId,
 			HttpServletRequest request) {
-		System.out.println("modJobProfile here");
 		Job job = jobService.getJobById(jobId);
 		boolean isActive = job.getReviewStatus().equalsIgnoreCase("發布中");
 		if (!isActive) {
-			System.out.println("modJobProfile isActive here");
 			HttpSession session = request.getSession();
 			User loginUser = (User) session.getAttribute("loginUser");
 			List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
 			String taipeiCityNameJSON = jobService.getCityNameList("台北市");
 			String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+			String addressCityArea = job.getAddress().substring(0, 3);
+			String addressCityName = job.getAddress().substring(3, 6);
+			String addressStreetNRest = job.getAddress().substring(6);
+			job.setCityArea(addressCityArea);
+			job.setCityName(addressCityName);
+			job.setAddress(addressStreetNRest);
 			model.addAttribute("jobBean", job);
 			jobBean = job;
 			model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);

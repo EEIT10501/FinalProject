@@ -306,5 +306,7 @@ public class JobServiceImpl implements JobService {
 		jobToChange.setComment(jbean.getComment());
 		jobDao.updateJob(jobToChange);
 	}
+	
+	
 
 }

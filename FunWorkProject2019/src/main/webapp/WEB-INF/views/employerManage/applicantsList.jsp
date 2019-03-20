@@ -55,10 +55,10 @@
 			<div class="col-sm-8">
 				<br>
 				<section>
-					<div style="float: right">
-						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>
-						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
-					</div>
+<!-- 					<div style="float: right"> -->
+<%-- 						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a> --%>
+<%-- 						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a> --%>
+<!-- 					</div> -->
 					<div>
 						<div class="container" style="text-align: center">
 							<h1>
@@ -67,8 +67,16 @@
 						</div>
 					</div>
 				</section>
-				<div style="height: 30px;"></div>
+				<c:choose>
+				<c:when test="${empty applicantsByJob}">
+				<div style="height: 30px; color: red">此筆職缺尚無應徵紀錄</div>
+				</c:when>
+				<c:otherwise>
 				<section class="container">
+					<div style="float: right">
+						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>
+						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
+					</div>
 					<div class="col-sm-14">
 						<c:forEach var="applicant" items="${applicantsByJob}"
 							varStatus="loop">
@@ -214,6 +222,8 @@
 						</c:forEach>
 					</div>
 				</section>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
