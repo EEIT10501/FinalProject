@@ -12,7 +12,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
-
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
@@ -141,17 +140,14 @@
 					<nav>
 						<strong>目前篩選條件: </strong> 
 						<span class='label label-warning' id="filterPath"></span><p></p>
-<!-- 							<input type="text" id="column4_search">  -->
 						<strong>請輸入選擇條件: </strong> 
 						&nbsp; <select id="condit1">
-							<option>審查中</option>
-<!-- 							<option>已通過</option> -->
-<!-- 							<option>未通過</option> -->
+							<option>待審核</option>
+							<option>審核失敗</option>
+							<option>審核通過</option>
 							<option>全部</option>
 							<option>公司完成建檔</option>
 						</select> 
-<!-- 						或是輸入關鍵字: &nbsp;  -->
-<!-- 						<input placeholder="please enter"> -->
 						<button id="butt1" style="width: auto" onclick="filterSelect()">確定送出</button>
 
 						<button id="jobPostBut" style="width: auto;"
@@ -162,22 +158,22 @@
 							<table class="table table-hover display" id="example">
 								<thead>
 									<tr>
-										<th>筆數</th>
 										<th>名稱</th>
 										<th>統編</th>
 										<th>地址</th>
 										<th>狀態</th>
-										<th>資料</th>
+										<th>公司專頁</th>
+										<th>功能</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="company" items="${companys}" varStatus="loop">
 										<tr>
-											<td><c:out value="${loop.count}" /></td>
 											<td>${company.name}</td>
 											<td>${company.taxId}</td>
 											<td>${company.address}</td>
 											<td>${company.reviewStatus}</td>
+											
 											<c:choose>
 												<c:when test="${company.reviewStatus =='已通過'}">
 													<td><a
@@ -189,13 +185,24 @@
 												<c:when test="${company.reviewStatus =='公司完成建檔'}">
 													<td><a
 														href='<spring:url value="company?id=${company.companyId}"/>'
-														class="btn btn-success btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+														class="btn btn-info btn-sm"> <span
+															class="glyphicon-info-sigh glyphicon"></span> 公司專頁
 													</a></td>
 												</c:when>
 												<c:otherwise>
 													<td></td>
 												</c:otherwise>
+											</c:choose>
+											<c:choose>
+											<c:when test="${company.reviewStatus =='公司完成建檔'}">
+											<td><a href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
+														class="btn btn-warning btn-sm"> <span
+															class="glyphicon-info-sigh glyphicon"></span> 編輯
+													</a></td>
+											</c:when>
+											<c:otherwise>
+											<td></td>
+											</c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>

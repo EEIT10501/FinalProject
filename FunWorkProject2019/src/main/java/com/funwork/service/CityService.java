@@ -1,10 +1,11 @@
-package com.funwork.dao;
+package com.funwork.service;
 
 import java.util.List;
 
 import com.funwork.model.City;
+import com.funwork.model.Job;
 
-public interface CityDao {
+public interface CityService {
 
 	List<City> getAllCitys();
 
@@ -15,7 +16,7 @@ public interface CityDao {
 	String getCityNameList(String cityArea);
 	
 	City getCityByCityName(String cityName);
-	
-	City getCityByPk(Integer cityId);
+
+	Job loadCityNameNArea(Job job);
 
 }

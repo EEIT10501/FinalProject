@@ -1,9 +1,5 @@
 package com.funwork.view;
 
-import java.io.CharArrayWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +13,6 @@ import com.funwork.viewResolver.AbstractITextPdfView;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;

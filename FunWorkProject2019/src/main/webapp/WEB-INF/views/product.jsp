@@ -20,7 +20,7 @@
 $(document).ready(function(){
 	$(".card").click(function(){
 		var productId = $(this).attr("id");
-		alert($(this).attr("id"));
+// 		alert($(this).attr("id"));
 		document.location.href="<c:url value='/orderCheck/'/>"+productId;
 	});
 });
@@ -47,7 +47,7 @@ $(document).ready(function(){
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2">
-				<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
+			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			</div>
 			<div class="col-sm-10">
 				<!--             程式寫在這 -->

@@ -89,5 +89,13 @@ public class CityDaoImpl implements CityDao {
 		}
 		return city;
 	}
+	
+	@Override
+	public City getCityByPk(Integer cityId) {
+		String hql = "FROM City WHERE cityId = :cityId";
+		Session session = factory.getCurrentSession();
+		City city = (City) session.createQuery(hql).setParameter("cityId", cityId).getSingleResult();
+		return city;
+	}
 
 }

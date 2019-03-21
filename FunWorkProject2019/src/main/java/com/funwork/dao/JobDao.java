@@ -18,7 +18,7 @@ public interface JobDao {
   Job getJobById(Integer jobId);
 
   Job updateJob(Job job);
-
+  
   List<Job> getCorrectJobs();
 
   List<Job> getReviewHistory();

@@ -2,8 +2,8 @@
 <allPayPayment>
   <AioCheckOut>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/Cashier/AioCheckOut/V4</url>
-        <url type="Test">https://payment-stage.allPay.com.tw/Cashier/AioCheckOut/V4</url>
+        <url type="Production">https://payment.allPay.com.tw/Cashier/AioCheckOut/V5</url>
+        <url type="Test">https://payment-stage.allPay.com.tw/Cashier/AioCheckOut/V5</url>
     </ServiceAddress>
     <Config>
         <switchparam>

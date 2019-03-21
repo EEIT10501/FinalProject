@@ -27,7 +27,7 @@ public class PdfViewResolver implements ViewResolver{
 		} else if (viewName.startsWith("fileDownload/showMember"))  {
 			view = new SingleMembersPdfView();
 		} 
-		System.out.println("PDFViewResolver, viewName=" + viewName + ", return value=" + view);
+//		System.out.println("PDFViewResolver, viewName=" + viewName + ", return value=" + view);
 		return view;
       }
 	

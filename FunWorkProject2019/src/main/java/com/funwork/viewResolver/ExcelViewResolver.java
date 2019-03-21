@@ -20,7 +20,7 @@ public class ExcelViewResolver implements ViewResolver{
 		} else if (viewName.startsWith("fileDownload/showMember"))  {
 			view = new SingleResumeExcelView();
 		} 
-		System.out.println("ExcelViewResolver, viewName=" + viewName + ", return value=" + view);
+//		System.out.println("ExcelViewResolver, viewName=" + viewName + ", return value=" + view);
 		return view;
       }
 	

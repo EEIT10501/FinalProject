@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<title>首頁</title>
+<title>註冊</title>
 <style>
 .card-text-size {
 	font-size: 14px;
@@ -19,6 +19,7 @@
 }
 
 </style>
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +104,6 @@
 	margin-bottom: 5px;
 }
 
-
 #map {
 	height: 400px;
 	margin-bottom: 5px;
@@ -127,7 +126,7 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						選擇縣市</button>
+						<c:if test="${citys!=null}">${citys[0].cityArea}</c:if><c:if test="${empty citys}">選擇縣市</c:if></button>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="<c:url value='/cityArea/5'/>">台北市</a>
 						<a class="dropdown-item" href="<c:url value='/cityArea/15'/>">新北市</a>
@@ -138,7 +137,7 @@
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						選擇行政區</button>
+						<c:if test="${city!=null}">${city.cityName}</c:if><c:if test="${empty city}">選擇行政區</c:if></button>
 					<div class="dropdown-menu">
 						<c:forEach var="city" items="${citys}">
 							<a class="dropdown-item"
@@ -157,42 +156,44 @@
 							<th>職缺名稱</th>
 							<th>所在地區</th>
 							<th>所屬公司</th>
-							<th>是否額滿</th>
-							<th>poster</th>
+							<th>聯絡人</th>
 							<th>截止時間</th>
 							<th>詳細內容</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}">
-						<c:if test="${job.isExposure==true}">
-							<tr>
-								<td>
-								<span class="text-info" style="margin-right:5px">★推薦</span>${job.title}</td>
-								<td>${job.city.cityName}</td>
-								<td>${job.jobCompany.name}</td>
-								<td>${job.isFilled}</td>
-								<td>${job.jobOwner.userId}</td>
-								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
-								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
-									class="btn btn-primary"><span
-										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
-							</tr>
+							<c:if test="${job.isExposure==true}">
+								<tr>
+									<td><span class="text-info" style="margin-right: 5px">★推薦</span>${job.title}</td>
+									<td>${job.city.cityName}</td>
+									<td><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
+										class="glyphicon-info-sigh glyphicon">${job.jobCompany.name}</span></a>
+										<c:if test="${job.jobCompany.name==null}">個人</c:if>
+									</td>
+									<td>${job.jobOwner.userName}</td>
+									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
+									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
+										class="btn btn-primary"><span
+											class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+								</tr>
 							</c:if>
-							</c:forEach>
-							<c:forEach var="job" items="${jobs}">
+						</c:forEach>
+						<c:forEach var="job" items="${jobs}">
 							<c:if test="${job.isExposure==false}">
-							<tr>
-								<td>${job.title}</td>
-								<td>${job.city.cityName}</td>
-								<td>${job.jobCompany.name}</td>
-								<td>${job.isFilled}</td>
-								<td>${job.jobOwner.userId}</td>
-								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
-								<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
-									class="btn btn-primary"><span
-										class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
-							</tr>
+								<tr>
+									<td>${job.title}</td>
+									<td>${job.city.cityName}</td>
+									<td><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
+										class="glyphicon-info-sigh glyphicon">${job.jobCompany.name}</span></a>
+										<c:if test="${job.jobCompany.name==null}">個人</c:if>
+									</td>
+									<td>${job.jobOwner.userName}</td>
+									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
+									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
+										class="btn btn-primary"><span
+											class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+								</tr>
 							</c:if>
 						</c:forEach>
 					</tbody>
@@ -200,7 +201,7 @@
 
 			</div>
 			<div class="col-sm-5">
-<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
+				<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
 				<div id="map"></div>
 			</div>
 		</div>

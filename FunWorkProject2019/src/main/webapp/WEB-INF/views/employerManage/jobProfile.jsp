@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:useBean id="now" class="java.util.Date" />
 <!DOCTYPE html>
@@ -80,12 +82,16 @@
 	                                        </a>
 											</c:otherwise>
 										</c:choose>
+										<a href="<c:url value="/modJobProfile?jobId=${job.jobId}"/>">
 										<button type="button" class="btn btn btn-primary btn-sm">
 											<span class="glyphicon glyphicon-thumbs-up"></span>編輯
 										</button>
+										</a>
+										<a href="<c:url value="/modJobProfile?jobId=${job.jobId}"/>">
 										<button type="button" class="btn btn btn-primary btn-sm">
 											<span class="glyphicon glyphicon-thumbs-up"></span>複製
 										</button>
+										</a>
 										<c:choose>
                                             <c:when test="${job.isFilled}">
 												<a href="<c:url value="/jobFilled/${job.jobId}"/>">
@@ -123,6 +129,17 @@
 			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			if ("${error1}" != "") {
+				alert("發布中的工作無法修改");
+			}
+			
+			if ("${error2}" != "") {
+				alert("超出工作刊登上限額度");
+			}
+		});
+	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

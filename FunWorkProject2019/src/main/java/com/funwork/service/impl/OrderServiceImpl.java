@@ -28,5 +28,24 @@ public class OrderServiceImpl implements OrderService {
 	public List<Product> getAllProducts(){
 		return dao.getAllProducts();
 	}
+	
+	@Transactional
+	@Override
+	public List<Order> getOrderByUser(Integer userId){
+		return dao.getOrderByUser(userId);
+	}
+	
+	@Transactional
+	@Override
+	public Order insertOrder(Order order) {
+		dao.insertOrder(order);
+		return order;	
+	}
+	
+	@Transactional
+	@Override
+	public Order getOrderByTradeNo(String orderTradeNo){
+		return dao.getOrderByTradeNo(orderTradeNo);
+	}
 
 }

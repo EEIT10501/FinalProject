@@ -11,7 +11,7 @@ public interface ScheduleService {
 	
 	List<Schedule> getSchedulesByDate(Integer jobId);
 
-	List<Schedule> getSchedulesByJobId(Integer jobId);
+//	List<Schedule> getSchedulesByJobId(Integer jobId);
 
 	void insertSchedule(Schedule schedule);
 
