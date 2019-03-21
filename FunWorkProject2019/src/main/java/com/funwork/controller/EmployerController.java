@@ -60,8 +60,6 @@ public class EmployerController {
 	@Autowired
 	ServletContext context;
 
-
-	// 沒用到就刪掉
 	@RequestMapping("/mainHub")
 	public String accessMain() {
 		return "employerManage/mainHub";
@@ -72,7 +70,6 @@ public class EmployerController {
 		return "employerManage/addJobProfile";
 	}
 
-	// 這個路徑進去就掛掉
 	@RequestMapping("/addCorpProfile")
 	public String addCorpProfile() {
 		return "employerManage/addCorpProfile";
@@ -148,7 +145,10 @@ public class EmployerController {
 	@RequestMapping("/company")
 	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
 		System.out.println("getCompanyById");
+		List<Job> list = jobService.findJobByUserId(companyService.findByPrimaryKey(id)
+				.getUser().getUserId());
 		model.addAttribute("company", companyService.findByPrimaryKey(id));
+		model.addAttribute("jobs", list);
 		return "employerManage/companyProfile";
 	}
 
