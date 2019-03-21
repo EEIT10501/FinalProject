@@ -83,4 +83,9 @@ public class UserServiceImpl implements UserService {
     user.setIsOpen(true);
     return dao.insertUser(user);
   }
+
+  @Override
+  public User getUserByEmail(String email) {
+    return  dao.getUserByEmail(email);
+  }
 }

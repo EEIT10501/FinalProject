@@ -44,35 +44,7 @@ import com.funwork.service.JobService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
 
-/**
- * @author user
- *
- */
-/**
- * @author user
- *
- */
-/**
- * @param jbean
- * @param redirectAttrs
- * @param request
- * @param model
- * @return
- */
-/**
- * @param jbean
- * @param redirectAttrs
- * @param request
- * @param model
- * @return
- */
-/**
- * @param jbean
- * @param redirectAttrs
- * @param request
- * @param model
- * @return
- */
+
 @Controller
 public class PostJobController {
 

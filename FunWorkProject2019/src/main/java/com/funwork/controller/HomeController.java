@@ -3,6 +3,7 @@ package com.funwork.controller;
 import com.funwork.model.Resume;
 import com.funwork.model.User;
 import com.funwork.service.JobService;
+import com.funwork.service.OrderService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
 import com.funwork.service.impl.GoogleService;
@@ -47,6 +48,8 @@ public class HomeController {
   UserService userService;
   @Autowired
   JobService jobService;
+  @Autowired
+  OrderService orderService;
   @Autowired
   ServletContext context;
   @Autowired
@@ -266,7 +269,9 @@ public class HomeController {
   @GetMapping("/adminHome")
   public String adminHome(Model model) {
     String jobTypeJson = jobService.getAllPostingJobTypeJson();
+    String orderByMouthJson = orderService.getOrderByMouth();
     model.addAttribute("jobTypeJson", jobTypeJson);
+    model.addAttribute("orderByMouthJson", orderByMouthJson);
     return "adminHomePage";
   }
   

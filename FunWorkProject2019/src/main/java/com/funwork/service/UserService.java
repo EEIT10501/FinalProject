@@ -22,4 +22,6 @@ public interface UserService {
   User getUserByGoogleEmail(String email, String googleId);
 
   Integer insertGoogleUser(String email, String name, String googleId);
+  
+  User getUserByEmail(String email);
 }

@@ -47,8 +47,8 @@ public class UserDaoImpl implements UserDao {
     User user = null;
     String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
     Session session = factory.getCurrentSession();
-    List<User> list = session.createQuery(hql).setParameter("email", email)
-        .setParameter("password", password).getResultList();
+    List<User> list = session.createQuery(hql).setParameter("email", email).setParameter("password", password)
+        .getResultList();
     if (list.isEmpty()) {
       user = null;
     } else {
@@ -83,8 +83,19 @@ public class UserDaoImpl implements UserDao {
     Session session = factory.getCurrentSession();
     String hql = "UPDATE User u SET u.google = :googleId WHERE u.email = :email";
     String hql2 = "FROM User u WHERE u.email = :email";
-    session.createQuery(hql).setParameter("googleId", googleId).setParameter("email", email)
-    .executeUpdate();
+    session.createQuery(hql).setParameter("googleId", googleId).setParameter("email", email).executeUpdate();
     return (User) session.createQuery(hql2).setParameter("email", email).uniqueResult();
+  }
+
+  @Override
+  public User getUserByEmail(String email) {
+    User user = null;
+    Session session = factory.getCurrentSession();
+    String hql = "FROM User u WHERE u.email = :email";
+    List<User> list = session.createQuery(hql).setParameter("email", email).getResultList();
+    if (!list.isEmpty()) {
+      user = list.get(0);
+    }
+    return user;
   }
 }

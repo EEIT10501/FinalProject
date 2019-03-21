@@ -16,4 +16,6 @@ public interface OrderDao {
   Order insertOrder(Order order);
   
   Order getOrderByTradeNo(String orderTradeNo);
+  
+  String getOrderByMouth();
 }
