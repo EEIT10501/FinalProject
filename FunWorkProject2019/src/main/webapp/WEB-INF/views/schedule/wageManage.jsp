@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,15 +36,6 @@
 	media="screen, projection" />
 
 
-
-<!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="bootstrap-datepicker3.css"> -->
-<!-- <script src="jquery.min.js"></script> -->
-<!-- <script src="bootstrap.min.js"></script> -->
-<!-- <script src="bootstrap-datepicker.js"></script> -->
-
-
-
 <title>薪資概算</title>
 
 </head>
@@ -73,6 +65,7 @@
 		$('#example').DataTable({
 			"bLengthChange" : false, //改變每頁顯示數據數量
 			"bFilter" : false,
+			"bInfo" : false,
 		});
 
 	});
@@ -95,36 +88,24 @@
 
 				<!--		日期篩選條件			-->
 				<form action="${pageContext.request.contextPath}/selectWage" method="post">
-					<div style="background-color: aqua;">
-						<span style="padding-left: 10px">請輸入您所刊登的職缺： <select
-							name="jobId">
+					<div>
+						<span style="padding-left: 10px">請輸入您所刊登的職缺： <select name="jobId">
 								<c:forEach var="postJob" items="${postJobList}">
 									<option value="${postJob.jobId}">${postJob.title}</option>
 								</c:forEach>
-						</select></span> <br> <span style="padding-left: 10px">請輸入欲查詢的月份：</span>
-
-
-						<div class="form-group" style="">
-							<label for="dtp_input2" class="col-md-2 control-label">Date
-								Picking</label>
-							<div class="input-group date form_date col-md-5" data-date=""
-								data-date-format="dd MM yyyy" data-link-field="dtp_input2"
-								data-link-format="yyyy-mm-dd">
-								<input class="form-control" type="text" value="" readonly>
-
-									<span class="input-group-addon"><span
-									class="glyphicon glyphicon-remove"></span></span> <span
-									class="input-group-addon"><span
-									class="glyphicon glyphicon-calendar"></span></span>
-							</div>
-							<input type="hidden" id="dtp_input2" value="" /><br />
-						</div>
-						
-						
+						</select></span> <br> <span style="padding-left: 10px">請輸入欲查詢的月份：</span> <span
+							class="input-group  col-md-6" data-date-format="yyyy-mm-dd">
+							<input type="text" class="form-control" name="start"
+							id="qBeginTime" readonly /> <span>~ </span> <input type="text"
+							class="form-control" name="end" id="qEndTime" readonly /> <span><input
+								class="btn btn-primary" style="margin-left: 20px" type="submit"
+								value="查詢"></span>
+						</span>
 						<!-- -------------- -->
 
-					<!-- -------------- -->
-					<input class="btn btn-primary" type="submit" value="查詢"></div>
+						<!-- -------------- -->
+
+					</div>
 				</form>
 				<!--		薪資資料表			-->
 				<section
@@ -133,42 +114,73 @@
 						<thead>
 							<tr>
 								<th>姓名</th>
-								<th>月工時</th>
+<!-- 								<th>月工時</th> -->
+<!-- 								<th>時薪</th> -->
+<!-- 								<th>月小計</th> -->
+<!-- 								<th>明細</th> -->
+								<th>日期</th>
+								<th>起時</th>
+								<th>訖時</th>
+								<th>休息時數</th>
 								<th>時薪</th>
-								<th>小計</th>
-								<th>明細</th>
+								<th>每日工時</th>
+								<th>每日小計</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="company" items="${companys}" varStatus="loop">
+							<c:forEach var="admitSchedule" items="${admitScheduleList}">
+								<c:set var="hrTotal" value="${hrTotal+admitSchedule.workingHours}"></c:set>
+								<c:set var="wageTotal" value="${hrTotal*admitSchedule.interview.application.job.rateByHour}"></c:set>
 								<tr>
-									<td><c:out value="${loop.count}" /></td>
-									<td>${company.name}</td>
-									<td>${company.taxId}</td>
-									<td>${company.address}</td>
-									<td>${company.reviewStatus}</td>
-									<c:choose>
-										<c:when test="${company.reviewStatus =='已通過'}">
-											<td><a
-												href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
-												class="btn btn-info btn-sm"> <span
-													class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
-											</a></td>
-										</c:when>
-										<c:when test="${company.reviewStatus =='公司完成建檔'}">
-											<td><a
-												href='<spring:url value="company?id=${company.companyId}"/>'
-												class="btn btn-success btn-sm"> <span
-													class="glyphicon-info-sigh glyphicon"></span> 詳細資料
-											</a></td>
-										</c:when>
-										<c:otherwise>
-											<td></td>
-										</c:otherwise>
-									</c:choose>
+									<td>${admitSchedule.scheduleName}</td>
+<%-- 									<td>${hrTotal}</td> --%>
+<%-- 									<td>${admitSchedule.interview.application.job.rateByHour}</td> --%>
+<%-- 									<td><fmt:formatNumber value="${wageTotal}" type="currency"/></td> --%>
+<%-- 									<td><a href="<spring:url value='/updateSchedule?scheduleId=${schedule.scheduleId}' />" --%>
+<!-- 										title="編輯" class="image edit span-1" id="updateSchedule"><img -->
+<%-- 										src='<c:url value="/image/edit.png"/>' title="明細" alt="明細" --%>
+<!-- 										width="20px"></a></td> -->
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${admitSchedule.startTime}" /></td>									
+									<td><fmt:formatDate value="${admitSchedule.startTime}" pattern="HH:mm" /></td>					
+									<td><fmt:formatDate value="${admitSchedule.endTime}" pattern="HH:mm" /></td>
+									<td>${admitSchedule.restHour}</td>
+									<td>${admitSchedule.interview.application.job.rateByHour}</td>
+									<td>${admitSchedule.workingHours}</td>
+									<td><fmt:formatNumber value="${admitSchedule.workingHours*admitSchedule.interview.application.job.rateByHour}" type="currency"/></td>									
+<%-- 									<c:choose> --%>
+<%-- 										<c:when test="${company.reviewStatus =='已通過'}"> --%>
+<!-- 											<td><a -->
+<%-- 												href='<spring:url value="addCorpProfile?id=${company.companyId}"/>' --%>
+<!-- 												class="btn btn-info btn-sm"> <span -->
+<!-- 													class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔 -->
+<!-- 											</a></td> -->
+<%-- 										</c:when> --%>
+<%-- 										<c:when test="${company.reviewStatus =='公司完成建檔'}"> --%>
+<!-- 											<td><a -->
+<%-- 												href='<spring:url value="company?id=${company.companyId}"/>' --%>
+<!-- 												class="btn btn-success btn-sm"> <span -->
+<!-- 													class="glyphicon-info-sigh glyphicon"></span> 詳細資料 -->
+<!-- 											</a></td> -->
+<%-- 										</c:when> --%>
+<%-- 										<c:otherwise> --%>
+<!-- 											<td></td> -->
+<%-- 										</c:otherwise> --%>
+<%-- 									</c:choose> --%>
 								</tr>
 							</c:forEach>
 						</tbody>
+						<tfoot>
+							<tr>
+								<th>總計</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th>${hrTotal}</th>
+								<th><fmt:formatNumber value="${wageTotal}" type="currency"/></th>
+							</tr>
+						</tfoot>
 					</table>
 					<table class="table table-hover display" id="testField">
 					</table>
@@ -177,7 +189,7 @@
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
-
+</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
@@ -194,40 +206,48 @@
 
 	<script type="text/javascript">
 
-		$('.form_date').datetimepicker({
-			language : 'zh-TW',
-			weekStart : 1,
-			todayBtn : 1,
-			autoclose : 1,
-			todayHighlight : 1,
-			startView : 2,
-			minView : 2,
-			forceParse : 0
+// 		$('.form_date').datetimepicker({
+// 			language : 'zh-TW',
+// 			weekStart : 1,
+// 			todayBtn : 1,
+// 			autoclose : 1,
+// 			todayHighlight : 1,
+// 			startView : 2,
+// 			minView : 2,
+// 			forceParse : 0
+			
+// 		});
 
+		$('#qBeginTime').datetimepicker({
+			language : "zh-TW",
+			format : "yyyy-mm-dd",
+			minView: "month", 
+			todayBtn : "linked",
+			autoclose : true,
+			todayHighlight : true,
+			endDate : new Date()
+		}).on('changeDate', function(e) {
+// 			var startTime = e.date;
+// 			$('#qEndTime').datetimepicker('setStartDate',2019-03-20);
 		});
+		
 
-		$(function() {
-
-			$('input[name="datefilter"]').daterangepicker({
-				autoUpdateInput : false,
-				locale : {
-					cancelLabel : 'Clear'
-				}
-			});
-
-			$('input[name="datefilter"]').on(
-					'apply.daterangepicker',
-					function(ev, picker) {
-						$(this).val(
-								picker.startDate.format('MM/DD/YYYY') + ' - '
-										+ picker.endDate.format('MM/DD/YYYY'));
-					});
-
-			$('input[name="datefilter"]').on('cancel.daterangepicker',
-					function(ev, picker) {
-						$(this).val('');
-					});
-
+// 		$('#qBeginTime').change(function(){
+// 			var end = $('#qBeginTime').val();
+// 			alert(end);
+// 			$('#qEndTime').datetimepicker('setStartDate', '2019-03-20');
+// 		});
+		
+		//结束时间： 
+		$('#qEndTime').datetimepicker({
+			language : "zh-TW",
+			format : "yyyy-mm-dd",
+			minView: "month",
+			todayBtn : "linked",
+			autoclose : true,
+			todayHighlight : true,
+// 			startDate:'2019-03-20',
+			endDate : new Date()
 		});
 	</script>
 

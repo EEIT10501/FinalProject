@@ -1,5 +1,6 @@
 package com.funwork.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public Schedule getScheduleByPrimaryKey(int scheduleId) {
 		return dao.getScheduleByPrimaryKey(scheduleId);
+	}
+	
+	@Transactional
+	@Override
+	public List<Schedule> getSchedulesByAdmit(Integer useId) {
+		return dao.getSchedulesByAdmit(useId);
+	}
+	
+	@Transactional
+	@Override
+	public List<Schedule> getSchedulesByJobIdAndTime(Integer jobId, Timestamp endTime, Timestamp startTime) {
+		return dao.getSchedulesByJobIdAndTime(jobId, endTime,  startTime);
 	}
 
 }

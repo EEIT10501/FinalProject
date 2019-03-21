@@ -1,5 +1,6 @@
 package com.funwork.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.funwork.model.Interview;
@@ -18,6 +19,11 @@ public interface ScheduleService {
 
 	Schedule getScheduleByPrimaryKey(int scheduleId);
 
-	void updateScheduleByPrimaryKey(Schedule schedule);	
+	void updateScheduleByPrimaryKey(Schedule schedule);
+
+	List<Schedule> getSchedulesByAdmit(Integer useId);
+
+	List<Schedule> getSchedulesByJobIdAndTime(Integer jobId, Timestamp endTime, Timestamp startTime);
+	
 
 }
