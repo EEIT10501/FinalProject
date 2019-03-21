@@ -51,70 +51,68 @@
 		</div>
 	</div>
 	<script>
+    var jobType = ${jobTypeJson}; 
 	var config = {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [
-                        100,
-                        200,
-                        300,
-                        400,
-                        500,
-                        500,
-                        500,
-                        500,
-                        500,
-                        500,
-                    ],
-                    backgroundColor: [
-                        "red",
-                        "orange",
-                        "yellow",
-                        "green",
-                        "blue",
-                        "YellowGreen",
-                        "Violet",
-                        "Sienna",
-                        "Magenta",
-                        "SkyBlue",
-                    ]
-                }],
-                labels: [
-                    '餐飲',
-                    '服務',
-                    '銷售',
-                    '辦公',
-                    '活動',
-                    '作業員',
-                    '勞力',
-                    '問券調查',
-                    '補教',
-                    '其他'
-                ]
-            },
-            options: {
-                responsive: true
-            }
-        };
+	          type: 'pie',
+	          data: {
+	              datasets: [{
+	                  data: [
+	                  	jobType[9][1],
+	                  	jobType[2][1],
+	                  	jobType[7][1],
+	                  	jobType[8][1],
+	                  	jobType[3][1],
+	                  	jobType[0][1],
+	                  	jobType[5][1],
+	                  	jobType[4][1],
+	                  	jobType[6][1],
+	                  	jobType[1][1]
+	                  ],
+	                  backgroundColor: [
+	                      "red",
+	                      "orange",
+	                      "yellow",
+	                      "green",
+	                      "blue",
+	                      "YellowGreen",
+	                      "Violet",
+	                      "Sienna",
+	                      "Magenta",
+	                      "SkyBlue",
+	                  ]
+	              }],
+	              labels: [
+	                  '餐飲',
+	                  '服務',
+	                  '銷售',
+	                  '辦公',
+	                  '活動',
+	                  '作業員',
+	                  '勞力',
+	                  '問券調查',
+	                  '補教',
+	                  '其他'
+	              ]
+	          },
+	          options: {
+	              responsive: true
+	          }
+	      };
 	
 		window.onload = function() {
-	        var ctx = document.getElementById('chart-area').getContext('2d');
-	        window.myPie = new Chart(ctx, config);
-	    };
-	    
-	    $(function() {
-		    $.ajax({
-	            url : "${pageContext.request.contextPath}/getAllJobPostingCount",
-	            type : "GET",
-	            success : function(data) {
-	                $("#jobCount").html("目前發布中的職缺總數：" + data + "件");
-	            }
-	        }); 
-		    var jobType = ${jobTypeJson};
-// 		    alert(jobType);	    
-	    });
-	    
+		       var ctx = document.getElementById('chart-area').getContext('2d');
+		       window.myPie = new Chart(ctx, config);
+		   };
+		   
+		$(function() {
+		 $.ajax({
+		        url : "${pageContext.request.contextPath}/getAllJobPostingCount",
+		        type : "GET",
+		        success : function(data) {
+		            $("#jobCount").html("目前發布中的職缺總數：" + data + "件");
+		        }
+		    });    
+		});
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
