@@ -167,9 +167,9 @@
 								<tr>
 									<td><span class="text-info" style="margin-right: 5px">★推薦</span>${job.title}</td>
 									<td>${job.city.cityName}</td>
-									<td>${job.jobCompany.name}<br><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
-										class="glyphicon-info-sigh glyphicon">公司專頁</span>
-									</a>
+									<td><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
+										class="glyphicon-info-sigh glyphicon">${job.jobCompany.name}</span></a>
+										<c:if test="${job.jobCompany.name==null}">個人</c:if>
 									</td>
 									<td>${job.jobOwner.userName}</td>
 									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
@@ -184,9 +184,9 @@
 								<tr>
 									<td>${job.title}</td>
 									<td>${job.city.cityName}</td>
-									<td>${job.jobCompany.name}<br><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
-										class="glyphicon-info-sigh glyphicon">公司專頁</span>
-									</a>
+									<td><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
+										class="glyphicon-info-sigh glyphicon">${job.jobCompany.name}</span></a>
+										<c:if test="${job.jobCompany.name==null}">個人</c:if>
 									</td>
 									<td>${job.jobOwner.userName}</td>
 									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>

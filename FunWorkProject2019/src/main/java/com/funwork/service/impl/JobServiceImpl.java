@@ -312,4 +312,9 @@ public class JobServiceImpl implements JobService {
 	public City getCityByPk(Integer cityId) {
 		return cityDao.getCityByPk(cityId);
 	}
+	
+	@Override
+	public Job updateJobByExpired(Job jbean) {
+		return jobDao.updateJob(jbean);
+	}
 }
