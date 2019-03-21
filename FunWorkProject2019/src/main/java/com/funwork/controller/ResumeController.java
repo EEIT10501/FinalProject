@@ -47,7 +47,15 @@ public class ResumeController {
 //    String[] positions = req.getParameterValues("position");
 //    String[] companys = req.getParameterValues("company");
 //    String[] terms = req.getParameterValues("term");
-    resumeService.addResume(resume, user.getUserId());
+    Integer userId = user.getUserId();
+    Resume oldresume =   resumeService.getResumeByUserId(userId);     
+    Integer resumeId =oldresume.getResumeId();//先取得舊的resum id
+//   
+//    System.out.println(userId);
+//    System.out.println(oldresume);
+//    System.out.println(resumeId);
+    
+    resumeService.addResume(resume, user.getUserId() ,resumeId);
     return "redirect:/resume";
   }
 }

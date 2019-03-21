@@ -138,6 +138,7 @@ public class HomeController {
 			HttpServletRequest req) {
 		// 存放錯誤訊息errorMeg
 		Map<String, String> errorMeg = new HashMap<String, String>();
+
 		req.setAttribute("Msg", errorMeg); // 顯示錯誤訊息, errorMeg傳到前端用EL接
 		if (email == null || email.trim().length() == 0) {
 			errorMeg.put("errEmailEmpty", "帳號欄必須輸入");
@@ -161,7 +162,7 @@ public class HomeController {
 			return "/register";
 		}
 		if (userService.idExists(email)) {
-			errorMeg.put("errorIDExs", "帳號已存在請重新更新");
+			errorMeg.put("errorIDExs", "帳號已存在請重新輸入");
 		} else {
 			Integer userId = userService.insertUser(email, name, password);
 
@@ -196,23 +197,41 @@ public class HomeController {
 	 */
 	@GetMapping(value = "/accountSetting")
 	public String accountSetting(Model model, HttpServletRequest req) {
-		HttpSession session =req.getSession();
+		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("loginUser");
 		if (user != null) {
-			model.addAttribute("Users", user);		 
+			req.setAttribute("Users", user);
+			System.out.println(user);
 			return "/accountSetting";
-		}else {
-			
+		} else {
+			return REDIRECT_TO_INDEX;
 		}
-		return null;
 	}
 
 	@PostMapping(value = "/accountSetting")
-	public String accountSetting(@RequestParam("eamil") String eamil, @RequestParam("password") String password,
-			@RequestParam("passsword1") String password1) {
-
-		return eamil;
-
+	public String accountSetting(@RequestParam("email") String email, @RequestParam("password") String password,
+			@RequestParam("password2") String password2, HttpServletRequest req, HttpSession session) {
+		Map<String, String> errorMeg = new HashMap<String, String>();
+		Map<String, String> rightMeg = new HashMap<String, String>();
+		User user = (User) session.getAttribute("loginUser");
+		req.setAttribute("Users", user);
+		req.setAttribute("Msg", errorMeg);
+		req.setAttribute("Ms", rightMeg);
+		Integer userId = user.getUserId();
+	
+		if (userService.idExists(email) && !email.equals(user.getEmail())) {
+			errorMeg.put("errorIDExs", "帳號已存在請重新輸入");
+		}
+		if (userService.idExists(email) && email.equals(user.getEmail())) {
+			userService.updateAccount(email, password, userId);
+			rightMeg.put("pswOK", "密碼更新成功");
+		}
+		if (!userService.idExists(email)) {
+			userService.updateAccount(email, password, userId);
+			rightMeg.put("acutOK", "帳號更新成功");
+			rightMeg.put("pswOK", "密碼更新成功");
+		}
+		return "/accountSetting";
 	}
 
 	/**
