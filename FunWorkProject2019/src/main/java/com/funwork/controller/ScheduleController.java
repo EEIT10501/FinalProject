@@ -235,9 +235,7 @@ public class ScheduleController {
 			String ed = new String(" 23:00:00");
 			String starte = start + ad;
 			String ende = end + ed;
-			System.out.println(jobId);
-			System.out.println(start);
-			System.out.println(end);
+
 			// 設定日期格式
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			// 進行轉換
@@ -247,11 +245,9 @@ public class ScheduleController {
 			Date endD = sdf.parse(ende);
 			startTime = new Timestamp(startD.getTime());
 			endTime = new Timestamp(endD.getTime());
-			System.out.println(startTime);
-			System.out.println(endTime);
+			
 			List<Schedule> admitScheduleList = scheduleService.getSchedulesByJobIdAndTime(jobId, startTime, endTime);
 			model.addAttribute("admitScheduleList", admitScheduleList);
-			System.out.println("admitScheduleList:" + admitScheduleList.size());
 			return "schedule/wageManage";
 		} else {
 			return "redirect:/";
