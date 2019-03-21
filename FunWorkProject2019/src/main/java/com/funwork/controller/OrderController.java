@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import com.funwork.model.Order;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -39,7 +40,7 @@ public class OrderController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	OrderService orderService;
 
@@ -53,61 +54,100 @@ public class OrderController {
 	public String Order(Model model) {
 		return "order";
 	}
-	
+
 	@RequestMapping("/product")
 	public String product(Model model) {
-		List<Product> productList =  orderService.getAllProducts();
-		
-		model.addAttribute("productList",productList);
+		List<Product> productList = orderService.getAllProducts();
+
+		model.addAttribute("productList", productList);
 		return "product";
 	}
 
 	@RequestMapping(value = "/orderCheck/{productId}")
-	public String OrderCheck(Model model, @PathVariable("productId") Integer productId,HttpServletRequest req) {
-		List<Product> prolist = orderService.getAllProducts();	
+	public String OrderCheck(Model model, @PathVariable("productId") Integer productId, HttpServletRequest req) {
+		List<Product> prolist = orderService.getAllProducts();
 		Hashtable<String, String> params = new Hashtable<>();
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		params.put("MerchantTradeNo",sdf.format(date));
+		params.put("MerchantTradeNo", sdf.format(date));
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		params.put("MerchantTradeDate", sdf2.format(date));
-		params.put("TotalAmount",Integer.toString(prolist.get(productId-1).getPrice()));
-		params.put("TradeDesc", prolist.get(productId-1).getDescription());
-		params.put("ItemName", prolist.get(productId-1).getProductName());
+		params.put("TotalAmount", Integer.toString(prolist.get(productId - 1).getPrice()));
+		params.put("TradeDesc", prolist.get(productId - 1).getDescription());
+		params.put("ItemName", prolist.get(productId - 1).getProductName());
 		params.put("Payment", "信用卡");
-		
-		Order order = new Order(); //建立資料庫訂單開始
+
+		Order order = new Order(); // 建立資料庫訂單開始
 		order.setOrderTradeNo(sdf.format(date));
 		SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		order.setOrderTime(Timestamp.valueOf(sdf3.format(date)));
-		order.setPrice(prolist.get(productId-1).getPrice());
-		order.setStatus(0);	
-		order.setProduct(prolist.get(productId-1));
+		order.setPrice(prolist.get(productId - 1).getPrice());
+		order.setStatus(0);
+		order.setProduct(prolist.get(productId - 1));
 		HttpSession session = req.getSession(); // 取得session物件
-	    User user = (User) session.getAttribute("loginUser"); // 取的在session裡面名為loginUser的物件	
+		User user = (User) session.getAttribute("loginUser"); // 取的在session裡面名為loginUser的物件
 		order.setUser(user);
 		orderService.insertOrder(order);
-		
+
 		model.addAttribute("params", params);
 		return "order";
 	}
 
-
 	@RequestMapping(value = "/orderReturn", method = RequestMethod.POST)
 	public String OrderReturn(Model model, HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("交易代碼:" + req.getParameter("RtnCode"));
-		
+
 		Order order = orderService.getOrderByTradeNo(req.getParameter("MerchantTradeNo"));
 		order.setStatus(Integer.valueOf(req.getParameter("RtnCode")));
 		orderService.insertOrder(order);
-		
+
+		if (req.getParameter("RtnCode").equals("1") == true) {
+			User user = order.getUser();
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			Date date = new Date();
+			cal.setTime(date);			
+			if (order.getProduct().getProductId() == 1) {
+				cal.add(Calendar.DATE, 30);
+			} else if (order.getProduct().getProductId() == 2) {
+				cal.add(Calendar.DATE, 180);
+			} else if (order.getProduct().getProductId() == 3) {
+				cal.add(Calendar.DATE, 365);
+			}
+			
+			java.sql.Date sqldate = new java.sql.Date(0);
+			if (user.getVipEndDate() == null) {
+				user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+			} else if (user.getVipEndDate().before(sqldate.valueOf(sdf.format(date)))) {
+				user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+			} else {
+				cal.setTime(user.getVipEndDate());
+				System.out.println(cal.getTime());
+				if (order.getProduct().getProductId() == 1) {				
+					cal.add(Calendar.DATE, 30);
+					user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+				} else if (order.getProduct().getProductId() == 2) {
+					cal.add(Calendar.DATE, 180);
+					user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+				} else if (order.getProduct().getProductId() == 3) {
+					cal.add(Calendar.DATE, 365);
+					user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+				}
+
+			}
+			user.setJobPostLimit(99);
+			user.setJobPostPeriod(365);
+			userService.updateUser(user);
+		}
+
 		model.addAttribute(order);
-		
+
 		return "order";
 	}
 
 	@RequestMapping(value = "/orderSave", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public @ResponseBody String aioCheckOutDevide(AioCheckOutOneTime aio,HttpServletRequest req) {
+	public @ResponseBody String aioCheckOutDevide(AioCheckOutOneTime aio, HttpServletRequest req) {
 		try {
 			all = new AllInOne("");
 		} catch (UnsupportedEncodingException e1) {
@@ -115,7 +155,7 @@ public class OrderController {
 		}
 		InvoiceObj invoice = new InvoiceObj();
 		invoice = null;// 不開發票
-		
+
 		aio.setMerchantID("2000132");
 		aio.setMerchantTradeNo(req.getParameter("MerchantTradeNo"));
 		aio.setMerchantTradeDate(req.getParameter("MerchantTradeDate"));
@@ -124,7 +164,7 @@ public class OrderController {
 		aio.setItemName(req.getParameter("ItemName"));
 		aio.setReturnURL("http://localhost:8081/FunWorkProject2019/orderReturn");
 		aio.setOrderResultURL("http://localhost:8081/FunWorkProject2019/orderReturn");
-		
+
 		try {
 			String html = all.aioCheckOut(aio, invoice);
 			System.out.println(html);
