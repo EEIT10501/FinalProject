@@ -1,5 +1,6 @@
 package com.funwork.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.funwork.model.Schedule;
@@ -8,8 +9,6 @@ public interface ScheduleDao {
 	List<Schedule> getAllSchedules();
 	
 	List<Schedule> getSchedulesByDate(Integer jobId);
-	
-	List<Schedule> getSchedulesByJobId(Integer jobId);
 
 	void insertSchedule(Schedule schedule);
 
@@ -18,5 +17,11 @@ public interface ScheduleDao {
 	Schedule getScheduleByPrimaryKey(int scheduleId);
 
 	void updateScheduleByPrimaryKey(Schedule schedule);
+
+	List<Schedule> getSchedulesByAdmit(Integer useId);
+
+	List<Schedule> getSchedulesByJobId(Integer jobId);
+
+	List<Schedule> getSchedulesByJobIdAndTime(Integer jobId, Timestamp endTime, Timestamp startTime);
 
 }

@@ -1,5 +1,6 @@
 package com.funwork.dao.impl;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.ScheduleDao;
+import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
 
 @Repository
@@ -41,22 +43,47 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
 		Date date = new Date();
 //		System.out.println(date);
-
 		list = session.createQuery(hql).setParameter("endTime", date).setParameter("jobId", jobId).getResultList();
 		return list;
 	}
-	
+
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
+	 @Override
+	 public List<Schedule> getSchedulesByJobId(Integer jobId) {
+	  String hql = "FROM Schedule where Fk_Job_Id = :jobId";
+	  Session session = null;
+	  List<Schedule> list = new ArrayList<>();
+	  session = factory.getCurrentSession();
+	  list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+	  return list;
+	 }
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	public List<Schedule> getSchedulesByJobId(Integer jobId) {
-		String hql = "FROM Schedule where Fk_Job_Id = :jobId";
+	public List<Schedule> getSchedulesByJobIdAndTime(Integer jobId , Timestamp endTime , Timestamp startTime) {
+		String hql = "FROM Schedule s WHERE s.interview.interviewType='錄取' AND s.interview.application.job.jobId=:jobId"
+				+ " AND s.startTime <= :startTime "
+				+ " AND s.endTime >= :endTime";
 		Session session = null;
 		List<Schedule> list = new ArrayList<>();
 		session = factory.getCurrentSession();
-		list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+		list = session.createQuery(hql).setParameter("jobId", jobId).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
 		return list;
 	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@Override
+	public List<Schedule> getSchedulesByAdmit(Integer interviewId) {
+		String hql = "FROM Schedule s WHERE s.interview.interviewId = :interviewId";				
+//				+ "AND s.interview.interviewId = :interviewId";
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("interviewId", interviewId).getResultList();
+		return list;
+	}
+	
 
 	@Override
 	public void insertSchedule(Schedule schedule) {

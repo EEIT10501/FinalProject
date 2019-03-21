@@ -44,7 +44,7 @@ background-color: #e3f2fd;
 </head>
 <body>
 	<div class="accordion text-center" id="accordionExample">
-		<div class="card">
+			<div class="card">
 			<div class="card-header" id="heading1">
 				<h2 class="mb-0">
 					<button class="btn collapsed" type="button" data-toggle="collapse"
@@ -60,6 +60,26 @@ background-color: #e3f2fd;
 					<a class="btn btn-link" href="<c:url value='/resume'></c:url>">我的履歷</a>
 					<a class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據資訊</a>
 					<a class="btn btn-link" href="<c:url value='#'></c:url>">圖形表單</a>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" id="heading1-1">
+				<h2 class="mb-0">
+					<button class="btn collapsed" type="button" data-toggle="collapse"
+						data-target="#collapse1-1" aria-expanded="true"
+						aria-controls="collapse1-1">求職專區</button>
+				</h2>
+			</div>
+
+			<div id="collapse1-1" class="collapse" aria-labelledby="heading1-1"
+				data-parent="#accordionExample">
+				<div class="card-body">
+					<a class="btn btn-link" href="<c:url value='/jobSeekerInfo'></c:url>">求職資訊</a>
+					<a class="btn btn-link" href="<c:url value='/applicatedWork'></c:url>">應徵紀錄</a>
+					<a class="btn btn-link" href="<c:url value='/invitationManage'></c:url>">邀約管理</a>
+					<a class="btn btn-link" href="<c:url value='/'></c:url>">工作班表</a>
+					<a class="btn btn-link" href="<c:url value='/'></c:url>">薪資紀錄</a>
 				</div>
 			</div>
 		</div>
@@ -117,7 +137,7 @@ background-color: #e3f2fd;
 			<div class="card-header" id="heading5">
 				<h2 class="mb-0">
 					<button class="btn collapsed" type="button" data-toggle="collapse"
-						data-target="#collapse5" aria-controls="collapse5" aria-expanded="false">排班管理</button>
+						data-target="#collapse5" aria-controls="collapse5" aria-expanded="false">排班薪資管理</button>
 				</h2>
 			</div>
 
@@ -126,6 +146,7 @@ background-color: #e3f2fd;
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/scheduleManage'></c:url>">新增排班</a><br>
 					<a class="btn btn-link" href="<c:url value='/ScheduleCalendar'></c:url>">新增班表</a>
+					<a class="btn btn-link" href="<c:url value='/wageManage'></c:url>">薪資概算</a>
 				</div>
 			</div>
 		</div>
