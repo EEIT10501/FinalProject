@@ -37,10 +37,10 @@ public class OrderTableInit {
         }
         String[] token = line.split("\\|");
         Order order = new Order();
-        order.setTime(Timestamp.valueOf(token[0]));
+        order.setOrderTime(Timestamp.valueOf(token[0]));
         order.setStatus(Integer.valueOf(token[1]));
-        order.setPrice(Double.valueOf(token[2]));
-        order.setExpirationDate(Date.valueOf(token[3]));
+        order.setPrice(Integer.valueOf(token[2]));
+        order.setOrderTradeNo((token[3]));
         order.setUser(session.get(User.class, Integer.valueOf(token[4])));
         order.setProduct(session.get(Product.class, Integer.valueOf(token[5])));
         session.save(order);

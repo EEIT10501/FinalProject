@@ -36,63 +36,54 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
-				<c:if test="${empty params}">
-				<h3>填寫訂單</h3>
-				<form method="POST" action="<c:url value='/orderCheck'/>">
-					<div class="form-group">
-						<label for="MerchantID">商店名稱</label> 
-						<input type="text" class="form-control" id="MerchantID" name="MerchantID" value="2000132" readonly="readonly">
-					</div>
+				
+				<c:if test="${order!=null}">
+				<h3>付款成功</h3>
+				
+				<form method="POST"
+					action="<c:url value='/orderSave'/>">
+					
 					<div class="form-group">
 						<label for="MerchantTradeNo">訂單編號</label> 
-						<input type="text" class="form-control" id="MerchantTradeNo" name="MerchantTradeNo" value="${params.MerchantTradeNo }">
+						<input type="text" class="form-control" id="MerchantTradeNo" name="MerchantTradeNo" value="${order.orderTradeNo}">
 					</div>
 					<div class="form-group">
 						<label for="MerchantTradeDate">交易日期</label> 
-						<input type="text" class="form-control" id="MerchantTradeDate" placeholder="YYYY/MM/DD HH:MM:SS" name="MerchantTradeDate">
+						<input type="text" class="form-control" id="MerchantTradeDate" name="MerchantTradeDate" value="${order.orderTime}" readonly="readonly">
 					</div>
 					<div class="form-group">
-						<label for="TotalAmount">加總金額</label> 
-						<input type="text" class="form-control" id="TotalAmount" placeholder="TotalAmount" name="TotalAmount">
+						<label for="TotalAmount">總金額</label> 
+						<input type="text" class="form-control" id="TotalAmount" name="TotalAmount" value="${order.price}" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label for="TradeDesc">商品描述</label> 
-						<input type="text" class="form-control" id="TradeDesc" placeholder="TradeDesc" name="TradeDesc">
+						<input type="text" class="form-control" id="TradeDesc" name="TradeDesc" value="${order.product.description}" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label for="ItemName">商品名稱</label> 
-						<input type="text" class="form-control" id="ItemName" placeholder="ItemName" name="ItemName">
-					</div>
-					<div class="form-group">
-						<label for="ReturnURL">傳回網頁</label> 
-						<input type="text" class="form-control" id="ReturnURL" name="ReturnURL" value="<c:url value='/orderReturn'/>" readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="ChoosePayment">付款方式</label> 
-						<input type="text" class="form-control" id="ChoosePayment" name="ChoosePayment" value="Credit" readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="PaymentType">付款型態</label> 
-						<input type="text" class="form-control" id="PaymentType" name="PaymentType" value="aio" readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="CheckMacValue">CheckMacValue</label> 
-						<input type="text" class="form-control" id="CheckMacValue" name="CheckMacValue" value="${CheckMacValue}" readonly="readonly">
+						<input type="text" class="form-control" id="ItemName" name="ItemName" value="${order.product.productName}" readonly="readonly">
 					</div>
 					
+					<div class="form-group">
+						<label for="ChoosePayment">付款結果</label> 
+						<c:if test="${order.status==1}">
+						<input type="text" class="form-control" id="Payment" name="ePayment" value="付款成功" readonly="readonly">
+						</c:if>
+						<c:if test="${order.status!=1}">
+						<input type="text" class="form-control" style="color:red" id="Payment" name="ePayment" value="付款失敗:${order.status}" readonly="readonly">
+						</c:if>
+					</div>
 					
-					<button type="submit" class="btn btn-primary">確認送出</button> 
 				</form>
+				
 				</c:if>
+				
 				<c:if test="${params!=null}">
 				<h3>確認訂單</h3>
 
 				<form method="POST"
-					action="https://payment-stage.opay.tw/Cashier/AioCheckOut/V5">
-					<div class="form-group">
-						<label for="MerchantID">商店名稱</label> 
-						<input type="text" class="form-control" id="MerchantID" name="MerchantID" value="${params.MerchantID}" readonly="readonly">
-					</div>
+					action="<c:url value='/orderSave'/>">
+					
 					<div class="form-group">
 						<label for="MerchantTradeNo">訂單編號</label> 
 						<input type="text" class="form-control" id="MerchantTradeNo" name="MerchantTradeNo" value="${params.MerchantTradeNo}">
@@ -102,7 +93,7 @@
 						<input type="text" class="form-control" id="MerchantTradeDate" name="MerchantTradeDate" value="${params.MerchantTradeDate}" readonly="readonly">
 					</div>
 					<div class="form-group">
-						<label for="TotalAmount">加總金額</label> 
+						<label for="TotalAmount">總金額</label> 
 						<input type="text" class="form-control" id="TotalAmount" name="TotalAmount" value="${params.TotalAmount}" readonly="readonly">
 					</div>
 					<div class="form-group">
@@ -113,23 +104,11 @@
 						<label for="ItemName">商品名稱</label> 
 						<input type="text" class="form-control" id="ItemName" name="ItemName" value="${params.ItemName}" readonly="readonly">
 					</div>
-					<div class="form-group">
-						<label for="ReturnURL">傳回網頁</label> 
-						<input type="text" class="form-control" id="ReturnURL" name="ReturnURL" value="${params.ReturnURL}" readonly="readonly">
-					</div>
+					
 					<div class="form-group">
 						<label for="ChoosePayment">付款方式</label> 
-						<input type="text" class="form-control" id="ChoosePayment" name="ChoosePayment" value="${params.ChoosePayment}" readonly="readonly">
+						<input type="text" class="form-control" id="Payment" name="ePayment" value="${params.Payment}" readonly="readonly">
 					</div>
-					<div class="form-group">
-						<label for="PaymentType">付款型態</label> 
-						<input type="text" class="form-control" id="PaymentType" name="PaymentType" value="${params.PaymentType}" readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="CheckMacValue">CheckMacValue</label> 
-						<input type="text" class="form-control" id="CheckMacValue" name="CheckMacValue" value="${CheckMacValue}" readonly="readonly">
-					</div>
-					
 					
 					<button type="submit" class="btn btn-primary">確認送出</button> 
 				</form>
