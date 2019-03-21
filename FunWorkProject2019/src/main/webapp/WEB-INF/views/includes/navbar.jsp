@@ -42,7 +42,7 @@
 				</li>
 				<c:if test="${loginUser!=null}">
 					<li class="nav-item">
-						<a class="nav-link" href="<c:url value='/jobSeekerInfo'></c:url>">會員專區</a>
+						<a class="nav-link" href="<c:url value='/mainHub'></c:url>">會員專區</a>
 					</li>
 				</c:if>
 				<li class="nav-item">

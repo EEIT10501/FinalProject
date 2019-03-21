@@ -98,4 +98,14 @@ public class UserDaoImpl implements UserDao {
     }
     return user;
   }
+
+  @Override
+  public void updateAccount(String email, String password, Integer userId) {
+    Session session = factory.getCurrentSession();
+    String hql = "UPDATE User u SET u.email = :email,u.password= :password WHERE u.userId = :userId";
+    session.createQuery(hql).setParameter("email", email).setParameter("password", password)
+        .setParameter("userId", userId).executeUpdate();
+    return;
+  }
+
 }

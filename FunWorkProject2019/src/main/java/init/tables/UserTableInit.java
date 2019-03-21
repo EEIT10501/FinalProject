@@ -3,6 +3,7 @@ package init.tables;
 import com.funwork.model.User;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.Date;
 import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,6 +49,7 @@ public class UserTableInit {
         String facebook = token[11];
         String google = token[12];
         String isOpen = token[13];
+        String vipEndDate = token[14];
         User user = new User();
         user.setUserName(userName);
         user.setPassword(password);
@@ -63,6 +65,7 @@ public class UserTableInit {
         user.setFacebook(facebook);
         user.setGoogle(google);
         user.setIsOpen(Boolean.valueOf(isOpen));
+        user.setVipEndDate(Date.valueOf(vipEndDate));
         session.save(user);
       }
       tx.commit();

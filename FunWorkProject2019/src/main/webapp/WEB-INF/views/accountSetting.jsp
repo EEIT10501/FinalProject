@@ -44,39 +44,57 @@
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
-				<form  action="" method="post">
+
+				<form class=""
+					action="${pageContext.request.contextPath}/accountSetting"
+					method="post" onsubmit="return formCheck() ">
 					<fieldset>
 						<legend>帳號設定</legend>
 
-						<div class="form-group row">
-							<label>email</label> <input type="email" class="" value="${user.email}"
-								name="">
+						<label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
+						<div class="col-sm">
+							<input type="email" name="email" class="form-control" value="${Users.email}"
+								id="email"  required="required"
+								title="請輸入email" />
+								<font color="green" size="-1">${Ms.acutOK}</font>
+								<font color="red" size="-1">${Msg.errorIDExs}</font>
 						</div>
 
-						<div class="form- group row">
-							<label for="pwd1">密碼:</label> <input type="password"
-								name="password" value="" id="pwd1" plascehoder="如有需要再更改"
+						<label for="pwd1" class="col-sm-2 col-form-label">密碼:</label>
+						<div class="col-sm">
+							<input type="password" name="password" value="" id="pwd1"
+								placeholder="如有需要再更改" required="required"
 								pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"
 								title="密碼：6~12英數字組合，至少有一個大寫、小寫英文字母及數字，如 A12Rd6"
-								class="form-control" style="width: 230px;" />
+								class="form-control" />
+								<font color="green" size="-1">${Ms.pswOK}</font>
+						</div>
 
+						<label for="pwd2" class="col-sm-2 col-form-label">再輸入一次密碼:</label>
+						<div class="col-sm">
+							<input type="password" name="password2" value=""
+								required="required"
+								pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"
+								placeholder="如有需要再更改" id="pwd2" class="form-control" />
 						</div>
-						<div class="form- group row">
-							<label for="pwd2">再輸入一次密碼:</label> <input type="password"
-								name="password1" value="" placeholder="如有需要再更改" id="pwd2"
-								class="form-control" style="width: 230px;" />
+
+						<div class="form-group row">
+							<div class="col-sm-7">
+								<label class="col align-self-center"> </label> <input
+									type="submit" name="submit" class="btn btn-primary" id="submit"
+									value="更新" /> <input type="reset" name="cancel"
+									class="btn btn-primary" id="cancel" value="重填">
+							</div>
 						</div>
- 
- 
+
 					</fieldset>
 
 				</form>
 
-
-
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
+
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">

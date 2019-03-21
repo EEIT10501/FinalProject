@@ -76,7 +76,8 @@
 							<label for="pwd2" class="col-sm-2 col-form-label">密碼確認：</label>
 							<div class="col-sm">
 
-								<input type="password" name="password2" class="form-control" id="pwd2" 
+								<input type="password" name="password2" class="form-control" id="pwd2"
+								pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$" 
 										required="required" style="width: 230px;"> 
 								<font color="red" size="-1">${Msg.errPd2Empty}</font>
 

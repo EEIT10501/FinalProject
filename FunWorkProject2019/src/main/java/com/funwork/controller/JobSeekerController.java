@@ -75,8 +75,7 @@ public class JobSeekerController {
   @RequestMapping(value = "/updateInterviewStatusOther", method = RequestMethod.POST)
   public String updateInterviewStatusOther(@RequestParam("interviewId") Integer interviewId,
       @RequestParam("interviewStatus") String interviewStatus) {
-    System.out.println(interviewId);
-    System.out.println(interviewStatus);
+
     Interview interview = interviewService.findByPrimaryKey(interviewId);
     interview.setInterviewStatus(interviewStatus);
     interviewService.updateInterview(interview);

@@ -1,6 +1,8 @@
 package com.funwork.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -63,21 +65,19 @@ public class JobController {
   @RequestMapping("/jobs")
   public String Jobs(Model model) {
     List<Job> joblist = jobService.getCorrectJobs();
-//		List<Job> jobIsExposure = new ArrayList<Job>();
-//		for (int i=0;i<joblist.size();i++) {
-//			  if(joblist.get(i).getIsExposure()==true) {
-//				  jobIsExposure.add(joblist.get(i));
-//				  joblist.remove(joblist.get(i));
-//			  }
-//		}
-//		for (int i=0;i<joblist.size();i++) {
-//			jobIsExposure.add(joblist.get(i));
-//		}
-//		List<Job> joblist = jobService.getJobByCity(5);      //依城市搜尋
-//		List<Job> joblist = jobService.getJobByCityArea(13); //依地區搜尋
-//    List<City> citylist = jobService.getCityName(15);
-//    model.addAttribute("citys", citylist);
-    model.addAttribute("jobs", joblist);
+    List<Job> joblist2 = new ArrayList<Job>();
+    Date date = new Date();
+    for(int i=0;i<joblist.size();i++) {
+    	if((joblist.get(i).getPostEndDate().before(date))==true) {
+    		joblist.get(i).setReviewStatus("已截止");
+    		jobService.updateJobByExpired(joblist.get(i));	
+    	}
+    	else {
+    		joblist2.add(joblist.get(i));
+    	}
+    }
+    
+    model.addAttribute("jobs", joblist2);
     return "jobs";
   }
 
