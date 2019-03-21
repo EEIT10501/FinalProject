@@ -36,7 +36,7 @@ public class ResumeController {
     if (rb == null) {
       rb = new Resume();
     }
-    model.addAttribute("resume", rb);
+    model.addAttribute("resume",rb);
     return "/resume";
   }
 
@@ -47,7 +47,12 @@ public class ResumeController {
 //    String[] positions = req.getParameterValues("position");
 //    String[] companys = req.getParameterValues("company");
 //    String[] terms = req.getParameterValues("term");
-    resumeService.addResume(resume, user.getUserId());
+    Integer userId = user.getUserId();
+    Resume oldresume =   resumeService.getResumeByUserId(userId);     
+    Integer resumeId =oldresume.getResumeId();//先取得舊的resum id
+
+    
+    resumeService.addResume(resume, user.getUserId() ,resumeId);
     return "redirect:/resume";
   }
 }

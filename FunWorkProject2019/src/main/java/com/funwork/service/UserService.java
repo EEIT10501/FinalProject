@@ -24,4 +24,6 @@ public interface UserService {
   User getUserByGoogleEmail(String email, String googleId);
 
   Integer insertGoogleUser(String email, String name, String googleId);
+
+  void updateAccount(String email, String password, Integer userId);;
 }
