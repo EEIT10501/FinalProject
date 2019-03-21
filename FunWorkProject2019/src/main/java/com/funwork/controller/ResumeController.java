@@ -50,10 +50,7 @@ public class ResumeController {
     Integer userId = user.getUserId();
     Resume oldresume =   resumeService.getResumeByUserId(userId);     
     Integer resumeId =oldresume.getResumeId();//先取得舊的resum id
-//   
-//    System.out.println(userId);
-//    System.out.println(oldresume);
-//    System.out.println(resumeId);
+
     
     resumeService.addResume(resume, user.getUserId() ,resumeId);
     return "redirect:/resume";
