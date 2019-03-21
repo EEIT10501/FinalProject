@@ -52,13 +52,9 @@
 		<div class="col-sm-2">
 			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			</div>
-			<div class="col-sm-8">
+			<div class="col-sm-8" style="border: 1px solid black">
 				<br>
 				<section>
-					<div style="float: right">
-						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>
-						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
-					</div>
 					<div>
 						<div class="container" style="text-align: center">
 							<h1>
@@ -67,8 +63,16 @@
 						</div>
 					</div>
 				</section>
-				<div style="height: 30px;"></div>
+				<c:choose>
+				<c:when test="${empty applicantsByJob}">
+				<div style="height: 30px; color: red">此筆職缺尚無應徵紀錄</div>
+				</c:when>
+				<c:otherwise>
 				<section class="container">
+					<div>
+						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>
+						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
+					</div><br>
 					<div class="col-sm-14">
 						<c:forEach var="applicant" items="${applicantsByJob}"
 							varStatus="loop">
@@ -86,30 +90,37 @@
 															src="<c:url value='/getProfilePic/${applicant.user.userId}'/>"><br>
 														<input type="hidden" id="jobTitleInput"
 															value="${applicant.job.title}">
-														<!-- 													<strong>應徵公司單位:</strong> -->
-														<%-- 												${applicant.job.jobCompany.name}<br>  --%>
-														<strong>應徵編號:</strong> ${applicant.applicationId}<br>
-														<strong>應徵送出時間:</strong><br>
+														<strong>自我介紹:</strong><br>
+														${resumes[loop.count-1].selfIntro}<p></p>
+														<br>
+													</div>
+
+													<div class="col-sm-3 rows">
+														<strong>最高學歷: </strong><br>
+														${resumes[loop.count-1].educationLevel}<p></p>
+														<strong>自我介紹: </strong><br>
+														${resumes[loop.count-1].selfIntro}
+													</div>
+													<div class="col-sm-3 row">
+														<strong>工作經驗:</strong><br>
+														${resumes[loop.count-1].term1} : ${resumes[loop.count-1].type1}
+													</div>
+													<div class="col-sm-3 row">
+														<div>
+														<strong>${applicant.job.other} : </strong><br>
+														${applicant.answer}<p></p>
+														</div>
+														<div class="text-right" style="margin-bottom: 40px">
+															<strong>缺席次數: </strong><h6>${users[loop.count-1].abscence}</h6>
+														</div>
+													</div>
+												</div>
+														<div class="row" style="border: 1px solid black">
+														<strong>應徵編號:</strong> ${applicant.applicationId}
+														<strong>應徵送出時間:</strong>
 														<fmt:formatDate type="both"
 															value="${applicant.applicationTime}" />
-													</div>
-
-													<div class="col-sm-3">
-														<strong>自我介紹與工作經驗:</strong><br>
-														<br> ${resumes[loop.count-1].selfIntro}
-													</div>
-
-													<div class="col-sm-3">
-														<strong>給雇主的話:</strong><br>
-														<br> ${applicant.answer}
-													</div>
-													<div class="col-sm-3">
-														<div class="text-right" style="margin-bottom: 80px">
-															<strong>缺席次數</strong><br>
-															<br>
-															<h6>${users[loop.count-1].abscence}</h6>
-														</div>
-														<div>
+														<div style="float: right">
 															<button type="button" class="btn btn-warning btn-sm"
 																data-toggle="modal" data-target="#interviewModal">
 																<span class="glyphicon glyphicon-thumbs-up"></span> 邀約
@@ -202,6 +213,7 @@
 																	<span class="glyphicon glyphicon-thumbs-up"></span>傳訊
 																</button>
 															</a>
+													</div>
 														</div>
 													</div>
 												</div>
@@ -210,10 +222,12 @@
 										</div>
 									</div>
 								</div>
-							</div>
 						</c:forEach>
+							</div>
 					</div>
 				</section>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

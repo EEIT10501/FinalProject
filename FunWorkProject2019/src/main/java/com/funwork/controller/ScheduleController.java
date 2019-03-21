@@ -15,10 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 import com.funwork.model.Application;
 import com.funwork.model.Interview;
@@ -30,37 +30,45 @@ import com.funwork.service.JobService;
 import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
 
-
 @Controller
 public class ScheduleController {
 
 	@Autowired
 	ScheduleService scheduleService;
-	
+
 	@Autowired
 	InterviewService interviewService;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	JobService jobService;
-	
-	
+
 	public ScheduleController() {
 	}
 
-	@RequestMapping("/calendar")
-	public String calendar() {
-		return "schedule/calendar";
+	@RequestMapping("/ScheduleCalendar")
+	public String calendar(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+
+		if (user != null) {
+			List<Job> list = jobService.findJobByUserId(user.getUserId());
+			model.addAttribute("jobs", list);
+			return "schedule/ScheduleCalendar";
+		} else {
+			return "redirect:/";
+		}			
 	}
 
-	@RequestMapping("/ScheduleCalendar")
-	public String calendarSave(Model model) {
-		
-		int jobId = 1; //測試用
+	@RequestMapping("/ScheduleCalendar/{jobId}")
+	public String calendarSave(Model model, @PathVariable("jobId") Integer jobId) {
+
+//		int jobId = 1; // 測試用
 		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
-		
+
 		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
@@ -79,13 +87,13 @@ public class ScheduleController {
 		return "schedule/ScheduleCalendar";
 	}
 
-	@RequestMapping("/ScheduleCalendar/change")
-	public String calendarChange(Model model) {
+	@RequestMapping("/ScheduleCalendar/change/{jobId}")
+	public String calendarChange(Model model, @PathVariable("jobId") Integer jobId) {
 		model.addAttribute("change", true);
-		
-		int jobId = 1; //測試用
+
+//		int jobId = 1; // 測試用
 		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
-		
+
 		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
 		JSONArray jsonArray = new JSONArray();
 		JSONObject object = null;
@@ -103,15 +111,15 @@ public class ScheduleController {
 		return "schedule/ScheduleCalendar";
 	}
 
-	@RequestMapping(value = "/ScheduleCalendar/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/ScheduleCalendar/save/{jobId}", method = RequestMethod.POST)
 	public String calendarIntoSql(Model model, @RequestParam("scheduleJSONArray") String scheduleJSON,
-			@RequestParam("delString") String delString) throws JSONException, ParseException {
+			@RequestParam("delString") String delString, @PathVariable("jobId") Integer jobId) throws JSONException, ParseException {
 		model.addAttribute("change", true);
 
 //		System.out.println(scheduleJSON);
 		System.out.println(delString);
 //		String[] delArray = delString.replaceAll(","," ").trim().split("\\s+");
-		String[] delArray=delString.split(",");
+		String[] delArray = delString.split(",");
 		for (int i = 0; i < delArray.length; i++) {
 			if (delArray[i].length() != 0) {
 //				System.out.println(delArray[i]);
@@ -134,15 +142,16 @@ public class ScheduleController {
 			schedule.setStartTime(Timestamp.valueOf(starttime));
 			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
-			
-			int jobId = 1; //測試用
-			Interview interview = interviewService.findByAdmit_Job_UserName(jobId, (String) jsonObject.get("scheduleName"));		
+
+//			int jobId = 1; // 測試用
+			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,
+					(String) jsonObject.get("scheduleName"));
 			schedule.setInterview(interview);
-			
+//			System.out.println(interview.getInterviewId());
 			scheduleService.insertSchedule(schedule);
 		}
 
-		return "schedule/ScheduleCalendar";
+		return "schedule/ScheduleCalendar"+jobId;
 	}
 
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.GET)
@@ -192,32 +201,31 @@ public class ScheduleController {
 		scheduleService.updateScheduleByPrimaryKey(schedule);
 		return "redirect:/scheduleManage";
 	}
-	
+
 	@RequestMapping("/wageManage")
 	public String wageManage(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");	
+		User loginUser = (User) session.getAttribute("loginUser");
 		if (loginUser != null) {
-			model.addAttribute("user", loginUser);									
-		    List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
-		      model.addAttribute("postJobList", postJobList);
+			model.addAttribute("user", loginUser);
+			List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+			model.addAttribute("postJobList", postJobList);
 //			Interview interview = interviewService.findInterviewByAdmit(jobId);
 			return "schedule/wageManage";
 		} else {
 			return "redirect:/";
-		}	
+		}
 	}
-	
+
 	@RequestMapping(value = "/selectWage", method = RequestMethod.POST)
-	public String selectWage(@RequestParam("jobId") Integer jobId, @RequestParam("date") String date,HttpServletRequest request) {
+	public String selectWage(@RequestParam("jobId") Integer jobId, @RequestParam("date") String date,
+			HttpServletRequest request) {
 		System.out.println(jobId);
 		System.out.println(date);
 //		scheduleService.updateScheduleByPrimaryKey(schedule);
 		return "redirect:/wageManage";
 	}
 
-
-	
 //	  @RequestMapping(value = "/updateInterviewStatusOther", method = RequestMethod.POST)
 //	  public String updateInterviewStatusOther(@RequestParam("interviewId") Integer interviewId,
 //	      @RequestParam("interviewStatus") String interviewStatus) {
@@ -228,7 +236,5 @@ public class ScheduleController {
 //	    interviewService.updateInterview(interview);
 //	    return "redirect:/invitationManage";
 //	  }
-
-	
 
 }

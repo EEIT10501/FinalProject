@@ -111,6 +111,7 @@
 							<th>公司單位</th>
 							<th>職缺編號</th>
 							<th>職位</th>
+<!-- 							<th>應徵者數量</th> -->
 							<th>狀態</th>
 							<th>刊登截止時間</th>
 							<th>職缺內容</th>
@@ -122,14 +123,7 @@
 								<td>${job.jobCompany.name}</td>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
-<%-- 								<c:choose> --%>
-<%-- 									<c:when test="${job.postEndDate > now}"> --%>
-<!-- 										<td>發布中</td> -->
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<!-- 										<td>已截止</td> -->
-<%-- 									</c:otherwise> --%>
-<%-- 								</c:choose> --%>
+<%-- 								<td>${job.applicant }</td> --%>
 								<td>${job.reviewStatus}</td>
 								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
 								<td><a

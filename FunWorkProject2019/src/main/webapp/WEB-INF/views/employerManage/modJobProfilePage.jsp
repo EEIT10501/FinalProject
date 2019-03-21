@@ -110,7 +110,9 @@
 						   		</form:select>
 						    </div>
 						    <div class="col-sm-2">
-						    	<form:select path="cityName" id="cityName" class="form-control"></form:select>
+						    	<form:select path="cityName" id="cityName" class="form-control" >
+						    	<form:option name="optionDefault" value="${jobBean.cityName}" label="${jobBean.cityName}" />
+						    	</form:select>
 						    </div>
 						    <div class="col-sm-6">
 						    	<form:input type="text" path="address" class="form-control" id="address" placeholder="請輸入工作地址" required="required"/>

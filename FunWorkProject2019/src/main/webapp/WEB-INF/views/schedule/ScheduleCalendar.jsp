@@ -27,6 +27,7 @@
 <script>
 var delCount = [];
 $(document).ready(function() {
+	$("#collapse5").addClass("show"); //讓排班管理載入此頁面時便展開
 	$("#saveEvent").click(function(){
 		saveEvent();
 	});
@@ -86,7 +87,9 @@ $(document).ready(function() {
 		editable: ${change},   //是否可拖曳
 		</c:if>
 		eventLimit: true, // when too many events in a day, show the popover
+	
 		events : <c:out value="${json}" escapeXml="false">${json}</c:out>,
+
 		timeFormat: "HH:mm",      // 所有事件24小時制
 		businessHours: true,      //顯示左側時間
 		slotLabelFormat:"HH:mm",  //左側時間24小時制 
@@ -142,7 +145,7 @@ function saveEvent(){
 	scheduleJSONArray = JSON.stringify(scheduleJSON);
 	
 	$.ajax({
-		url:"<c:url value='/ScheduleCalendar/save'/>",
+		url:"<c:url value='/ScheduleCalendar/save/'/>${interviewList[0].application.job.jobId}",
 		type:"POST",
 		dataType:"JSON",
 		data:{"scheduleJSONArray":scheduleJSONArray,"delString":delString},
@@ -229,12 +232,43 @@ function saveEvent(){
 						</div>
 					</div>
 					<div class="col-sm-10">
+					<c:if test="${jobs!=null}">	
+					<table class="table table-hover dataTable" id="jobtable">
+					<thead>
+						<tr>
+							<th>職缺名稱</th>
+							<th>所在地區</th>
+							<th>所屬公司</th>
+							<th>聯絡人</th>
+							
+							<th>詳細內容</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="job" items="${jobs}">
+							<c:if test="${job.reviewStatus=='發布中'}">
+								<tr>
+									<td>${job.title}</td>
+									<td>${job.city.cityName}</td>
+									<td>${job.jobCompany.name}</td>
+									<td>${job.jobOwner.userName}</td>									
+									<td><a href="<c:url value='/ScheduleCalendar/${job.jobId}'/>"
+										class="btn btn-primary"><span
+											class="glyphicon-info-sigh glyphicon"></span>排班作業 </a></td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+				</c:if>
+				<c:if test="${empty jobs}">			
 						<div id='calendar-container'>
+						<h3>${interviewList[0].application.job.title}</h3>
 							<div id='calendar'></div>
 							<div style="float: right">
-								<c:if test="${empty change}">
+								<c:if test="${empty change && interviewList.size()!=0}">
 									<a class="btn btn-primary"
-										href="<c:url value='/ScheduleCalendar/change'/>"><span
+										href="<c:url value='/ScheduleCalendar/change/'/>${interviewList[0].application.job.jobId}"><span
 										class="glyphicon-info-sigh glyphicon"></span>編輯</a>
 								</c:if>
 								<c:if test="${change!=null}">
@@ -244,6 +278,7 @@ function saveEvent(){
 							</div>
 							<!-- 				<input type="button" onclick="saveEvent()" value="TEST"> -->
 						</div>
+						</c:if>	
 					</div>
 				</div>
 

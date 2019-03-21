@@ -63,10 +63,17 @@ public class UserServiceImpl implements UserService {
 		dao.updateUser(user);
 	}
 
-	@Override
-	public User getUserByGoogleEmail(String email, String googleId) {
-		return dao.getUserByGoogleEmail(email, googleId);
-	}
+
+  @Override
+  public void updateUser(User user) {
+    dao.updateUser(user);
+  }
+  
+  @Override
+  public User getUserByGoogleEmail(String email, String googleId) {
+    return dao.getUserByGoogleEmail(email, googleId);
+  }
+
 
 	@Override
 	public Integer insertGoogleUser(String email, String name, String googleId) {

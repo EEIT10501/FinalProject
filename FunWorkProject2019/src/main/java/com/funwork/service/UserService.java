@@ -18,6 +18,8 @@ public interface UserService {
   User loginCheck(String email, String password);
 
   void openUser(Integer userId);
+  
+  void updateUser(User user);
 
   User getUserByGoogleEmail(String email, String googleId);
 

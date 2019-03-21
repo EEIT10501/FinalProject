@@ -1,6 +1,6 @@
 package com.funwork.model;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -17,10 +17,10 @@ import javax.persistence.Table;
 public class Order {
 
   private Integer orderId;
-  private Timestamp time;
+  private Timestamp orderTime;
   private Integer status;
-  private Double price;
-  private Date expirationDate;
+  private Integer price;
+  private String orderTradeNo;
   private User user;
   private Product product;
 
@@ -34,15 +34,16 @@ public class Order {
     this.orderId = orderId;
   }
 
-  public Timestamp getTime() {
-    return time;
-  }
 
-  public void setTime(Timestamp time) {
-    this.time = time;
-  }
+  public Timestamp getOrderTime() {
+	return orderTime;
+}
 
-  public Integer getStatus() {
+public void setOrderTime(Timestamp orderTime) {
+	this.orderTime = orderTime;
+}
+
+public Integer getStatus() {
     return status;
   }
 
@@ -50,20 +51,20 @@ public class Order {
     this.status = status;
   }
 
-  public Double getPrice() {
+  public Integer getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(Integer price) {
     this.price = price;
   }
 
-  public Date getExpirationDate() {
-    return expirationDate;
+  public String getOrderTradeNo() {
+    return orderTradeNo;
   }
 
-  public void setExpirationDate(Date expirationDate) {
-    this.expirationDate = expirationDate;
+  public void setOrderTradeNo(String orderTradeNo) {
+    this.orderTradeNo = orderTradeNo;
   }
 
   @ManyToOne(cascade = CascadeType.ALL)

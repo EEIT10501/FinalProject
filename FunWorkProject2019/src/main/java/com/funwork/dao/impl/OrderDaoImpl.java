@@ -39,5 +39,31 @@ public class OrderDaoImpl implements OrderDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Order> getOrderByUser(Integer userId){
+		String hql = "FROM Order WHERE user.userId = :userId";
+		Session session = null;
+		List<Order> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("userId", userId).getResultList();
+		return list;
+	}
+	
+	@Override
+	public Order insertOrder(Order order) {
+		Session session = factory.getCurrentSession();
+		session.saveOrUpdate(order);
+		return order;	
+	}
+	
+	@Override
+	public Order getOrderByTradeNo(String orderTradeNo){
+		String hql = "FROM Order WHERE orderTradeNo = :orderTradeNo";
+		Session session = factory.getCurrentSession();
+		Order order = (Order) session.createQuery(hql).setParameter("orderTradeNo", orderTradeNo).getSingleResult();
+		return order;
+	}
 
 }
