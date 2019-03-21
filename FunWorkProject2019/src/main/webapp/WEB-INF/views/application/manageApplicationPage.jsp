@@ -54,12 +54,6 @@
 .asideblock {
 	height: 600px;
 }
-
-/* section:after { */
-/* 	content: ""; */
-/* 	display: table; */
-/* 	clear: both; */
-/* } */
 </style>
 <script>
 
@@ -99,7 +93,6 @@
 					value="${pageContext.request.contextPath}">
 				<section
 					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-					<nav>
 						<strong>目前篩選條件: </strong>
 						<span class='label label-warning' id="filterPath"></span><p></p> 
 						<strong>請輸入選擇條件: </strong>
@@ -108,8 +101,6 @@
 							<option>已邀約</option>
 							<option>未邀約</option>
 							<option>已婉拒</option>
-<!-- 							<option>全部</option> -->
-<!-- 							<option>公司完成建檔</option> -->
 						</select>
 						<!-- 						或是輸入關鍵字: &nbsp; <input placeholder="please enter"> -->
 						<button id="butt1" style="width: auto" onclick="filterSelect()">確定送出</button>
@@ -122,7 +113,6 @@
 							<table class="table table-hover display" id="example">
 								<thead>
 									<tr>
-<!-- 										<th>筆數</th> -->
 										<th>邀約編號</th>
 										<th>應徵者名稱</th>
 										<th>給雇主的回應</th>
@@ -134,22 +124,19 @@
 									<c:forEach var="application" items="${applications}"
 										varStatus="loop">
 										<tr>
-<%-- 											<td><c:out value="${loop.count}" /></td> --%>
 											<td>${application.applicationId}</td>
 											<td>${application.user.userName}</td>
 											<td>${application.answer}</td>
 											<td><fmt:formatDate type="both" value="${application.applicationTime}"/></td>
 											<c:choose>
 												<c:when test="${application.appliedStatus == '已邀約'}">
-													<td><a
-														href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
-														class="btn btn-info btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span>${application.appliedStatus}
+													<td><a href="<spring:url value='applications?id=${application.job.jobId}'/>"
+														class="btn btn-info btn-sm"> <span class="glyphicon-info-sigh glyphicon"></span>${application.appliedStatus}
 													</a></td>
 												</c:when>
 												<c:otherwise>
 													<td><a
-														href='<spring:url value="company?id=${company.companyId}"/>'
+														href="<spring:url value='applications?id=${application.job.jobId}'/>"
 														class="btn btn-success btn-sm"> <span
 															class="glyphicon-info-sigh glyphicon"></span>${application.appliedStatus}
 													</a>
@@ -160,66 +147,17 @@
 									</c:forEach>
 								</tbody>
 							</table>
-						</div>
-						
- <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">請選擇登入方式</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- 彈出視窗：寫程式的地方 -->
-					<form action="#" method="post" id="loginForm">
-						<div class="form-group">
-							<label for="exampleInputEmail1">電子郵件</label> <input type="email"
-								class="form-control" id="exampleInputEmail1"
-								aria-describedby="emailHelp" placeholder="Enter email"
-								name="email"> <small id="emailHelp"
-								class="form-text text-muted"></small>
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">輸入密碼</label> <input
-								type="password" class="form-control" id="exampleInputPassword1"
-								placeholder="Password" name="password">
-						</div>
-						<div class="form-group form-check">
-							<input type="checkbox" class="form-check-input"
-								id="exampleCheck1" name="rememberMe"> <label
-								class="form-check-label" for="exampleCheck1">請記住我</label><br>
-							<label id="loginError"></label>
-						</div>
-						<button id="login" type="button" class="btn btn-primary"
-							style="float: right">確認送出</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-						<table class="table table-hover display" id="testField">
-						</table>
-					</nav>
+						</div>			
 				</section>
-
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights
-				reserved.</div>
+			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
-	<!-- 			<script src="https://code.jquery.com/jquery-3.3.1.js" -->
-	<!-- 				integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
-	<!-- 				crossorigin="anonymous"></script> -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
