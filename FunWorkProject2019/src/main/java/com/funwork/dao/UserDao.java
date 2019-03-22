@@ -20,4 +20,9 @@ public interface UserDao {
   void updateUser(User user);
 
   User getUserByGoogleEmail(String email, String googleId);
+
+  User getUserByEmail(String email);
+
+  void updateAccount(String email, String password, Integer userId);
+
 }

@@ -29,8 +29,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-
 <link type="text/css" rel="stylesheet"
 	href='<c:url value="/css/bootstrap-datetimepicker.css"/>'
 	media="screen, projection" />
@@ -89,8 +87,10 @@
 					"bLengthChange" : false, //改變每頁顯示數據數量
 					"bFilter" : false,
 					"bInfo" : false,
-       	  });
+         });
+
 		});
+
 </script>
 
 
@@ -105,17 +105,18 @@
 			</div>
 			<!-- 複製這裡 ↑ -->
 			<div class="col-sm-8">
-				<h2>薪資明細</h2>
+				<h2>打工薪資試算</h2>
 				<hr>
 
 				<!--		日期篩選條件			-->
-				<form action="${pageContext.request.contextPath}/selectWage" method="post">
+				<form action="${pageContext.request.contextPath}/selectWageStaff" method="post">
 					<div>
-						<span style="padding-left: 10px">請輸入您所刊登的職缺： <select name="jobId">
-								<c:forEach var="postJob" items="${postJobList}">
-									<option value="${postJob.jobId}">${postJob.title}</option>
-								</c:forEach>
-						</select></span> <br> <span style="padding-left: 10px">請輸入欲查詢的月份：</span> <span
+<!-- 						<span style="padding-left: 10px">請輸入您所刊登的職缺： <select name="jobId"> -->
+<%-- 								<c:forEach var="postJob" items="${postJobList}"> --%>
+<%-- 									<option value="${postJob.jobId}">${postJob.title}</option> --%>
+<%-- 								</c:forEach> --%>
+<!-- 						</select></span> <br>  -->
+						<span style="padding-left: 10px"> 請輸入欲查詢的月份：</span> <span
 							class="input-group  col-md-6" data-date-format="yyyy-mm-dd">
 							<input type="text" class="form-control" name="start"
 							id="qBeginTime" readonly /> <span>~ </span> <input type="text"
@@ -146,7 +147,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="admitSchedule" items="${admitScheduleList}">
+							<c:forEach var="admitSchedule" items="${staffScheduleList}">
 								<c:set var="hrTotal" value="${hrTotal+admitSchedule.workingHours}"></c:set>
 								<c:set var="wageTotal" value="${hrTotal*admitSchedule.interview.application.job.rateByHour}"></c:set>
 								<tr>

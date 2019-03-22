@@ -8,6 +8,7 @@ import com.funwork.model.Resume;
 import com.funwork.model.User;
 import com.funwork.service.ResumeService;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,7 +55,7 @@ public class ResumeServiceImpl implements ResumeService {
 
   @Override
   public void addResume(Resume resume, Integer userId) {
-
+    
     User user = userDao.getUserById(userId);
     resume.setUser(user);
 
@@ -66,10 +67,12 @@ public class ResumeServiceImpl implements ResumeService {
         byte[] b = profileImage.getBytes();
         Blob blob = new SerialBlob(b);
         resume.setProfilePic(blob);
+        resumeDao.addResume(resume);
       } catch (Exception e) {
         logger.log(Level.WARNING, "檔案上傳發生異常: {0}", e.getMessage());
       }
-    }
-    resumeDao.addResume(resume);
+    } else {
+      resumeDao.addResumeWithoutPictrue(resume);
+    }   
   }
 }

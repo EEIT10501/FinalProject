@@ -30,198 +30,198 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class JobServiceImpl implements JobService {
 
-	@Autowired
-	JobDao jobDao;
-	@Autowired
-	CityDao cityDao;
-	@Autowired
-	CompanyDao companyDao;
-	@Autowired
-	NotificationDao notificationDao;
-	@Autowired
-	UserDao userDao;
+  @Autowired
+  JobDao jobDao;
+  @Autowired
+  CityDao cityDao;
+  @Autowired
+  CompanyDao companyDao;
+  @Autowired
+  NotificationDao notificationDao;
+  @Autowired
+  UserDao userDao;
 
-	@Override
-	public List<Job> getAllJobs() {
-		return jobDao.getAllJobs();
-	}
+  @Override
+  public List<Job> getAllJobs() {
+    return jobDao.getAllJobs();
+  }
 
-	@Override
-	public List<Job> getJobReviewList() {
-		return jobDao.getJobReviewList();
-	}
+  @Override
+  public List<Job> getJobReviewList() {
+    return jobDao.getJobReviewList();
+  }
 
-	@Override
-	public List<Job> getJobPassed() {
-		return jobDao.getJobPassed();
-	}
+  @Override
+  public List<Job> getJobPassed() {
+    return jobDao.getJobPassed();
+  }
 
-	@Override
-	public List<Job> getJobByCityName(Integer cityId) {
-		return jobDao.getJobByCityName(cityId);
-	}
+  @Override
+  public List<Job> getJobByCityName(Integer cityId) {
+    return jobDao.getJobByCityName(cityId);
+  }
 
-	@Override
-	public List<Job> getJobByCityArea(Integer cityId) {
-		return jobDao.getJobByCityArea(cityId);
-	}
+  @Override
+  public List<Job> getJobByCityArea(Integer cityId) {
+    return jobDao.getJobByCityArea(cityId);
+  }
 
-	@Override
-	public Job getJobById(Integer jobId) {
-		return jobDao.getJobById(jobId);
-	}
+  @Override
+  public Job getJobById(Integer jobId) {
+    return jobDao.getJobById(jobId);
+  }
 
-	@Override
-	public Job jobReviewPass(Integer jobId) {
+  @Override
+  public Job jobReviewPass(Integer jobId) {
 
-		Job job = jobDao.getJobById(jobId);
-		job.setReviewStatus("發布中");
-		job.setReviewTime(new Timestamp(System.currentTimeMillis()));
-		jobDao.updateJob(job);
+    Job job = jobDao.getJobById(jobId);
+    job.setReviewStatus("發布中");
+    job.setReviewTime(new Timestamp(System.currentTimeMillis()));
+    jobDao.updateJob(job);
 
-		Notification notification = new Notification();
-		notification.setContent("您的職缺(" + job.getTitle() + ")已通過審核");
-		notification.setTime(new Timestamp(System.currentTimeMillis()));
-		notification.setType(2);
-		notification.setUser(job.getJobOwner());
-		notificationDao.insertNotification(notification);
-		return job;
-	}
+    Notification notification = new Notification();
+    notification.setContent("您的職缺(" + job.getTitle() + ")已通過審核");
+    notification.setTime(new Timestamp(System.currentTimeMillis()));
+    notification.setType(2);
+    notification.setUser(job.getJobOwner());
+    notificationDao.insertNotification(notification);
+    return job;
+  }
 
-	@Override
-	public Job jobReviewFail(Integer jobId, String failReason) {
+  @Override
+  public Job jobReviewFail(Integer jobId, String failReason) {
 
-		Job job = jobDao.getJobById(jobId);
-		job.setReviewStatus("審核失敗");
-		job.setReviewTime(new Timestamp(System.currentTimeMillis()));
-		job.setFailReason(failReason);
-		jobDao.updateJob(job);
+    Job job = jobDao.getJobById(jobId);
+    job.setReviewStatus("審核失敗");
+    job.setReviewTime(new Timestamp(System.currentTimeMillis()));
+    job.setFailReason(failReason);
+    jobDao.updateJob(job);
 
-		Notification notification = new Notification();
-		notification.setContent("您的職缺(" + job.getTitle() + ")審核失敗");
-		notification.setTime(new Timestamp(System.currentTimeMillis()));
-		notification.setType(2);
-		notification.setUser(job.getJobOwner());
-		notificationDao.insertNotification(notification);
-		return job;
-	}
+    Notification notification = new Notification();
+    notification.setContent("您的職缺(" + job.getTitle() + ")審核失敗");
+    notification.setTime(new Timestamp(System.currentTimeMillis()));
+    notification.setType(2);
+    notification.setUser(job.getJobOwner());
+    notificationDao.insertNotification(notification);
+    return job;
+  }
 
-	@Override
-	public List<City> getAllCitys() {
-		return cityDao.getAllCitys();
+  @Override
+  public List<City> getAllCitys() {
+    return cityDao.getAllCitys();
 
-	}
+  }
 
-	@Override
-	public List<City> getCityName(Integer cityId) {
-		return cityDao.getCityName(cityId);
+  @Override
+  public List<City> getCityName(Integer cityId) {
+    return cityDao.getCityName(cityId);
 
-	}
+  }
 
-	@Override
-	public List<Job> findJobByUserId(Integer userId) {
-		return jobDao.findJobByUserId(userId);
-	}
+  @Override
+  public List<Job> findJobByUserId(Integer userId) {
+    return jobDao.findJobByUserId(userId);
+  }
 
-	@Override
-	public List<Job> findJobByUserIdNJobStatus(Integer userId) {
-		return jobDao.findJobByUserIdNJobStatus(userId);
-	}
+  @Override
+  public List<Job> findJobByUserIdNJobStatus(Integer userId) {
+    return jobDao.findJobByUserIdNJobStatus(userId);
+  }
 
-	@Override
-	public List<Job> getCorrectJobs() {
-		return jobDao.getCorrectJobs();
-	}
+  @Override
+  public List<Job> getCorrectJobs() {
+    return jobDao.getCorrectJobs();
+  }
 
-	@Override
-	public List<Job> getReviewHistory() {
-		return jobDao.getReviewHistory();
-	}
+  @Override
+  public List<Job> getReviewHistory() {
+    return jobDao.getReviewHistory();
+  }
 
-	@Override
-	public List<String> getCityAreaList() {
-		return cityDao.getCityAreaList();
-	}
+  @Override
+  public List<String> getCityAreaList() {
+    return cityDao.getCityAreaList();
+  }
 
-	@Override
-	public String getCityNameList(String cityArea) {
-		return cityDao.getCityNameList(cityArea);
-	}
+  @Override
+  public String getCityNameList(String cityArea) {
+    return cityDao.getCityNameList(cityArea);
+  }
 
-	@Override
-	public City getCityByCityName(String cityName) {
-		return cityDao.getCityByCityName(cityName);
-	}
+  @Override
+  public City getCityByCityName(String cityName) {
+    return cityDao.getCityByCityName(cityName);
+  }
 
-	@Override
-	public Job insertJob(Job jbean, Integer userId) {
-		String cityName = jbean.getCityName();
-		jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
+  @Override
+  public Job insertJob(Job jbean, Integer userId) {
+    String cityName = jbean.getCityName();
+    jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
 
-		// 地址轉經緯度
-		JobServiceImpl jobServiceImpl = new JobServiceImpl();
-		Map<String, String> latlng = jobServiceImpl
-				.getGeocoderLatitude(jbean.getCityArea() + cityName + jbean.getAddress());
-		// 設定經緯度
-		jbean.setJobLat(latlng.get("lat"));
-		jbean.setJobLng(latlng.get("lng"));
-		if (jbean.getOther() == null) {
-			jbean.setOther("給雇主的話");
-		}
-		jbean.setIsExposure(false);
-		jbean.setIsFilled(false);
-		jbean.setReviewStatus("待審核");
-		jbean.setSubmitTime(new Timestamp(System.currentTimeMillis()));
-		jbean.setViewTimes(0);
-		jbean.setJobOwner(userDao.getUserById(userId));
-		String companyName = jbean.getCompanyName();
-		if (!companyName.equals("-1")) {
-			jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
-		}
-		jbean.setCity(cityDao.getCityByCityName(cityName));
+    // 地址轉經緯度
+    JobServiceImpl jobServiceImpl = new JobServiceImpl();
+    Map<String, String> latlng = jobServiceImpl
+        .getGeocoderLatitude(jbean.getCityArea() + cityName + jbean.getAddress());
+    // 設定經緯度
+    jbean.setJobLat(latlng.get("lat"));
+    jbean.setJobLng(latlng.get("lng"));
+    if (jbean.getOther() == null) {
+      jbean.setOther("給雇主的話");
+    }
+    jbean.setIsExposure(false);
+    jbean.setIsFilled(false);
+    jbean.setReviewStatus("待審核");
+    jbean.setSubmitTime(new Timestamp(System.currentTimeMillis()));
+    jbean.setViewTimes(0);
+    jbean.setJobOwner(userDao.getUserById(userId));
+    String companyName = jbean.getCompanyName();
+    if (!companyName.equals("-1")) {
+      jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
+    }
+    jbean.setCity(cityDao.getCityByCityName(cityName));
 
-		return jobDao.insertJob(jbean);
-	}
+    return jobDao.insertJob(jbean);
+  }
 
-	@Override
-	public int getJobPostedCount(Integer userId) {
-		return jobDao.getJobPostedCount(userId);
-	}
+  @Override
+  public int getJobPostedCount(Integer userId) {
+    return jobDao.getJobPostedCount(userId);
+  }
 
-	@Override
-	public Map<String, String> getGeocoderLatitude(String address) {
-		String apiKey = "AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus";
-		BufferedReader jsonres = null;
+  @Override
+  public Map<String, String> getGeocoderLatitude(String address) {
+    String apiKey = "AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus";
+    BufferedReader jsonres = null;
 
-		try {
-			URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" + address
-					+ "&key=" + apiKey);
+    try {
+      URL url = new URL(
+          "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" + address + "&key=" + apiKey);
 
-			jsonres = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-			String res;
-			StringBuilder sb = new StringBuilder("");
-			while ((res = jsonres.readLine()) != null) {
-				sb.append(res.trim());
-			}
+      jsonres = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+      String res;
+      StringBuilder sb = new StringBuilder("");
+      while ((res = jsonres.readLine()) != null) {
+        sb.append(res.trim());
+      }
 
-			String str = sb.toString();
-			System.out.println(str);
+      String str = sb.toString();
+      System.out.println(str);
 
-			if (StringUtils.isNotEmpty(str)) {
-				JSONObject json = new JSONObject(str);
-				JSONArray ja = json.getJSONArray("results");
-				String lat = String.valueOf(
-						ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
-				String lng = String.valueOf(
-						ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
-				Map<String, String> map = new HashMap<String, String>();
-				if (lat != null && lng != null) {
-					map.put("lat", lat);
-					map.put("lng", lng);
-					System.out.println(map.get("lat") + "," + map.get("lng"));
-					return map;
-				}
-			}
+      if (StringUtils.isNotEmpty(str)) {
+        JSONObject json = new JSONObject(str);
+        JSONArray ja = json.getJSONArray("results");
+        String lat = String
+            .valueOf(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
+        String lng = String
+            .valueOf(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+        Map<String, String> map = new HashMap<String, String>();
+        if (lat != null && lng != null) {
+          map.put("lat", lat);
+          map.put("lng", lng);
+          System.out.println(map.get("lat") + "," + map.get("lng"));
+          return map;
+        }
+      }
 
 //			Map<String, String> map = null;
 //			if (StringUtils.isNotEmpty(str)) {
@@ -238,82 +238,76 @@ public class JobServiceImpl implements JobService {
 //				}
 //			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				jsonres.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        jsonres.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
 
-	@Override
-	public List<Job> getJobsBySearchStr(String searchStr) {
-		return jobDao.getJobsBySearchStr(searchStr);
-	}
+  @Override
+  public List<Job> getJobsBySearchStr(String searchStr) {
+    return jobDao.getJobsBySearchStr(searchStr);
+  }
 
-	@Override
-	public void changeJobExposure(Integer jobId) {
-		Job job = jobDao.getJobById(jobId);
-		if (job.getIsExposure()) {
-			job.setIsExposure(false);
-			jobDao.updateJob(job);
-		} else {
-			job.setIsExposure(true);
-			jobDao.updateJob(job);
-		}
-	}
+  @Override
+  public void changeJobExposure(Integer jobId) {
+    Job job = jobDao.getJobById(jobId);
+    if (job.getIsExposure()) {
+      job.setIsExposure(false);
+      jobDao.updateJob(job);
+    } else {
+      job.setIsExposure(true);
+      jobDao.updateJob(job);
+    }
+  }
 
-	@Override
-	public Integer getJobExposureCount(Integer userId) {
-		return jobDao.getJobExposureCount(userId);
-	}
+  @Override
+  public Integer getJobExposureCount(Integer userId) {
+    return jobDao.getJobExposureCount(userId);
+  }
 
-	@Override
-	public void changeJobFilled(Integer jobId) {
-		Job job = jobDao.getJobById(jobId);
-		if (job.getIsFilled()) {
-			job.setIsFilled(false);
-			jobDao.updateJob(job);
-		} else {
-			job.setIsFilled(true);
-			jobDao.updateJob(job);
-		}
-	}
+  @Override
+  public void changeJobFilled(Integer jobId) {
+    Job job = jobDao.getJobById(jobId);
+    if (job.getIsFilled()) {
+      job.setIsFilled(false);
+      jobDao.updateJob(job);
+    } else {
+      job.setIsFilled(true);
+      jobDao.updateJob(job);
+    }
+  }
 
-	@Override
-	public void updateJobPostById(Integer jobId, Job jbean) {
-		Job jobToChange = jobDao.getJobById(jobId);
-		jobToChange.setIndustry(jbean.getIndustry());
-		jobToChange.setTitle(jbean.getTitle());
-		jobToChange.setDescription(jbean.getDescription());
-		jobToChange.setPositionNum(jbean.getPositionNum());
-		jobToChange.setOther(jbean.getOther());
-		jobToChange.setPostEndDate(jbean.getPostEndDate());
-		jobToChange.setWorkDate(jbean.getWorkDate());
-		jobToChange.setWorkTime(jbean.getWorkTime());
-		String cityName = jbean.getCityName();
-		String addr = jbean.getCityArea() + cityName + jbean.getAddress();
-		jobToChange.setAddress(addr);
-		jobToChange.setAddresssup(jbean.getAddresssup());
-		jobToChange.setPaidDate(jbean.getPaidDate());
-		jobToChange.setRateByHour(jbean.getRateByHour());
-		jobToChange.setJobPhone(jbean.getJobPhone());
-		jobToChange.setJobEmail(jbean.getJobEmail());
-		jobToChange.setContact(jbean.getContact());
-		jobToChange.setCompanyName(jbean.getCompanyName());
-		jobToChange.setComment(jbean.getComment());
-		jobDao.updateJob(jobToChange);
-
-	}
-
-	@Override
-	public City getCityByPk(Integer cityId) {
-		return cityDao.getCityByPk(cityId);
-	}
+  @Override
+  public void updateJobPostById(Integer jobId, Job jbean) {
+    Job jobToChange = jobDao.getJobById(jobId);
+    jobToChange.setIndustry(jbean.getIndustry());
+    jobToChange.setTitle(jbean.getTitle());
+    jobToChange.setDescription(jbean.getDescription());
+    jobToChange.setPositionNum(jbean.getPositionNum());
+    jobToChange.setOther(jbean.getOther());
+    jobToChange.setPostEndDate(jbean.getPostEndDate());
+    jobToChange.setWorkDate(jbean.getWorkDate());
+    jobToChange.setWorkTime(jbean.getWorkTime());
+    String cityName = jbean.getCityName();
+    String addr = jbean.getCityArea() + cityName + jbean.getAddress();
+    jobToChange.setAddress(addr);
+    jobToChange.setAddresssup(jbean.getAddresssup());
+    jobToChange.setPaidDate(jbean.getPaidDate());
+    jobToChange.setRateByHour(jbean.getRateByHour());
+    jobToChange.setJobPhone(jbean.getJobPhone());
+    jobToChange.setJobEmail(jbean.getJobEmail());
+    jobToChange.setContact(jbean.getContact());
+    jobToChange.setCompanyName(jbean.getCompanyName());
+    jobToChange.setComment(jbean.getComment());
+    jobDao.updateJob(jobToChange);
+  }
 
 	@Override
 	public Integer updateViewTimesByJob(Integer jobId) {
@@ -326,4 +320,27 @@ public class JobServiceImpl implements JobService {
 		}
 		return currentViewTime;
 	}
+
+  @Override
+  public City getCityByPk(Integer cityId) {
+    return cityDao.getCityByPk(cityId);
+  }
+
+  @Override
+  public Integer getAllJobPostingCount() {
+    return jobDao.getAllJobPostingCount();
+  }
+
+  @Override
+  public String getAllPostingJobTypeJson() {
+    return jobDao.getAllPostingJobTypeJson();
+  }
+
+  @Override
+  public void updateJobByExpired(List<Job> joblistup) {
+    for(int i=0;i<joblistup.size();i++) {
+    	jobDao.updateJob(joblistup.get(i));
+    }
+  }
+
 }

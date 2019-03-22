@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,35 +40,6 @@ import com.funwork.service.JobService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
 
-/**
- * @author user
- *
- */
-/**
- * @author user
- *
- */
-/**
- * @param jbean
- * @param redirectAttrs
- * @param request
- * @param model
- * @return
- */
-/**
- * @param jbean
- * @param redirectAttrs
- * @param request
- * @param model
- * @return
- */
-/**
- * @param jbean
- * @param redirectAttrs
- * @param request
- * @param model
- * @return
- */
 @Controller
 public class PostJobController {
 
@@ -150,17 +118,13 @@ public class PostJobController {
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
-
 		Integer limit = loginUser.getJobPostLimit();
-
-		System.out.println("post limit" + limit);
 
 		if (activePost <= limit) {
 			if (jobBean == null) {
 				jobService.insertJob(jbean, loginUser.getUserId());
 				jobBean = null;
 			} else {
-				System.out.println("about to update");
 				jobService.updateJobPostById(jobBean.getJobId(), jbean);
 			}
 		} else {
@@ -172,7 +136,6 @@ public class PostJobController {
 				return "employerManage/addJobProfile";
 			}
 		}
-		System.out.println("here okay");
 		return "redirect:/manageJob";
 	}
 
@@ -182,7 +145,6 @@ public class PostJobController {
 	@RequestMapping(value = "/replicate", method = RequestMethod.GET)
 	public String replicateGetExistingJob(@ModelAttribute("jobBean") Job jbean, @RequestParam("jobId") Integer jobId,
 			HttpServletRequest request, Model model) {
-		System.out.println("/replicate GET");
 		Job job = jobService.getJobById(jobId);
 		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
 		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
@@ -206,13 +168,10 @@ public class PostJobController {
 	@RequestMapping(value = "/receivedUpdatedPost", method = RequestMethod.POST)
 	public String replicateExistingJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model,
 			RedirectAttributes redA) {
-		System.out.println("/replicate POST");
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
 		Integer limit = loginUser.getJobPostLimit();
-
-		System.out.println("activePost: " + activePost + " limit: " + limit);
 
 		if (activePost < limit) {
 			jobService.insertJob(jbean, loginUser.getUserId());
@@ -221,7 +180,6 @@ public class PostJobController {
 			return "employerManage/manageJobPage";
 		} else {
 			redA.addFlashAttribute("errorRep", "超出上限, 無法新增工作");
-			System.out.println("Line 224: really here");
 			return "redirect:/manageJob";
 		}
 	}
@@ -376,6 +334,12 @@ public class PostJobController {
 		model.addAttribute("allMembers", reslist);
 		model.addAttribute("job", jobService.getJobById(jobId));
 		return "fileDownload/showMembers";
+	}
+
+	@GetMapping(value = "/getAllJobPostingCount")
+	@ResponseBody
+	public Integer getAllJobPostingCount() {
+		return jobService.getAllJobPostingCount();
 	}
 
 }

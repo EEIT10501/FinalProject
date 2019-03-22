@@ -1,6 +1,7 @@
 package com.funwork.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ public class User implements Serializable {
   private String facebook;
   private String google;
   private Boolean isOpen;
+  private Date vipEndDate;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -154,5 +156,13 @@ public class User implements Serializable {
   public void setIsOpen(Boolean isOpen) {
     this.isOpen = isOpen;
   }
+
+public Date getVipEndDate() {
+	return vipEndDate;
+}
+
+public void setVipEndDate(Date vipEndDate) {
+	this.vipEndDate = vipEndDate;
+}
 
 }

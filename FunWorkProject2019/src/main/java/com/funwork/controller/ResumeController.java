@@ -36,7 +36,7 @@ public class ResumeController {
     if (rb == null) {
       rb = new Resume();
     }
-    model.addAttribute("resume", rb);
+    model.addAttribute("resume",rb);
     return "/resume";
   }
 
@@ -44,10 +44,8 @@ public class ResumeController {
   public String getAddResume(@ModelAttribute("resume") Resume resume, HttpServletRequest req) {
     HttpSession session = req.getSession();
     User user = (User) session.getAttribute("loginUser");
-//    String[] positions = req.getParameterValues("position");
-//    String[] companys = req.getParameterValues("company");
-//    String[] terms = req.getParameterValues("term");
-    resumeService.addResume(resume, user.getUserId());
+    Integer userId = user.getUserId();  
+    resumeService.addResume(resume, userId);
     return "redirect:/resume";
   }
 }

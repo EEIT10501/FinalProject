@@ -157,4 +157,13 @@ public class Schedule implements Serializable {
 		this.interview = interview;
 	}
 
+	@Override
+	public String toString() {
+		return "Schedule [scheduleId=" + scheduleId + ", scheduleName=" + scheduleName + ", color=" + color
+				+ ", endTime=" + endTime + ", startTime=" + startTime + ", restHour=" + restHour + ", workDate="
+				+ workDate + ", workingHours=" + workingHours + ", interview=" + interview + "]";
+	}
+	
+	
+
 }

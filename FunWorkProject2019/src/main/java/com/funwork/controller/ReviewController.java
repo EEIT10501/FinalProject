@@ -2,8 +2,13 @@ package com.funwork.controller;
 
 import com.funwork.model.Company;
 import com.funwork.model.Job;
+import com.funwork.model.Order;
+import com.funwork.model.User;
 import com.funwork.service.CompanyService;
 import com.funwork.service.JobService;
+import com.funwork.service.OrderService;
+import com.funwork.service.UserService;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +25,10 @@ public class ReviewController {
   JobService jobService;
   @Autowired
   CompanyService companyService;
+  @Autowired
+  OrderService orderService;
+  @Autowired
+  UserService userService;
 
   /**
    * Return job status = '待審核'.
@@ -129,5 +138,27 @@ public class ReviewController {
     Company company = companyService.findByPrimaryKey(companyId);
     model.addAttribute("companyBean", company);
     return "review/companyReviewHistory";
+  }
+  
+  /**
+   * Return order history list.
+   */
+  @GetMapping(value = "/orderList")
+  public String getOrderHistoryList(Model model) {
+    List<Order> orderlist = orderService.getAllOrders();
+    model.addAttribute("orderlist", orderlist);
+    return "review/ordersHistory";
+  }
+  
+  @GetMapping(value = "/queryMember")
+  public String queryMember() {
+    return "review/queryMember";
+  }
+  
+  @PostMapping(value = "/queryMember")
+  public String queryMemberProcess(Model model,@RequestParam("email") String email) {
+    User user = userService.getUserByEmail(email);
+    model.addAttribute("user", user);
+    return "review/memberDetail";
   }
 }

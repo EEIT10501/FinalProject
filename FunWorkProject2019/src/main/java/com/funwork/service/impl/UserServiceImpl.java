@@ -64,6 +64,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void updateUser(User user) {
+    dao.updateUser(user);
+  }
+
+  @Override
   public User getUserByGoogleEmail(String email, String googleId) {
     return dao.getUserByGoogleEmail(email, googleId);
   }
@@ -83,4 +88,15 @@ public class UserServiceImpl implements UserService {
     user.setIsOpen(true);
     return dao.insertUser(user);
   }
+
+  @Override
+  public User getUserByEmail(String email) {
+    return dao.getUserByEmail(email);
+  }
+
+  @Override
+  public void updateAccount(String email, String password, Integer userId) {
+    dao.updateAccount(email, password, userId);
+  }
+
 }

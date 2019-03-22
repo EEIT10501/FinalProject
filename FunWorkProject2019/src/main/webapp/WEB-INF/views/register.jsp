@@ -32,7 +32,7 @@
 				<!--如果要insert多筆資料可以用form:form直接傳物件 -->
 				<!-- onsubmit= "return formCheck() " +在form標籤中可以用(js)檢測密碼是否輸入相同-->
 
-				<form class="was-validated"  method="post" action="${pageContext.request.contextPath}/register"onsubmit= "return formCheck() ">
+				<form class="needs-validation" novalidate  method="post" action="${pageContext.request.contextPath}/register"onsubmit= "return formCheck() ">
 					<fieldset>
 
 						<legend>註冊會員</legend>
@@ -76,7 +76,8 @@
 							<label for="pwd2" class="col-sm-2 col-form-label">密碼確認：</label>
 							<div class="col-sm">
 
-								<input type="password" name="password2" class="form-control" id="pwd2" 
+								<input type="password" name="password2" class="form-control" id="pwd2"
+								pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$" 
 										required="required" style="width: 230px;"> 
 								<font color="red" size="-1">${Msg.errPd2Empty}</font>
 
@@ -112,6 +113,26 @@
 			}
 			return true;
 		}
+		
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		    var forms = document.getElementsByClassName('needs-validation');
+		    // Loop over them and prevent submission
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
+		
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

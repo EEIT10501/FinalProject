@@ -87,7 +87,9 @@ $(document).ready(function() {
 		editable: ${change},   //是否可拖曳
 		</c:if>
 		eventLimit: true, // when too many events in a day, show the popover
+	
 		events : <c:out value="${json}" escapeXml="false">${json}</c:out>,
+
 		timeFormat: "HH:mm",      // 所有事件24小時制
 		businessHours: true,      //顯示左側時間
 		slotLabelFormat:"HH:mm",  //左側時間24小時制 
@@ -143,7 +145,7 @@ function saveEvent(){
 	scheduleJSONArray = JSON.stringify(scheduleJSON);
 	
 	$.ajax({
-		url:"<c:url value='/ScheduleCalendar/save/'/>"+${interviewList[0].application.job.jobId},
+		url:"<c:url value='/ScheduleCalendar/save/'/>${interviewList[0].application.job.jobId}",
 		type:"POST",
 		dataType:"JSON",
 		data:{"scheduleJSONArray":scheduleJSONArray,"delString":delString},
@@ -261,9 +263,10 @@ function saveEvent(){
 				</c:if>
 				<c:if test="${empty jobs}">			
 						<div id='calendar-container'>
+						<h3>${interviewList[0].application.job.title}</h3>
 							<div id='calendar'></div>
 							<div style="float: right">
-								<c:if test="${empty change}">
+								<c:if test="${empty change && interviewList.size()!=0}">
 									<a class="btn btn-primary"
 										href="<c:url value='/ScheduleCalendar/change/'/>${interviewList[0].application.job.jobId}"><span
 										class="glyphicon-info-sigh glyphicon"></span>編輯</a>

@@ -19,7 +19,14 @@ public interface UserService {
 
   void openUser(Integer userId);
 
+  void updateUser(User user);
+
   User getUserByGoogleEmail(String email, String googleId);
 
   Integer insertGoogleUser(String email, String name, String googleId);
+
+  User getUserByEmail(String email);
+
+  void updateAccount(String email, String password, Integer userId);
+
 }
