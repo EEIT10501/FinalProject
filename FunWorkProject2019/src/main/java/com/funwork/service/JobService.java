@@ -60,4 +60,6 @@ public interface JobService {
 
 	Integer getJobExposureCount(Integer userId);
 
+	Integer updateViewTimesByJob(Integer jobId);
+
 }

@@ -63,12 +63,6 @@
 						    </form:select>
 						    </div>
 					    </div>
-						<div class="form-group row">
-							<label for="title" class="col-sm-2 col-form-label">標題</label>
-						    <div class="col-sm-10">
-						      <form:input type="text" path="title" class="form-control" id="title" placeholder="ex:徵餐廳外場服務生" required="required" />
-						    </div>
-						</div>
 <!-- 					</div> -->
 					<div class="form-group row">
 						<label for="title" class="col-sm-2 col-form-label">標題</label>
@@ -209,12 +203,12 @@
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
+	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
 			<div class="col text-center">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>
-	</div>
 	</div>
 	<script type="text/javascript">
 	$(document).ready(function() {

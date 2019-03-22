@@ -87,11 +87,20 @@
 											<span class="glyphicon glyphicon-thumbs-up"></span>編輯
 										</button>
 										</a>
-										<a href="<c:url value="/modJobProfile?jobId=${job.jobId}"/>">
-										<button type="button" class="btn btn btn-primary btn-sm">
+										<a href="<c:url value="/replicate?jobId=${job.jobId}"/>">
+										<button name="replicate" value="複製" type="button" class="btn btn btn-primary btn-sm">
 											<span class="glyphicon glyphicon-thumbs-up"></span>複製
 										</button>
 										</a>
+<%-- 										<form action='<c:url value="/replicate"/>' method='post' id='jobRep'> --%>
+<!-- 										<input type='hidden' id='product_id' name='product_id' value=''> -->
+<!-- 										</form> -->
+<!-- 										<script> -->
+<!-- // 										　function which_one(product_icon){ -->
+<!-- // 　											　$('#product_id').val(product_icon);  -->
+<!-- // 　											　$('#jobRep').submit(); -->
+<!-- // 　											} -->
+<!-- 										</script> -->
 										<c:choose>
                                             <c:when test="${job.isFilled}">
 												<a href="<c:url value="/jobFilled/${job.jobId}"/>">

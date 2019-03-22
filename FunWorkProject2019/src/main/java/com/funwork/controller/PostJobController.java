@@ -145,7 +145,8 @@ public class PostJobController {
 	 * update previous record or insert new record
 	 */
 	@RequestMapping(value = { "/modJobProfilePage", "/addJobProfile" }, method = RequestMethod.POST)
-	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model) {
+	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model,
+			String replicate) {
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
 		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
@@ -155,13 +156,12 @@ public class PostJobController {
 		System.out.println("post limit" + limit);
 
 		if (activePost <= limit) {
-			if (jobBean.getJobId() != null || jobBean == null) {
-				System.out.println("update success");
-				jobService.updateJobPostById(jobBean.getJobId(), jbean);
+			if (jobBean == null) {
+				jobService.insertJob(jbean, loginUser.getUserId());
 				jobBean = null;
 			} else {
-				System.out.println("insert new record success");
-				jobService.insertJob(jbean, loginUser.getUserId());
+				System.out.println("about to update");
+				jobService.updateJobPostById(jobBean.getJobId(), jbean);
 			}
 		} else {
 			if (jobBean.getJobId() != null) {
@@ -177,12 +177,62 @@ public class PostJobController {
 	}
 
 	/**
+	 * provide data-included jobBean to users when replicate is called
+	 */
+	@RequestMapping(value = "/replicate", method = RequestMethod.GET)
+	public String replicateGetExistingJob(@ModelAttribute("jobBean") Job jbean, @RequestParam("jobId") Integer jobId,
+			HttpServletRequest request, Model model) {
+		System.out.println("/replicate GET");
+		Job job = jobService.getJobById(jobId);
+		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
+		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+		String addressCityArea = job.getAddress().substring(0, 3);
+		String addressCityName = job.getAddress().substring(3, 6);
+		String addressStreetNRest = job.getAddress().substring(6);
+		job.setCityArea(addressCityArea);
+		job.setCityName(addressCityName);
+		job.setAddress(addressStreetNRest);
+		model.addAttribute("jobBean", job);
+		jobBean = job;
+		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
+		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
+
+		return "employerManage/repNModJobProfilePage";
+	}
+
+	/**
+	 * receive data-modified jobBean from users after replicate is called and edited
+	 */
+	@RequestMapping(value = "/receivedUpdatedPost", method = RequestMethod.POST)
+	public String replicateExistingJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model,
+			RedirectAttributes redA) {
+		System.out.println("/replicate POST");
+		HttpSession session = request.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
+		Integer limit = loginUser.getJobPostLimit();
+
+		System.out.println("activePost: " + activePost + " limit: " + limit);
+
+		if (activePost < limit) {
+			jobService.insertJob(jbean, loginUser.getUserId());
+			List<Job> jobsUpdated = jobService.findJobByUserId(loginUser.getUserId());
+			model.addAttribute("jobs", jobsUpdated);
+			return "employerManage/manageJobPage";
+		} else {
+			redA.addFlashAttribute("errorRep", "超出上限, 無法新增工作");
+			System.out.println("Line 224: really here");
+			return "redirect:/manageJob";
+		}
+	}
+
+	/**
 	 * Method below is for updating job post "編輯工作". Add additional evaluation on
 	 * whether job posting is active.
 	 */
 	@RequestMapping(value = "/modJobProfile", method = RequestMethod.GET)
-	public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId,
-			HttpServletRequest request) {
+	public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId, HttpServletRequest request,
+			String replicate) {
 		Job job = jobService.getJobById(jobId);
 		boolean isActive = job.getReviewStatus().equalsIgnoreCase("發布中");
 		if (!isActive) {

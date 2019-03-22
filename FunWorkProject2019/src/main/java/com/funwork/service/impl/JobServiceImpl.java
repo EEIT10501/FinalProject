@@ -9,6 +9,8 @@ import com.funwork.model.City;
 import com.funwork.model.Job;
 import com.funwork.model.Notification;
 import com.funwork.service.JobService;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -204,7 +206,7 @@ public class JobServiceImpl implements JobService {
 
 			String str = sb.toString();
 			System.out.println(str);
-			
+
 			if (StringUtils.isNotEmpty(str)) {
 				JSONObject json = new JSONObject(str);
 				JSONArray ja = json.getJSONArray("results");
@@ -216,7 +218,7 @@ public class JobServiceImpl implements JobService {
 				if (lat != null && lng != null) {
 					map.put("lat", lat);
 					map.put("lng", lng);
-					System.out.println(map.get("lat")+","+map.get("lng"));
+					System.out.println(map.get("lat") + "," + map.get("lng"));
 					return map;
 				}
 			}
@@ -307,9 +309,21 @@ public class JobServiceImpl implements JobService {
 		jobDao.updateJob(jobToChange);
 
 	}
-	
+
 	@Override
 	public City getCityByPk(Integer cityId) {
 		return cityDao.getCityByPk(cityId);
+	}
+
+	@Override
+	public Integer updateViewTimesByJob(Integer jobId) {
+		Job job = jobDao.getJobById(jobId);
+		Integer currentViewTime = job.getViewTimes();
+		if (currentViewTime == 0) {
+			job.setViewTimes(1);
+		} else {
+			currentViewTime++;
+		}
+		return currentViewTime;
 	}
 }

@@ -89,7 +89,13 @@ public class JobController {
     // 注意
     HttpSession session = req.getSession(); // 取得session物件
     User user = (User) session.getAttribute("loginUser"); // 取的在session裡面名為loginUser的物件
-
+    //新增一個關注次數到job的viewTimes
+    if(session.isNew()) {
+    	System.out.println("new session detected");
+    	jobService.updateViewTimesByJob(jobId);
+    	System.out.println("viewTimes updated");
+    }
+    
     if (session.getAttribute("loginUser") != null && resumeService.getResumeByUserId(user.getUserId()) != null) {
       resume = resumeService.getResumeByUserId(user.getUserId());
       model.addAttribute("resumeBean", resume);
