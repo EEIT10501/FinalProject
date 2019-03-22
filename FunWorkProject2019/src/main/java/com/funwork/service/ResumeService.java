@@ -14,5 +14,5 @@ public interface ResumeService {
 
   Resume getResumeById(Integer resumeId);
   
-  void addResume(Resume resume, Integer userId, Integer resumeId);
+  void addResume(Resume resume, Integer userId,Integer resumeId);
 }

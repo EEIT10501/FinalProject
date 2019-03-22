@@ -105,13 +105,11 @@ background-color: #e3f2fd;
 			<div id="collapse4" class="collapse" aria-labelledby="heading4"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">查詢會員</a> <a
-						class="btn btn-link" href="<c:url value='#'></c:url>">加值紀錄</a>
+					<a class="btn btn-link" href="<c:url value='/queryMember'></c:url>">會員查詢</a> 
+					<a class="btn btn-link" href="<c:url value='/orderList'></c:url>">加值紀錄</a>
 				</div>
 			</div>
 		</div>
-		
 	</div>
-
 </body>
 </html>

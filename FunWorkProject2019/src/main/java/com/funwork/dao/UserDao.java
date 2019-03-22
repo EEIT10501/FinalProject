@@ -21,7 +21,8 @@ public interface UserDao {
 
   User getUserByGoogleEmail(String email, String googleId);
 
-  void updateAccount(String email, String password, Integer userId);
+  User getUserByEmail(String email);
 
+  void updateAccount(String email, String password, Integer userId);
 
 }

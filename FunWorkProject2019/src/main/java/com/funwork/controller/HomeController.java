@@ -2,6 +2,8 @@ package com.funwork.controller;
 
 import com.funwork.model.Resume;
 import com.funwork.model.User;
+import com.funwork.service.JobService;
+import com.funwork.service.OrderService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
 import com.funwork.service.impl.GoogleService;
@@ -35,32 +37,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
+  
+  static final Logger logger = Logger.getLogger("com.funwork");
+  private static final String REDIRECT_TO_INDEX = "redirect:/";
+  private static final String LOGIN_USER = "loginUser";
+  
+  @Autowired
+  ResumeService resumeService;
+  @Autowired
+  UserService userService;
+  @Autowired
+  JobService jobService;
+  @Autowired
+  OrderService orderService;
+  @Autowired
+  ServletContext context;
+  @Autowired
+  GoogleService googleService;
 
-	public static final Logger logger = Logger.getLogger("com.funwork");
-	private static final String REDIRECT_TO_INDEX = "redirect:/";
-	private static final String LOGIN_USER = "loginUser";
+  /**
+   * Return index.jsp，如果登入的是管理員，傳回管理員View.
+   */
+  @GetMapping("/")
+  public String home(HttpServletRequest req) {
+    HttpSession session = req.getSession();
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    if (loginUser != null && loginUser.getRole() == 1) {
+      return "redirect:/adminHome";
+    }
+    return "index";
+  }
 
-	@Autowired
-	ResumeService resumeService;
-	@Autowired
-	UserService userService;
-	@Autowired
-	ServletContext context;
-	@Autowired
-	GoogleService googleService;
-
-	/**
-	 * Return index.jsp，如果登入的是管理員，傳回管理員View.
-	 */
-	@GetMapping("/")
-	public String home(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute(LOGIN_USER);
-		if (loginUser != null && loginUser.getRole() == 1) {
-			return "redirect:/jobsReview";
-		}
-		return "index";
-	}
 
 	@GetMapping("/form")
 	public String form() {
@@ -294,5 +301,13 @@ public class HomeController {
 
 		return "qapage";
 	}
-
+	
+	 @GetMapping("/adminHome")
+	  public String adminHome(Model model) {
+	    String jobTypeJson = jobService.getAllPostingJobTypeJson();
+	    String orderByMouthJson = orderService.getOrderByMouth();
+	    model.addAttribute("jobTypeJson", jobTypeJson);
+	    model.addAttribute("orderByMouthJson", orderByMouthJson);
+	    return "adminHomePage";
+	  }
 }
