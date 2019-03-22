@@ -62,8 +62,9 @@ public class PostJobController {
 	ServletContext context;
 
 	/* container to receive jobBean from backend server when calling updating job */
-	Job jobBean = new Job();
-
+//	Job jobBean = new Job();
+	Job jobBean = null;
+	
 	@RequestMapping(value = "/applications")
 	public String pullApplicantsByJob(@RequestParam("id") Integer id, Model model) {
 		System.out.println("ready to pull applicant by jobId" + id);
@@ -119,8 +120,11 @@ public class PostJobController {
 		User loginUser = (User) session.getAttribute("loginUser");
 		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
 		Integer limit = loginUser.getJobPostLimit();
-
+		System.out.println("activePost: "+activePost+"limit: "+limit);
+		
+		
 		if (activePost <= limit) {
+			System.out.println(jobBean);
 			if (jobBean == null) {
 				jobService.insertJob(jbean, loginUser.getUserId());
 				jobBean = null;
