@@ -9,6 +9,8 @@ public interface ScheduleDao {
 	List<Schedule> getAllSchedules();
 	
 	List<Schedule> getSchedulesByDate(Integer jobId);
+	
+	List<Schedule> getSchedulesByUser(Integer userId);
 
 	void insertSchedule(Schedule schedule);
 

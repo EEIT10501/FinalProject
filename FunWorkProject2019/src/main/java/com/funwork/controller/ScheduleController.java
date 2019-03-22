@@ -304,4 +304,32 @@ public class ScheduleController {
 		}
 
 	}
+	
+	@RequestMapping("/UserSchedule")
+	public String userCalendar(Model model, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+
+		if (user != null) {		
+
+			List<Schedule> scheduleList = scheduleService.getSchedulesByUser(user.getUserId());
+			JSONArray jsonArray = new JSONArray();
+			JSONObject object = null;
+			for (Schedule sj : scheduleList) {
+				object = new JSONObject();
+				object.put("id", sj.getScheduleId());
+				object.put("title", sj.getScheduleName());
+				object.put("start", sj.getStartTime());
+				object.put("end", sj.getEndTime());
+				jsonArray.put(object);
+			}
+			System.out.println(jsonArray);
+			model.addAttribute("json", jsonArray);
+		
+			return "schedule/UserSchedule";
+		} else {
+			return "redirect:/";
+		}
+	}
 }
