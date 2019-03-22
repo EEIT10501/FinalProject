@@ -71,9 +71,9 @@ public class ResumeServiceImpl implements ResumeService {
         logger.log(Level.WARNING, "檔案上傳發生異常: {0}", e.getMessage());
       }
     }else {    
-    	Resume oldres = resumeDao.getResumeById(resumeId);//舊id取舊resume,在取得舊照片,存到新resum;
-    	Blob  bb = oldres.getProfilePic();    	
-    	resume.setProfilePic(bb);				
+//    	Resume oldres = resumeDao.getResumeById(resumeId);//舊id取舊resume,在取得舊照片,存到新resum;
+//    	Blob  bb = oldres.getProfilePic();    	
+//    	resume.setProfilePic(bb);				
 //    	resume.setProfilePic(bb);     	 
 //    	System.out.println(resumeId);
 //    	System.out.println(oldres);
