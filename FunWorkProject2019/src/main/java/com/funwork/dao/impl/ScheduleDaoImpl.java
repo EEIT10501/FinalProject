@@ -74,13 +74,36 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
+	public List<Schedule> getSchedulesByNameAndTime(String scheduleName , Timestamp endTime , Timestamp startTime) {
+		String hql = "FROM Schedule s WHERE s.scheduleName =:scheduleName"
+				+ " AND s.startTime <= :startTime "
+				+ " AND s.endTime >= :endTime";
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("scheduleName", scheduleName).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@Override
 	public List<Schedule> getSchedulesByAdmit(Integer interviewId) {
 		String hql = "FROM Schedule s WHERE s.interview.interviewId = :interviewId";				
-//				+ "AND s.interview.interviewId = :interviewId";
 		Session session = null;
 		List<Schedule> list = new ArrayList<>();
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).setParameter("interviewId", interviewId).getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	@Override
+	public List<Schedule> getSchedulesByName(String scheduleName) {
+		String hql = "FROM Schedule s WHERE s.scheduleName = :scheduleName";				
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("scheduleName", scheduleName).getResultList();
 		return list;
 	}
 	

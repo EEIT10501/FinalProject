@@ -79,7 +79,7 @@ background-color: #e3f2fd;
 					<a class="btn btn-link" href="<c:url value='/applicatedWork'></c:url>">應徵紀錄</a>
 					<a class="btn btn-link" href="<c:url value='/invitationManage'></c:url>">邀約管理</a>
 					<a class="btn btn-link" href="<c:url value='/'></c:url>">工作班表</a>
-					<a class="btn btn-link" href="<c:url value='/'></c:url>">薪資紀錄</a>
+					<a class="btn btn-link" href="<c:url value='/wageStaff'></c:url>">薪資紀錄</a>
 				</div>
 			</div>
 		</div>

@@ -24,4 +24,8 @@ public interface ScheduleDao {
 
 	List<Schedule> getSchedulesByJobIdAndTime(Integer jobId, Timestamp endTime, Timestamp startTime);
 
+	List<Schedule> getSchedulesByName(String scheduleName);
+
+	List<Schedule> getSchedulesByNameAndTime(String scheduleName, Timestamp endTime, Timestamp startTime);
+
 }
