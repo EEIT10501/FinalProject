@@ -58,4 +58,22 @@ public class ResumeDaoImpl implements ResumeDao {
     return session.get(Resume.class, resumeId);
   }
 
+  @Override
+  public void addResumeWithoutPictrue(Resume resume) {
+    Session session = factory.getCurrentSession();
+    Resume re = session.get(Resume.class, resume.getResumeId());
+    re.setName(resume.getName());
+    re.setGender(resume.getGender());
+    re.setPhoneNum(resume.getPhoneNum());
+    re.setBirth(resume.getBirth());
+    re.setEducationLevel(resume.getEducationLevel());
+    re.setType1(resume.getType1());
+    re.setPosition1(resume.getPosition1());
+    re.setTerm1(resume.getTerm1());
+    re.setType2(resume.getType2());
+    re.setPosition2(resume.getPosition2());
+    re.setTerm2(resume.getTerm2());
+    re.setSelfIntro(resume.getSelfIntro());
+  }
+
 }

@@ -13,6 +13,6 @@ public interface ResumeService {
   User getUserById(int userId);
 
   Resume getResumeById(Integer resumeId);
-  
-  void addResume(Resume resume, Integer userId,Integer resumeId);
+
+  void addResume(Resume resume, Integer userId);
 }

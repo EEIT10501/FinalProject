@@ -66,17 +66,18 @@ public class JobController {
   public String Jobs(Model model) {
     List<Job> joblist = jobService.getCorrectJobs();
     List<Job> joblist2 = new ArrayList<Job>();
+    List<Job> joblistup = new ArrayList<Job>();
     Date date = new Date();
     for(int i=0;i<joblist.size();i++) {
     	if((joblist.get(i).getPostEndDate().before(date))==true) {
     		joblist.get(i).setReviewStatus("已截止");
-    		jobService.updateJobByExpired(joblist.get(i));	
+    		joblistup.add(joblist.get(i));
     	}
     	else {
     		joblist2.add(joblist.get(i));
     	}
     }
-    
+    jobService.updateJobByExpired(joblistup);
     model.addAttribute("jobs", joblist2);
     return "jobs";
   }
@@ -89,7 +90,13 @@ public class JobController {
     // 注意
     HttpSession session = req.getSession(); // 取得session物件
     User user = (User) session.getAttribute("loginUser"); // 取的在session裡面名為loginUser的物件
-
+    //新增一個關注次數到job的viewTimes
+    if(session.isNew()) {
+    	System.out.println("new session detected");
+    	jobService.updateViewTimesByJob(jobId);
+    	System.out.println("viewTimes updated");
+    }
+    
     if (session.getAttribute("loginUser") != null && resumeService.getResumeByUserId(user.getUserId()) != null) {
       resume = resumeService.getResumeByUserId(user.getUserId());
       model.addAttribute("resumeBean", resume);

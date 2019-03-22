@@ -15,4 +15,6 @@ public interface ResumeDao {
   User getUserById(int userId);
 
   Resume getResumeById(Integer resumeId);
+
+  void addResumeWithoutPictrue(Resume resume);
 }

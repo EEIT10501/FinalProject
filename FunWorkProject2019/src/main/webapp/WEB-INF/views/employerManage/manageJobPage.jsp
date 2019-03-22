@@ -18,8 +18,11 @@
 	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
 
+<!-- <link rel="stylesheet" type="text/css" -->
+<!-- 	href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" /> -->
 <link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
+
 
 <script type="text/javascript"
 	src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
@@ -38,9 +41,9 @@
 		var status = $("#condit1").find(":selected").text();
 // 		alert(status);
 		if (status == '全部') {
-			table.column(3).search("").draw();
+			table.column(2).search("").draw();
 		} else {
-			table.column(3).search(status).draw();
+			table.column(2).search(status).draw();
 		}
 		$('#filterPath').text(status);
 	}
@@ -86,10 +89,8 @@
 				<input type="hidden" id="contextPath"
 					value="${pageContext.request.contextPath}">
 				<section
-					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
+					style="padding: 2px; width: 100%; height: auto; float: left; margin-bottom: 10px;">
 					<nav>
-						<strong>目前篩選條件: </strong>
-						<span class='label label-warning' id="filterPath"></span><p></p> 
 						<strong>請輸入選擇條件: </strong>
 						&nbsp; <select id="condit1">
 							<option>發布中</option>
@@ -99,19 +100,21 @@
 							<option>下架</option>
 							<option>全部</option>
 						</select> &nbsp;
-						<button id="butt1" style="width: auto;"  onclick="filterSelect()">確定送出</button>
-						<button id="jobPostBut" style="width: auto;"
-							onclick="window.location='addJobProfile'">張貼工作</button>
+						<button id="butt1" style="width: auto;"  onclick="filterSelect()">送出</button>&nbsp&nbsp&nbsp&nbsp
+						<strong>目前篩選條件: </strong>
+						<span class='label label-warning' id="filterPath"></span> 
+<!-- 						<p></p> -->
+						<button id="jobPostBut" style="width: auto; float: right;s"
+							onclick="window.location='addJobProfile'">張貼新工作</button>
 					</nav>
 				</section>
 				<div id="content1"></div>
 				<table class="table table-hover display" id="example">
 					<thead>
 						<tr>
-							<th>公司單位</th>
+<!-- 							<th>公司單位</th> -->
 							<th>職缺編號</th>
 							<th>職位</th>
-<!-- 							<th>應徵者數量</th> -->
 							<th>狀態</th>
 							<th>刊登截止時間</th>
 							<th>職缺內容</th>
@@ -120,16 +123,15 @@
 					<tbody>
 						<c:forEach var="job" items="${jobs}" varStatus="loop">
 							<tr>
-								<td>${job.jobCompany.name}</td>
+<%-- 								<td>${job.jobCompany.name}</td> --%>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
-<%-- 								<td>${job.applicant }</td> --%>
 								<td>${job.reviewStatus}</td>
 								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
 								<td><a
 									href='<spring:url value="jobProfile?id=${job.jobId}"/>'
-									class="btn btn-primary"> <span
-										class="glyphicon-info-sigh glyphicon"></span> 詳細資料
+									class="btn btn-primary btn-sm"> <span
+										class="glyphicon-info-sigh glyphicon"></span> 查詢
 								</a></td>
 							</tr>
 						</c:forEach>
@@ -146,10 +148,11 @@
 				reserved.</div>
 		</div>
 	</div>
-<!-- 	<script src="https://code.jquery.com/jquery-3.3.1.js" -->
-<!-- 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
-<!-- 		crossorigin="anonymous"> -->
-<!-- 	</script> -->
+	<script type="text/javascript">
+	if('${errorRep}'!=""){
+		alert('${errorRep}');
+	}
+	</script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

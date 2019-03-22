@@ -9,7 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>首頁</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
@@ -51,9 +52,9 @@
 		<div class="row m-3 justify-content-around">
 		<div class="col-sm-2">
 			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
-			</div>
-			<div class="col-sm-8" style="border: 1px solid black">
-				<br>
+		</div>
+			<div class="col-sm-8">
+				<p></p>
 				<section>
 					<div>
 						<div class="container" style="text-align: center">
@@ -64,169 +65,176 @@
 					</div>
 				</section>
 				<c:choose>
-				<c:when test="${empty applicantsByJob}">
-				<div style="height: 30px; color: red">此筆職缺尚無應徵紀錄</div>
-				</c:when>
-				<c:otherwise>
-				<section class="container">
-					<div>
-						<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>
-						<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
-					</div><br>
-					<div class="col-sm-14">
-						<c:forEach var="applicant" items="${applicantsByJob}"
-							varStatus="loop">
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="col-sm-12" style="background-color: #F8F8FF">
-										<div class="panel panel-default text-left">
-											<div class="panel-body">
-												<h3 style="margin: 10px">
-													<strong><a href="#">${applicant.user.userName}</a></strong>
-												</h3>
-												<div class="row">
-													<div class="col-sm-3">
-														<img style="width: 100px; height: 100px"
-															src="<c:url value='/getProfilePic/${applicant.user.userId}'/>"><br>
-														<input type="hidden" id="jobTitleInput"
-															value="${applicant.job.title}">
-														<strong>自我介紹:</strong><br>
-														${resumes[loop.count-1].selfIntro}<p></p>
-														<br>
-													</div>
+					<c:when test="${empty applicantsByJob}">
+						<div style="height: 30px; color: red">此筆職缺尚無應徵紀錄</div>
+					</c:when>
+					<c:otherwise>
+						<section class="container">
+							<div class="row" style="margin-left: 650px">
+								<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>&nbsp&nbsp	
+								<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
+							</div>
+							<div class="col-sm-14">
+								<c:forEach var="applicant" items="${applicantsByJob}"
+									varStatus="loop">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="col-sm-12" style="background-color: #F8F8FF">
+												<div class="panel panel-default text-left">
+													<div class="panel-body">
+														<h3 style="margin: 10px">
+															<strong><a href="#">${applicant.user.userName}</a></strong>
+														</h3>
+														<div class="row">
+															<div class="col-sm-3">
+																<img style="width: 100px; height: 100px"
+																	src="<c:url value='/getProfilePic/${applicant.user.userId}'/>"><br>
+																<input type="hidden" id="jobTitleInput"
+																	value="${applicant.job.title}"> <strong>自我介紹:</strong><br>
+																${resumes[loop.count-1].selfIntro}
+																<p></p>
+																<br>
+															</div>
 
-													<div class="col-sm-3 rows">
-														<strong>最高學歷: </strong><br>
-														${resumes[loop.count-1].educationLevel}<p></p>
-														<strong>自我介紹: </strong><br>
-														${resumes[loop.count-1].selfIntro}
-													</div>
-													<div class="col-sm-3 row">
-														<strong>工作經驗:</strong><br>
-														${resumes[loop.count-1].term1} : ${resumes[loop.count-1].type1}
-													</div>
-													<div class="col-sm-3 row">
-														<div>
-														<strong>${applicant.job.other} : </strong><br>
-														${applicant.answer}<p></p>
-														</div>
-														<div class="text-right" style="margin-bottom: 40px">
-															<strong>缺席次數: </strong><h6>${users[loop.count-1].abscence}</h6>
-														</div>
-													</div>
-												</div>
-														<div class="row" style="border: 1px solid black">
-														<strong>應徵編號:</strong> ${applicant.applicationId}
-														<strong>應徵送出時間:</strong>
-														<fmt:formatDate type="both"
-															value="${applicant.applicationTime}" />
-														<div style="float: right">
-															<button type="button" class="btn btn-warning btn-sm"
-																data-toggle="modal" data-target="#interviewModal">
-																<span class="glyphicon glyphicon-thumbs-up"></span> 邀約
-															</button>
-															<div class="modal fade" id="interviewModal" tabindex="-1"
-																role="dialog" aria-labelledby="exampleModalLabel"
-																aria-hidden="true">
-																<div class="modal-dialog" role="document">
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<h5 class="modal-title" id="exampleModalLabel">邀請${applicant.user.userName}面試/上工</h5>
-																			<button type="button" class="close"
-																				data-dismiss="modal" aria-label="Close">
-																				<span aria-hidden="true">&times;</span>
-																			</button>
-																		</div>
-
-																		<form
-																			action="${pageContext.request.contextPath}/interSend"
-																			method="post">
-																			<div class="modal-body">
-																				<c:if test="${empty sessionScope.loginUser}">
-																					<h5 style="color: red">請先登入系統</h5>
-																				</c:if>
-																				<fieldset class="form-group">
-																					<div class="row">
-																						<label class="col-form-label col-sm-3 pt-0">邀請類型：</label>
-																						<div class="col-sm-9">
-																							<div class="form-check form-check-inline">
-																								<input class="form-check-input" type="radio"
-																									name="interType" id="exampleRadios1" value="面試"
-																									checked required="required"> <label
-																									class="form-check-label" for="exampleRadios1">面試</label>
-																							</div>
-																							<div class="form-check form-check-inline">
-																								<input class="form-check-input" type="radio"
-																									name="interType" id="exampleRadios2" value="上工">
-																								<label class="form-check-label"
-																									for="exampleRadios2">上工</label>
-																							</div>
-																						</div>
-																					</div>
-																				</fieldset>
-																				<div class="form-group row">
-																					<label for="des" class="col-sm-3 col-form-label">描述：</label>
-																					<div class="col-sm-9">
-																						<input type="text" class="form-control"
-																							name="interComment" id="des" required="required">
-																					</div>
-																				</div>
-																				<div class="form-group row">
-																					<label for="place" class="col-sm-3 col-form-label">地點：</label>
-																					<div class="col-sm-9">
-																						<input type="text" class="form-control"
-																							name="interPlace" id="place" required="required">
-																					</div>
-																				</div>
-																				<div class="form-group row">
-																					<label for="time" class="col-sm-3 col-form-label">時間：</label>
-																					<div class="col-sm-9">
-																						<input type="datetime-local" class="form-control"
-																							name="interTime" id="time" required="required">
-																					</div>
-																				</div>
-																				<input type="hidden" name="apId"
-																					value="${applicant.applicationId}">
-																			</div>
-																			<c:if test="${!empty sessionScope.loginUser}">
-																				<div class="modal-footer">
-																					<button type="button"
-																						class="btn btn-secondary cancel"
-																						data-dismiss="modal">取消</button>
-																					<button type="submit"
-																						class="btn btn-primary addapplication">送出</button>
-																				</div>
-																			</c:if>
-																		</form>
-																	</div>
+															<div class="col-sm-3 rows">
+																<strong>最高學歷: </strong><br>
+																${resumes[loop.count-1].educationLevel}
+																<p></p>
+																<strong>自我介紹: </strong><br>
+																${resumes[loop.count-1].selfIntro}
+															</div>
+															<div class="col-sm-3 row">
+																<strong>工作經驗:</strong><br>
+																${resumes[loop.count-1].term1} :
+																${resumes[loop.count-1].type1}
+															</div>
+															<div class="col-sm-3 row">
+																<div>
+																	<strong>${applicant.job.other} : </strong><br>
+																	${applicant.answer}
+																	<p></p>
+																</div>
+																<div class="text-right" style="margin-bottom: 40px">
+																	<strong>缺席次數: </strong>
+																	<h6>${users[loop.count-1].abscence}</h6>
 																</div>
 															</div>
-															<a
-																href="${pageContext.request.contextPath}/refuseUser/${applicant.applicationId}/${applicant.job.jobId}">
-																<button type="button" class="btn btn btn-danger btn-sm">
-																	<span class="glyphicon glyphicon-thumbs-up"></span>婉拒
-																</button>
-															</a> <a
-																href="${pageContext.request.contextPath}/chat/${applicant.applicationId}">
-																<button type="button" class="btn btn-primary btn-sm"
-																	style="float: right">
-																	<span class="glyphicon glyphicon-thumbs-up"></span>傳訊
-																</button>
-															</a>
-													</div>
 														</div>
+														<div class="row" style="background-color: #f0f0f0; vertical-align: middle; height: 30px">
+															<div style="margin-right:110px; margin-left: 10px">
+															<strong>應徵編號:&nbsp</strong> ${applicant.applicationId}&nbsp&nbsp&nbsp&nbsp
+															</div>
+															<div style="margin-right:80px">
+															<strong>應徵送出時間:&nbsp</strong>
+															<fmt:formatDate type="both"
+																value="${applicant.applicationTime}" />
+															</div>
+															
+															<div style="float: right">
+																<button type="button" class="btn btn-warning btn-sm"
+																	data-toggle="modal" data-target="#interviewModal">
+																	<span class="glyphicon glyphicon-thumbs-up"></span> 邀約
+																</button>
+																<div class="modal fade" id="interviewModal"
+																	tabindex="-1" role="dialog"
+																	aria-labelledby="exampleModalLabel" aria-hidden="true">
+																	<div class="modal-dialog" role="document">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h5 class="modal-title" id="exampleModalLabel">邀請${applicant.user.userName}面試/上工</h5>
+																				<button type="button" class="close"
+																					data-dismiss="modal" aria-label="Close">
+																					<span aria-hidden="true">&times;</span>
+																				</button>
+																			</div>
+
+																			<form
+																				action="${pageContext.request.contextPath}/interSend"
+																				method="post">
+																				<div class="modal-body">
+																					<c:if test="${empty sessionScope.loginUser}">
+																						<h5 style="color: red">請先登入系統</h5>
+																					</c:if>
+																					<fieldset class="form-group">
+																						<div class="row">
+																							<label class="col-form-label col-sm-3 pt-0">邀請類型：</label>
+																							<div class="col-sm-9">
+																								<div class="form-check form-check-inline">
+																									<input class="form-check-input" type="radio"
+																										name="interType" id="exampleRadios1"
+																										value="面試" checked required="required">
+																									<label class="form-check-label"
+																										for="exampleRadios1">面試</label>
+																								</div>
+																								<div class="form-check form-check-inline">
+																									<input class="form-check-input" type="radio"
+																										name="interType" id="exampleRadios2"
+																										value="上工"> <label
+																										class="form-check-label" for="exampleRadios2">上工</label>
+																								</div>
+																							</div>
+																						</div>
+																					</fieldset>
+																					<div class="form-group row">
+																						<label for="des" class="col-sm-3 col-form-label">描述：</label>
+																						<div class="col-sm-9">
+																							<input type="text" class="form-control"
+																								name="interComment" id="des" required="required">
+																						</div>
+																					</div>
+																					<div class="form-group row">
+																						<label for="place" class="col-sm-3 col-form-label">地點：</label>
+																						<div class="col-sm-9">
+																							<input type="text" class="form-control"
+																								name="interPlace" id="place" required="required">
+																						</div>
+																					</div>
+																					<div class="form-group row">
+																						<label for="time" class="col-sm-3 col-form-label">時間：</label>
+																						<div class="col-sm-9">
+																							<input type="datetime-local" class="form-control"
+																								name="interTime" id="time" required="required">
+																						</div>
+																					</div>
+																					<input type="hidden" name="apId"
+																						value="${applicant.applicationId}">
+																				</div>
+																				<c:if test="${!empty sessionScope.loginUser}">
+																					<div class="modal-footer">
+																						<button type="button"
+																							class="btn btn-secondary cancel"
+																							data-dismiss="modal">取消</button>
+																						<button type="submit"
+																							class="btn btn-primary addapplication">送出</button>
+																					</div>
+																				</c:if>
+																			</form>
+																		</div>
+																	</div>
+																</div>
+																<a
+																	href="${pageContext.request.contextPath}/refuseUser/${applicant.applicationId}/${applicant.job.jobId}">
+																	<button type="button" class="btn btn btn-danger btn-sm">
+																		<span class="glyphicon glyphicon-thumbs-up"></span>婉拒
+																	</button>
+																</a> <a
+																	href="${pageContext.request.contextPath}/chat/${applicant.applicationId}">
+																	<button type="button" class="btn btn-primary btn-sm"
+																		style="float: right">
+																		<span class="glyphicon glyphicon-thumbs-up"></span>傳訊
+																	</button>
+																</a>
+															</div></div>
 													</div>
 												</div>
 												<p>
 											</div>
 										</div>
 									</div>
+								</c:forEach>
 								</div>
-						</c:forEach>
-							</div>
-					</div>
-				</section>
-				</c:otherwise>
+						</section>
+					</c:otherwise>
 				</c:choose>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
@@ -234,7 +242,8 @@
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
+			<div class="col text-center">Copyright© 2019 趣打工 All rights
+				reserved.</div>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>

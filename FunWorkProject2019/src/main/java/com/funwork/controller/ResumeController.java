@@ -44,15 +44,8 @@ public class ResumeController {
   public String getAddResume(@ModelAttribute("resume") Resume resume, HttpServletRequest req) {
     HttpSession session = req.getSession();
     User user = (User) session.getAttribute("loginUser");
-//    String[] positions = req.getParameterValues("position");
-//    String[] companys = req.getParameterValues("company");
-//    String[] terms = req.getParameterValues("term");
-    Integer userId = user.getUserId();
-    Resume oldresume =   resumeService.getResumeByUserId(userId);     
-    Integer resumeId =oldresume.getResumeId();//先取得舊的resum id
-
-    
-    resumeService.addResume(resume, user.getUserId() ,resumeId);
+    Integer userId = user.getUserId();  
+    resumeService.addResume(resume, userId);
     return "redirect:/resume";
   }
 }

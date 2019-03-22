@@ -131,9 +131,14 @@ public class JobDaoImpl implements JobDao {
 	public int getJobPostedCount(Integer userId) {
 		Long count;
 		Session session = factory.getCurrentSession();
-		String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " + "AND j.postEndDate >= :nowdate";
+		String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " 
+		+ "AND j.postEndDate >= :nowdate " 
+		+ "AND j.reviewStatus != :reviewFailed"; 
+//		"AND j.reviewStatus != :pendingReview";
 		count = (Long) session.createQuery(hql).setParameter("userId", userId)
-				.setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
+				.setParameter("nowdate", new Date(System.currentTimeMillis()))
+				.setParameter("reviewFailed", "審核失敗").uniqueResult();
+//				.setParameter("pendingReview", "待審核").uniqueResult();
 		return count.intValue();
 	}
 

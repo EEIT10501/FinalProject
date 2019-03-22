@@ -54,8 +54,8 @@ public class ResumeServiceImpl implements ResumeService {
 
 
   @Override
-  public void addResume(Resume resume, Integer userId,Integer resumeId) {
-	
+  public void addResume(Resume resume, Integer userId) {
+    
     User user = userDao.getUserById(userId);
     resume.setUser(user);
 
@@ -67,18 +67,12 @@ public class ResumeServiceImpl implements ResumeService {
         byte[] b = profileImage.getBytes();
         Blob blob = new SerialBlob(b);
         resume.setProfilePic(blob);
+        resumeDao.addResume(resume);
       } catch (Exception e) {
         logger.log(Level.WARNING, "檔案上傳發生異常: {0}", e.getMessage());
       }
-    }else {    
-//    	Resume oldres = resumeDao.getResumeById(resumeId);//舊id取舊resume,在取得舊照片,存到新resum;
-//    	Blob  bb = oldres.getProfilePic();    	
-//    	resume.setProfilePic(bb);				
-//    	resume.setProfilePic(bb);     	 
-//    	System.out.println(resumeId);
-//    	System.out.println(oldres);
-//    	System.out.println(bb);
-    }
-    resumeDao.addResume(resume);
+    } else {
+      resumeDao.addResumeWithoutPictrue(resume);
+    }   
   }
 }
