@@ -72,14 +72,23 @@ public class JobSeekerController {
 
   }
 
-  @RequestMapping(value = "/updateInterviewStatusOther", method = RequestMethod.POST)
-  public String updateInterviewStatusOther(@RequestParam("interviewId") Integer interviewId,
+  @RequestMapping(value = "/updateInterviewStatus", method = RequestMethod.POST)
+  public String updateInterviewStatus(@RequestParam("interviewId") Integer interviewId,
       @RequestParam("interviewStatus") String interviewStatus) {
 
     Interview interview = interviewService.findByPrimaryKey(interviewId);
     interview.setInterviewStatus(interviewStatus);
     interviewService.updateInterview(interview);
     return "redirect:/invitationManage";
+  }
+  @RequestMapping(value = "/updateInterviewStatusOther", method = RequestMethod.POST)
+  public String updateInterviewStatusOther(@RequestParam("interviewId") Integer interviewId,
+		  @RequestParam("interviewStatus") String interviewStatus) {
+	  
+	  Interview interview = interviewService.findByPrimaryKey(interviewId);
+	  interview.setInterviewStatus(interviewStatus);
+	  interviewService.updateInterview(interview);
+	  return "redirect:/invitationManage";
   }
 
   @RequestMapping("/applicatedWork")
