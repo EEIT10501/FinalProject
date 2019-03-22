@@ -37,7 +37,7 @@
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 		    <div class="col-sm-2 asideblock">
-			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
+                <%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			</div>
 			<div class="col-sm-8">
 				<div class="form-group">
