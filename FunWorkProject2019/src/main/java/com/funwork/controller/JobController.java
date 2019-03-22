@@ -66,17 +66,18 @@ public class JobController {
   public String Jobs(Model model) {
     List<Job> joblist = jobService.getCorrectJobs();
     List<Job> joblist2 = new ArrayList<Job>();
+    List<Job> joblistup = new ArrayList<Job>();
     Date date = new Date();
     for(int i=0;i<joblist.size();i++) {
     	if((joblist.get(i).getPostEndDate().before(date))==true) {
     		joblist.get(i).setReviewStatus("已截止");
-    		jobService.updateJobByExpired(joblist.get(i));	
+    		joblistup.add(joblist.get(i));
     	}
     	else {
     		joblist2.add(joblist.get(i));
     	}
     }
-    
+    jobService.updateJobByExpired(joblistup);
     model.addAttribute("jobs", joblist2);
     return "jobs";
   }

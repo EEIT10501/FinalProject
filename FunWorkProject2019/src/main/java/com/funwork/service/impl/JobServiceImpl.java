@@ -324,8 +324,10 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public Job updateJobByExpired(Job jbean) {
-    return jobDao.updateJob(jbean);
+  public void updateJobByExpired(List<Job> joblistup) {
+    for(int i=0;i<joblistup.size();i++) {
+    	jobDao.updateJob(joblistup.get(i));
+    }
   }
 
 }

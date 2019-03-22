@@ -64,6 +64,6 @@ public interface JobService {
 
   String getAllPostingJobTypeJson();
 
-  Job updateJobByExpired(Job jbean);
+  void updateJobByExpired(List<Job> joblistup);
 
 }
