@@ -83,6 +83,7 @@ public class ScheduleController {
 			object.put("title", sj.getScheduleName());
 			object.put("start", sj.getStartTime());
 			object.put("end", sj.getEndTime());
+			object.put("color", sj.getColor());
 			jsonArray.put(object);
 		}
 		System.out.println(jsonArray);
@@ -109,6 +110,7 @@ public class ScheduleController {
 			object.put("title", sj.getScheduleName());
 			object.put("start", sj.getStartTime());
 			object.put("end", sj.getEndTime());
+			object.put("color", sj.getColor());
 			jsonArray.put(object);
 		}
 		model.addAttribute("json", jsonArray);
@@ -149,18 +151,18 @@ public class ScheduleController {
 			schedule.setStartTime(Timestamp.valueOf(starttime));
 			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
-
-//			int jobId = 1; // 測試用
+			if(jsonObject.isNull("scheduleId")==true) {
+			schedule.setColor((String) jsonObject.get("color"));
+			}
 
 			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,
 					(String) jsonObject.get("scheduleName"));
 			schedule.setInterview(interview);
 
-//			System.out.println(interview.getInterviewId());
 			scheduleService.insertSchedule(schedule);
 		}
 
-		return "schedule/ScheduleCalendar" + jobId;
+		return "schedule/ScheduleCalendar";
 	}
 
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.GET)
@@ -324,6 +326,7 @@ public class ScheduleController {
 				object.put("title", sj.getScheduleName());
 				object.put("start", sj.getStartTime());
 				object.put("end", sj.getEndTime());
+				object.put("color", sj.getColor());
 				jsonArray.put(object);
 			}
 			System.out.println(jsonArray);
