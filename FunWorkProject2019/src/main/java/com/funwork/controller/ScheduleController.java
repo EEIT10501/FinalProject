@@ -245,10 +245,60 @@ public class ScheduleController {
 			Date endD = sdf.parse(ende);
 			startTime = new Timestamp(startD.getTime());
 			endTime = new Timestamp(endD.getTime());
-			
+
 			List<Schedule> admitScheduleList = scheduleService.getSchedulesByJobIdAndTime(jobId, startTime, endTime);
 			model.addAttribute("admitScheduleList", admitScheduleList);
 			return "schedule/wageManage";
+		} else {
+			return "redirect:/";
+		}
+
+	}
+
+	@RequestMapping("/wageStaff")
+	public String wageStaff(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser != null) {
+			model.addAttribute("user", loginUser);
+			return "schedule/wageStaff";
+		} else {
+			return "redirect:/";
+		}
+	}
+
+	@RequestMapping(value = "/selectWageStaff", method = RequestMethod.POST)
+	public String selectWageStaff(Model model, @RequestParam("start") String start, @RequestParam("end") String end, HttpServletRequest req)
+			throws ParseException {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser != null) {
+			if (start.equals("") || end.equals("")) {
+				model.addAttribute("user", loginUser);
+				return "schedule/wageStaff";
+			} else
+				model.addAttribute("user", loginUser);
+
+			String ad = new String(" 00:00:00");
+			String ed = new String(" 23:00:00");
+			String starte = start + ad;
+			String ende = end + ed;
+
+			// 設定日期格式
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// 進行轉換
+			Timestamp startTime = null;
+			Timestamp endTime = null;
+			Date startD = sdf.parse(starte);
+			Date endD = sdf.parse(ende);
+			startTime = new Timestamp(startD.getTime());
+			endTime = new Timestamp(endD.getTime());
+			
+			List<Schedule> staffScheduleList = scheduleService.getSchedulesByNameAndTime(loginUser.getUserName(), startTime, endTime);
+			model.addAttribute("staffScheduleList", staffScheduleList);
+			System.out.println("staffScheduleList:"+staffScheduleList);
+			System.out.println("staffScheduleList size:"+staffScheduleList.size());
+			return "schedule/wageStaff";
 		} else {
 			return "redirect:/";
 		}
