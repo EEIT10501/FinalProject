@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
 import com.funwork.model.User;
 import com.funwork.model.Job;
+import com.funwork.model.Resume;
 import com.funwork.service.InterviewService;
 import com.funwork.service.JobService;
 import com.funwork.service.ScheduleService;
@@ -245,7 +247,7 @@ public class ScheduleController {
 			Date endD = sdf.parse(ende);
 			startTime = new Timestamp(startD.getTime());
 			endTime = new Timestamp(endD.getTime());
-
+			System.out.println(jobId);
 			List<Schedule> admitScheduleList = scheduleService.getSchedulesByJobIdAndTime(jobId, startTime, endTime);
 			model.addAttribute("admitScheduleList", admitScheduleList);
 			return "schedule/wageManage";
@@ -304,4 +306,48 @@ public class ScheduleController {
 		}
 
 	}
+	
+//	  @RequestMapping(value = "/resumes", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
+//	  public String queryAllResumesExcel(Model model, @RequestParam("jobId") Integer jobId) {
+//	    List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
+//	    List<Resume> reslist = new LinkedList<>();
+//	    for (Application app : list) {
+//	      Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
+//	      reslist.add(resume);
+//	    }
+//	    model.addAttribute("allMembers", reslist);
+//	    return "fileDownload/showMembers";
+//	  }
+//	
+//	
+//	  @RequestMapping(value = "wageExcel", method = RequestMethod.GET, produces = "wage/vnd.ms-excel")
+//	  public String displayWageEXCEL(Model model, @RequestParam("jobId") Integer jobId, @RequestParam("start") String start,
+//				@RequestParam("end") String end, HttpServletRequest req) throws ParseException {
+//	    System.out.println("queryWageExcel");
+//
+//		HttpSession session = req.getSession();
+//		User loginUser = (User) session.getAttribute("loginUser");
+//		model.addAttribute("user", loginUser);
+//		
+//		String ad = new String(" 00:00:00");
+//		String ed = new String(" 23:00:00");
+//		String starte = start + ad;
+//		String ende = end + ed;
+//
+//		// 設定日期格式
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		// 進行轉換
+//		Timestamp startTime = null;
+//		Timestamp endTime = null;
+//		Date startD = sdf.parse(starte);
+//		Date endD = sdf.parse(ende);
+//		startTime = new Timestamp(startD.getTime());
+//		endTime = new Timestamp(endD.getTime());
+//		
+//		List<Schedule> admitScheduleList = scheduleService.getSchedulesByJobIdAndTime(jobId, startTime, endTime);
+//		
+//	    model.addAttribute(admitScheduleList);
+//	    
+//	    return "fileDownload/showWage";
+//	  }
 }
