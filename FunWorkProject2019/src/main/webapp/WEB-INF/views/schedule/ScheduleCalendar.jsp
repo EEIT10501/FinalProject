@@ -19,8 +19,8 @@
 <!-- 以下是fullcalendar使用 -->
 
 <link href="<c:url value='/css/fullcalendar.min.css'/>" rel="stylesheet" />
-<link href="<c:url value='/css/fullcalendar.print.css'/>"
-	rel="stylesheet" media='print' />
+<link href="<c:url value='/css/fullcalendar.print.css'/>" rel="stylesheet" media='print' />
+<link rel="stylesheet" type="text/css" href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
 
 <title>排班</title>
@@ -28,6 +28,7 @@
 var delCount = [];
 $(document).ready(function() {
 	$("#collapse5").addClass("show"); //讓排班管理載入此頁面時便展開
+	$("#jobtable").DataTable();       //DataTable
 	$("#saveEvent").click(function(){
 		saveEvent();
 	});
@@ -39,8 +40,10 @@ $(document).ready(function() {
 	    $(this).data('event', {
 	      title: $.trim($(this).text()), // use the element's text as the event title
 	      stick: true , // maintain when user navigates (see docs on the renderEvent method)
-	      allDay: true,
-// 	      id:parseInt($(this).attr("id"))
+	      color:$(this).next().text(),
+	      start:"12:00",
+	      end:"20:00",
+	      allDay: false
 	    });
 
 	    // make the event draggable using jQuery UI
@@ -52,7 +55,7 @@ $(document).ready(function() {
 
 	  });
 	</c:if>
-
+	<c:if test="${jobs==null}">	
 	$('#calendar').fullCalendar({
 		defaultView : 'month',
 		header : {
@@ -60,29 +63,6 @@ $(document).ready(function() {
 			center : 'title,addEventButton',
 			right : 'month,agendaWeek,agendaDay'
 		},
-// 		customButtons: { //新增事件按鈕
-// 		      addEventButton: {
-// 		        text: '陳奕璋',
-// 		        click: function() {
-// 		          var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-// 		          var date = moment(dateStr);
-
-// 		          if (date.isValid()) {
-// 		            $('#calendar').fullCalendar('renderEvent', {
-// 		            	id:id,
-// 		              title: '陳奕璋:'+id,
-// 		              start: date,
-// 		              allDay: true
-		              
-// 		            });
-// 		            id=id+1;
-// 		            alert('Great. Now, update your database...');
-// 		          } else {
-// 		            alert('Invalid date.');
-// 		          }
-// 		        }
-// 		      }
-// 		    },
 		<c:if test="${change!=null}">
 		editable: ${change},   //是否可拖曳
 		</c:if>
@@ -122,7 +102,7 @@ $(document).ready(function() {
 	      }
 	    }
 	});
-
+</c:if>
 });
 
 function saveEvent(){
@@ -138,7 +118,8 @@ function saveEvent(){
 		var title = scheduleArray[i].title
 		var start = scheduleArray[i].start
 		var end = scheduleArray[i].end
-		var json = {"scheduleId":id,"scheduleName":title,"startTime":start,"endTime":end}
+		var color = scheduleArray[i].color
+		var json = {"scheduleId":id,"scheduleName":title,"startTime":start,"endTime":end,"color":color}
 // 		scheduleJSON = scheduleJSON+JSON.stringify(json);
 		scheduleJSON.push(json);
 	}
@@ -151,10 +132,10 @@ function saveEvent(){
 		data:{"scheduleJSONArray":scheduleJSONArray,"delString":delString},
 		success:function(data){
 			window.alert("儲存成功");
-			window.location.replace("<c:url value='/ScheduleCalendar/'/>")
+			window.location.replace("<c:url value='/ScheduleCalendar/'/>${interviewList[0].application.job.jobId}")
 		},
 		error:function(data){
-			window.alert("儲存失敗，請再檢查班表。");
+			window.alert("儲存失敗，請檢查上下班起訖時間有無正確填寫。");
 		}
 		
 	});
@@ -223,7 +204,8 @@ function saveEvent(){
 							</p>
 							<c:if test="${empty interviewList}"><h3>此工作尚無錄取者</h3></c:if>
 							<c:forEach var="interviewList" items="${interviewList}">
-							<div class='fc-event'>${interviewList.application.user.userName}</div>
+							<div class='fc-event' style="background-color:#595775">${interviewList.application.user.userName}</div>
+							<div style="display:none" class="color">#595775</div>
 							</c:forEach>
 							<p>
 								<input type='checkbox' id='drop-remove' /> <label
@@ -238,9 +220,8 @@ function saveEvent(){
 						<tr>
 							<th>職缺名稱</th>
 							<th>所在地區</th>
-							<th>所屬公司</th>
-							<th>聯絡人</th>
-							
+							<th>所屬公司</th>	
+							<th>刊登狀態</th>					
 							<th>詳細內容</th>
 						</tr>
 					</thead>
@@ -251,7 +232,7 @@ function saveEvent(){
 									<td>${job.title}</td>
 									<td>${job.city.cityName}</td>
 									<td>${job.jobCompany.name}</td>
-									<td>${job.jobOwner.userName}</td>									
+									<td>${job.reviewStatus}</td>								
 									<td><a href="<c:url value='/ScheduleCalendar/${job.jobId}'/>"
 										class="btn btn-primary"><span
 											class="glyphicon-info-sigh glyphicon"></span>排班作業 </a></td>
@@ -297,7 +278,8 @@ function saveEvent(){
 	<script type="text/javascript"
 		src="<c:url value='/js/fullcalendar.min.js'/>"></script>
 	<script src='https://code.jquery.com/ui/1.11.3/jquery-ui.min.js'></script>
-
+<script type="text/javascript"
+		src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
