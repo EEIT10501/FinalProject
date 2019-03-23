@@ -35,14 +35,12 @@ $(document).ready(function() {
 	
 	<c:if test="${change!=null}">
 	$('#external-events .fc-event').each(function() {
-
 	    // store data so the calendar knows to render an event upon drop
 	    $(this).data('event', {
 	      title: $.trim($(this).text()), // use the element's text as the event title
 	      stick: true , // maintain when user navigates (see docs on the renderEvent method)
-	      color:$(this).next().text(),
-	      start:"12:00",
-	      end:"20:00",
+	      start:"08:00",
+	      end:"17:00",
 	      allDay: false
 	    });
 
@@ -57,7 +55,20 @@ $(document).ready(function() {
 	</c:if>
 	<c:if test="${jobs==null}">	
 	$('#calendar').fullCalendar({
-		defaultView : 'month',
+		//中文化
+		buttonText: {
+	        today: "今天",
+	        month: "月",
+	        week: "周",
+	        day: "日"
+	    },
+	    
+	    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+	    monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+	    dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+	    dayNamesShort: ["日", "一", "二", "三", "四", "五", "六"],
+		
+		defaultView : 'agendaWeek',
 		header : {
 			left : 'prev,next',
 			center : 'title,addEventButton',
@@ -67,9 +78,7 @@ $(document).ready(function() {
 		editable: ${change},   //是否可拖曳
 		</c:if>
 		eventLimit: true, // when too many events in a day, show the popover
-	
 		events : <c:out value="${json}" escapeXml="false">${json}</c:out>,
-
 		timeFormat: "HH:mm",      // 所有事件24小時制
 		businessHours: true,      //顯示左側時間
 		slotLabelFormat:"HH:mm",  //左側時間24小時制 
@@ -118,8 +127,7 @@ function saveEvent(){
 		var title = scheduleArray[i].title
 		var start = scheduleArray[i].start
 		var end = scheduleArray[i].end
-		var color = scheduleArray[i].color
-		var json = {"scheduleId":id,"scheduleName":title,"startTime":start,"endTime":end,"color":color}
+		var json = {"scheduleId":id,"scheduleName":title,"startTime":start,"endTime":end}
 // 		scheduleJSON = scheduleJSON+JSON.stringify(json);
 		scheduleJSON.push(json);
 	}
@@ -181,6 +189,12 @@ function saveEvent(){
 .btn {
 	margin-right: 5px;
 }
+
+.fc-event{
+background-color:#8ED3F4;
+border:none;
+color:black;
+}
 </style>
 </head>
 
@@ -200,17 +214,16 @@ function saveEvent(){
 					<div class="col-sm-2">
 						<div id='external-events'>
 							<p>
-								<strong>Draggable Events</strong>
+								<strong>員工名單</strong>
 							</p>
 							<c:if test="${empty interviewList}"><h3>此工作尚無錄取者</h3></c:if>
 							<c:forEach var="interviewList" items="${interviewList}">
-							<div class='fc-event' style="background-color:#595775">${interviewList.application.user.userName}</div>
-							<div style="display:none" class="color">#595775</div>
+							<div class='fc-event'>${interviewList.application.user.userName}</div>
 							</c:forEach>
-							<p>
-								<input type='checkbox' id='drop-remove' /> <label
-									for='drop-remove'>remove after drop</label>
-							</p>
+<!-- 							<p> -->
+<!-- 								<input type='checkbox' id='drop-remove' /> <label -->
+<!-- 									for='drop-remove'>remove after drop</label> -->
+<!-- 							</p> -->
 						</div>
 					</div>
 					<div class="col-sm-10">
