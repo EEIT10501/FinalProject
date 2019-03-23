@@ -151,12 +151,14 @@ public class ScheduleController {
 			schedule.setStartTime(Timestamp.valueOf(starttime));
 			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
+			float restTime =   (float) ((Timestamp.valueOf(endtime).getTime() - Timestamp.valueOf(starttime).getTime())/(1000*60*60)/4*0.5);
+			schedule.setRestHour(restTime);
+			
 			if(jsonObject.isNull("scheduleId")==true) {
 			schedule.setColor((String) jsonObject.get("color"));
 			}
 
-			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,
-					(String) jsonObject.get("scheduleName"));
+			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,(String) jsonObject.get("scheduleName"));
 			schedule.setInterview(interview);
 
 			scheduleService.insertSchedule(schedule);
