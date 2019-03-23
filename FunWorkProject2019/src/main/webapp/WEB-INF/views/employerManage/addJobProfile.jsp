@@ -97,7 +97,7 @@
 						<div class="col-sm-10">
 							<form:input type="date" path="postEndDate" class="form-control"
 								id="endDate" value="" min="" max="" />
-							<small>免費會員只能設定為 7 天， PREMIUM 會員可以設定為 7 至 365 天</small>
+							<small>免費會員只能設定為 7 天， 黃金會員可以設定為 7 至 365 天</small>
 						</div>
 					</div>
 					<div class="form-group row">

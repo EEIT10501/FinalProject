@@ -5,7 +5,6 @@ import init.tables.AttendenceTableInit;
 import init.tables.CityTableInit;
 import init.tables.CompanyTableInit;
 import init.tables.ComplaintTableInit;
-import init.tables.ExperienceTableInit;
 import init.tables.InterviewTableInit;
 import init.tables.JobTableInit;
 import init.tables.NotificationTableInit;
@@ -29,7 +28,6 @@ public class DatabaseInit {
     new UserTableInit(factory).initUser();
     new CompanyTableInit(factory).initCompany();
     new ResumeTableInit(factory).initResume();
-    new ExperienceTableInit(factory).initExperience();
     new NotificationTableInit(factory).initNotification();
     new CityTableInit(factory).initCity();
     new JobTableInit(factory).initJob();  

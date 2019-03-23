@@ -39,7 +39,6 @@
         <mapping class="com.funwork.model.Salary" />
         <mapping class="com.funwork.model.Schedule" />
         <mapping class="com.funwork.model.Resume" />
-        <mapping class="com.funwork.model.Experience" />
         <mapping class="com.funwork.model.Complaint" />
         <mapping class="com.funwork.model.Suggestion" />
       </session-factory>
