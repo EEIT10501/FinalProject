@@ -3,7 +3,6 @@ package com.funwork.service.impl;
 import com.funwork.dao.UserDao;
 import com.funwork.model.User;
 import com.funwork.service.UserService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,19 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
-
   @Autowired
   UserDao dao;
-
-  @Override
-  public List<User> getAllUsers() {
-    return dao.getAllUsers();
-  }
-
-  @Override
-  public User findByPrimaryKey(int key) {
-    return dao.findByPrimaryKey(key);
-  }
 
   @Override
   public User getUserById(Integer userId) {
@@ -52,8 +40,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean idExists(String email) {
-    return dao.idExists(email);
+  public boolean idExist(String email) {
+    return dao.idExist(email);
   }
 
   @Override
@@ -95,8 +83,9 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void updateAccount(String email, String password, Integer userId) {
-    dao.updateAccount(email, password, userId);
+  public void updatePassword(String password, Integer userId) {
+    User user = dao.getUserById(userId);
+    user.setPassword(password);
+    dao.updateUser(user);
   }
-
 }

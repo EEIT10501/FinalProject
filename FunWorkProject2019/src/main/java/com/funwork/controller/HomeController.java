@@ -31,17 +31,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
-
   static final Logger logger = Logger.getLogger("com.funwork");
   private static final String REDIRECT_TO_INDEX = "redirect:/";
   private static final String LOGIN_USER = "loginUser";
-
   @Autowired
   ResumeService resumeService;
   @Autowired
@@ -56,7 +53,7 @@ public class HomeController {
   GoogleService googleService;
 
   /**
-   * Return index.jsp，如果登入的是管理員，傳回管理員View.
+   * Return首頁，如果登入的是管理員，return管理員頁面.
    */
   @GetMapping("/")
   public String home(HttpServletRequest req) {
@@ -68,6 +65,9 @@ public class HomeController {
     return "index";
   }
 
+  /**
+   * Sample page. Delete after develop.
+   */
   @GetMapping("/form")
   public String form() {
     return "pages/form";
@@ -114,8 +114,8 @@ public class HomeController {
    */
   @PostMapping("/login")
   @ResponseBody
-  public String login(@RequestParam("email") String email, @RequestParam("password") String password,
-      HttpServletRequest req) {
+  public String login(@RequestParam("email") String email, 
+      @RequestParam("password") String password, HttpServletRequest req) {
     User user = userService.loginCheck(email, password);
     if (user != null) {
 //			if (user.getIsOpen()) {
@@ -140,37 +140,38 @@ public class HomeController {
    */
   @PostMapping(value = "/register")
   public String register(@RequestParam("email") String email, @RequestParam("name") String name,
-      @RequestParam("password") String password, @RequestParam("password2") String password2, HttpServletRequest req) {
-    // 存放錯誤訊息errorMeg
-    Map<String, String> errorMeg = new HashMap<String, String>();
-
-    req.setAttribute("Msg", errorMeg); // 顯示錯誤訊息, errorMeg傳到前端用EL接
+      @RequestParam("password") String password, @RequestParam("password2") String password2, 
+      HttpServletRequest req) {
+    Map<String, String> errorMsg = new HashMap<String, String>();
+    req.setAttribute("errorMsg", errorMsg);
     if (email == null || email.trim().length() == 0) {
-      errorMeg.put("errEmailEmpty", "帳號欄必須輸入");
+      errorMsg.put("emailEmpty", "帳號欄必須輸入");
     }
     if (name == null || name.trim().length() == 0) {
-      errorMeg.put("errNameEmpty", "姓名欄必須輸入");
+      errorMsg.put("nameEmpty", "姓名欄必須輸入");
     }
     if (password == null || password.trim().length() == 0) {
-      errorMeg.put("errPdEmpty", "密碼欄必須輸入");
+      errorMsg.put("pwdEmpty", "密碼欄必須輸入");
     }
     if (password2 == null || password2.trim().length() == 0) {
-      errorMeg.put("errPd2Empty", "密碼確認欄必須輸入");
+      errorMsg.put("pwd2Empty", "密碼確認欄必須輸入");
     }
-    if ((password != null && password2 != null) && (password.trim().length() > 0 && password2.trim().length() > 0)
+    if ((password != null && password2 != null) 
+        && (password.trim().length() > 0 && password2.trim().length() > 0)
         && !password.trim().equals(password2.trim())) {
-      errorMeg.put("errPd2Empty", "密碼欄必須與確認欄一致");
-      errorMeg.put("errPdEmpty", "*");
+      errorMsg.put("pwdEmpty", "密碼欄與密碼確認欄必須一致");
     }
-    // 回傳上面的錯誤訊息到/register頁面
-    if (!errorMeg.isEmpty()) {
+
+    if (!errorMsg.isEmpty()) {
+      req.setAttribute("email", email);
+      req.setAttribute("name", name);
       return "/register";
     }
-    if (userService.idExists(email)) {
-      errorMeg.put("errorIDExs", "帳號已存在請重新輸入");
+    if (userService.idExist(email)) {
+      errorMsg.put("emailExist", "帳號已存在請重新輸入");
+      req.setAttribute("name", name);
     } else {
       Integer userId = userService.insertUser(email, name, password);
-
 //			googleService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
 //					"<h1>哈囉!" + name
 //							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
@@ -181,7 +182,7 @@ public class HomeController {
   }
 
   /**
-   * Process User logout.
+   * Process user logout.
    */
   @GetMapping("/logout")
   public String logout(HttpServletRequest req) {
@@ -198,44 +199,34 @@ public class HomeController {
   }
 
   /**
-   * Process User Account setting.
+   * Process user account setting.
    */
   @GetMapping(value = "/accountSetting")
   public String accountSetting(Model model, HttpServletRequest req) {
     HttpSession session = req.getSession();
-    User user = (User) session.getAttribute("loginUser");
+    User user = (User) session.getAttribute(LOGIN_USER);
     if (user != null) {
-      req.setAttribute("Users", user);
-      System.out.println(user);
       return "/accountSetting";
     } else {
       return REDIRECT_TO_INDEX;
     }
   }
 
+  /**
+   * Process users change their password.
+   */
   @PostMapping(value = "/accountSetting")
-  public String accountSetting(@RequestParam("email") String email, @RequestParam("password") String password,
-      @RequestParam("password2") String password2, HttpServletRequest req, HttpSession session) {
-    Map<String, String> errorMeg = new HashMap<String, String>();
-    Map<String, String> rightMeg = new HashMap<String, String>();
-    User user = (User) session.getAttribute("loginUser");
-    req.setAttribute("Users", user);
-    req.setAttribute("Msg", errorMeg);
-    req.setAttribute("Ms", rightMeg);
+  public String accountSetting(@RequestParam("password") String password, 
+      @RequestParam("password2") String password2, 
+      HttpServletRequest req,HttpSession session) {
+    Map<String, String> errorMsg = new HashMap<String, String>();
+    Map<String, String> rightMsg = new HashMap<String, String>();
+    req.setAttribute("errorMsg", errorMsg);
+    req.setAttribute("rightMsg", rightMsg);
+    User user = (User) session.getAttribute(LOGIN_USER);
     Integer userId = user.getUserId();
-
-    if (userService.idExists(email) && !email.equals(user.getEmail())) {
-      errorMeg.put("errorIDExs", "帳號已存在請重新輸入");
-    }
-    if (userService.idExists(email) && email.equals(user.getEmail())) {
-      userService.updateAccount(email, password, userId);
-      rightMeg.put("pswOK", "密碼更新成功");
-    }
-    if (!userService.idExists(email)) {
-      userService.updateAccount(email, password, userId);
-      rightMeg.put("acutOK", "帳號更新成功");
-      rightMeg.put("pswOK", "密碼更新成功");
-    }
+    userService.updatePassword(password, userId);
+    rightMsg.put("updateOK", "密碼更新成功");
     return "/accountSetting";
   }
 
@@ -245,7 +236,6 @@ public class HomeController {
   @PostMapping("/googleLogin")
   @ResponseBody
   public String googleLogin(@RequestParam("idtoken") String idtoken, HttpServletRequest req) {
-
     GoogleIdToken idToken = null;
     idToken = googleService.idTokenVerify(idtoken);
 
@@ -256,7 +246,7 @@ public class HomeController {
       String familyName = (String) payload.get("family_name");
       String givenName = (String) payload.get("given_name");
       String name = givenName.trim() + familyName.trim();
-      if (userService.idExists(email)) {
+      if (userService.idExist(email)) {
         User user = userService.getUserByGoogleEmail(email, googleId);
         HttpSession session = req.getSession();
         session.setAttribute(LOGIN_USER, user);
@@ -294,12 +284,14 @@ public class HomeController {
     return b;
   }
 
-  @RequestMapping("/qapage")
+  @GetMapping("/qapage")
   public String qaPage(Model model) {
-
     return "qapage";
   }
 
+  /**
+   * Return admin home page.
+   */
   @GetMapping("/adminHome")
   public String adminHome(Model model) {
     String jobTypeJson = jobService.getAllPostingJobTypeJson();

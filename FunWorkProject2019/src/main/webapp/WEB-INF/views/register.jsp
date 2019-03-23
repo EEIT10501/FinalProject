@@ -17,78 +17,60 @@
 .asideblock {
 	height: 600px;
 }
-
 </style>
-
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-5 justify-content-around">
-<div class="col-sm-2"></div>
+			<div class="col-sm-2"></div>
 			<div class="col-sm-8 align-self-center">
-				<!-- 程式寫在這 -->
-				<!--如果要insert多筆資料可以用form:form直接傳物件 -->
-				<!-- onsubmit= "return formCheck() " +在form標籤中可以用(js)檢測密碼是否輸入相同-->
-
-				<form class="was-validated" novalidate  method="post" action="${pageContext.request.contextPath}/register"onsubmit= "return formCheck() ">
+				<form class="was-validated" novalidate method="post" onsubmit="return formCheck()"
+					  action="${pageContext.request.contextPath}/register">
 					<fieldset>
-
 						<legend>註冊會員</legend>
-						<p style="color:red">註冊成功請至信箱進行帳號驗證</p>
-
+						<p style="color: red">註冊成功請至信箱進行帳號驗證</p>
 						<div class="form-group row">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
+							<label for="email" class="col-sm-2 col-form-label">Email:</label>
 							<div class="col-sm">
-								<input type="email" name="email" class="form-control" id="inputEmail3" 
-										autocomplete="on" required="required" title="請輸入email" 
-										style="width: 230px;">
-								<font color="red" size="-1">${Msg.errorEmail}${Msg.errorIDExs}</font>
+								<input type="email" name="email" class="form-control" id="email"
+									   autocomplete="on" required="required" style="width: 230px;"
+									   value="${email}" > 
+							    <font color="red" size="-1">${errorMsg.emailEmpty}${errorMsg.emailExist}</font>
 							</div>
 						</div>
-
 						<div class="form-group row">
-							<label for="inputPassword3" class="col-sm-2 col-form-label">姓名:</label>
+							<label for="name" class="col-sm-2 col-form-label">姓名:</label>
 							<div class="col-sm">
-								<input type="text" name="name" class="form-control"
-
-										id="inputPassword3"  required pattern="{1,15}" title="請輸入姓名" 
-										style="width: 230px;"> 
-								<font color="red" size="-1">${Msg.errEmailEmpty}</font>
-
+								<input type="text" name="name" class="form-control" style="width: 230px;"
+									   required id="name" value="${name}"> 
+							    <font color="red" size="-1">${errorMsg.nameEmpty}</font>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="pwd1" class="col-sm-2 col-form-label">密碼：</label>
 							<div class="col-sm">
-								<input type="password" name="password" class="form-control"
-
-										id="pwd1" placeholder="6~12英文數字組合" required
-										pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"
-										title="密碼：6~12英數字組合，至少有一個大寫、小寫英文字母及數字，如 A12Rd6"
-										style="width: 230px;"> 
-								<font color="red" size="-1">${Msg.errPdEmpty}</font>
-
+								<input type="password" name="password" class="form-control" id="pwd1"
+									   placeholder="6~12英文數字組合" required="required" style="width: 230px;"
+									   pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$"
+									   title="密碼：6~12英數字組合，至少有一個大寫、小寫英文字母及數字，如 A12Rd6" > 
+								<font color="red" size="-1">${errorMsg.pwdEmpty}</font>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="pwd2" class="col-sm-2 col-form-label">密碼確認：</label>
 							<div class="col-sm">
-
-								<input type="password" name="password2" class="form-control" id="pwd2"
-								pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$" 
-										required="required" style="width: 230px;"> 
-								<font color="red" size="-1">${Msg.errPd2Empty}</font>
-
+								<input type="password" name="password2" class="form-control"
+									   id="pwd2" required="required" style="width: 230px;"
+									   pattern="(?=^[A-Za-z0-9]{6,12}$)((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]))^.*$" > 
+								<font color="red" size="-1">${errorMsg.pwd2Empty}</font>
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-sm">
-								<input type="submit" name="submit" class="btn btn-primary" id="submit" 
-										value="註冊" /> 
-								<input type="reset" name="cancel" class="btn btn-primary" id="cancel" 
-										value="重填">
+								<input type="submit" class="btn btn-primary" id="submit" value="註冊" /> 
+								<input type="reset" class="btn btn-danger" id="cancel" value="重填">
 							</div>
 						</div>
 					</fieldset>
@@ -96,7 +78,6 @@
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>
-		
 	</div>
 	<div class="container-fluid">
 		<div class="row no-gutter footerbackground">
@@ -105,17 +86,14 @@
 	</div>
 	<script>
 		    function formCheck() {
-			var pwd1 = document.getElementById("pwd1").value;
-			var pwd2 = document.getElementById("pwd2").value;
-			if (pwd1 != pwd2) {
-				alert("密碼輸入不一致,請重新輸入");
-				return false;
-			}
+				var pwd1 = document.getElementById("pwd1").value;
+				var pwd2 = document.getElementById("pwd2").value;
+				if (pwd1 != pwd2) {
+					alert("密碼輸入不一致,請重新輸入");
+					return false;
+				}
 			return true;
 		}
-		
-
-		
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

@@ -56,7 +56,7 @@ background-color: #e3f2fd;
 			<div id="collapse1" class="collapse" aria-labelledby="heading1"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='/accountSetting'></c:url>">帳密設定</a>
+					<a class="btn btn-link" href="<c:url value='/accountSetting'></c:url>">帳戶設定</a>
 					<a class="btn btn-link" href="<c:url value='/resume'></c:url>">我的履歷</a>
 					<a class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據資訊</a>
 					<a class="btn btn-link" href="<c:url value='#'></c:url>">圖形表單</a>
