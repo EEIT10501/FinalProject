@@ -1,6 +1,7 @@
 package com.funwork.service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import com.funwork.model.Interview;
@@ -30,6 +31,10 @@ public interface ScheduleService {
 	List<Schedule> getSchedulesByName(String scheduleName);
 
 	List<Schedule> getSchedulesByNameAndTime(String scheduleName, Timestamp endTime, Timestamp startTime);
+	
+	List<Schedule> getUserScheduleByRange(Integer userId,Date time1,Date time2);
+	
+	List<Schedule> getJobSchedulesByRange(Integer jobId,Date time1,Date time2);
 	
 
 }
