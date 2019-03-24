@@ -19,8 +19,8 @@
 <!-- 以下是fullcalendar使用 -->
 
 <link href="<c:url value='/css/fullcalendar.min.css'/>" rel="stylesheet" />
-<link href="<c:url value='/css/fullcalendar.print.css'/>"
-	rel="stylesheet" media='print' />
+<link href="<c:url value='/css/fullcalendar.print.css'/>" rel="stylesheet" media='print' />
+<link rel="stylesheet" type="text/css" href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
 
 <title>排班</title>
@@ -28,19 +28,20 @@
 var delCount = [];
 $(document).ready(function() {
 	$("#collapse5").addClass("show"); //讓排班管理載入此頁面時便展開
+	$("#jobtable").DataTable();       //DataTable
 	$("#saveEvent").click(function(){
 		saveEvent();
 	});
 	
 	<c:if test="${change!=null}">
 	$('#external-events .fc-event').each(function() {
-
 	    // store data so the calendar knows to render an event upon drop
 	    $(this).data('event', {
 	      title: $.trim($(this).text()), // use the element's text as the event title
 	      stick: true , // maintain when user navigates (see docs on the renderEvent method)
-	      allDay: true,
-// 	      id:parseInt($(this).attr("id"))
+	      start:"08:00",
+	      end:"17:00",
+	      allDay: false
 	    });
 
 	    // make the event draggable using jQuery UI
@@ -52,44 +53,32 @@ $(document).ready(function() {
 
 	  });
 	</c:if>
-
+	<c:if test="${jobs==null}">	
 	$('#calendar').fullCalendar({
-		defaultView : 'month',
+		//中文化
+		buttonText: {
+	        today: "今天",
+	        month: "月",
+	        week: "周",
+	        day: "日"
+	    },
+	    
+	    monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+	    monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+	    dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+	    dayNamesShort: ["日", "一", "二", "三", "四", "五", "六"],
+		
+		defaultView : 'agendaWeek',
 		header : {
 			left : 'prev,next',
 			center : 'title,addEventButton',
 			right : 'month,agendaWeek,agendaDay'
 		},
-// 		customButtons: { //新增事件按鈕
-// 		      addEventButton: {
-// 		        text: '陳奕璋',
-// 		        click: function() {
-// 		          var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-// 		          var date = moment(dateStr);
-
-// 		          if (date.isValid()) {
-// 		            $('#calendar').fullCalendar('renderEvent', {
-// 		            	id:id,
-// 		              title: '陳奕璋:'+id,
-// 		              start: date,
-// 		              allDay: true
-		              
-// 		            });
-// 		            id=id+1;
-// 		            alert('Great. Now, update your database...');
-// 		          } else {
-// 		            alert('Invalid date.');
-// 		          }
-// 		        }
-// 		      }
-// 		    },
 		<c:if test="${change!=null}">
 		editable: ${change},   //是否可拖曳
 		</c:if>
 		eventLimit: true, // when too many events in a day, show the popover
-	
 		events : <c:out value="${json}" escapeXml="false">${json}</c:out>,
-
 		timeFormat: "HH:mm",      // 所有事件24小時制
 		businessHours: true,      //顯示左側時間
 		slotLabelFormat:"HH:mm",  //左側時間24小時制 
@@ -122,7 +111,7 @@ $(document).ready(function() {
 	      }
 	    }
 	});
-
+</c:if>
 });
 
 function saveEvent(){
@@ -151,10 +140,10 @@ function saveEvent(){
 		data:{"scheduleJSONArray":scheduleJSONArray,"delString":delString},
 		success:function(data){
 			window.alert("儲存成功");
-			window.location.replace("<c:url value='/ScheduleCalendar/'/>")
+			window.location.replace("<c:url value='/ScheduleCalendar/'/>${interviewList[0].application.job.jobId}")
 		},
 		error:function(data){
-			window.alert("儲存失敗，請再檢查班表。");
+			window.alert("儲存失敗，請檢查上下班起訖時間有無正確填寫。");
 		}
 		
 	});
@@ -200,6 +189,12 @@ function saveEvent(){
 .btn {
 	margin-right: 5px;
 }
+
+.fc-event{
+background-color:#8ED3F4;
+border:none;
+color:black;
+}
 </style>
 </head>
 
@@ -219,16 +214,16 @@ function saveEvent(){
 					<div class="col-sm-2">
 						<div id='external-events'>
 							<p>
-								<strong>Draggable Events</strong>
+								<strong>員工名單</strong>
 							</p>
 							<c:if test="${empty interviewList}"><h3>此工作尚無錄取者</h3></c:if>
 							<c:forEach var="interviewList" items="${interviewList}">
 							<div class='fc-event'>${interviewList.application.user.userName}</div>
 							</c:forEach>
-							<p>
-								<input type='checkbox' id='drop-remove' /> <label
-									for='drop-remove'>remove after drop</label>
-							</p>
+<!-- 							<p> -->
+<!-- 								<input type='checkbox' id='drop-remove' /> <label -->
+<!-- 									for='drop-remove'>remove after drop</label> -->
+<!-- 							</p> -->
 						</div>
 					</div>
 					<div class="col-sm-10">
@@ -238,9 +233,8 @@ function saveEvent(){
 						<tr>
 							<th>職缺名稱</th>
 							<th>所在地區</th>
-							<th>所屬公司</th>
-							<th>聯絡人</th>
-							
+							<th>所屬公司</th>	
+							<th>刊登狀態</th>					
 							<th>詳細內容</th>
 						</tr>
 					</thead>
@@ -251,7 +245,7 @@ function saveEvent(){
 									<td>${job.title}</td>
 									<td>${job.city.cityName}</td>
 									<td>${job.jobCompany.name}</td>
-									<td>${job.jobOwner.userName}</td>									
+									<td>${job.reviewStatus}</td>								
 									<td><a href="<c:url value='/ScheduleCalendar/${job.jobId}'/>"
 										class="btn btn-primary"><span
 											class="glyphicon-info-sigh glyphicon"></span>排班作業 </a></td>
@@ -297,7 +291,8 @@ function saveEvent(){
 	<script type="text/javascript"
 		src="<c:url value='/js/fullcalendar.min.js'/>"></script>
 	<script src='https://code.jquery.com/ui/1.11.3/jquery-ui.min.js'></script>
-
+<script type="text/javascript"
+		src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

@@ -121,7 +121,7 @@ public class ReviewController {
   }
   
   /**
-   * Return companys review history.
+   * Return company review history.
    */
   @GetMapping(value = "/companysReviewHistory")
   public String getCompanysReviewHistory(Model model) {
@@ -155,6 +155,9 @@ public class ReviewController {
     return "review/queryMember";
   }
   
+  /**
+   * get user detail by email.
+   */
   @PostMapping(value = "/queryMember")
   public String queryMemberProcess(Model model,@RequestParam("email") String email) {
     User user = userService.getUserByEmail(email);

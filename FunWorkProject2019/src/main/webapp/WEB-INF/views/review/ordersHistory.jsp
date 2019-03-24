@@ -58,7 +58,7 @@
 								<td>${order.product.productName}黃金會員</td>
 								<td>$${order.price}</td>
 								<td>${order.user.userId}</td>
-								<td>$${order.user.userName}</td>
+								<td>${order.user.userName}</td>
 								<td><fmt:formatDate value="${order.orderTime}" pattern="yyyy/MM/dd HH:mm" /></td>
 							</tr>
 						</c:forEach>

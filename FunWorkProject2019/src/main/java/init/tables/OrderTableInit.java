@@ -5,7 +5,6 @@ import com.funwork.model.Product;
 import com.funwork.model.User;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.logging.Logger;
 import org.hibernate.Session;

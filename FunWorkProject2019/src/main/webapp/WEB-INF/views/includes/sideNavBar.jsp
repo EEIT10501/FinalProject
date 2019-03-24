@@ -56,7 +56,7 @@ background-color: #e3f2fd;
 			<div id="collapse1" class="collapse" aria-labelledby="heading1"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='/accountSetting'></c:url>">帳密設定</a>
+					<a class="btn btn-link" href="<c:url value='/accountSetting'></c:url>">帳戶設定</a>
 					<a class="btn btn-link" href="<c:url value='/resume'></c:url>">我的履歷</a>
 					<a class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據資訊</a>
 					<a class="btn btn-link" href="<c:url value='#'></c:url>">圖形表單</a>
@@ -78,7 +78,7 @@ background-color: #e3f2fd;
 					<a class="btn btn-link" href="<c:url value='/jobSeekerInfo'></c:url>">求職資訊</a>
 					<a class="btn btn-link" href="<c:url value='/applicatedWork'></c:url>">應徵紀錄</a>
 					<a class="btn btn-link" href="<c:url value='/invitationManage'></c:url>">邀約管理</a>
-					<a class="btn btn-link" href="<c:url value='/'></c:url>">工作班表</a>
+					<a class="btn btn-link" href="<c:url value='/UserSchedule'></c:url>">工作班表</a>
 					<a class="btn btn-link" href="<c:url value='/wageStaff'></c:url>">薪資紀錄</a>
 				</div>
 			</div>

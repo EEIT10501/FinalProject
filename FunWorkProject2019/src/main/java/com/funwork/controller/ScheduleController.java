@@ -81,6 +81,7 @@ public class ScheduleController {
 			object.put("title", sj.getScheduleName());
 			object.put("start", sj.getStartTime());
 			object.put("end", sj.getEndTime());
+//			object.put("color", sj.getColor());
 			jsonArray.put(object);
 		}
 		System.out.println(jsonArray);
@@ -107,6 +108,7 @@ public class ScheduleController {
 			object.put("title", sj.getScheduleName());
 			object.put("start", sj.getStartTime());
 			object.put("end", sj.getEndTime());
+//			object.put("color", sj.getColor());
 			jsonArray.put(object);
 		}
 		model.addAttribute("json", jsonArray);
@@ -147,18 +149,16 @@ public class ScheduleController {
 			schedule.setStartTime(Timestamp.valueOf(starttime));
 			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
 			schedule.setEndTime(Timestamp.valueOf(endtime));
+			float restTime =   (float) ((Timestamp.valueOf(endtime).getTime() - Timestamp.valueOf(starttime).getTime())/(1000*60*60)/4*0.5);
+			schedule.setRestHour(restTime);			
 
-//			int jobId = 1; // 測試用
-
-			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,
-					(String) jsonObject.get("scheduleName"));
+			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,(String) jsonObject.get("scheduleName"));
 			schedule.setInterview(interview);
 
-//			System.out.println(interview.getInterviewId());
 			scheduleService.insertSchedule(schedule);
 		}
 
-		return "schedule/ScheduleCalendar" + jobId;
+		return "schedule/ScheduleCalendar";
 	}
 
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.GET)
@@ -304,4 +304,34 @@ public class ScheduleController {
 		}
 
 	}
+
+	@RequestMapping("/UserSchedule")
+	public String userCalendar(Model model, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+
+		if (user != null) {		
+
+			List<Schedule> scheduleList = scheduleService.getSchedulesByUser(user.getUserId());
+			JSONArray jsonArray = new JSONArray();
+			JSONObject object = null;
+			for (Schedule sj : scheduleList) {
+				object = new JSONObject();
+				object.put("id", sj.getScheduleId());
+				object.put("title", sj.getScheduleName());
+				object.put("start", sj.getStartTime());
+				object.put("end", sj.getEndTime());
+//				object.put("color", sj.getColor());
+				jsonArray.put(object);
+			}
+			System.out.println(jsonArray);
+			model.addAttribute("json", jsonArray);
+		
+			return "schedule/UserSchedule";
+		} else {
+			return "redirect:/";
+		}
+	}
+
 }

@@ -165,7 +165,7 @@ public class JobServiceImpl implements JobService {
     // 設定經緯度
     jbean.setJobLat(latlng.get("lat"));
     jbean.setJobLng(latlng.get("lng"));
-    if (jbean.getOther() == null) {
+    if (jbean.getOther() == null || jbean.getOther().trim().length() == 0) {
       jbean.setOther("給雇主的話");
     }
     jbean.setIsExposure(false);
@@ -280,6 +280,7 @@ public class JobServiceImpl implements JobService {
       jobDao.updateJob(job);
     } else {
       job.setIsFilled(true);
+      job.setIsExposure(false);
       jobDao.updateJob(job);
     }
   }
@@ -309,17 +310,17 @@ public class JobServiceImpl implements JobService {
     jobDao.updateJob(jobToChange);
   }
 
-	@Override
-	public Integer updateViewTimesByJob(Integer jobId) {
-		Job job = jobDao.getJobById(jobId);
-		Integer currentViewTime = job.getViewTimes();
-		if (currentViewTime == 0) {
-			job.setViewTimes(1);
-		} else {
-			currentViewTime++;
-		}
-		return currentViewTime;
-	}
+  @Override
+  public Integer updateViewTimesByJob(Integer jobId) {
+    Job job = jobDao.getJobById(jobId);
+    Integer currentViewTime = job.getViewTimes();
+    if (currentViewTime == 0) {
+      job.setViewTimes(1);
+    } else {
+      currentViewTime++;
+    }
+    return currentViewTime;
+  }
 
   @Override
   public City getCityByPk(Integer cityId) {
@@ -338,8 +339,8 @@ public class JobServiceImpl implements JobService {
 
   @Override
   public void updateJobByExpired(List<Job> joblistup) {
-    for(int i=0;i<joblistup.size();i++) {
-    	jobDao.updateJob(joblistup.get(i));
+    for (int i = 0; i < joblistup.size(); i++) {
+      jobDao.updateJob(joblistup.get(i));
     }
   }
 

@@ -1,8 +1,8 @@
 package com.funwork.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Blob;
 import java.sql.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Resume {
-
   private Integer resumeId;
   private String name;
   private String phoneNum;
@@ -180,5 +176,4 @@ public class Resume {
   public void setTerm2(String term2) {
     this.term2 = term2;
   }
-
 }
