@@ -122,9 +122,8 @@
 							class="form-control" name="end" id="qEndTime" readonly /> <span><input
 								class="btn btn-primary" style="margin-left: 20px" type="submit"
 								value="查詢"></span>
-						<span class="">
-<%-- 						<a style="padding-left: 600%" href='wage.xls?jobId=${postJob.jobId}'><button>匯出Excel</button></a> --%>
-<%-- 						<a style="padding-left: 600%" href='wage.pdf?jobId=${postJob.jobId}'><button>匯出PDF</button></a> --%>
+						<span>
+
 						</span>
 						</span>
 
