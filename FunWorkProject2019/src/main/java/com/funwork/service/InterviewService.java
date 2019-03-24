@@ -1,8 +1,12 @@
 package com.funwork.service;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.funwork.model.Interview;
+import com.funwork.model.Job;
+import com.funwork.model.User;
 
 public interface InterviewService {
 
@@ -31,4 +35,7 @@ public interface InterviewService {
 	List<Interview> findInterviewByAdmit(Integer jobId);
 	
 	Interview findByAdmit_Job_UserName(Integer jobId,String userName);
+
+	public List<Interview> findInterviewsByJobOwner(User jobOwner);
+	
 }

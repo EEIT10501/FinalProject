@@ -3,6 +3,8 @@ package com.funwork.dao;
 import java.util.List;
 
 import com.funwork.model.Interview;
+import com.funwork.model.Job;
+import com.funwork.model.User;
 
 public interface InterviewDao {
 	Interview findByPrimaryKey(int key);
@@ -30,5 +32,9 @@ public interface InterviewDao {
 	List<Interview> findInterviewByAdmit(Integer jobId);
 	
 	Interview findByAdmit_Job_UserName(Integer jobId,String userName);
+
+	List<Interview> findInterviewsByJobOwnerId(Job job);
+
+	List<Interview> findInterviewsByJobOwner(User jobOwner);
 
 }
