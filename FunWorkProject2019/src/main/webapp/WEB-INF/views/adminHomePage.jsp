@@ -44,6 +44,7 @@
                 </div>
                 <hr>
                 <h1>會員加值統計</h1>
+                <p id="test"></p>
                 <div class="row">
                 <div class="col-sm-6">
                 <div id="canvas-holder">
@@ -68,34 +69,21 @@
 	<script>
     var jobType = ${jobTypeJson}; 
     var orderByMouth = ${orderByMouthJson};
-    var dateStr = "";
+    var dateArray = [];
     for(var i = 0;i < orderByMouth.length;i++){
-    	if(i == orderByMouth.length - 1){
-    		dateStr = dateStr + orderByMouth[i][0] + "年" + orderByMouth[i][1] + "月";
-    	}else{
-    		dateStr = dateStr + orderByMouth[i][0] + "年" + orderByMouth[i][1] + "月,";
-    	}
+    	dateArray[i] = orderByMouth[i][0] + "年" + orderByMouth[i][1] + "月";
     }
     
-    var orderStr = "";
-    for(var i = 0;i < orderByMouth.length;i++){
-        if(i == orderByMouth.length - 1){
-        	orderStr = orderStr + orderByMouth[i][2];
-        }else{
-        	orderStr = orderStr + orderByMouth[i][2] + ",";
-        }
+    var orderArray = [];
+    for(var i = 0;i < orderByMouth.length;i++){ 
+    	orderArray[i] = orderByMouth[i][2];       
     }
     
-    var priceStr = "";
-    for(var i = 0;i < orderByMouth.length;i++){
-        if(i == orderByMouth.length - 1){
-        	 priceStr = priceStr + orderByMouth[i][3];
-        }else{
-        	 priceStr = priceStr + orderByMouth[i][3] + ",";
-        }
+    var priceArray = [];
+    for(var i = 0;i < orderByMouth.length;i++){    
+    	priceArray[i] = orderByMouth[i][3];
     }
-    
-    
+       
 	var config = {
 	          type: 'pie',
 	          data: {
@@ -144,24 +132,24 @@
 	      };
 	
 	var barChartData  = {
-            labels: [dateStr],
+            labels: dateArray,
             datasets: [{
                 label: '加值會員數',
                 backgroundColor: "red",
                 borderColor: "red",
                 borderWidth: 1,
-                data: [orderStr]
+                data: orderArray
             }]
         };
 	
 	var barChartData2  = {
-            labels: [dateStr],
+            labels: dateArray,
             datasets: [{
                 label: '總收益',
                 backgroundColor: "blue",
                 borderColor: "blue",
                 borderWidth: 1,
-                data: [priceStr]
+                data: priceArray
             }]
         };
 	

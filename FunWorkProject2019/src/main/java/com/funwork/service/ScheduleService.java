@@ -10,6 +10,8 @@ public interface ScheduleService {
 	List<Schedule> getAllSchedules();
 	
 	List<Schedule> getSchedulesByDate(Integer jobId);
+	
+	List<Schedule> getSchedulesByUser(Integer userId);
 
 //	List<Schedule> getSchedulesByJobId(Integer jobId);
 

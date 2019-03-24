@@ -13,9 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "\"User\"")
 public class User implements Serializable {
-
   private static final long serialVersionUID = 1L;
-
   private Integer userId;
   private String userName;
   private String password;
@@ -157,12 +155,11 @@ public class User implements Serializable {
     this.isOpen = isOpen;
   }
 
-public Date getVipEndDate() {
-	return vipEndDate;
-}
+  public Date getVipEndDate() {
+    return vipEndDate;
+  }
 
-public void setVipEndDate(Date vipEndDate) {
-	this.vipEndDate = vipEndDate;
-}
-
+  public void setVipEndDate(Date vipEndDate) {
+    this.vipEndDate = vipEndDate;
+  }
 }

@@ -92,7 +92,7 @@
 	                               <div class="col-sm-5">免費會員</div>
 	                            </c:when>
 	                             <c:when test="${user.mebershipLevel == 2}">
-                                   <div class="col-sm-5">黃金會員(到期日:XXXX/XX/XX)</div>
+                                   <div class="col-sm-5">黃金會員(到期日:<fmt:formatDate value="${user.vipEndDate}" pattern="yyyy/MM/dd" />)</div>
                                 </c:when>
                             </c:choose>
                         </div>

@@ -71,6 +71,8 @@ public class JobController {
     for(int i=0;i<joblist.size();i++) {
     	if((joblist.get(i).getPostEndDate().before(date))==true) {
     		joblist.get(i).setReviewStatus("已截止");
+    		joblist.get(i).setIsFilled(false);
+    		joblist.get(i).setIsExposure(false);
     		joblistup.add(joblist.get(i));
     	}
     	else {

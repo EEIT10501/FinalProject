@@ -25,7 +25,8 @@
 					success : function(data) {
 						window.alert("投遞履歷成功!");
 						notification()
-						$(".cancel").trigger("click");
+// 						$(".cancel").trigger("click");
+						location.reload();
 					}
 					});		
 			else
@@ -256,7 +257,7 @@
 
 									<tbody>
 										<tr>
-											<td><img src="/getPicture/${resumeBean.user.userId}"></td>
+											<td><img width='100' height='100' src="${pageContext.request.contextPath}/getPicture/${resumeBean.user.userId}"></td>
 											<td></td>
 										</tr>
 										<tr>

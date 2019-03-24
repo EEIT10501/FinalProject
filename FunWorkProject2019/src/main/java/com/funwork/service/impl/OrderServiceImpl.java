@@ -1,7 +1,6 @@
 package com.funwork.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,9 +51,7 @@ public class OrderServiceImpl implements OrderService {
   @Transactional
   @Override
   public String getOrderByMouth() {
-    String JsonStr = dao.getOrderByMouth();
-    System.out.println("JsonStr = " + JsonStr);
-    return JsonStr;
+    return dao.getOrderByMouth();
   }
 
 }

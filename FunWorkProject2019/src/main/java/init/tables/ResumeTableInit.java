@@ -44,6 +44,7 @@ public class ResumeTableInit {
         resume.setProfilePic(SystemUtils2018.fileToBlob(token[4].trim()));
         resume.setSelfIntro(token[5]);
         resume.setUser(session.get(User.class, Integer.valueOf(token[6])));
+        resume.setGender(token[7]);
         session.save(resume);
       }
       tx.commit();

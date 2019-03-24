@@ -48,6 +48,7 @@
 							<th>價錢</th>
 							<th>會員編號</th>
 							<th>會員姓名</th>
+							<th>交易狀態</th>						
 							<th>訂購時間</th>
 						</tr>
 					</thead>
@@ -58,7 +59,15 @@
 								<td>${order.product.productName}黃金會員</td>
 								<td>$${order.price}</td>
 								<td>${order.user.userId}</td>
-								<td>$${order.user.userName}</td>
+								<td>${order.user.userName}</td>
+								<c:choose>
+								<c:when test="${order.status == 1}">
+								<td>成功</td>
+								</c:when>
+								<c:when test="${order.status == 0}">
+                                <td>失敗</td>
+                                </c:when>
+								</c:choose>
 								<td><fmt:formatDate value="${order.orderTime}" pattern="yyyy/MM/dd HH:mm" /></td>
 							</tr>
 						</c:forEach>

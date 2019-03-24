@@ -1,0 +1,47 @@
+專題檢查進度
+履歷:完成
+登入(記住我、Google第三方登入)、登出:完成
+註冊:完成
+帳戶設定:完成
+首頁條件查詢：完成
+工作審核、申訴處理：完成
+
+Bug
+審核失敗、已截止、下架的工作：
+	不應該能編輯、置頂和設為額滿
+	剩0天刊登時間可改成適當文字
+	
+複製、編輯工作： 
+	刊登截止日期可以隨意選
+	選區需要改過一次市，完整選項才會跑出來
+    建議此功能刪除，把基本的功能bug修好
+
+server重啟後首次PO工作 就會跑到updateJobPostById 跳出Nullpoint exception：
+	
+	PO過工作Job jbean就不會是null，所以就會跑updateJobPostById
+	但jbean是一個沒有id的物件， 
+	Job jobToChange = jobDao.getJobById(jobId);
+	這裡的jobToChange是null，再呼叫 jobToChange.setIndustry(jbean.getIndustry());
+	就會報Nullpoint exception。
+		
+	po工作後 再按新增工作 會去更新上次po的工作 而不是新增工作
+	因為全域的Job 目前是上次po的工作
+	用另一個帳號新增 會更新上一個帳號PO的工作
+	
+
+工作職缺內容頁面 點sidebar 畫面會跑掉 (已改)
+
+搜尋用ajax做 很不方便 回上一頁搜尋結果全部歸零 要重按一次 (時間來不及就算了)
+
+已截止工作 把工作額滿和工作曝光都改回false (已改)
+
+工作設定已額滿 自動把曝光設成false 並且把設定曝光按鈕拿掉 (已改)
+
+應徵紀錄沒分狀態，已婉拒、待回應和全部 婉拒之後就應該把邀約和婉拒按鈕拿掉
+邀約則可以多次送沒關係，因為有面試和錄取。
+
+匯出excel和pdf目前會掛掉
+
+理論上只有發布中、已截止和下架可以點到應徵紀錄
+
+應徵紀錄 工作經驗還沒撈

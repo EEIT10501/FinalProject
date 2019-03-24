@@ -1,19 +1,13 @@
 package com.funwork.service;
 
 import com.funwork.model.User;
-import java.util.List;
 
 public interface UserService {
-
-  List<User> getAllUsers();
-
-  User findByPrimaryKey(int key);
-
   User getUserById(Integer userId);
 
   Integer insertUser(String email, String name, String password);
 
-  public boolean idExists(String email);
+  public boolean idExist(String email);
 
   User loginCheck(String email, String password);
 
@@ -27,6 +21,5 @@ public interface UserService {
 
   User getUserByEmail(String email);
 
-  void updateAccount(String email, String password, Integer userId);
-
+  void updatePassword(String password, Integer userId);
 }

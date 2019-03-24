@@ -36,7 +36,9 @@
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
+		    <div class="col-sm-2 asideblock">
 			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
+			</div>
 			<div class="col-sm-8">
 				<section>
 					<div>
@@ -74,13 +76,13 @@
 											</button>
 											</a>
 											</c:when>
-											<c:otherwise>
+											<c:when test="${!job.isExposure && !job.isFilled}">
 											<a href="<c:url value="/jobExposure/${job.jobId}"/>">
 	                                        <button type="button" class="btn btn btn-primary btn-sm" id="exp">
 	                                            <span class="glyphicon glyphicon-thumbs-up"></span>置頂曝光
 	                                        </button>
 	                                        </a>
-											</c:otherwise>
+											</c:when>
 										</c:choose>
 										<a href="<c:url value="/modJobProfile?jobId=${job.jobId}"/>">
 										<button type="button" class="btn btn btn-primary btn-sm">
@@ -158,7 +160,7 @@
                url : "${pageContext.request.contextPath}/jobExposureCount/${sessionScope.loginUser.userId}",
                type : "GET",
                success : function(data) {
-                 if(data>=${sessionScope.loginUser.exposureLimit}){
+                 if(data>=${sessionScope.loginUser.exposureLimit} && ${job.isFilled == false}){
                 	 $("#exp").attr('disabled',true);
                 	 $("#cantExp").html("您目前已無置頂額度");
                  }

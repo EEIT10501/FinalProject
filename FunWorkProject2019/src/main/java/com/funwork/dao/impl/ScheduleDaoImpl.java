@@ -46,6 +46,18 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		list = session.createQuery(hql).setParameter("endTime", date).setParameter("jobId", jobId).getResultList();
 		return list;
 	}
+	
+	@Override
+	public List<Schedule> getSchedulesByUser(Integer userId) {
+		String hql = "FROM Schedule s WHERE endTime > :endTime AND s.interview.interviewType='錄取' AND s.interview.application.user.userId=:userId";
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+
+		Date date = new Date();
+		list = session.createQuery(hql).setParameter("endTime", date).setParameter("userId", userId).getResultList();
+		return list;
+	}
 
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
