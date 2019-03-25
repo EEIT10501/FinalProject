@@ -92,12 +92,12 @@
 					<nav>
 						<strong>請輸入選擇條件: </strong>
 						&nbsp; <select id="condit1">
-							<option>發布中</option>
+							<option selected="selected">發布中</option>
 							<option>已截止</option>
 							<option>待審核</option>
 							<option>審核失敗</option>
 							<option>下架</option>
-							<option selected="selected">全部</option>
+							<option>全部</option>
 						</select> &nbsp;
 						<button id="butt1" style="width: auto;"  onclick="filterSelect()">送出</button>&nbsp&nbsp&nbsp&nbsp
 						<strong>目前篩選條件: </strong>
