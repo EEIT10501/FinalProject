@@ -69,7 +69,6 @@
 			}else{
 				table.column(4).search(status).draw();
 			}
-// 			var path = $('#filterPath').html();
 			$('#filterPath').text(status);
 	}
 	$(document).ready(function() {
@@ -77,48 +76,6 @@
  		 table = $('#example').DataTable();
 		
 		var contextPath = $("#contextPath").attr('value');
-		
-
-		// 		$("#butt1").click(function() {
-
-		// 			$.ajax({
-		// 				url : contextPath +  "/resultCorStatsJSON/"+status,
-		// 				cache : false,
-		// 				type : "GET",
-		// 				dataType: 'json',
-		// 				success: function(json) {
-		// 					   console.log(JSON.stringify(json));
-		// 					   jQuery.fn.exists = function(){ return this.length > 0; }
-		// 					   $('#clearTable').hide();
-		// 					   var rowHead  = '<thead><tr><th>筆數 </th>'+
-		// 							'<th>名稱 </th>'+
-		// 							'<th>統編 </th>'+
-		// 							'<th>地址 </th>'+
-		// 							'<th>狀態 </th>'+
-		// 							'<th>資料 </th></tr></thead><tbody>';
-		// 						var tableContent ="";
-		// 					   $.each(json, function(index, element){
-		// 						 var idx = parseInt(index);
-		// 						 var n = parseInt(1);
-		// 					     var dataRow = '<tr><td>'+ (idx+n) +'</td>'+
-		// 					    		 		'<td>'+element.name+'</td>'+
-		// 					    		 		'<td>'+element.taxId+'</td>'+
-		// 					    		 		'<td>'+element.address+'</td>'+
-		// 					    		 		'<td>'+element.reviewStatus+'</td>'+
-		// 					  "<td><a href='<spring:url value='company?id="+element.companyId+"'/>' class='btn btn-info btn-sm'>"+
-		// 					  "<span class='glyphicon-info-sigh glyphicon'></span>詳細資料</a></td>"+
-		// 					  "</tr>";
-		// 					    	tableContent += dataRow;
-		// 					   	});
-		// 					   var myTable = rowHead + tableContent+'</tbody>';
-		// 					   	$('#testField').html(myTable);
-		// 						$('#testField').DataTable();
-		// 				},
-		// 				error : function(xhr) {
-		// 					alert("failure");
-		// 				}
-		// 			});
-		// 		});
 	});
 </script>
 <body>
@@ -145,8 +102,8 @@
 							<option>待審核</option>
 							<option>審核失敗</option>
 							<option>審核通過</option>
-							<option>全部</option>
 							<option>公司完成建檔</option>
+							<option  selected="selected">全部</option>
 						</select> 
 						<button id="butt1" style="width: auto" onclick="filterSelect()">確定送出</button>
 
