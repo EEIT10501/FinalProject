@@ -111,7 +111,7 @@ background-color:white;
 					<a class="nav-link" href="<c:url value='/qapage'/>">常見問題</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">聯絡我們</a>
+					<a class="nav-link" href="<c:url value='/insertSg'/>">聯絡我們</a>
 				</li>
 				<c:if test="${loginUser!=null}">
 					<li class="nav-item">

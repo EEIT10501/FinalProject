@@ -38,13 +38,13 @@
 				<div class="list-group" id="apList"></div>
 			</div>
 			<div class="col-sm-8">
-				<h1>${application.job.title}</h1>
+				<h1><a href="<c:url value='/jobDetail/${application.job.jobId}' />">${application.job.title}</a></h1>
 				<c:choose>
 					<c:when test="${user.userId == application.user.userId}">
 						<p>您於<fmt:formatDate value="${application.applicationTime}" pattern="yyyy/MM/dd" />應徵了此工作</p>
 					</c:when>
 					<c:otherwise>
-						<p>${application.user.userName}於<fmt:formatDate value="${application.applicationTime}" pattern="yyyy/MM/dd" />應徵了此工作</p>
+						<p><a href="<c:url value='/applications?id=${application.job.jobId}' />">${application.user.userName}</a>於<fmt:formatDate value="${application.applicationTime}" pattern="yyyy/MM/dd" />應徵了此工作</p>
 					</c:otherwise>
 				</c:choose>		
 				<div style="width:100%;height:400px;overflow:auto" id="myDiv">	

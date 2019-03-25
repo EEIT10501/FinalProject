@@ -179,7 +179,7 @@ public class Company implements Serializable {
     this.licensure = licensure;
   }
 
-  @Column(columnDefinition = "nvarchar(255) default '審查中' ")
+  @Column(columnDefinition = "nvarchar(255) default '待審核' ")
   public String getReviewStatus() {
     return reviewStatus;
   }
