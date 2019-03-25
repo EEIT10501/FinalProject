@@ -10,12 +10,19 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <title>navbar</title>
 <style>
+.footerbackground {
+	background: #0878A4;
+	color: white;
+	font-weight:700;
+}
+
 .btn {
 	margin-right: 5px;
 }
 
 .navbarback{ 
  background-color:white; 
+ opacity:0.8;
  } 
 
 .navbar-brand{
@@ -28,6 +35,11 @@ color:#03353E;
 
 .nav-item {
 margin-left:5px;
+}
+
+.navbar-brand{
+color:#04060F;
+font-weight:900;
 }
 
 .nav-link{
@@ -56,7 +68,7 @@ background-color:#0878A4;
 border:solid 1px #0878A4;
 margin-left:5px;
 border-radius:5px;
-color:#1ECFD6;
+color:#EDD170;
 }
 
 .fixed-top:scrollTop{
@@ -70,7 +82,7 @@ background-color:white;
 	<nav class="navbar navbar-expand-lg fixed-top bg-gradient-info">
 		<a class="navbar-brand" href="<c:url value='/'/>"> 
 			<img src="<c:url value='/image/LOGO.jpg'/>" width="30" height="30" 
-			     class="d-inline-block align-top">EEIT趣打工
+			     class="d-inline-block align-top">&nbsp;EEiT趣打工
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" 
 		        data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" 
@@ -124,7 +136,7 @@ background-color:white;
 				<span class="navbar-text my-2 my-sm-0" id="logoutspan"> 
 					<button class="nav-link navbuttonlogin" data-toggle="modal" 
 					   data-target="#logoutModal">
-						<c:out value="${loginUser.userName} : 您好"></c:out>
+						<c:out value="${loginUser.userName} ， 您好"></c:out>
 					</button>
 				</span>
 			</c:if>
