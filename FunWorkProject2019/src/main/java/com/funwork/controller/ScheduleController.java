@@ -27,6 +27,7 @@ import com.funwork.model.Interview;
 import com.funwork.model.Schedule;
 import com.funwork.model.User;
 import com.funwork.model.Job;
+import com.funwork.model.Resume;
 import com.funwork.service.InterviewService;
 import com.funwork.service.JobService;
 import com.funwork.service.ScheduleService;
@@ -257,6 +258,9 @@ public class ScheduleController {
 		User loginUser = (User) session.getAttribute("loginUser");
 		if (loginUser != null) {
 			model.addAttribute("user", loginUser);
+			List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+			model.addAttribute("staffSchedules", staffSchedules);
+			System.out.println("staffSchedules size:"+staffSchedules.size());
 			return "schedule/wageStaff";
 		} else {
 			return "redirect:/";
@@ -271,9 +275,13 @@ public class ScheduleController {
 		if (loginUser != null) {
 			if (start.equals("") || end.equals("")) {
 				model.addAttribute("user", loginUser);
+				List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+				model.addAttribute("staffSchedules", staffSchedules);
 				return "schedule/wageStaff";
 			} else
 				model.addAttribute("user", loginUser);
+			List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+			model.addAttribute("staffSchedules", staffSchedules);
 
 			String ad = new String(" 00:00:00");
 			String ed = new String(" 23:00:00");
@@ -385,6 +393,5 @@ public class ScheduleController {
 
 		return "schedule/ScheduleCalendar";
 	}
-
 
 }
