@@ -68,6 +68,17 @@
 	</div>
 	<script>
     var jobType = ${jobTypeJson}; 
+    
+    var jobCountArray = [];
+    for(var i = 0;i < jobType.length;i++){
+    	jobCountArray[i] = jobType[i][1];
+    }
+    
+    var jobTypeArray = [];
+    for(var i = 0;i < jobType.length;i++){
+    	jobTypeArray[i] = jobType[i][0];
+    }
+    
     var orderByMouth = ${orderByMouthJson};
     var dateArray = [];
     for(var i = 0;i < orderByMouth.length;i++){
@@ -88,18 +99,7 @@
 	          type: 'pie',
 	          data: {
 	              datasets: [{
-	                  data: [
-	                  	jobType[9][1],
-	                  	jobType[2][1],
-	                  	jobType[7][1],
-	                  	jobType[8][1],
-	                  	jobType[3][1],
-	                  	jobType[0][1],
-	                  	jobType[5][1],
-	                  	jobType[4][1],
-	                  	jobType[6][1],
-	                  	jobType[1][1]
-	                  ],
+	                  data: jobCountArray,
 	                  backgroundColor: [
 	                      "red",
 	                      "orange",
@@ -111,20 +111,9 @@
 	                      "Sienna",
 	                      "Magenta",
 	                      "SkyBlue",
-	                  ]
+	                  ],
 	              }],
-	              labels: [
-	                  '餐飲',
-	                  '服務',
-	                  '銷售',
-	                  '辦公',
-	                  '活動',
-	                  '作業員',
-	                  '勞力',
-	                  '問券調查',
-	                  '補教',
-	                  '其他'
-	              ]
+	              labels: jobTypeArray
 	          },
 	          options: {
 	              responsive: true

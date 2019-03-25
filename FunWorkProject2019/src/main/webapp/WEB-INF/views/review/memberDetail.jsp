@@ -102,12 +102,25 @@
                             </div>
                             <div class="col-sm-5">${user.exposureLimit}件<span id="expNum"></span></div>
                         </div>
-                        <div class="row justify-content-center">
-                            <div class="col-sm-3">
-                                <h5>職缺刊登額度</h5>
-                            </div>
-                            <div class="col-sm-5">${user.jobPostLimit}件<span id="postNum"></span></div>
-                        </div>
+                        <c:choose>
+                                <c:when test="${user.mebershipLevel == 1}">
+                                   <div class="row justify-content-center">
+						                 <div class="col-sm-3">
+						                     <h5>職缺刊登額度</h5>
+						                 </div>
+						                 <div class="col-sm-5">${user.jobPostLimit}件<span id="postNum"></span></div>
+			                       </div>
+                                </c:when>
+                                 <c:when test="${user.mebershipLevel == 2}">
+                                   <div class="row justify-content-center">
+			                          <div class="col-sm-3">
+			                              <h5>職缺刊登額度</h5>
+			                          </div>
+			                          <div class="col-sm-5">無上限<span id="postNum"></span></div>
+			                      </div>
+                                </c:when>
+                            </c:choose>
+                        
                         <div class="row justify-content-center">
                             <div class="col-sm-3">
                                 <h5>職缺刊登期限</h5>
