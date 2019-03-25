@@ -108,7 +108,7 @@
 											</button>
 											</a>
 										</c:if>
-										<c:if test="${(job.reviewStatus =='發布中') or (job.reviewStatus =='審核失敗')}">
+										<c:if test="${(job.reviewStatus =='發布中') or (job.reviewStatus =='審核失敗') or (job.reviewStatus =='已截止')}">
 											
 											<a href="<c:url value="/replicate?jobId=${job.jobId}"/>">
 											<button name="replicate" value="複製" type="button" class="btn btn btn-primary btn-sm">
@@ -116,8 +116,9 @@
 											</button>
 											</a>想快速上線工作職缺
 										</c:if>
+										<c:if test="${job.reviewStatus == '發布中'}">
 										<c:choose>
-                                            <c:when test="${(job.isFilled) and (job.reviewStatus == '發布中')}">
+                                            <c:when test="${(job.isFilled)}">
 												<a href="<c:url value="/jobFilled/${job.jobId}"/>">
 												<button type="button" class="btn btn-warning btn-sm" style="float: right">
 													<span class="glyphicon glyphicon-thumbs-up"></span>取消額滿
@@ -132,6 +133,7 @@
 	                                            </a>
                                             </c:otherwise>
 										</c:choose>
+										</c:if>
 									</div>
 									<p>
 								</div>
@@ -174,7 +176,7 @@
                url : "${pageContext.request.contextPath}/jobExposureCount/${sessionScope.loginUser.userId}",
                type : "GET",
                success : function(data) {
-                 if(data>=${sessionScope.loginUser.exposureLimit} && ${job.isFilled == false}){
+                 if(data>=${sessionScope.loginUser.exposureLimit} && ${job.isFilled == false} && ${job.reviewStatus == '發布中'}){
                 	 $("#exp").attr('disabled',true);
                 	 $("#cantExp").html("您目前已無置頂額度");
                  }
