@@ -106,10 +106,9 @@ public class ApplicationDaoImp implements ApplicationDao {
 	public List<Application> getApplicationByUserIdByTime(Integer userId) {
 
 		Session session = factory.getCurrentSession();
-		String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2)"
+		String hql = "FROM Application a WHERE (a.user.userId = :userId)"
 				+ "ORDER BY a.applicationTime ";
-		List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId)
-				.getResultList();
+		List<Application> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
 		return list;
 	}
 
