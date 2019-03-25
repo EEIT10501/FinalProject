@@ -65,19 +65,21 @@
 	function filterSelect() {
 			
 			var status = $("#condit1").find(":selected").text();
-			if(status == '全部' ){
-				table.column(4).search("").draw();
-			}else{
-				table.column(4).search(status).draw();
+			if(status == '全部'){
+				table.column(3).search('').draw();
+			}
+			else{
+				table.column(3).search(status).draw();
+			alert("uuuuuuu");
 			}
 			$('#filterPath').text(status);
 	}
 	
 	$(document).ready(function() {
 		$.noConflict();
+		table = $('#example').DataTable();
 		var status = $("#condit1").find(":selected").text();
 		$('#filterPath').text(status);
-		table = $('#example').DataTable();
 		
 		var contextPath = $("#contextPath").attr('value');
 	});
@@ -106,7 +108,6 @@
 							<option>待審核</option>
 							<option>審核失敗</option>
 							<option>審核通過</option>
-							<option>公司完成建檔</option>
 							<option  selected="selected">全部</option>
 						</select> 
 						<button id="butt1" style="width: auto" onclick="filterSelect()">確定送出</button>
@@ -143,7 +144,7 @@
 															class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
 													</a></td>
 												</c:when>
-												<c:when test="${company.reviewStatus =='公司完成建檔'}">
+												<c:when test="${company.reviewStatus =='完成公司建檔'}">
 													<td><a
 														href='<spring:url value="company?id=${company.companyId}"/>'
 														class="btn btn-info btn-sm"> <span
