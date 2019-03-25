@@ -50,6 +50,7 @@ public class Job {
 	private String cityArea;
 	private String cityName;
 	private String companyName;
+	
 	private Integer appsList;
 
 	public Job() {
