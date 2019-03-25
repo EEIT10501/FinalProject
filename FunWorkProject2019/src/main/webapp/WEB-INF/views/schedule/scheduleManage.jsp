@@ -20,7 +20,7 @@
 <!-- <script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script> -->
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src='<c:url value="/js/jquery-1.7.1.min.js"/>'></script>
+<%-- <script type="text/javascript" src='<c:url value="/js/jquery-1.7.1.min.js"/>'></script> --%>
 
 <script type="text/javascript" src='<c:url value="/js/jquery.fancybox-1.3.4.pack.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/js/jquery.timepicker.js"/>'></script>
@@ -81,12 +81,13 @@
 <body>
 	
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp" %>
-	<script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script>
+<!-- 	<script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script> -->
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2">
 				<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp" %>
+<!-- 					<script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script> -->
 			</div>
 			<div class="col-sm-8">
 				<!--             程式寫在這 -->
@@ -139,22 +140,23 @@
 				<!-- 		</div> -->
 			</c:forEach>
 		</tbody>
-		<tfoot>
-			<tr>
-				<th>班別代碼</th>
-				<th>班別名稱</th>
-				<th>識別色</th>
-				<th>起始時間</th>
-				<th>結束時間</th>
-				<th>休息時間</th>
-				<th>工時</th>
-				<th>編輯</th>
-			</tr>
-		</tfoot>
+<!-- 		<tfoot> -->
+<!-- 			<tr> -->
+<!-- 				<th>班別代碼</th> -->
+<!-- 				<th>班別名稱</th> -->
+<!-- 				<th>識別色</th> -->
+<!-- 				<th>起始時間</th> -->
+<!-- 				<th>結束時間</th> -->
+<!-- 				<th>休息時間</th> -->
+<!-- 				<th>工時</th> -->
+<!-- 				<th>編輯</th> -->
+<!-- 			</tr> -->
+<!-- 		</tfoot> -->
 	</table>
 
 
 <!-- <script type='text/javascript'> var jQuery132 = jQuery.noConflict(true); </script> -->
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("a#addSchedule,a#updateSchedule").live('click', function(e) {
