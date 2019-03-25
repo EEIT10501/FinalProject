@@ -50,6 +50,8 @@
 	$(document).ready(function() {
 		$.noConflict();
 		table = $('#example').DataTable();
+		var status = $("#condit1").find(":selected").text();
+		$('#filterPath').text(status);
 
 		var contextPath = $("#contextPath").attr('value');
 
@@ -102,7 +104,6 @@
 						<button id="butt1" style="width: auto;"  onclick="filterSelect()">送出</button>&nbsp&nbsp&nbsp&nbsp
 						<strong>目前篩選條件: </strong>
 						<span class='label label-warning' id="filterPath"></span> 
-<!-- 						<p></p> -->
 						<button id="jobPostBut" style="width: auto; float: right;s"
 							onclick="window.location='addJobProfile'">張貼新工作</button>
 					</nav>
