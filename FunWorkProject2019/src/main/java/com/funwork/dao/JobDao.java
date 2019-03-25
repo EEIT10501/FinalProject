@@ -38,5 +38,7 @@ public interface JobDao {
   Integer getAllJobPostingCount();
 
   String getAllPostingJobTypeJson();
+  
+  void updateJobByExpired();
 
 }

@@ -64,23 +64,10 @@ public class JobController {
 
   @RequestMapping("/jobs")
   public String Jobs(Model model) {
+	jobService.updateJobByExpired();
     List<Job> joblist = jobService.getCorrectJobs();
-    List<Job> joblist2 = new ArrayList<Job>();
-    List<Job> joblistup = new ArrayList<Job>();
-    Date date = new Date();
-    for(int i=0;i<joblist.size();i++) {
-    	if((joblist.get(i).getPostEndDate().before(date))==true) {
-    		joblist.get(i).setReviewStatus("已截止");
-    		joblist.get(i).setIsFilled(false);
-    		joblist.get(i).setIsExposure(false);
-    		joblistup.add(joblist.get(i));
-    	}
-    	else {
-    		joblist2.add(joblist.get(i));
-    	}
-    }
-    jobService.updateJobByExpired(joblistup);
-    model.addAttribute("jobs", joblist2);
+    
+    model.addAttribute("jobs", joblist);
     return "jobs";
   }
 
