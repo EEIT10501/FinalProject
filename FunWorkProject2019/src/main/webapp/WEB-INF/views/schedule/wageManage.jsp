@@ -126,10 +126,12 @@
 							</select></span> <br> <span style="padding-left: 10px">請輸入欲查詢的月份：</span> <span
 								class="input-group  col-md-6" data-date-format="yyyy-mm-dd">
 								<input type="text" class="form-control" name="start"
-								id="qBeginTime" readonly /> <span>~ </span> <input type="text"
-								class="form-control" name="end" id="qEndTime" readonly /> <span><input
+								id="qBeginTime" readonly  value="${btn1}"/> <span>~ </span> <input type="text"
+								class="form-control" name="end" id="qEndTime" readonly  value="${btn2}"/> <span><input
 									class="btn btn-primary" style="margin-left: 20px" type="submit"
 									value="查詢"></span> <span> </span>
+									
+									<button class="btn btn-primary" style="margin-left: 20px" id="qSchedule" type="submit"  formaction="${pageContext.request.contextPath}/showSchedules">匯出Excel </button>
 							</span>
 
 							<!-- -------------- -->
