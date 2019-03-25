@@ -109,76 +109,91 @@
 				<hr>
 
 				<!--		日期篩選條件			-->
-				<form action="${pageContext.request.contextPath}/selectWageStaff" method="post">
-					<div>
-<!-- 						<span style="padding-left: 10px">請輸入您所刊登的職缺： <select name="jobId"> -->
-<%-- 								<c:forEach var="postJob" items="${postJobList}"> --%>
-<%-- 									<option value="${postJob.jobId}">${postJob.title}</option> --%>
-<%-- 								</c:forEach> --%>
-<!-- 						</select></span> <br>  -->
-						<span style="padding-left: 10px"> 請輸入欲查詢的月份：</span> <span
-							class="input-group  col-md-6" data-date-format="yyyy-mm-dd">
-							<input type="text" class="form-control" name="start"
-							id="qBeginTime" readonly /> <span>~ </span> <input type="text"
-							class="form-control" name="end" id="qEndTime" readonly /> <span><input
-								class="btn btn-primary" style="margin-left: 20px" type="submit"
-								value="查詢"></span>
-						</span>
-						<!-- -------------- -->
+				<c:if test="${empty staffSchedules}">
+					<h5>
+						您目前尚未錄取任何工作，請先至<a href="<c:url value='/jobs'></c:url>">工作專區</a>應徵工作。
+					</h5>
 
-						<!-- -------------- -->
+				</c:if>
+				<c:if test="${!empty staffSchedules}">
+					<form action="${pageContext.request.contextPath}/selectWageStaff"
+						method="post">
+						<div>
+							<!-- 						<span style="padding-left: 10px">請輸入您所刊登的職缺： <select name="jobId"> -->
+							<%-- 								<c:forEach var="postJob" items="${postJobList}"> --%>
+							<%-- 									<option value="${postJob.jobId}">${postJob.title}</option> --%>
+							<%-- 								</c:forEach> --%>
+							<!-- 						</select></span> <br>  -->
+							<span style="padding-left: 10px"> 請輸入欲查詢的月份：</span> <span
+								class="input-group  col-md-6" data-date-format="yyyy-mm-dd">
+								<input type="text" class="form-control" name="start"
+								id="qBeginTime" readonly /> <span>~ </span> <input type="text"
+								class="form-control" name="end" id="qEndTime" readonly /> <span><input
+									class="btn btn-primary" style="margin-left: 20px" type="submit"
+									value="查詢"></span>
+							</span>
+							<!-- -------------- -->
 
-					</div>
-				</form>
-				<!--		薪資資料表			-->
-				<section
-					style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-					<table class="table table-hover display" id="example">
-						<thead>
-							<tr>
-								<th>姓名</th>
-								<th>日期</th>
-								<th>起時</th>
-								<th>訖時</th>
-								<th>休息時數</th>
-								<th>時薪</th>
-								<th>每日工時</th>
-								<th>每日小計</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="admitSchedule" items="${staffScheduleList}">
-								<c:set var="hrTotal" value="${hrTotal+admitSchedule.workingHours}"></c:set>
-								<c:set var="wageTotal" value="${hrTotal*admitSchedule.interview.application.job.rateByHour}"></c:set>
+							<!-- -------------- -->
+
+						</div>
+					</form>
+					<!--		薪資資料表			-->
+					<section
+						style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
+						<table class="table table-hover display" id="example">
+							<thead>
 								<tr>
-									<td>${admitSchedule.scheduleName}</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${admitSchedule.startTime}" /></td>									
-									<td><fmt:formatDate value="${admitSchedule.startTime}" pattern="HH:mm" /></td>					
-									<td><fmt:formatDate value="${admitSchedule.endTime}" pattern="HH:mm" /></td>
-									<td>${admitSchedule.restHour}</td>
-									<td>${admitSchedule.interview.application.job.rateByHour}</td>
-									<td>${admitSchedule.workingHours}</td>
-									<td><fmt:formatNumber value="${admitSchedule.workingHours*admitSchedule.interview.application.job.rateByHour}" type="currency"/></td>									
+									<th>姓名</th>
+									<th>日期</th>
+									<th>起時</th>
+									<th>訖時</th>
+									<th>休息時數</th>
+									<th>時薪</th>
+									<th>每日工時</th>
+									<th>每日小計</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th>總計</th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th>${hrTotal}</th>
-								<th><fmt:formatNumber value="${wageTotal}" type="currency"/></th>
-							</tr>
-						</tfoot>
-					</table>
-					<table class="table table-hover display" id="testField">
-					</table>
-				</section>
-
+							</thead>
+							<tbody>
+								<c:forEach var="admitSchedule" items="${staffScheduleList}">
+									<c:set var="hrTotal"
+										value="${hrTotal+admitSchedule.workingHours}"></c:set>
+									<c:set var="wageTotal"
+										value="${hrTotal*admitSchedule.interview.application.job.rateByHour}"></c:set>
+									<tr>
+										<td>${admitSchedule.scheduleName}</td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd"
+												value="${admitSchedule.startTime}" /></td>
+										<td><fmt:formatDate value="${admitSchedule.startTime}"
+												pattern="HH:mm" /></td>
+										<td><fmt:formatDate value="${admitSchedule.endTime}"
+												pattern="HH:mm" /></td>
+										<td>${admitSchedule.restHour}</td>
+										<td>${admitSchedule.interview.application.job.rateByHour}</td>
+										<td>${admitSchedule.workingHours}</td>
+										<td><fmt:formatNumber
+												value="${admitSchedule.workingHours*admitSchedule.interview.application.job.rateByHour}"
+												type="currency" /></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+							<tfoot>
+								<tr>
+									<th>總計</th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th>${hrTotal}</th>
+									<th><fmt:formatNumber value="${wageTotal}" type="currency" /></th>
+								</tr>
+							</tfoot>
+						</table>
+						<table class="table table-hover display" id="testField">
+						</table>
+					</section>
+					</c:if>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

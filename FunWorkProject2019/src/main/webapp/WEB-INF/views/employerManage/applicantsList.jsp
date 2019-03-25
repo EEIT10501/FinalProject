@@ -132,10 +132,10 @@
 															
 															<div style="float: right">
 																<button type="button" class="btn btn-warning btn-sm"
-																	data-toggle="modal" data-target="#interviewModal">
+																	data-toggle="modal" data-target="#${applicant.user.userName}">
 																	<span class="glyphicon glyphicon-thumbs-up"></span> 邀約
 																</button>
-																<div class="modal fade" id="interviewModal"
+																<div class="modal fade" id="${applicant.user.userName}"
 																	tabindex="-1" role="dialog"
 																	aria-labelledby="exampleModalLabel" aria-hidden="true">
 																	<div class="modal-dialog" role="document">
@@ -169,8 +169,8 @@
 																								<div class="form-check form-check-inline">
 																									<input class="form-check-input" type="radio"
 																										name="interType" id="exampleRadios2"
-																										value="上工"> <label
-																										class="form-check-label" for="exampleRadios2">上工</label>
+																										value="錄取"> <label
+																										class="form-check-label" for="exampleRadios2">錄取</label>
 																								</div>
 																							</div>
 																						</div>

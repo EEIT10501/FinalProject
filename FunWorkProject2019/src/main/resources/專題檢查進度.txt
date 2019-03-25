@@ -4,31 +4,30 @@
 註冊:完成
 帳戶設定:完成
 首頁條件查詢：完成
-工作審核、申訴處理：完成
+後臺、聊天：完成
 
 Bug
 審核失敗、已截止、下架的工作：
-	不應該能編輯、置頂和設為額滿
-	剩0天刊登時間可改成適當文字
-	
+    不應該能編輯、置頂和設為額滿
+    剩0天刊登時間可改成適當文字
+    
 複製、編輯工作： 
-	刊登截止日期可以隨意選
-	選區需要改過一次市，完整選項才會跑出來
+    刊登截止日期可以隨意選
+    選區需要改過一次市，完整選項才會跑出來
     建議此功能刪除，把基本的功能bug修好
 
 server重啟後首次PO工作 就會跑到updateJobPostById 跳出Nullpoint exception：
-	
-	PO過工作Job jbean就不會是null，所以就會跑updateJobPostById
-	但jbean是一個沒有id的物件， 
-	Job jobToChange = jobDao.getJobById(jobId);
-	這裡的jobToChange是null，再呼叫 jobToChange.setIndustry(jbean.getIndustry());
-	就會報Nullpoint exception。
-		
-	po工作後 再按新增工作 會去更新上次po的工作 而不是新增工作
-	因為全域的Job 目前是上次po的工作
-	用另一個帳號新增 會更新上一個帳號PO的工作
-	
-
+    
+  PO過工作Job jbean就不會是null，所以就會跑updateJobPostById
+     但jbean是一個沒有id的物件， 
+  Job jobToChange = jobDao.getJobById(jobId);
+     這裡的jobToChange是null，再呼叫 jobToChange.setIndustry(jbean.getIndustry());
+     就會報Nullpoint exception。
+        
+ po工作後 再按新增工作 會去更新上次po的工作 而不是新增工作
+    因為全域的Job 目前是上次po的工作
+    用另一個帳號新增 會更新上一個帳號PO的工作
+    
 工作職缺內容頁面 點sidebar 畫面會跑掉 (已改)
 
 搜尋用ajax做 很不方便 回上一頁搜尋結果全部歸零 要重按一次 (時間來不及就算了)
@@ -45,3 +44,20 @@ server重啟後首次PO工作 就會跑到updateJobPostById 跳出Nullpoint exce
 理論上只有發布中、已截止和下架可以點到應徵紀錄
 
 應徵紀錄 工作經驗還沒撈
+
+求職專區的 最近應徵 是要看最近應徵自己工作的? 還是看自己最近應徵的工作?
+如果是最近應徵自己工作的  已經和職缺管理的功能重複 
+
+薪資是否只做查詢 評分部分無法加入? 是的話就加在雇主邀約管理的地方(邀約註記)
+
+邀約管理傳訊息 聊天的連結給成userId
+
+查詢班表如果起訖都選當日 會查詢不到
+
+沒PO工作按薪資查詢會掛掉 因為找不到jobId
+
+沒有發布中工作 新增班表右下會有一個編輯 按了會掛且版面跑掉  (190325 14:19 已完成by奕璋)
+
+班別管理(似乎是不用的功能) 可以看到同個工作其他人的排班
+
+黃金會員產品有分置頂曝光的額度 但程式碼似乎沒有set? merbershiplevel設為2 職缺優先審核沒有做  (190325 14:19 已完成by奕璋)

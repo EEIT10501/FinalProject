@@ -188,5 +188,14 @@ public class JobDaoImpl implements JobDao {
         .setParameter("nowdate", new Date(System.currentTimeMillis())).getResultList();
     return new Gson().toJson(list);
   }
+  
+  @Override
+  public void updateJobByExpired() {	  
+	  String hql = "UPDATE Job SET reviewStatus = '已截止' , isFilled = false , isExposure = false WHERE postEndDate < :todayDate";  
+	  Session session = factory.getCurrentSession();
+	  
+	  java.util.Date date = new java.util.Date();
+	  session.createQuery(hql).setParameter("todayDate", date).executeUpdate();
+  }
 
 }

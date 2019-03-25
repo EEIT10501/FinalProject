@@ -133,7 +133,7 @@
 																<div class="panel panel-default text-left">
 																	<div class="panel-body">
 																		<h6>
-																			<strong>您收到一則「<a href="#">${interview.interviewType}</a>」邀約，來自您應徵的工作「
+																			<strong>您收到一則「<a style="color:blue;";>${interview.interviewType}</a>」邀約，來自您應徵的工作「
 																				<a
 																				href='<c:url value="/jobDetail/${interview.application.job.jobId}"/>'>${interview.application.job.title}</a>」，請於到期前回覆此邀約
 																			</strong>
@@ -165,7 +165,7 @@
 																			</c:when>
 																			<c:otherwise>
 																				<br>
-																				<a href="">您已${interview.interviewStatus}此邀約。</a>
+																				<a style="color:blue;">您已${interview.interviewStatus}此邀約。</a>
 																			</c:otherwise>
 																		</c:choose>
 																		<hr>
@@ -250,8 +250,7 @@
 									</div>
 								</div>
 
-								<div class="card-footer small text-muted">Updated
-									yesterday at 11:59 PM</div>
+								<div class="card-footer small text-muted"></div>
 							</div>
 
 							<!-- DataTables Example -->
@@ -289,7 +288,7 @@
 																timeStyle="short"
 																value="${applicatioList.applicationTime}" /></td>
 														<td><a href="${pageContext.request.contextPath}/chat/${applicatioList.applicationId}">
-																<button type="button" class="btn btn-primary btn-sm" style="float: a;">
+																<button type="button" class="btn btn-primary btn-sm" style="float:inherit;">
 																	<span class="glyphicon glyphicon-thumbs-up"></span>傳訊給應徵者
 																</button>
 														</a></td>
@@ -300,8 +299,7 @@
 										</c:if>
 									</div>
 								</div>
-								<div class="card-footer small text-muted">Updated
-									yesterday at 11:59 PM</div>
+								<div class="card-footer small text-muted"></div>
 							</div>
 							<!-- /.container-fluid -->
 

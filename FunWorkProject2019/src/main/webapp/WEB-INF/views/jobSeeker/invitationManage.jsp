@@ -100,7 +100,7 @@
 																		<div class="panel panel-default text-left">
 																			<div class="panel-body">
 																				<h6>
-																					<strong>您收到一則「<a href="#">${interview1.interviewType}</a>」邀約，來自您應徵的「
+																					<strong>您收到一則「<a style="color:blue;">${interview1.interviewType}</a>」邀約，來自您應徵的「
 																						<a
 																						href='<c:url value="/jobDetail/${interview1.application.job.jobId}"/>'>${interview1.application.job.title}</a>」工作，請於到期前回覆此邀約
 																					</strong>
@@ -133,7 +133,7 @@
 																				</c:when>
 																				<c:otherwise>
 																				<br>
-																				<a href="">您已${interview1.interviewStatus}此邀約。</a>
+																				<a style="color:blue;">您已${interview1.interviewStatus}此邀約。</a>
 																				</c:otherwise>	
 																				</c:choose>
 																				<hr>
@@ -241,7 +241,7 @@
 																		<div class="panel panel-default text-left">
 																			<div class="panel-body">
 																				<h6>
-																					<strong>您已完成一則「<a href="#">${interview2.interviewType}</a>」邀約，來自您應徵的「
+																					<strong>您已完成一則「<a style="color:blue;">${interview2.interviewType}</a>」邀約，來自您應徵的「
 																						<a
 																						href='<c:url value="/jobDetail/${interview2.application.job.jobId}"/>'>${interview2.application.job.title}</a>」工作
 																					</strong>
@@ -288,7 +288,7 @@
 																		<div class="panel panel-default text-left">
 																			<div class="panel-body">
 																				<h6>
-																					<strong>您有一則失效的「<a href="#">${interview3.interviewType}</a>」邀約，來自您應徵的「
+																					<strong>您有一則失效的「<a style="color:blue;">${interview3.interviewType}</a>」邀約，來自您應徵的「
 																						<a
 																						href='<c:url value="/jobDetail/${interview3.application.job.jobId}"/>'>${interview3.application.job.title}</a>」工作
 																					</strong>
@@ -319,8 +319,7 @@
 										
 										</div>
 								</div>
-								<div class="card-footer small text-muted">Updated
-									yesterday at 11:59 PM</div>
+								<div class="card-footer small text-muted"></div>
 							</div>
 							<!-- DataTables Example -->
 

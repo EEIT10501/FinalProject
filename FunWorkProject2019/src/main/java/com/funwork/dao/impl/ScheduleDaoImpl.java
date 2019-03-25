@@ -149,5 +149,26 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return schedule;
 
 	}
+	
+	@Override
+	public List<Schedule> getUserScheduleByRange(Integer userId,Date time1,Date time2){
+		String hql = "FROM Schedule s WHERE endTime BETWEEN :time1 AND :time2 AND s.interview.interviewType='錄取' AND s.interview.application.user.userId=:userId";
+		
+		Session session = factory.getCurrentSession();
+		List<Schedule> list = session.createQuery(hql).setParameter("time1", time1).setParameter("time2", time2).setParameter("userId", userId).getResultList();
+		
+		return list;
+		
+	}
+	
+	@Override
+	public List<Schedule> getJobSchedulesByRange(Integer jobId,Date time1,Date time2) {
+		String hql = "FROM Schedule s WHERE endTime BETWEEN :time1 AND :time2 AND s.interview.interviewType='錄取' AND s.interview.application.job.jobId=:jobId";
+		Session session = null;
+		List<Schedule> list = new ArrayList<>();
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).setParameter("time1", time1).setParameter("time2", time2).setParameter("jobId", jobId).getResultList();
+		return list;
+	}
 
 }

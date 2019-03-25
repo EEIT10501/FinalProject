@@ -113,8 +113,10 @@ public class OrderController {
 				cal.add(Calendar.DATE, 30);
 			} else if (order.getProduct().getProductId() == 2) {
 				cal.add(Calendar.DATE, 180);
+				user.setExposureLimit(2);
 			} else if (order.getProduct().getProductId() == 3) {
 				cal.add(Calendar.DATE, 365);
+				user.setExposureLimit(5);
 			}
 			
 			java.sql.Date sqldate = new java.sql.Date(0);
@@ -131,14 +133,17 @@ public class OrderController {
 				} else if (order.getProduct().getProductId() == 2) {
 					cal.add(Calendar.DATE, 180);
 					user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+					user.setExposureLimit(2);
 				} else if (order.getProduct().getProductId() == 3) {
 					cal.add(Calendar.DATE, 365);
 					user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+					user.setExposureLimit(5);
 				}
 
 			}
 			user.setJobPostLimit(99);
 			user.setJobPostPeriod(365);
+			user.setMebershipLevel(2);
 			userService.updateUser(user);
 		}
 

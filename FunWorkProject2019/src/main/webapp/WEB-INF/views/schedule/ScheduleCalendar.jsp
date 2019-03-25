@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,17 @@
 <script>
 var delCount = [];
 $(document).ready(function() {
+	$("#DateSearch").click(function(){
+		var time1 = $("#time1").val();
+		var time2 = $("#time2").val();
+ 		if(time1!="" && time2!=""){
+		document.location.href="<c:url value='/ScheduleCalendar/'/>${interviewList[0].application.job.jobId}/"+time1+"/"+time2;
+ 		}
+ 		else{
+ 			alert("請選擇起訖日期！")
+ 		}
+	});
+	
 	$("#collapse5").addClass("show"); //讓排班管理載入此頁面時便展開
 	$("#jobtable").DataTable();       //DataTable
 	$("#saveEvent").click(function(){
@@ -257,10 +269,12 @@ color:black;
 				</c:if>
 				<c:if test="${empty jobs}">			
 						<div id='calendar-container'>
+						輸入欲查詢的區間：<input type="Date" required="required" id="time1">~<input type="Date" required="required" id="time2">
+						<input type="button" id="DateSearch" value="查詢">
 						<h3>${interviewList[0].application.job.title}</h3>
 							<div id='calendar'></div>
 							<div style="float: right">
-								<c:if test="${empty change && interviewList.size()!=0}">
+								<c:if test="${empty change && fn:length(interviewList)!=0}">
 									<a class="btn btn-primary"
 										href="<c:url value='/ScheduleCalendar/change/'/>${interviewList[0].application.job.jobId}"><span
 										class="glyphicon-info-sigh glyphicon"></span>編輯</a>

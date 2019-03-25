@@ -93,7 +93,7 @@
                     <td>${applicatioList.appliedStatus}</td>
 					<td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${applicatioList.applicationTime}" /></td>
                     <td><a href="${pageContext.request.contextPath}/chat/${applicatioList.applicationId}">
-						<button type="button" class="btn btn-primary btn-sm" style="float: a;">									
+						<button type="button" class="btn btn-primary btn-sm" style="float:inherit;">									
 						<span class="glyphicon glyphicon-thumbs-up"></span>傳訊給應徵者
 						</button></a></td>
                   </tr>
@@ -103,7 +103,7 @@
               </c:if>
             </div>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          <div class="card-footer small text-muted"></div>
         </div>
       <!-- /.container-fluid -->
 
