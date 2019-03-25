@@ -116,7 +116,7 @@
 											</button>
 											</a>想快速上線工作職缺
 										</c:if>
-										<c:if test="${job.reviewStatus == '發布中'}">
+										<c:if test="${(job.reviewStatus == '發布中') or (job.reviewStatus != '待審核')}">
 										<c:choose>
                                             <c:when test="${(job.isFilled)}">
 												<a href="<c:url value="/jobFilled/${job.jobId}"/>">
