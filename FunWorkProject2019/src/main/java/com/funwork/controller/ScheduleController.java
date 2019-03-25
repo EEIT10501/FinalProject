@@ -226,6 +226,8 @@ public class ScheduleController {
 				return "schedule/wageManage";
 			} else
 				model.addAttribute("user", loginUser);
+			model.addAttribute("btn1", start);
+			model.addAttribute("btn2", end);
 			List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
 			model.addAttribute("postJobList", postJobList);
 			String ad = new String(" 00:00:00");
@@ -260,7 +262,7 @@ public class ScheduleController {
 			model.addAttribute("user", loginUser);
 			List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
 			model.addAttribute("staffSchedules", staffSchedules);
-			System.out.println("staffSchedules size:"+staffSchedules.size());
+//			System.out.println("staffSchedules size:"+staffSchedules.size());
 			return "schedule/wageStaff";
 		} else {
 			return "redirect:/";
@@ -280,6 +282,10 @@ public class ScheduleController {
 				return "schedule/wageStaff";
 			} else
 				model.addAttribute("user", loginUser);
+			
+			model.addAttribute("btn1", start);
+			model.addAttribute("btn2", end);
+			
 			List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
 			model.addAttribute("staffSchedules", staffSchedules);
 
@@ -394,4 +400,86 @@ public class ScheduleController {
 		return "schedule/ScheduleCalendar";
 	}
 
+	@RequestMapping(value = "showSchedule", method = RequestMethod.POST, produces = "application/vnd.ms-excel")
+	public String displaySheduleEXCEL(Model model, @RequestParam("start") String start, @RequestParam("end") String end,
+			HttpServletRequest req) throws ParseException {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser != null) {
+			if (start.equals("") || end.equals("")) {
+				model.addAttribute("user", loginUser);
+				List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+				model.addAttribute("staffSchedules", staffSchedules);
+				return "schedule/wageStaff";
+			} else {
+				model.addAttribute("user", loginUser);
+				String btn1 = (String) req.getAttribute(start);
+				String btn2 = (String) req.getAttribute(end);		
+
+				String ad = new String(" 00:00:00");
+				String ed = new String(" 23:00:00");
+				String starte = start + ad;
+				String ende = end + ed;
+
+				// 設定日期格式
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				// 進行轉換
+				Timestamp startTime = null;
+				Timestamp endTime = null;
+				Date startD = sdf.parse(starte);
+				Date endD = sdf.parse(ende);
+				startTime = new Timestamp(startD.getTime());
+				endTime = new Timestamp(endD.getTime());
+
+				List<Schedule> staffScheduleList = scheduleService.getSchedulesByNameAndTime(loginUser.getUserName(),
+						startTime, endTime);
+				model.addAttribute("staffScheduleList", staffScheduleList);
+
+				return "fileDownload/showSchedule";
+			}
+
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value = "showSchedules", method = RequestMethod.POST, produces = "application/vnd.ms-excel")
+	public String displayShedulesEXCEL(Model model, @RequestParam("jobId") Integer jobId, @RequestParam("start") String start,
+			@RequestParam("end") String end, HttpServletRequest req) throws ParseException {
+		HttpSession session = req.getSession();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser != null) {
+			if (start.equals("") || end.equals("")) {
+				model.addAttribute("user", loginUser);
+				List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+				model.addAttribute("postJobList", postJobList);
+				return "schedule/wageManage";
+			} else
+				model.addAttribute("user", loginUser);
+
+			List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+			model.addAttribute("postJobList", postJobList);
+			String ad = new String(" 00:00:00");
+			String ed = new String(" 23:00:00");
+			String starte = start + ad;
+			String ende = end + ed;
+
+			// 設定日期格式
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// 進行轉換
+			Timestamp startTime = null;
+			Timestamp endTime = null;
+			Date startD = sdf.parse(starte);
+			Date endD = sdf.parse(ende);
+			startTime = new Timestamp(startD.getTime());
+			endTime = new Timestamp(endD.getTime());
+
+			List<Schedule> admitScheduleList = scheduleService.getSchedulesByJobIdAndTime(jobId, startTime, endTime);
+			model.addAttribute("admitScheduleList", admitScheduleList);
+			return "fileDownload/showOtherSchedule";
+		} else {
+			return "redirect:/";
+		}
+
+	}
 }
