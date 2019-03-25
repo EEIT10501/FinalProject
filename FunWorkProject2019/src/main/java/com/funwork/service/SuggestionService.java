@@ -1,10 +1,12 @@
 package com.funwork.service;
 
+import com.funwork.model.Suggestion;
 import java.util.List;
 
-import com.funwork.model.Suggestion;
-
 public interface SuggestionService {
-	List<Suggestion> getAllSuggestions();
-	
+  List<Suggestion> getAllSuggestions();
+
+  Suggestion getSuggestionById(Integer sgId);
+
+  void insertSg(Suggestion suggestion);
 }

@@ -269,8 +269,10 @@ color:black;
 				</c:if>
 				<c:if test="${empty jobs}">			
 						<div id='calendar-container'>
+						<c:if test="${interviewList[0]!=null}">
 						輸入欲查詢的區間：<input type="Date" required="required" id="time1">~<input type="Date" required="required" id="time2">
 						<input type="button" id="DateSearch" value="查詢">
+						</c:if>
 						<h3>${interviewList[0].application.job.title}</h3>
 							<div id='calendar'></div>
 							<div style="float: right">
