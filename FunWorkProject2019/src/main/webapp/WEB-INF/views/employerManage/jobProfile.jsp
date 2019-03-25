@@ -57,16 +57,30 @@
 								<div class="panel panel-default text-left">
 									<div class="panel-body">
 										<h3>
-											<strong><a href='<c:url value="applications?id=${job.jobId}"/>'>${job.title}</a></strong>
+											<strong><a href='<c:url value="applications?id=${job.jobId}"/>'>『${job.title}』</a></strong>
 										</h3>
 										<p></p>
 										<strong>單位名稱: </strong> ${job.jobCompany.name}<br> 
 										<strong>單位地址: </strong>${job.address}<br> 
-										<strong>職缺點擊次數: </strong>${job.viewTimes}<br> 
+										<strong>職缺張貼截止日期: </strong>${job.postEndDate}<br>
+										<strong>職缺額滿: </strong>
+										<c:choose>
+											<c:when test="${job.isFilled == 'true'}">
+												額滿<br>
+											</c:when>
+											<c:otherwise>
+												尚未額滿<br>
+											</c:otherwise>
+										</c:choose>
+										<strong>職缺點擊次數: </strong>${job.viewTimes}<br>
 										<strong>
-										 剩 <fmt:parseNumber 
-										 value="${(job.postEndDate.time - now.time) / (1000*60*60*24) }" integerOnly="true" />天刊登時間
-										</strong>
+										<fmt:parseNumber var="daysLeft"  value="${(job.postEndDate.time - now.time) / (1000*60*60*24) }" integerOnly="true"/>
+										<c:if test="${daysLeft gt 0}">
+											
+											 剩  ${daysLeft} 天刊登時間
+											
+										</c:if>
+										</strong> 
 										<p>
 										<hr>
 										<c:if test="${job.reviewStatus == '發布中'}">

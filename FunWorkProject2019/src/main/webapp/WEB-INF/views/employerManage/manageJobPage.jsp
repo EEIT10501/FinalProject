@@ -39,7 +39,6 @@
 	function filterSelect() {
 
 		var status = $("#condit1").find(":selected").text();
-// 		alert(status);
 		if (status == '全部') {
 			table.column(2).search("").draw();
 		} else {
@@ -98,7 +97,7 @@
 							<option>待審核</option>
 							<option>審核失敗</option>
 							<option>下架</option>
-							<option>全部</option>
+							<option selected="selected">全部</option>
 						</select> &nbsp;
 						<button id="butt1" style="width: auto;"  onclick="filterSelect()">送出</button>&nbsp&nbsp&nbsp&nbsp
 						<strong>目前篩選條件: </strong>
