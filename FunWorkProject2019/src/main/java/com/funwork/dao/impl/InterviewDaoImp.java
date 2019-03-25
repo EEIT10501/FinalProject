@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.funwork.dao.InterviewDao;
 import com.funwork.model.Interview;
+import com.funwork.model.Job;
+import com.funwork.model.User;
 
 @Repository
 public class InterviewDaoImp implements InterviewDao {
@@ -144,6 +146,27 @@ public class InterviewDaoImp implements InterviewDao {
     Session session = factory.getCurrentSession();
     Interview interview = (Interview) session.createQuery(hql).setParameter("jobId",jobId).setParameter("userName",userName).getSingleResult();
     return interview;
+  }
+  
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Interview> findInterviewsByJobOwnerId(Job job) {
+    Session session = factory.getCurrentSession();
+    String hql = "FROM Interview WHERE application.job.jobOwner.userId = :userId";
+    List<Interview> list = session.createQuery(hql)
+    		.setParameter("userId", job.getJobOwner().getUserId())
+    		.getResultList();
+    return list;
+  }
+  
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Interview> findInterviewsByJobOwner(User jobOwner) {
+    String hql = "FROM Interview i WHERE i.application.job.jobOwner.userId = :userId";
+    Session session = factory.getCurrentSession();
+    List<Interview> list = session.createQuery(hql)
+    		.setParameter("userId", jobOwner.getUserId()).getResultList();
+    return list;
   }
   
 }

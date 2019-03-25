@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.DynamicInsert;
+
+@DynamicInsert
 @Entity
 public class Interview implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,6 +23,7 @@ public class Interview implements Serializable {
 	private String interviewType;
 	private String interviewPlace;
 	private String interviewStatus;
+	private String interviewResult;
 	private Timestamp interviewTime;
 	private Application application;
 
@@ -51,7 +55,6 @@ public class Interview implements Serializable {
 		this.interviewType = interviewType;
 	}
 
-	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	public String getInterviewPlace() {
 		return interviewPlace;
 	}
@@ -74,6 +77,15 @@ public class Interview implements Serializable {
 
 	public void setInterviewTime(Timestamp interviewTime) {
 		this.interviewTime = interviewTime;
+	}
+	
+	@Column(columnDefinition = "nvarchar(10) default '等待資料'")
+	public String getInterviewResult() {
+		return interviewResult;
+	}
+
+	public void setInterviewResult(String interviewResult) {
+		this.interviewResult = interviewResult;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)

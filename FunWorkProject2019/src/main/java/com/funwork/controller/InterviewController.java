@@ -5,8 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.funwork.model.Interview;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.InterviewService;
 
@@ -31,5 +34,16 @@ public class InterviewController {
 		applicationService.refuseUser(apId);
 		return "redirect:/applications?id=" + jobId;
 	}
+	
+	@RequestMapping(value = "/updateInterviewResult", method = RequestMethod.POST)
+	  public String updateInterviewResult(@RequestParam("interviewId") Integer interviewId,
+	      @RequestParam("interviewResult") String interviewResult) {
+
+	    Interview interview = interviewService.findByPrimaryKey(interviewId);
+	    interview.setInterviewResult(interviewResult);
+	    interviewService.updateInterview(interview);
+	    System.out.println("here");
+	    return "redirect:/applicationNInterview";
+	  }
 
 }

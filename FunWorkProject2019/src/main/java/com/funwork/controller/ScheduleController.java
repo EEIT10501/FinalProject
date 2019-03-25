@@ -68,8 +68,6 @@ public class ScheduleController {
 	@RequestMapping("/ScheduleCalendar/{jobId}")
 	public String calendarSave(Model model, @PathVariable("jobId") Integer jobId) {
 
-//		int jobId = 1; // 測試用
-
 		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
 
 		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
@@ -94,9 +92,7 @@ public class ScheduleController {
 	@RequestMapping("/ScheduleCalendar/change/{jobId}")
 	public String calendarChange(Model model, @PathVariable("jobId") Integer jobId) {
 		model.addAttribute("change", true);
-
-//		int jobId = 1; // 測試用
-
+		
 		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
 
 		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
@@ -333,5 +329,62 @@ public class ScheduleController {
 			return "redirect:/";
 		}
 	}
+
+	
+	@RequestMapping("/UserSchedule/Date/{time1}/{time2}")
+	public String userCalendarDate(Model model, HttpServletRequest request,@PathVariable("time1") String time1,@PathVariable("time2") String time2) {
+
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+		
+		java.sql.Date sqldate = new java.sql.Date(0); 
+
+		if (user != null) {		
+			List<Schedule> scheduleList = scheduleService.getUserScheduleByRange(user.getUserId(),sqldate.valueOf(time1), sqldate.valueOf(time2));
+			JSONArray jsonArray = new JSONArray();
+			JSONObject object = null;
+			for (Schedule sj : scheduleList) {
+				object = new JSONObject();
+				object.put("id", sj.getScheduleId());
+				object.put("title", sj.getScheduleName());
+				object.put("start", sj.getStartTime());
+				object.put("end", sj.getEndTime());
+//				object.put("color", sj.getColor());
+				jsonArray.put(object);
+			}
+			System.out.println(jsonArray);
+			model.addAttribute("json", jsonArray);
+		
+			return "schedule/UserSchedule";
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping("/ScheduleCalendar/{jobId}/{time1}/{time2}")
+	public String jobCalendarDate(Model model, @PathVariable("jobId") Integer jobId,@PathVariable("time1") String time1,@PathVariable("time2") String time2) {
+		java.sql.Date sqldate = new java.sql.Date(0);
+		
+		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+
+		List<Schedule> scheduleList = scheduleService.getJobSchedulesByRange(jobId, sqldate.valueOf(time1), sqldate.valueOf(time2));
+		JSONArray jsonArray = new JSONArray();
+		JSONObject object = null;
+		for (Schedule sj : scheduleList) {
+			object = new JSONObject();
+			object.put("id", sj.getScheduleId());
+			object.put("title", sj.getScheduleName());
+			object.put("start", sj.getStartTime());
+			object.put("end", sj.getEndTime());
+//			object.put("color", sj.getColor());
+			jsonArray.put(object);
+		}
+		System.out.println(jsonArray);
+		model.addAttribute("json", jsonArray);
+		model.addAttribute("interviewList", interviewList);
+
+		return "schedule/ScheduleCalendar";
+	}
+
 
 }

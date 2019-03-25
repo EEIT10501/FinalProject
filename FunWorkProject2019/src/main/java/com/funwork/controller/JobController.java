@@ -97,6 +97,8 @@ public class JobController {
     	System.out.println("new session detected");
     	jobService.updateViewTimesByJob(jobId);
     	System.out.println("viewTimes updated");
+    }else {
+    	System.out.println("old session");
     }
     
     if (session.getAttribute("loginUser") != null && resumeService.getResumeByUserId(user.getUserId()) != null) {
