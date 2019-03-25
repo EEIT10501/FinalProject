@@ -145,7 +145,7 @@ background-color: #e3f2fd;
 			<div id="collapse5" class="collapse" aria-labelledby="heading5"
 				data-parent="#accordionExample">
 				<div class="card-body">
-					<a class="btn btn-link" href="<c:url value='/scheduleManage'></c:url>">新增排班</a><br>
+<%-- 					<a class="btn btn-link" href="<c:url value='/scheduleManage'></c:url>">新增排班</a><br> --%>
 					<a class="btn btn-link" href="<c:url value='/ScheduleCalendar'></c:url>">新增班表</a>
 					<a class="btn btn-link" href="<c:url value='/wageManage'></c:url>">薪資概算</a>
 				</div>
