@@ -64,7 +64,7 @@ public interface JobService {
 
 	String getAllPostingJobTypeJson();
 
-	void updateJobByExpired(List<Job> joblistup);
+	void updateJobByExpired();
 
 	Integer updateViewTimesByJob(Integer jobId);
 
