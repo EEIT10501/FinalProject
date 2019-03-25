@@ -25,14 +25,6 @@
 	color: white;
 }
 
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
-}
-
-.asideblock {
-	height: 600px;
-}
 </style>
 <body>
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
