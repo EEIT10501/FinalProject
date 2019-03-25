@@ -109,13 +109,13 @@
 				<hr>
 
 				<!--		日期篩選條件			-->
-				<c:if test="${empty staffScheduleList}">
+				<c:if test="${empty staffSchedules}">
 					<h5>
 						您目前尚未錄取任何工作，請先至<a href="<c:url value='/jobs'></c:url>">工作專區</a>應徵工作。
 					</h5>
 
 				</c:if>
-				<c:if test="${!empty staffScheduleList}">
+				<c:if test="${!empty staffSchedules}">
 					<form action="${pageContext.request.contextPath}/selectWageStaff"
 						method="post">
 						<div>

@@ -113,7 +113,7 @@ public class PostJobController {
 	 * active job posting count against limit and then check if job posting is to
 	 * update previous record or insert new record
 	 */
-	@RequestMapping(value = { "/modJobProfilePage", "/addJobProfile" }, method = RequestMethod.POST)
+	@RequestMapping(value = "/modJobProfilePage", method = RequestMethod.POST)
 	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model,
 			String replicate) {
 		HttpSession session = request.getSession();
@@ -222,16 +222,16 @@ public class PostJobController {
 		}
 
 	}
-//  /**
-//   * Process new Job.
-//   */
-//  @PostMapping(value = "/addJobProfile")
-//  public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
-//    HttpSession session = request.getSession();
-//    User loginUser = (User) session.getAttribute("loginUser");
-//    jobService.insertJob(jbean, loginUser.getUserId());
-//    return "redirect:/manageJob";
-//  }
+  /**
+   * Process new Job.
+   */
+	@RequestMapping(value = "/addJobProfile", method = RequestMethod.POST)
+	public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    User loginUser = (User) session.getAttribute("loginUser");
+    jobService.insertJob(jbean, loginUser.getUserId());
+    return "redirect:/manageJob";
+  }
 
 	@RequestMapping(value = "/getProfilePic/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getLogoPicture(HttpServletResponse resp, @PathVariable Integer userId) {

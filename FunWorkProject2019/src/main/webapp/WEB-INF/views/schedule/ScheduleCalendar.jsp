@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -268,12 +269,14 @@ color:black;
 				</c:if>
 				<c:if test="${empty jobs}">			
 						<div id='calendar-container'>
+						<c:if test="${interviewList[0]!=null}">
 						輸入欲查詢的區間：<input type="Date" required="required" id="time1">~<input type="Date" required="required" id="time2">
 						<input type="button" id="DateSearch" value="查詢">
+						</c:if>
 						<h3>${interviewList[0].application.job.title}</h3>
 							<div id='calendar'></div>
 							<div style="float: right">
-								<c:if test="${empty change && interviewList.size()!=0}">
+								<c:if test="${empty change && fn:length(interviewList)!=0}">
 									<a class="btn btn-primary"
 										href="<c:url value='/ScheduleCalendar/change/'/>${interviewList[0].application.job.jobId}"><span
 										class="glyphicon-info-sigh glyphicon"></span>編輯</a>

@@ -60,51 +60,49 @@
 											<strong><a href='<c:url value="applications?id=${job.jobId}"/>'>${job.title}</a></strong>
 										</h3>
 										<p></p>
-										<strong>單位名稱:</strong> ${job.jobCompany.name}<br> 
-										<strong>單位地址:</strong>${job.address}<br> 
-										<strong>職缺點擊次數:</strong>${job.viewTimes}<br> 
+										<strong>單位名稱: </strong> ${job.jobCompany.name}<br> 
+										<strong>單位地址: </strong>${job.address}<br> 
+										<strong>職缺點擊次數: </strong>${job.viewTimes}<br> 
 										<strong>
-										 剩<fmt:parseNumber value="${(job.postEndDate.time - now.time) / (1000*60*60*24) }" integerOnly="true" />天刊登時間
+										 剩 <fmt:parseNumber 
+										 value="${(job.postEndDate.time - now.time) / (1000*60*60*24) }" integerOnly="true" />天刊登時間
 										</strong>
 										<p>
 										<hr>
-										<c:choose>
-											<c:when test="${job.isExposure}">
-											<a href="<c:url value="/jobExposure/${job.jobId}"/>">
-											<button type="button" class="btn btn btn-primary btn-sm" id="exp">
-												<span class="glyphicon glyphicon-thumbs-up"></span>取消置頂
+										<c:if test="${job.reviewStatus == '發布中'}">
+											<c:choose>
+												<c:when test="${job.isExposure}">
+												<a href="<c:url value="/jobExposure/${job.jobId}"/>">
+												<button type="button" class="btn btn btn-primary btn-sm" id="exp">
+													<span class="glyphicon glyphicon-thumbs-up"></span>取消置頂
+												</button>
+												</a>
+												</c:when>
+												<c:when test="${!job.isExposure && !job.isFilled}">
+												<a href="<c:url value="/jobExposure/${job.jobId}"/>">
+		                                        <button type="button" class="btn btn btn-primary btn-sm" id="exp">
+		                                            <span class="glyphicon glyphicon-thumbs-up"></span>置頂曝光
+		                                        </button>
+		                                        </a>
+												</c:when>
+											</c:choose>
+										</c:if>
+										<c:if test="${(job.reviewStatus == '待審核')}">
+											<a href="<c:url value="/modJobProfile?jobId=${job.jobId}"/>">
+											<button type="button" class="btn btn btn-primary btn-sm">
+												<span class="glyphicon glyphicon-thumbs-up"></span>編輯
 											</button>
 											</a>
-											</c:when>
-											<c:when test="${!job.isExposure && !job.isFilled}">
-											<a href="<c:url value="/jobExposure/${job.jobId}"/>">
-	                                        <button type="button" class="btn btn btn-primary btn-sm" id="exp">
-	                                            <span class="glyphicon glyphicon-thumbs-up"></span>置頂曝光
-	                                        </button>
-	                                        </a>
-											</c:when>
-										</c:choose>
-										<a href="<c:url value="/modJobProfile?jobId=${job.jobId}"/>">
-										<button type="button" class="btn btn btn-primary btn-sm">
-											<span class="glyphicon glyphicon-thumbs-up"></span>編輯
-										</button>
-										</a>
-										<a href="<c:url value="/replicate?jobId=${job.jobId}"/>">
-										<button name="replicate" value="複製" type="button" class="btn btn btn-primary btn-sm">
-											<span class="glyphicon glyphicon-thumbs-up"></span>複製
-										</button>
-										</a>
-<%-- 										<form action='<c:url value="/replicate"/>' method='post' id='jobRep'> --%>
-<!-- 										<input type='hidden' id='product_id' name='product_id' value=''> -->
-<!-- 										</form> -->
-<!-- 										<script> -->
-<!-- // 										　function which_one(product_icon){ -->
-<!-- // 　											　$('#product_id').val(product_icon);  -->
-<!-- // 　											　$('#jobRep').submit(); -->
-<!-- // 　											} -->
-<!-- 										</script> -->
+										</c:if>
+										<c:if test="${(job.reviewStatus =='發布中') and (job.reviewStatus =='審核失敗')}">
+											<a href="<c:url value="/replicate?jobId=${job.jobId}"/>">
+											<button name="replicate" value="複製" type="button" class="btn btn btn-primary btn-sm">
+												<span class="glyphicon glyphicon-thumbs-up"></span>複製
+											</button>
+											</a>
+										</c:if>
 										<c:choose>
-                                            <c:when test="${job.isFilled}">
+                                            <c:when test="${(job.isFilled) and (job.reviewStatus == '發布中')}">
 												<a href="<c:url value="/jobFilled/${job.jobId}"/>">
 												<button type="button" class="btn btn-warning btn-sm" style="float: right">
 													<span class="glyphicon glyphicon-thumbs-up"></span>取消額滿
