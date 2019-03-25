@@ -91,6 +91,7 @@ background-color: #e3f2fd;
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/cpsProcess'></c:url>">申訴處理</a> <a
 						class="btn btn-link" href="<c:url value='/cpsHistory'></c:url>">申訴紀錄</a>
+				    <a class="btn btn-link" href="<c:url value='/sgsReview'></c:url>">建議回報</a>
 				</div>
 			</div>
 		</div>

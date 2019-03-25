@@ -8,14 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Suggestion {
   private Integer suggestionId;
+  private String name;
   private String comment;
   private String email;
   private Timestamp submitTime;
   private Blob attachment;
+  private MultipartFile attachmentPart;
+  private String fileName;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +65,31 @@ public class Suggestion {
   public void setAttachment(Blob attachment) {
     this.attachment = attachment;
 
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  @Transient
+  public MultipartFile getAttachmentPart() {
+    return attachmentPart;
+  }
+
+  public void setAttachmentPart(MultipartFile attachmentPart) {
+    this.attachmentPart = attachmentPart;
+  }
+
+  public String getFileName() {
+    return fileName;
+  }
+
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
   }
 
 }
