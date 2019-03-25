@@ -6,6 +6,7 @@ import com.funwork.dao.JobDao;
 import com.funwork.dao.NotificationDao;
 import com.funwork.dao.UserDao;
 import com.funwork.model.City;
+import com.funwork.model.Company;
 import com.funwork.model.Job;
 import com.funwork.model.Notification;
 import com.funwork.service.JobService;
@@ -179,7 +180,7 @@ public class JobServiceImpl implements JobService {
       jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
     }
     jbean.setCity(cityDao.getCityByCityName(cityName));
-
+    
     return jobDao.insertJob(jbean);
   }
 
