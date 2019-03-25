@@ -45,31 +45,27 @@
 			<div class="col-sm-8">
 				<form:form class='form-horizontal' modelAttribute="companyBean"
 					method="POST" enctype="multipart/form-data">
-					<fieldset>
-						<section
-							style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
-							<h1>
+							<h3><b>
 								<spring:message
-									code="spring.registerCompany.form.registerCompanyData.label" />
-							</h1>
+									code="spring.registerCompany.form.registerCompanyData.label" /></b>	
+							</h3>
 							<hr>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='name'>
-									<spring:message code='spring.registerCompany.form.name.label' />
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label" for='name'>
+									<strong><spring:message code='spring.registerCompany.form.name.label' /></strong>
 								</label>
-								<div class="col-lg-6">
+								<div class="col-sm-10">
 									<form:input id="name" path="name" type='text'
-										class='form:input-large' />
+										class='form-control' placeholder="ex:大有技術公司" required="required"/>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2" for='taxId'>
-									<spring:message code='spring.registerCompany.form.taxId.label' />
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label" for='taxId'>
+									<strong><spring:message code='spring.registerCompany.form.taxId.label' /></strong>
 								</label>
-								<div class="col-lg-10">
-									<form:input id="taxId" path="taxId" type='number'
-										class='form:input-large'  />
-									
+								<div class="col-sm-10">
+									<form:input id="taxId" path="taxId" type='number' placeholder='10000000'
+										class='form-control' min="10000000" max="99999999" required="required"/>
 									<c:if test="${empty errors}">
 									<span></span>
 									</c:if>
@@ -77,44 +73,44 @@
 									<span><c:out value="${errors.error_TaxId}"/></span>
 									</c:if>
 								</div>
-								
 							</div>
-							<div class="form-group">
+							<div class="form-group row">
 								<label class="control-label col-lg-2 col-lg-2" for='address'>
-									<spring:message
-										code='spring.registerCompany.form.address.label' />
+									<strong><spring:message
+										code='spring.registerCompany.form.address.label' /></strong>
 								</label>
-								<div class="col-lg-10">
-									<form:input id="address" path="address" type='text'
-										class='form:input-large' />
+								<div class="col-sm-10">
+									<form:input id="address" path="address" type='text' length="50"
+										placeholder="ex:新北市永和區成功路123號" class='form-control' />
 								</div>
 							</div>
-							<h4>身份驗證</h4>
+							<p></p>
+							<h4><strong>身份驗證</strong></h4>
 							<hr>
 
-							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6>
+							<h6>為防止張貼者假冒其他公司名義張貼工作，請擇一提供以下證明文件，證明你屬於此公司</h6><p></p>
 							<ul>
 								<li>含有本人名字的公司名片
 								<li>政府核可的營業登記文件 如你的帳號的 Email 包含公司網址，則可略過此步驟
 							</ul>
-							<div class="form-group">
-								<label class="control-label col-lg-2 col-lg-2"
-									for='companyLicensureImage'> <spring:message
-										code='spring.registerCompany.form.companyLicensureImage.label' />
-								</label>
+							<div class="form-group row">
+							<label class="control-label col-lg-2 col-lg-2"
+								for='companyLicensureImage'> 
+							<strong><spring:message code='spring.registerCompany.form.companyLicensureImage.label' /></strong>
+							</label>
+							<div class="col-sm-10">
 								<form:input id="companyLicensureImage"
 									path="companyLicensureImage" type='file'
-									class='form:input-large' />
+									class='form-control' />
 							</div>
+							</div>
+							<p></p><p></p><p></p>
 							<div class="form-group">
 								<div class='col-lg-offset-2 col-lg-10'>
 									<input id="btnAdd" type='submit' class='btn btn-primary'
 																				value="<spring:message code='spring.addProduct.form.submit.label'/>" />
-<!-- 										value="Send" /> -->
 								</div>
 							</div>
-						</section>
-					</fieldset>
 				</form:form>
 				<div id="content1"></div>
 			</div>
