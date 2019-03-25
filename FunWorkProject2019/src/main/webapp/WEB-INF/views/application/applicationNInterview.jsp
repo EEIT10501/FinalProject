@@ -112,7 +112,7 @@
 																			test="${interviewPending.interviewStatus == '待回應'}">
 																			<c:set var="emptyCheckPending" value="0"/>
 																			<br>
-																			<a href="${pageContext.request.contextPath}/chat/${interviewPending.application.user.userId}">
+																			<a href="${pageContext.request.contextPath}/chat/${interviewPending.application.applicationId}">
 																			<button type="button" class="btn btn btn-info btn-sm"
 																			style="float: right" data-toggle="modal"
 																			data-target="#interviewModal${interviewPending.interviewId}">
@@ -223,7 +223,7 @@
 													<div class="panel-body">
 															<br>
 															<a
-																href="${pageContext.request.contextPath}/chat/${interview.application.user.userId}">
+																href="${pageContext.request.contextPath}/chat/${interview.application.applicationId}">
 																<button type="button"
 																	class="btn btn btn-info btn-sm"
 																	style="float: right" data-toggle="modal"
@@ -356,7 +356,7 @@
 													<div class="col-sm-12">
 													<div class="panel panel-default text-left">
 													<div class="panel-body">
-													<a href="${pageContext.request.contextPath}/chat/${interview.application.user.userId}">
+													<a href="${pageContext.request.contextPath}/chat/${interview.application.applicationId}">
 														<button type="button"
 															class="btn btn btn-info btn-sm"
 															style="float: right; margin: 10px" data-toggle="modal"
@@ -594,7 +594,7 @@
 											<div class="col-sm-12">
 											<div class="panel panel-default text-left">
 											<div class="panel-body">
-													<a href="${pageContext.request.contextPath}/chat/${interviewExpired.application.user.userId}">
+													<a href="${pageContext.request.contextPath}/chat/${interviewExpired.application.applicationId}">
 														<button type="button" class="btn btn btn-info btn-sm"
 														style="float: right" data-toggle="modal"
 														data-target="#interviewModal${interinterviewExpiredviewPending.interviewId}">

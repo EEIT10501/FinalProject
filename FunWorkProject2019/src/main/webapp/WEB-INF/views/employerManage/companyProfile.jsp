@@ -114,7 +114,6 @@
 											<td>${job.jobCompany.name}</td>
 											<td>${job.jobId}</td>
 											<td>${job.title}</td>
-											<%-- 											<td>${job.applicant }</td> --%>
 											<td>${job.reviewStatus}</td>
 											<td>${job.isFilled}</td>
 											<td><a

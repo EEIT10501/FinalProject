@@ -61,6 +61,7 @@
 <script>
 
 	var table;
+	
 	function filterSelect() {
 			
 			var status = $("#condit1").find(":selected").text();
@@ -71,9 +72,12 @@
 			}
 			$('#filterPath').text(status);
 	}
+	
 	$(document).ready(function() {
 		$.noConflict();
- 		 table = $('#example').DataTable();
+		var status = $("#condit1").find(":selected").text();
+		$('#filterPath').text(status);
+		table = $('#example').DataTable();
 		
 		var contextPath = $("#contextPath").attr('value');
 	});
@@ -132,7 +136,7 @@
 											<td>${company.reviewStatus}</td>
 											
 											<c:choose>
-												<c:when test="${company.reviewStatus =='已通過'}">
+												<c:when test="${company.reviewStatus =='審核通過'}">
 													<td><a
 														href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
 														class="btn btn-info btn-sm"> <span
