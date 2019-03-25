@@ -38,9 +38,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.funwork.exception.CompanyNotFoundException;
+import com.funwork.model.Application;
 import com.funwork.model.Company;
 import com.funwork.model.Job;
 import com.funwork.model.User;
+import com.funwork.service.ApplicationService;
 import com.funwork.service.CompanyService;
 import com.funwork.service.JobService;
 import com.funwork.service.UserService;
@@ -56,6 +58,9 @@ public class EmployerController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ApplicationService applicationService;
 
 	@Autowired
 	ServletContext context;
@@ -75,18 +80,25 @@ public class EmployerController {
 		return "employerManage/addCorpProfile";
 	}
 
+	@SuppressWarnings("unused")
 	@RequestMapping("/manageJob")
 	public String manageJob(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
+		jobService.findJobByUserId(user.getUserId());
 
 		if (user != null) {
 			List<Job> list = jobService.findJobByUserId(user.getUserId());
+			for(Job job:list ) {
+				List<Application> apps = applicationService.findAllApplicantsByJob(job);
+				job.setAppsList(apps.size());
+			}
 			model.addAttribute("jobs", list);
 			return "employerManage/manageJobPage";
-		} else {
+		} 
+		else 
 			return "redirect:/";
-		}
+		
 	}
 
 	@RequestMapping("/manageCompanyPage")

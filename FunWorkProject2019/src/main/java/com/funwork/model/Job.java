@@ -2,6 +2,7 @@ package com.funwork.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -48,6 +50,7 @@ public class Job {
 	private String cityArea;
 	private String cityName;
 	private String companyName;
+	private Integer appsList;
 
 	public Job() {
 	}
@@ -321,8 +324,18 @@ public class Job {
 		return companyName;
 	}
 
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+	
+	@Transient
+	public Integer getAppsList() {
+		return appsList;
+	}
+	
+	public void setAppsList(Integer appsList) {
+		this.appsList = appsList;
 	}
 
 	@Override

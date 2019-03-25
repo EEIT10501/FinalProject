@@ -108,7 +108,7 @@
 											</button>
 											</a>
 										</c:if>
-										<c:if test="${(job.reviewStatus =='發布中') and (job.reviewStatus =='審核失敗')}">
+										<c:if test="${(job.reviewStatus =='發布中') or (job.reviewStatus =='審核失敗')}">
 											<a href="<c:url value="/replicate?jobId=${job.jobId}"/>">
 											<button name="replicate" value="複製" type="button" class="btn btn btn-primary btn-sm">
 												<span class="glyphicon glyphicon-thumbs-up"></span>複製
@@ -139,6 +139,7 @@
 						<div class="row">
 						<div class="col-sm-12">
 						<small style="color:red" id="cantExp"></small>
+											<hr>
 						</div>
 						</div>
 					</div>

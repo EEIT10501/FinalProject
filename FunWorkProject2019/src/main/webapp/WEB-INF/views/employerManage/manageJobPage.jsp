@@ -111,22 +111,29 @@
 				<table class="table table-hover display" id="example">
 					<thead>
 						<tr>
-<!-- 							<th>公司單位</th> -->
 							<th>職缺編號</th>
 							<th>職位</th>
 							<th>狀態</th>
 							<th>刊登截止時間</th>
+							<th>應徵人數</th>
 							<th>職缺內容</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}" varStatus="loop">
 							<tr>
-<%-- 								<td>${job.jobCompany.name}</td> --%>
 								<td>${job.jobId}</td>
 								<td>${job.title}</td>
 								<td>${job.reviewStatus}</td>
 								<td><fmt:formatDate type="both" value="${job.postEndDate}"/></td>
+								<c:choose>
+								<c:when test="${(job.reviewStatus == '發布中')||(job.reviewStatus == '已截止')}">
+									<td>${job.appsList}</td>
+								</c:when>
+								<c:otherwise>
+									<td> N/A </td>
+								</c:otherwise>
+								</c:choose>
 								<td><a
 									href='<spring:url value="jobProfile?id=${job.jobId}"/>'
 									class="btn btn-primary btn-sm"> <span
