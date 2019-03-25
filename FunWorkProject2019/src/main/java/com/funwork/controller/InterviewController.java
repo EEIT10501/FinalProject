@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.funwork.model.Application;
 import com.funwork.model.Interview;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.InterviewService;
@@ -26,6 +27,8 @@ public class InterviewController {
 			@RequestParam("interComment") String interComment, @RequestParam("interPlace") String interPlace,
 			@RequestParam("interTime") String interTime, @RequestParam("apId") Integer apId) {
 		Integer jobId = interviewService.saveInterview(interType, interComment, interPlace, interTime, apId);
+		Application application = applicationService.findByPrimaryKey(apId);
+		applicationService.updateApplication(application);
 		return "redirect:/applications?id=" + jobId;
 	}
 

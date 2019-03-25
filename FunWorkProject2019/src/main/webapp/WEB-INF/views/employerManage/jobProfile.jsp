@@ -74,7 +74,7 @@
 										</c:choose>
 										<strong>職缺點擊次數: </strong>${job.viewTimes}<br>
 										<strong>
-										<fmt:parseNumber var="daysLeft"  value="${(job.postEndDate.time - now.time) / (1000*60*60*24) }" integerOnly="true"/>
+										<fmt:parseNumber var="daysLeft"  value="${(job.postEndDate.time - now.time) / (1000*60*60*24)}" integerOnly="true"/>
 										<c:if test="${daysLeft gt 0}">
 											
 											 剩  ${daysLeft} 天刊登時間
@@ -109,11 +109,12 @@
 											</a>
 										</c:if>
 										<c:if test="${(job.reviewStatus =='發布中') or (job.reviewStatus =='審核失敗')}">
+											
 											<a href="<c:url value="/replicate?jobId=${job.jobId}"/>">
 											<button name="replicate" value="複製" type="button" class="btn btn btn-primary btn-sm">
-												<span class="glyphicon glyphicon-thumbs-up"></span>複製
+												<span class="glyphicon glyphicon-thumbs-up"></span>點選複製
 											</button>
-											</a>
+											</a>想快速上線工作職缺
 										</c:if>
 										<c:choose>
                                             <c:when test="${(job.isFilled) and (job.reviewStatus == '發布中')}">

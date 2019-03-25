@@ -57,6 +57,8 @@ public class ApplicationDaoImp implements ApplicationDao {
 	@Override
 	public void updateApplication(Application application) {
 		Session session = factory.getCurrentSession();
+		Application app = session.get(Application.class, application.getApplicationId());
+		app.setAppliedStatus("已邀約");
 	}
 
 	@Override
