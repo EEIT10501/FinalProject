@@ -351,11 +351,7 @@
 											<c:forEach var="interview1" items="${interviewsPerJobOwner}">
 											
 											<c:choose>
-<<<<<<< HEAD
-												<c:when test="${(interview1.interviewStatus != '待回應') and(current.time gt interviewTime.time)}">
-=======
 												<c:when test="${(interview1.interviewStatus == '接受') and(current.time gt interviewTime.time)}">
->>>>>>> branch 'master' of https://github.com/EEIT10501/FinalProject.git
 													<c:set var="checkEmpty" value="0"/>
 													<div class="row">
 													<div class="col-sm-12">
