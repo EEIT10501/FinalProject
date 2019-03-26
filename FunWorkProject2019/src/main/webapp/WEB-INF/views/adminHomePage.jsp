@@ -116,7 +116,7 @@
 	              labels: jobTypeArray
 	          },
 	          options: {
-	              responsive: true
+	              responsive: true,
 	          }
 	      };
 	
@@ -154,7 +154,15 @@
 	                	responsive: true,
 	                    legend: {
 	                        position: 'top',
-	                    }           
+	                    },
+	                    scales: {
+	                        yAxes: [{
+	                                display: true,
+	                                ticks: {
+	                                    beginAtZero: true
+	                                }
+	                            }]
+	                    },
 	                }
 		       });
 		       window.myBar  = new Chart(ctx3, {

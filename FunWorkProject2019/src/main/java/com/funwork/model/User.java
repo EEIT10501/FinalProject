@@ -13,153 +13,165 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "\"User\"")
 public class User implements Serializable {
-  private static final long serialVersionUID = 1L;
-  private Integer userId;
-  private String userName;
-  private String password;
-  private String phoneNum;
-  private String email;
-  private Integer mebershipLevel;
-  private Integer exposureLimit;
-  private Integer jobPostLimit;
-  private Integer jobPostPeriod;
-  private Double rating;
-  private Integer role;
-  private Integer abscence;
-  private String facebook;
-  private String google;
-  private Boolean isOpen;
-  private Date vipEndDate;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Integer getUserId() {
-    return userId;
-  }
+	private static final long serialVersionUID = 1L;
+	private Integer userId;
+	private String userName;
+	private String password;
+	private String phoneNum;
+	private String email;
+	private Integer mebershipLevel;
+	private Integer exposureLimit;
+	private Integer jobPostLimit;
+	private Integer jobPostPeriod;
+	private Double rating;
+	private Integer role;
+	private Integer abscence;
+	private Integer presence;
+	private String facebook;
+	private String google;
 
-  public void setUserId(Integer userId) {
-    this.userId = userId;
-  }
+	public Date getVipEndDate() {
+		return vipEndDate;
+	}
 
-  @Column(nullable = false, columnDefinition = "nvarchar(255)")
-  public String getUserName() {
-    return userName;
-  }
+	public void setIsOpen(Boolean isOpen) {
+		this.isOpen = isOpen;
+	}
 
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+	private Boolean isOpen;
+	private Date vipEndDate;
 
-  public String getPassword() {
-    return password;
-  }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getUserId() {
+		return userId;
+	}
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-  public String getPhoneNum() {
-    return phoneNum;
-  }
+	@Column(nullable = false, columnDefinition = "nvarchar(255)")
+	public String getUserName() {
+		return userName;
+	}
 
-  public void setPhoneNum(String phoneNum) {
-    this.phoneNum = phoneNum;
-  }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-  @Column(nullable = false, unique = true)
-  public String getEmail() {
-    return email;
-  }
+	public String getPassword() {
+		return password;
+	}
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-  public Integer getMebershipLevel() {
-    return mebershipLevel;
-  }
+	public String getPhoneNum() {
+		return phoneNum;
+	}
 
-  public void setMebershipLevel(Integer mebershipLevel) {
-    this.mebershipLevel = mebershipLevel;
-  }
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
 
-  public Integer getExposureLimit() {
-    return exposureLimit;
-  }
+	@Column(nullable = false, unique = true)
+	public String getEmail() {
+		return email;
+	}
 
-  public void setExposureLimit(Integer exposureLimit) {
-    this.exposureLimit = exposureLimit;
-  }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-  public Integer getJobPostLimit() {
-    return jobPostLimit;
-  }
+	public Integer getMebershipLevel() {
+		return mebershipLevel;
+	}
 
-  public void setJobPostLimit(Integer jobPostLimit) {
-    this.jobPostLimit = jobPostLimit;
-  }
+	public void setMebershipLevel(Integer mebershipLevel) {
+		this.mebershipLevel = mebershipLevel;
+	}
 
-  public Integer getJobPostPeriod() {
-    return jobPostPeriod;
-  }
+	public Integer getExposureLimit() {
+		return exposureLimit;
+	}
 
-  public void setJobPostPeriod(Integer jobPostPeriod) {
-    this.jobPostPeriod = jobPostPeriod;
-  }
+	public void setExposureLimit(Integer exposureLimit) {
+		this.exposureLimit = exposureLimit;
+	}
 
-  public Double getRating() {
-    return rating;
-  }
+	public Integer getJobPostLimit() {
+		return jobPostLimit;
+	}
 
-  public void setRating(Double rating) {
-    this.rating = rating;
-  }
+	public void setJobPostLimit(Integer jobPostLimit) {
+		this.jobPostLimit = jobPostLimit;
+	}
 
-  public Integer getRole() {
-    return role;
-  }
+	public Integer getJobPostPeriod() {
+		return jobPostPeriod;
+	}
 
-  public void setRole(Integer role) {
-    this.role = role;
-  }
+	public void setJobPostPeriod(Integer jobPostPeriod) {
+		this.jobPostPeriod = jobPostPeriod;
+	}
 
-  public Integer getAbscence() {
-    return abscence;
-  }
+	public Double getRating() {
+		return rating;
+	}
 
-  public void setAbscence(Integer abscence) {
-    this.abscence = abscence;
-  }
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
 
-  public String getFacebook() {
-    return facebook;
-  }
+	public Integer getRole() {
+		return role;
+	}
 
-  public void setFacebook(String facebook) {
-    this.facebook = facebook;
-  }
+	public void setRole(Integer role) {
+		this.role = role;
+	}
 
-  public String getGoogle() {
-    return google;
-  }
+	public Integer getAbscence() {
+		return abscence;
+	}
 
-  public void setGoogle(String google) {
-    this.google = google;
-  }
+	public void setAbscence(Integer abscence) {
+		this.abscence = abscence;
+	}
 
-  public Boolean getIsOpen() {
-    return isOpen;
-  }
+	public String getFacebook() {
+		return facebook;
+	}
 
-  public void setIsOpen(Boolean isOpen) {
-    this.isOpen = isOpen;
-  }
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
 
-  public Date getVipEndDate() {
-    return vipEndDate;
-  }
+	public String getGoogle() {
+		return google;
+	}
 
-  public void setVipEndDate(Date vipEndDate) {
-    this.vipEndDate = vipEndDate;
-  }
+	public void setGoogle(String google) {
+		this.google = google;
+	}
+
+	public Boolean getIsOpen() {
+		return isOpen;
+	}
+
+	public void setVipEndDate(Date vipEndDate) {
+		this.vipEndDate = vipEndDate;
+	}
+
+	public Integer getPresence() {
+		return presence;
+	}
+
+	public void setPresence(Integer presence) {
+		this.presence = presence;
+	}
+
 }

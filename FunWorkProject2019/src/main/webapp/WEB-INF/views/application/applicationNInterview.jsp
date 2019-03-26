@@ -349,8 +349,9 @@
 											<c:set var="checkEmpty" value="1"></c:set>
 											<!-- ----------如果checkEmpty value維持 1 無已回應的邀約------------------------->
 											<c:forEach var="interview1" items="${interviewsPerJobOwner}">
+											
 											<c:choose>
-												<c:when test="${(interview1.interviewStatus != '代回應') and(current.time gt interviewTime.time)}">
+												<c:when test="${(interview1.interviewStatus == '接受') and(current.time gt interviewTime.time)}">
 													<c:set var="checkEmpty" value="0"/>
 													<div class="row">
 													<div class="col-sm-12">
@@ -370,7 +371,7 @@
 															${interview1.application.user.userName} 已完成「<a
 															href="${pageContext.request.contextPath}/jobDetail/${interview1.application.job.jobId}">
 																${interview1.application.job.title} </a>」的
-															${interview1.interviewType}邀約，你可以根據到場狀況註記該應徵者，你的註記將攸關應徵者未來的求職履歷，請勿做出不實登記，並於
+															「${interview1.interviewType}」 邀約，你可以根據到場狀況註記該應徵者，你的註記將攸關應徵者未來的求職履歷，請勿做出不實登記，並於
 															59 小時內完成註記。
 														</strong>
 													</h6>
@@ -433,15 +434,23 @@
 																	出席？
 																</h2>
 																<p style="text-align: center;">一旦註記結果送出，將無法更改。</p>
+																<div align="center">
+																<c:if test="${interview1.interviewType =='錄取'}">
+																</c:if>
+																</div>
 																<form
 																	action="${pageContext.request.contextPath}/updateInterviewResult"
 																	method="post">
 																	<div class="modal-body">
+																	<h6>請幫使用者評分: <input type="number" min="1" max="5" name="interviewRating" required="required"></h6> 
 																		<input type="hidden" name="interviewId"
 																			value="${interview1.interviewId}"> 
 																		<input
 																			type="hidden" name="interviewResult"
-																			value="出席">
+																			value="應約">
+																		<input
+																		type="hidden" name="interviewRatingHidden" id="interviewRatingHidden"
+																		value="">
 																	</div>
 																	<c:if test="${!empty sessionScope.loginUser}">
 																		<div class="modal-footer">
@@ -480,9 +489,11 @@
 																	action="${pageContext.request.contextPath}/updateInterviewResult"
 																	method="post">
 																	<div class="modal-body">
+<!-- 																	<h6>請幫使用者評分: <input type="number" value="0" name="interviewRating" readonly="readonly" required="required"></h6>  -->
+																		<h6>註記缺自動給0分</h6>
 																		<input type="hidden" name="interviewId"
 																			value="${interview1.interviewId}"> <input
-																			type="hidden" name="interviewStatus"
+																			type="hidden" name="interviewResult"
 																			value="缺席">
 																	</div>
 																	<c:if test="${!empty sessionScope.loginUser}">
@@ -525,7 +536,7 @@
 																					<input type="hidden" name="interviewId"
 																						value="${interview1.interviewId}"> <input
 																						type="hidden" name="interviewResult"
-																						value="拒絕">
+																						value="邀約取消">
 																				</div>
 																				<c:if test="${!empty sessionScope.loginUser}">
 																				<div class="modal-footer">
