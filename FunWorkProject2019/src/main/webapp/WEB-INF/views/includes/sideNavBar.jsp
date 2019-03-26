@@ -59,7 +59,6 @@ background-color: #e3f2fd;
 					<a class="btn btn-link" href="<c:url value='/accountSetting'></c:url>">帳戶設定</a>
 					<a class="btn btn-link" href="<c:url value='/resume'></c:url>">我的履歷</a>
 					<a class="btn btn-link" href="<c:url value='/mainHub'></c:url>">數據資訊</a>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">圖形表單</a>
 				</div>
 			</div>
 		</div>
@@ -163,8 +162,7 @@ background-color: #e3f2fd;
 				data-parent="#accordionExample">
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/product'></c:url>">加值服務</a><br>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">訂單查詢</a><br>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">優惠券兌換</a>
+					<a class="btn btn-link" href="<c:url value='/memberOrder'></c:url>">訂單查詢</a><br>
 				</div>
 			</div>
 		</div>

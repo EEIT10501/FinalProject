@@ -91,7 +91,7 @@ public class CompanyServiceImp implements CompanyService {
   public void companyReviewPass(Integer companyId) {
 
     Company company = companyDao.findByPrimaryKey(companyId);
-    company.setReviewStatus("已通過");
+    company.setReviewStatus("審核通過");
     company.setReviewTime(new Timestamp(System.currentTimeMillis()));
     companyDao.updateCompany(company);
 

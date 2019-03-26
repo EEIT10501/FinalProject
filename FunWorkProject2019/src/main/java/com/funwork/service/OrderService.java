@@ -19,4 +19,6 @@ public interface OrderService {
   Order getOrderByTradeNo(String orderTradeNo);
   
   String getOrderByMouth();
+
+  List<Order> getOrdersById(Integer userId);
 }

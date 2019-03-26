@@ -11,6 +11,7 @@ import com.funwork.model.Order;
 import com.funwork.model.Product;
 import com.funwork.service.OrderService;
 
+@Transactional
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -52,6 +53,12 @@ public class OrderServiceImpl implements OrderService {
   @Override
   public String getOrderByMouth() {
     return dao.getOrderByMouth();
+  }
+
+  @Override
+  public List<Order> getOrdersById(Integer userId) {
+    
+    return dao.getOrdersById(userId);
   }
 
 }

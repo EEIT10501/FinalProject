@@ -350,7 +350,7 @@
 											<!-- ----------如果checkEmpty value維持 1 無已回應的邀約------------------------->
 											<c:forEach var="interview1" items="${interviewsPerJobOwner}">
 											<c:choose>
-												<c:when test="${(interview1.interviewStatus != '代回應') and(current.time gt interviewTime.time)}">
+												<c:when test="${(interview1.interviewStatus == '接受') and(current.time gt interviewTime.time)}">
 													<c:set var="checkEmpty" value="0"/>
 													<div class="row">
 													<div class="col-sm-12">

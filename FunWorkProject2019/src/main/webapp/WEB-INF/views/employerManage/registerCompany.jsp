@@ -64,7 +64,7 @@
 									<strong><spring:message code='spring.registerCompany.form.taxId.label' /></strong>
 								</label>
 								<div class="col-sm-10">
-									<form:input id="taxId" path="taxId" type='number' placeholder='10000000'
+									<form:input id="taxId" path="taxId" type='number' placeholder='12345678'
 										class='form-control' min="10000000" max="99999999" required="required"/>
 									<c:if test="${empty errors}">
 									<span></span>

@@ -31,12 +31,12 @@
 }
 </style>
 <body>
-	<%@ include file="/WEB-INF/views/includes/adminnavbar.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-sm-2 asideblock">
-                <jsp:include page="/WEB-INF/views/includes/adminSideBar.jsp"></jsp:include>
+                <jsp:include page="/WEB-INF/views/includes/sideNavBar.jsp"></jsp:include>
             </div>
 			<div class="col-sm-8">
 				<h1>會員加值紀錄</h1>
@@ -46,8 +46,7 @@
 							<th>訂單編號</th>
 							<th>商品名稱</th>
 							<th>價錢</th>
-							<th>會員編號</th>
-							<th>會員姓名</th>
+							<th>到期日</th>
 							<th>交易狀態</th>						
 							<th>訂購時間</th>
 						</tr>
@@ -58,8 +57,14 @@
 								<td>${order.orderTradeNo}</td>
 								<td>${order.product.productName}黃金會員</td>
 								<td>$${order.price}</td>
-								<td>${order.user.userId}</td>
-								<td>${order.user.userName}</td>
+								<c:choose>
+								<c:when test="${order.status == 1}">
+								<td><fmt:formatDate value="${order.user.vipEndDate}" pattern="yyyy/MM/dd HH:mm" /></td>
+								</c:when>
+								<c:when test="${order.status != 1}">
+								<td>-</td>
+								</c:when>
+								</c:choose>
 								<c:choose>
 								<c:when test="${order.status == 1}">
 								<td>成功</td>
