@@ -14,24 +14,33 @@ import javax.persistence.Table;
 @Table(name = "\"User\"")
 public class User implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-  private Integer userId;
-  private String userName;
-  private String password;
-  private String phoneNum;
-  private String email;
-  private Integer mebershipLevel;
-  private Integer exposureLimit;
-  private Integer jobPostLimit;
-  private Integer jobPostPeriod;
-  private Double rating;
-  private Integer role;
-  private Integer abscence;
-  private Integer presence;
-  private String facebook;
-  private String google;
-  private Boolean isOpen;
-  private Date vipEndDate;
+	private static final long serialVersionUID = 1L;
+	private Integer userId;
+	private String userName;
+	private String password;
+	private String phoneNum;
+	private String email;
+	private Integer mebershipLevel;
+	private Integer exposureLimit;
+	private Integer jobPostLimit;
+	private Integer jobPostPeriod;
+	private Double rating;
+	private Integer role;
+	private Integer abscence;
+	private Integer presence;
+	private String facebook;
+	private String google;
+
+	public Date getVipEndDate() {
+		return vipEndDate;
+	}
+
+	public void setIsOpen(Boolean isOpen) {
+		this.isOpen = isOpen;
+	}
+
+	private Boolean isOpen;
+	private Date vipEndDate;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -153,17 +162,16 @@ public class User implements Serializable {
 		return isOpen;
 	}
 
+	public void setVipEndDate(Date vipEndDate) {
+		this.vipEndDate = vipEndDate;
+	}
 
-  public void setVipEndDate(Date vipEndDate) {
-    this.vipEndDate = vipEndDate;
-  }
+	public Integer getPresence() {
+		return presence;
+	}
 
-  public Integer getPresence() {
-    return presence;
-  }
-
-  public void setPresence(Integer presence) {
-    this.presence = presence;
-  }
+	public void setPresence(Integer presence) {
+		this.presence = presence;
+	}
 
 }
