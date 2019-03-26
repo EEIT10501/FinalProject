@@ -18,7 +18,7 @@
 <title>儲值方案</title>
 <script>
 $(document).ready(function(){
-	$(".card").click(function(){
+	$(".productCard").click(function(){
 		var productId = $(this).attr("id");
 // 		alert($(this).attr("id"));
 		document.location.href="<c:url value='/orderCheck/'/>"+productId;
@@ -54,7 +54,7 @@ $(document).ready(function(){
 				<div class="row m-3 justify-content-around">
 				
 				<div class="col-sm-3">
-				<div class="card text-white bg-dark mb-3" id="${productList[0].productId}">
+				<div class="card text-white bg-dark mb-3 productCard" id="${productList[0].productId}">
 					<img src="<c:url value='/image/product01.png'/>"
 						class="card-img-top" alt="...">
 					<div class="card-body">
@@ -65,7 +65,7 @@ $(document).ready(function(){
 				</div>
 				</div>
 				<div class="col-sm-3">
-				<div class="card text-white bg-dark mb-3" id="${productList[1].productId}">
+				<div class="card text-white bg-dark mb-3 productCard" id="${productList[1].productId}">
 					<img src="<c:url value='/image/product02.png'/>"
 						class="card-img-top" alt="...">
 					<div class="card-body">
@@ -76,7 +76,7 @@ $(document).ready(function(){
 				</div>
 				</div>
 				<div class="col-sm-3">
-				<div class="card text-white bg-dark mb-3" id="${productList[2].productId}">
+				<div class="card text-white bg-dark mb-3 productCard" id="${productList[2].productId}">
 					<img src="<c:url value='/image/product03.png'/>"
 						class="card-img-top" alt="...">
 					<div class="card-body">
