@@ -40,6 +40,10 @@ background-color: #e3f2fd;
 background-color: #e3f2fd;
 }
 
+#accordionExample {
+min-height:620px;
+}
+
 </style>
 </head>
 <body>
