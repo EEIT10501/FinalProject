@@ -12,61 +12,60 @@ import org.w3c.dom.NodeList;
 import allPay.payment.integration.errorMsg.ErrorMessage;
 import allPay.payment.integration.exception.AllPayException;
 
-public class PaymentVerifyBase {
+public class PaymentVerifyBase{
 	protected String confPath = "/allPay/payment/integration/config/AllpayPayment.xml";
+//	/FunWorkProject2019/src/main/java/allPay/payment/integration/config/AllpayPayment.xml
 	protected Document doc;
-
-	public PaymentVerifyBase() {
+	public PaymentVerifyBase(){
 		URL fileURL = this.getClass().getResource(confPath);
 		doc = AllPayFunction.xmlParser(fileURL.toString());
 		doc.getDocumentElement().normalize();
 	}
-
-	protected void requireCheck(String FieldName, String objValue, String require) {
-		if (require.equals("1") && objValue.isEmpty())
-			throw new AllPayException(FieldName + "為必填");
+	
+	protected void requireCheck(String FieldName, String objValue, String require){
+		if(require.equals("1") && objValue.isEmpty())
+			throw new AllPayException(FieldName+"������");
 	}
-
-	protected void valueCheck(String type, String objValue, Element ele) {
-		if (objValue.isEmpty())
+	
+	protected void valueCheck(String type, String objValue, Element ele){
+		if(objValue.isEmpty())
 			return;
-		if (type.equals("String")) {
-			if (ele.getElementsByTagName("pattern") != null) {
+		if(type.equals("String")){
+			if(ele.getElementsByTagName("pattern") != null){
 				Pattern r = Pattern.compile(ele.getElementsByTagName("pattern").item(0).getTextContent().toString());
 				Matcher m = r.matcher(objValue);
-				if (!m.find()) {
-					throw new AllPayException(ele.getAttribute("name") + ErrorMessage.COLUMN_RULE_ERROR);
+				if(!m.find()){
+					throw new AllPayException(ele.getAttribute("name")+ErrorMessage.COLUMN_RULE_ERROR);
 				}
 			}
-		} else if (type.equals("Opt")) {
+		} else if(type.equals("Opt")){
 			List<String> opt = new ArrayList<String>();
 			NodeList n = ele.getElementsByTagName("option");
-			for (int i = 0; i < n.getLength(); i++) {
+			for(int i=0; i < n.getLength(); i++){
 				opt.add(n.item(i).getTextContent().toString());
 			}
-			if (!opt.contains(objValue)) {
-				throw new AllPayException(ele.getAttribute("name") + ErrorMessage.COLUMN_RULE_ERROR);
+			if(!opt.contains(objValue)){
+				throw new AllPayException(ele.getAttribute("name")+ErrorMessage.COLUMN_RULE_ERROR);
 			}
-		} else if (type.equals("Int")) {
+		} else if(type.equals("Int")){
 			String mode = ele.getElementsByTagName("mode").item(0).getTextContent();
 			String minimum = ele.getElementsByTagName("minimal").item(0).getTextContent();
 			String maximum = ele.getElementsByTagName("maximum").item(0).getTextContent();
-			if (objValue.isEmpty()) {
-				throw new AllPayException(ele.getAttribute("name") + ErrorMessage.CANNOT_BE_EMPTY);
+			if(objValue.isEmpty()){
+				throw new AllPayException(ele.getAttribute("name")+ErrorMessage.CANNOT_BE_EMPTY);
 			}
 			int value = Integer.valueOf(objValue);
-			if (mode.equals("GE") && value < Integer.valueOf(minimum)) {
-				throw new AllPayException(ele.getAttribute("name") + "不能小於" + minimum);
-			} else if (mode.equals("LE") && value > Integer.valueOf(maximum)) {
-				throw new AllPayException(ele.getAttribute("name") + "不能大於" + maximum);
-			} else if (mode.equals("BETWEEN") && value < Integer.valueOf(minimum) && value > Integer.valueOf(maximum)) {
-				throw new AllPayException(ele.getAttribute("name") + "必須介於" + minimum + "和" + maximum + "之間");
-			} else if (mode.equals("EXCLUDE") && value >= Integer.valueOf(minimum)
-					&& value <= Integer.valueOf(maximum)) {
-				throw new AllPayException(ele.getAttribute("name") + "必須小於" + minimum + "或大於" + maximum);
+			if(mode.equals("GE") && value < Integer.valueOf(minimum)){
+				throw new AllPayException(ele.getAttribute("name")+"����p��"+minimum);
+			} else if(mode.equals("LE") && value > Integer.valueOf(maximum)){
+				throw new AllPayException(ele.getAttribute("name")+"����j��"+maximum);
+			} else if(mode.equals("BETWEEN") && value < Integer.valueOf(minimum) && value > Integer.valueOf(maximum)){
+				throw new AllPayException(ele.getAttribute("name")+"��������"+minimum+"�M"+maximum+"����");
+			} else if(mode.equals("EXCLUDE") && value >= Integer.valueOf(minimum) && value <= Integer.valueOf(maximum)){
+				throw new AllPayException(ele.getAttribute("name")+"�����p��"+minimum+"�Τj��"+maximum);
 			}
-		} else if (type.equals("DepOpt")) {
+		} else if(type.equals("DepOpt")){
 			// TODO
-		}
+		} 
 	}
 }
