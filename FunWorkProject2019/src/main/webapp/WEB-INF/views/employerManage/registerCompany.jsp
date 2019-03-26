@@ -81,7 +81,7 @@
 								</label>
 								<div class="col-sm-10">
 									<form:input id="address" path="address" type='text' length="50"
-										placeholder="ex:新北市永和區成功路123號" class='form-control' />
+										placeholder="ex:新北市永和區成功路123號" class='form-control' required="required"/>
 								</div>
 							</div>
 							<p></p>

@@ -110,9 +110,7 @@ background-color: #e3f2fd;
 			<div id="collapse3" class="collapse" aria-labelledby="heading3"
 				data-parent="#accordionExample">
 				<div class="card-body">
-<%-- 					<a class="btn btn-link" href="<c:url value='/manageApplications'></c:url>">管理邀約old</a><br>  --%>
 					<a class="btn btn-link" href="<c:url value='/applicationNInterview'></c:url>">管理邀約</a>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">管理面試</a>
 				</div>
 			</div>
 		</div>

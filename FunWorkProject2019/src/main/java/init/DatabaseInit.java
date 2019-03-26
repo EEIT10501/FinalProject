@@ -26,20 +26,20 @@ public class DatabaseInit {
   public static void main(String[] args) {
     SessionFactory factory = HibernateUtils.getSessionFactory();
     new UserTableInit(factory).initUser();
-//    new CompanyTableInit(factory).initCompany();
+    new CompanyTableInit(factory).initCompany();
     new ResumeTableInit(factory).initResume();
-//    new NotificationTableInit(factory).initNotification();
+    new NotificationTableInit(factory).initNotification();
     new CityTableInit(factory).initCity();
-//    new JobTableInit(factory).initJob();
-//    new ComplaintTableInit(factory).initComplaint();
-//    new SalaryTableInit(factory).initSalary();
-//    new AttendenceTableInit(factory).initAttendence();
-//    new ApplicationTableInit(factory).initApplicatoin();
-//    new InterviewTableInit(factory).initInterview();
-//    new ScheduleTableInit(factory).initSchedule();
+    new JobTableInit(factory).initJob();
+    new ComplaintTableInit(factory).initComplaint();
+    new SalaryTableInit(factory).initSalary();
+    new AttendenceTableInit(factory).initAttendence();
+    new ApplicationTableInit(factory).initApplicatoin();
+    new InterviewTableInit(factory).initInterview();
+    new ScheduleTableInit(factory).initSchedule();
     new ProductTableInit(factory).initProduct();
     new OrderTableInit(factory).initOrder();
-//    new SuggestionTableInit(factory).initSuggestion();
+    new SuggestionTableInit(factory).initSuggestion();
     factory.close();
   }
 }
