@@ -76,4 +76,12 @@ public class OrderDaoImpl implements OrderDao {
     return new Gson().toJson(list);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Order> getOrdersById(Integer userId) {
+    String hql = "FROM Order o WHERE o.user.userId = :userId";
+    Session session = factory.getCurrentSession();
+    return session.createQuery(hql).setParameter("userId", userId).getResultList();
+  }
+
 }

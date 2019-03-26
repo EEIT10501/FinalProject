@@ -18,4 +18,6 @@ public interface OrderDao {
   Order getOrderByTradeNo(String orderTradeNo);
   
   String getOrderByMouth();
+
+  List<Order> getOrdersById(Integer userId);
 }

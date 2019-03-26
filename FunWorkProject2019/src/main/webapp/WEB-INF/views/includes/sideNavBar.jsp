@@ -160,8 +160,7 @@ background-color: #e3f2fd;
 				data-parent="#accordionExample">
 				<div class="card-body">
 					<a class="btn btn-link" href="<c:url value='/product'></c:url>">加值服務</a><br>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">訂單查詢</a><br>
-					<a class="btn btn-link" href="<c:url value='#'></c:url>">優惠券兌換</a>
+					<a class="btn btn-link" href="<c:url value='/memberOrder'></c:url>">訂單查詢</a><br>
 				</div>
 			</div>
 		</div>
