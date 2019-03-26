@@ -10,10 +10,15 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <title>navbar</title>
 <style>
+html, body {
+    height: 100%;
+}
+
 .footerbackground {
 	background: #0878A4;
 	color: white;
 	font-weight:700;
+	width:100%;
 }
 
 .btn {

@@ -379,8 +379,8 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
+		<div class="row no-gutter">
+			<div class="col text-center footerbackground"><footer>Copyright© 2019 趣打工 All rights reserved.</footer></div>
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
