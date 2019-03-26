@@ -26,6 +26,7 @@ public class User implements Serializable {
   private Double rating;
   private Integer role;
   private Integer abscence;
+  private Integer presence;
   private String facebook;
   private String google;
   private Boolean isOpen;
@@ -162,4 +163,13 @@ public class User implements Serializable {
   public void setVipEndDate(Date vipEndDate) {
     this.vipEndDate = vipEndDate;
   }
+
+  public Integer getPresence() {
+    return presence;
+  }
+
+  public void setPresence(Integer presence) {
+    this.presence = presence;
+  }
+
 }

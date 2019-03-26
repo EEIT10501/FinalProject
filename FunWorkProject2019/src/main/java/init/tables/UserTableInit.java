@@ -66,6 +66,7 @@ public class UserTableInit {
         user.setGoogle(google);
         user.setIsOpen(Boolean.valueOf(isOpen));
         user.setVipEndDate(Date.valueOf(vipEndDate));
+        user.setPresence(Integer.valueOf(token[15]));
         session.save(user);
       }
       tx.commit();
