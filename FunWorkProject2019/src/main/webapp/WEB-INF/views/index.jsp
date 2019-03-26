@@ -16,10 +16,20 @@
 	font-size: 14px;
 }
 
-.footerbackground {
-	background: #343a40;
-	color: white;
+.fkcard{
+border:none;
+color:#03353E;
 }
+
+.card-body{
+margin-top:-20px;
+padding:0px;
+}
+
+.card-text{
+font-weight:800;
+}
+
 </style>
 </head>
 
@@ -61,42 +71,41 @@
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around">
 			<div class="col-md-2 col-sm-3">
-				<div class="card text-white bg-dark mb-3">
+				<div class="card mb-3 fkcard">
 					<img src="/FunWorkProject2019/image/list.jpg" class="card-img-top"
 						alt="...">
 					<div class="card-body">
-						<h5 class="card-title text-center">簡單明瞭</h5>
+						<h5 class="card-title text-center" style="color:#0878A4;font-weight:800">簡單明瞭</h5>
 						<p class="card-text card-text-size">打工趣簡單明瞭的操作介面獲得無數使用者的稱讚，讓你快速找到想要的打工。</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-3">
-				<div class="card text-white bg-dark mb-3">
+				<div class="card mb-3 fkcard">
 					<img src="/FunWorkProject2019/image/search.jpg"
 						class="card-img-top" alt="...">
 					<div class="card-body">
-						<h5 class="card-title text-center">快速搜尋</h5>
-						<p class="card-text card-text-size">只要 30
-							秒就可以填好履歷，一鍵應徵，節省寶貴的時間。安全可靠</p>
+						<h5 class="card-title text-center" style="color:#0878A4;font-weight:800">快速搜尋</h5>
+						<p class="card-text card-text-size">只要30秒就可以填好履歷，一鍵應徵，節省寶貴的時間。安全可靠</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-3">
-				<div class="card text-white bg-dark mb-3">
+				<div class="card mb-3 fkcard">
 					<img src="/FunWorkProject2019/image/security.jpg"
 						class="card-img-top" alt="...">
 					<div class="card-body">
-						<h5 class="card-title text-center">安全可靠</h5>
+						<h5 class="card-title text-center" style="color:#0878A4;font-weight:800">安全可靠</h5>
 						<p class="card-text card-text-size">嚴格審查工作來源，拒絕八大行業，你可以放心在趣打工上找到最適合的工作。</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-3">
-				<div class="card text-white bg-dark mb-3">
+				<div class="card mb-3 fkcard">
 					<img src="/FunWorkProject2019/image/cal.jpg" class="card-img-top"
 						alt="...">
 					<div class="card-body">
-						<h5 class="card-title text-center">精打細算</h5>
+						<h5 class="card-title text-center" style="color:#0878A4;font-weight:800">精打細算</h5>
 						<p class="card-text card-text-size">薪資時數幫您算好好，每月報表輕鬆做！</p>
 					</div>
 				</div>

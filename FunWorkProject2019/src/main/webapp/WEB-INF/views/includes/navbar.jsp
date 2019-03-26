@@ -10,21 +10,79 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <title>navbar</title>
 <style>
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
+.footerbackground {
+	background: #0878A4;
+	color: white;
+	font-weight:700;
 }
+
 .btn {
 	margin-right: 5px;
 }
+
+.navbarback{ 
+ background-color:white; 
+ opacity:0.8;
+ } 
+
+.navbar-brand{
+color:#03353E;
+}
+
+.navbar-brand:hover{
+color:#03353E;
+}
+
+.nav-item {
+margin-left:5px;
+}
+
+.navbar-brand{
+color:#04060F;
+font-weight:900;
+}
+
+.nav-link{
+color:#0878A4;
+font-weight:900;
+}
+
+.nav-link:hover{
+color:#003D73;
+}
+
+.navbutton{
+background-color:white;
+border:solid 1px #0878A4;
+margin-left:5px;
+border-radius:5px;
+}
+
+.navbutton:hover{
+background-color:#0878A4;
+color:white;
+}
+
+.navbuttonlogin{
+background-color:#0878A4;
+border:solid 1px #0878A4;
+margin-left:5px;
+border-radius:5px;
+color:#EDD170;
+}
+
+.fixed-top:scrollTop{
+background-color:white;
+}
+
 </style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg fixed-top bg-gradient-info">
 		<a class="navbar-brand" href="<c:url value='/'/>"> 
 			<img src="<c:url value='/image/LOGO.jpg'/>" width="30" height="30" 
-			     class="d-inline-block align-top">EEIT趣打工
+			     class="d-inline-block align-top">&nbsp;EEiT趣打工
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" 
 		        data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" 
@@ -53,7 +111,7 @@
 					<a class="nav-link" href="<c:url value='/qapage'/>">常見問題</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">聯絡我們</a>
+					<a class="nav-link" href="<c:url value='/insertSg'/>">聯絡我們</a>
 				</li>
 				<c:if test="${loginUser!=null}">
 					<li class="nav-item">
@@ -70,21 +128,21 @@
 			</form>
 			<c:if test="${empty loginUser}">
 				<span class="navbar-text my-2 my-sm-0" id="loginspan"> 
-					<a class="nav-link btn btn-outline-secondary" data-toggle="modal" 
-					   data-target="#loginModal">登入</a>
+					<button class="nav-link navbutton" data-toggle="modal" 
+					   data-target="#loginModal">登入</button>
 				</span>
 			</c:if>
 			<c:if test="${loginUser!=null}">
 				<span class="navbar-text my-2 my-sm-0" id="logoutspan"> 
-					<a class="nav-link btn btn-outline-secondary" data-toggle="modal" 
+					<button class="nav-link navbuttonlogin" data-toggle="modal" 
 					   data-target="#logoutModal">
-						<c:out value="${loginUser.userName} : 您好"></c:out>
-					</a>
+						<c:out value="${loginUser.userName} ， 您好"></c:out>
+					</button>
 				</span>
 			</c:if>
 			<c:if test="${loginUser==null}">
 			<span class="navbar-text my-2 my-sm-0"> 
-				<a class="nav-link btn btn-outline-secondary" href="register">註冊</a>
+				<a class="nav-link navbutton" href="register">註冊</a>
 			</span>
 			</c:if>
 		</div>
@@ -153,6 +211,17 @@
 		</div>
 	</div>
 	<script>
+	$(document).ready(function(){
+		$(document).scroll(function(){
+			var top=$(document).scrollTop();
+			if(top>20){
+				$(".navbar").addClass("navbarback");	
+			}else{
+				$(".navbar").removeClass("navbarback");
+			}
+				
+		});
+	});
 		function setCookie(cname, cvalue, exdays) {
 			var d = new Date();
 			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

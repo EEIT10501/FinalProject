@@ -94,7 +94,7 @@
 					<td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${applicatioList.applicationTime}" /></td>
                     <td><a href="${pageContext.request.contextPath}/chat/${applicatioList.applicationId}">
 						<button type="button" class="btn btn-primary btn-sm" style="float:inherit;">									
-						<span class="glyphicon glyphicon-thumbs-up"></span>傳訊給應徵者
+						<span class="glyphicon glyphicon-thumbs-up"></span>傳訊給雇主
 						</button></a></td>
                   </tr>
                  </c:forEach>

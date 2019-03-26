@@ -1,9 +1,12 @@
 package com.funwork.dao;
 
+import com.funwork.model.Suggestion;
 import java.util.List;
 
-import com.funwork.model.Suggestion;
-
 public interface SuggestionDao {
-	List<Suggestion> getAllSuggestions();
+  List<Suggestion> getAllSuggestions();
+
+  Suggestion getSuggestionById(Integer sgId);
+
+  void insertSg(Suggestion sg);
 }
