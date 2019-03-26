@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.funwork.model.Application;
 import com.funwork.model.Interview;
+import com.funwork.model.User;
 import com.funwork.service.ApplicationService;
 import com.funwork.service.InterviewService;
+import com.funwork.service.UserService;
 
 @Controller
 public class InterviewController {
@@ -21,6 +23,8 @@ public class InterviewController {
 	InterviewService interviewService;
 	@Autowired
 	ApplicationService applicationService;
+	@Autowired
+	UserService userService;
 
 	@PostMapping(value = "/interSend")
 	public String pullApplicantsByJob(@RequestParam("interType") String interType,
@@ -37,16 +41,44 @@ public class InterviewController {
 		applicationService.refuseUser(apId);
 		return "redirect:/applications?id=" + jobId;
 	}
-	
-	@RequestMapping(value = "/updateInterviewResult", method = RequestMethod.POST)
-	  public String updateInterviewResult(@RequestParam("interviewId") Integer interviewId,
-	      @RequestParam("interviewResult") String interviewResult) {
 
-	    Interview interview = interviewService.findByPrimaryKey(interviewId);
-	    interview.setInterviewResult(interviewResult);
-	    interviewService.updateInterview(interview);
-	    System.out.println("here");
-	    return "redirect:/applicationNInterview";
-	  }
+	@RequestMapping(value = "/updateInterviewResult", method = RequestMethod.POST)
+	public String updateInterviewResult(@RequestParam("interviewId") Integer interviewId,
+			@RequestParam("interviewResult") String interviewResult,
+			@RequestParam(value="interviewRating",required=false) String interviewRating) {
+		System.out.println("updateInterviewResult");
+		System.out.println(interviewResult);
+		Interview interview = interviewService.findByPrimaryKey(interviewId);
+		Application app = applicationService.findByPrimaryKey(interview.getApplication().getApplicationId());
+		User user = app.getUser();
+		Double rating = user.getRating();
+		Double newRating=null;
+		if(interviewRating!=null) {
+			newRating = Double.valueOf(interviewRating);
+		}else {
+			newRating = 0.0;
+		}
+		if (interview.getInterviewType().equals("錄取") && user.getRating() == null) {
+			System.out.println("enter newRating");
+			rating = newRating;
+			if(interviewResult.equals("缺席")) {
+				user.setAbscence((user.getAbscence() + 1));
+			}else if(interviewResult.equals("應約")){
+				user.setPresence(user.getPresence()+1);
+			}
+			user.setRating(rating);
+			userService.updateUser(user);
+		}else if(interview.getInterviewType().equals("錄取")){
+			if(interviewResult.equals("缺席")) {
+				user.setAbscence((user.getAbscence() + 1));
+			}else if(interviewResult.equals("應約")){
+					user.setPresence(user.getPresence()+1);
+			}
+			user.setRating((rating+newRating)/2);
+			userService.updateUser(user);
+		}
+		interviewService.updateInterviewResult(interviewResult, interviewId);
+		return "redirect:/applicationNInterview";
+	}
 
 }
