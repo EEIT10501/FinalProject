@@ -77,7 +77,8 @@
 						<button type="submit" class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModal">註冊</button>
 						<input type="reset" class="btn btn-danger" id="cancel" value="重填">
-
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModal">一鍵登錄</button>
 
 						<!-- Modal -->
 						<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -120,6 +121,13 @@
 		</div>
 	</div>
 	<script>
+			function keyinAll(){
+				
+				
+			}
+	
+	
+	
 // 		    function formCheck() {
 // 			var pwd1 = document.getElementById("pwd1").value;
 // 			var pwd2 = document.getElementById("pwd2").value;
