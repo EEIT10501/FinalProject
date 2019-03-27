@@ -1,5 +1,13 @@
 package com.funwork.controller;
 
+import com.funwork.exception.CompanyNotFoundException;
+import com.funwork.model.Company;
+import com.funwork.model.Job;
+import com.funwork.model.User;
+import com.funwork.service.ApplicationService;
+import com.funwork.service.CompanyService;
+import com.funwork.service.JobService;
+import com.funwork.service.UserService;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,13 +17,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -37,16 +43,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.funwork.exception.CompanyNotFoundException;
-import com.funwork.model.Application;
-import com.funwork.model.Company;
-import com.funwork.model.Job;
-import com.funwork.model.User;
-import com.funwork.service.ApplicationService;
-import com.funwork.service.CompanyService;
-import com.funwork.service.JobService;
-import com.funwork.service.UserService;
 
 @Controller
 public class EmployerController {
@@ -73,8 +69,7 @@ public class EmployerController {
    * Show jobs by user.
    */
   @GetMapping("/manageJob")
-  public String manageJob(Model model, HttpServletRequest request) {
-    HttpSession session = request.getSession();
+  public String manageJob(Model model, HttpSession session) {
     User user = (User) session.getAttribute(LOGIN_USER);
     if (user != null) {
       List<Job> list = jobService.findJobByUserId(user.getUserId());
@@ -85,7 +80,10 @@ public class EmployerController {
     }
   }
 
-  @RequestMapping("/manageCompanyPage")
+  /**
+   * Show companys by user.
+   */
+  @GetMapping("/manageCompanyPage")
   public String list(Model model, HttpServletRequest request) {
     HttpSession session = request.getSession();
     User user = (User) session.getAttribute(LOGIN_USER);
@@ -96,22 +94,6 @@ public class EmployerController {
     } else {
       return REDIRECT_TO_INDEX;
     }
-  }
-
-  @ResponseBody
-  @RequestMapping(value = "/searchResultByReviewStatus")
-  public String getcompanysByReviewStatus(@RequestParam("qstr") String status, Model model) {
-    System.out.println("received AJAX request and qstr is " + status);
-    System.out.println("new request model content before service called: " + model.containsAttribute("companys"));
-    List<Company> companys = companyService.findAllCompanys(status);
-    System.out.println("companys list contains element(T:Empty): " + companys.isEmpty());
-    System.out.println("list element number is " + companys.size());
-    for (Company c : companys) {
-      System.out.println(c.toString());
-    }
-    model.addAttribute("companys", companys);
-    model.addAttribute("flag", companys);
-    return "OK";
   }
 
   @RequestMapping(value = "/resultCorStatsJSON/{qstr}", method = RequestMethod.GET, produces = { "application/json" })

@@ -10,13 +10,16 @@ import com.funwork.model.Job;
 import com.funwork.model.Notification;
 import com.funwork.service.JobService;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class JobServiceImpl implements JobService {
+  public static final Logger logger = Logger.getLogger("com.funwork");
   @Autowired
   JobDao jobDao;
   @Autowired
@@ -157,13 +161,19 @@ public class JobServiceImpl implements JobService {
   @Override
   public Map<String, String> getGeocoderLatitude(String address) {
     String apiKey = "AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus";
-    BufferedReader jsonres = null;
-
+    URL url = null;
     try {
-      URL url = new URL(
+      url = new URL(
           "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" + address + "&key=" + apiKey);
+    } catch (MalformedURLException e) {
+      logger.warning(e.getMessage());
+    }
+    if (url == null) {
+      return null;
+    }
+    try (BufferedReader jsonres = new BufferedReader(
+        new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));) {
 
-      jsonres = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
       String res;
       StringBuilder sb = new StringBuilder("");
       while ((res = jsonres.readLine()) != null) {
@@ -171,49 +181,25 @@ public class JobServiceImpl implements JobService {
       }
 
       String str = sb.toString();
-      System.out.println(str);
 
       if (StringUtils.isNotEmpty(str)) {
         JSONObject json = new JSONObject(str);
         JSONArray ja = json.getJSONArray("results");
-        String lat = String
-            .valueOf(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
-        String lng = String
-            .valueOf(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+        String lat = String.valueOf(ja.getJSONObject(0).getJSONObject("geometry")
+                .getJSONObject("location").getDouble("lat"));
+        String lng = String.valueOf(ja.getJSONObject(0).getJSONObject("geometry")
+                .getJSONObject("location").getDouble("lng"));
         Map<String, String> map = new HashMap<String, String>();
         if (lat != null && lng != null) {
           map.put("lat", lat);
           map.put("lng", lng);
-          System.out.println(map.get("lat") + "," + map.get("lng"));
           return map;
         }
       }
-
-//			Map<String, String> map = null;
-//			if (StringUtils.isNotEmpty(str)) {
-//				int latStart = str.indexOf("{\"location\" : {\"lat\" :");
-//				int latEnd = str.indexOf(",\"lng");
-//				int lngEnd = str.indexOf("},\"location_type\"");
-//				if (latStart > 0 && lngEnd > 0 && latEnd > 0) {
-//					String lat = str.substring(latStart + 23, latEnd);
-//					String lng = str.substring(latEnd + 9, lngEnd);
-//					map = new HashMap<String, String>();
-//					map.put("lng", lng);
-//					map.put("lat", lat);
-//					return map;
-//				}
-//			}
-
     } catch (Exception e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        jsonres.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      logger.warning(e.getMessage());
     }
-    return null;
+    return null; 
   }
 
   @Override

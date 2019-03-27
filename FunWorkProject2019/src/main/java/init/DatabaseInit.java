@@ -1,7 +1,6 @@
 package init;
 
 import init.tables.ApplicationTableInit;
-import init.tables.AttendenceTableInit;
 import init.tables.CityTableInit;
 import init.tables.CompanyTableInit;
 import init.tables.ComplaintTableInit;
@@ -11,7 +10,6 @@ import init.tables.NotificationTableInit;
 import init.tables.OrderTableInit;
 import init.tables.ProductTableInit;
 import init.tables.ResumeTableInit;
-import init.tables.SalaryTableInit;
 import init.tables.ScheduleTableInit;
 import init.tables.SuggestionTableInit;
 import init.tables.UserTableInit;
@@ -32,8 +30,6 @@ public class DatabaseInit {
     new CityTableInit(factory).initCity();
     new JobTableInit(factory).initJob();
     new ComplaintTableInit(factory).initComplaint();
-    new SalaryTableInit(factory).initSalary();
-    new AttendenceTableInit(factory).initAttendence();
     new ApplicationTableInit(factory).initApplicatoin();
     new InterviewTableInit(factory).initInterview();
     new ScheduleTableInit(factory).initSchedule();

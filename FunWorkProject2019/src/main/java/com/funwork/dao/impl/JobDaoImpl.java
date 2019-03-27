@@ -5,7 +5,6 @@ import com.funwork.model.Job;
 import com.google.gson.Gson;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JobDaoImpl implements JobDao {
   private static final String USERID = "userId";
+  private static final String NOWDATE = "nowdate";
   private static final String HQL1 = "AND reviewStatus = '發布中' ORDER BY submitTime ASC";
   @Autowired
   SessionFactory factory;
@@ -30,7 +30,7 @@ public class JobDaoImpl implements JobDao {
   @SuppressWarnings("unchecked")
   @Override
   public List<Job> getJobByCityName(Integer cityId) {
-    String hql = "FROM Job WHERE Fk_City_Id = :cityId AND isFilled = false" + HQL1;
+    String hql = "FROM Job WHERE Fk_City_Id = :cityId AND isFilled = false " + HQL1;
     Session session = factory.getCurrentSession();
     return session.createQuery(hql).setParameter("cityId", cityId).getResultList();
   }
@@ -89,13 +89,13 @@ public class JobDaoImpl implements JobDao {
   public int getJobPostedCount(Integer userId) {
     Long count;
     Session session = factory.getCurrentSession();
-    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " + "AND j.postEndDate >= :nowdate "
-        + "AND j.reviewStatus != :reviewFailed";
-//		"AND j.reviewStatus != :pendingReview";
-    count = (Long) session.createQuery(hql).setParameter("userId", userId)
-        .setParameter("nowdate", new Date(System.currentTimeMillis())).setParameter("reviewFailed", "審核失敗")
+    String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId " 
+        + "AND j.postEndDate >= :nowdate AND j.reviewStatus != :reviewFailed";
+
+    count = (Long) session.createQuery(hql).setParameter(USERID, userId)
+        .setParameter(NOWDATE, new Date(System.currentTimeMillis()))
+        .setParameter("reviewFailed", "審核失敗")
         .uniqueResult();
-//				.setParameter("pendingReview", "待審核").uniqueResult();
     return count.intValue();
   }
 
@@ -104,7 +104,8 @@ public class JobDaoImpl implements JobDao {
   public List<Job> getJobsBySearchStr(String searchStr) {
     String hql = "FROM Job j WHERE j.title like :searchStr";
     Session session = factory.getCurrentSession();
-    return session.createQuery(hql).setParameter("searchStr", "%" + searchStr + "%").getResultList();
+    return session.createQuery(hql)
+        .setParameter("searchStr", "%" + searchStr + "%").getResultList();
   }
 
   @Override
@@ -113,8 +114,8 @@ public class JobDaoImpl implements JobDao {
     Session session = factory.getCurrentSession();
     String hql = "SELECT count(*) FROM Job j WHERE j.jobOwner.userId = :userId "
         + "AND j.postEndDate >= :nowdate AND j.isExposure = true";
-    count = (Long) session.createQuery(hql).setParameter("userId", userId)
-        .setParameter("nowdate", new Date(System.currentTimeMillis())).uniqueResult();
+    count = (Long) session.createQuery(hql).setParameter(USERID, userId)
+        .setParameter(NOWDATE, new Date(System.currentTimeMillis())).uniqueResult();
     return count.intValue();
   }
 
@@ -131,7 +132,8 @@ public class JobDaoImpl implements JobDao {
     Session session = factory.getCurrentSession();
     String hql = "SELECT count(*) FROM Job j WHERE j.reviewStatus = '發布中'"
         + "AND j.postEndDate >= :nowdate AND j.isFilled = false";
-    count = (Long) session.createQuery(hql).setParameter("nowdate", new Date(System.currentTimeMillis()))
+    count = (Long) session.createQuery(hql)
+        .setParameter(NOWDATE, new Date(System.currentTimeMillis()))
         .uniqueResult();
     return count.intValue();
   }
@@ -141,14 +143,16 @@ public class JobDaoImpl implements JobDao {
     Session session = factory.getCurrentSession();
     String hql = "SELECT j.industry ,count(*) FROM Job j WHERE j.reviewStatus = '發布中'"
         + "AND j.postEndDate >= :nowdate AND j.isFilled = false GROUP BY j.industry";
-    List<?> list = session.createQuery(hql).setParameter("nowdate", new Date(System.currentTimeMillis()))
+    List<?> list = session.createQuery(hql)
+        .setParameter(NOWDATE, new Date(System.currentTimeMillis()))
         .getResultList();
     return new Gson().toJson(list);
   }
 
   @Override
   public void updateJobByExpired() {
-    String hql = "UPDATE Job SET reviewStatus = '已截止' , isFilled = false , isExposure = false WHERE postEndDate < :todayDate";
+    String hql = "UPDATE Job SET reviewStatus = '已截止' , isFilled = false , isExposure = false "
+        + "WHERE postEndDate < :todayDate";
     Session session = factory.getCurrentSession();
 
     java.util.Date date = new java.util.Date();
