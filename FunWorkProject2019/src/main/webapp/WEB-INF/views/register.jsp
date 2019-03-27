@@ -80,8 +80,8 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
+		<div class="row no-gutter">
+			<div class="col text-center footerbackground">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
 	<script>

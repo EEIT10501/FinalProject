@@ -19,6 +19,7 @@ html, body {
 	color: white;
 	font-weight:700;
 	width:100%;
+	margin-top:-16px;
 }
 
 .btn {
