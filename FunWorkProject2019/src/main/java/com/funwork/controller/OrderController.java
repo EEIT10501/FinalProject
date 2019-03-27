@@ -104,7 +104,7 @@ public class OrderController {
 
     if (req.getParameter("RtnCode").equals("1") == true) {
       User user = order.getUser();
-
+      
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       Calendar cal = Calendar.getInstance();
       Date date = new Date();
@@ -168,7 +168,7 @@ public class OrderController {
     aio.setTotalAmount(req.getParameter("TotalAmount"));
     aio.setTradeDesc(req.getParameter("TradeDesc"));
     aio.setItemName(req.getParameter("ItemName"));
-    aio.setReturnURL("http://211.23.128.214:5000");
+    aio.setReturnURL("http://localhost:8080/FunWorkProject2019/orderReturn");
     aio.setOrderResultURL("http://localhost:8080/FunWorkProject2019/orderReturn");
 
     try {

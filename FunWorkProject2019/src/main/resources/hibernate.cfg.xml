@@ -4,9 +4,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="hibernate.connection.username">sa</property>
-        <property name="hibernate.connection.password">passw0rd</property>
-        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=funwork</property>
+        <property name="hibernate.connection.username">memberuser@eeit105fk</property>
+        <property name="hibernate.connection.password">Eeit10507</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://eeit105fk.database.windows.net:1433;databaseName=funwork</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
 
         <!-- 2. 其他與資料存取有關的設定 -->
