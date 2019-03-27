@@ -41,21 +41,21 @@
 						       src="<c:url value='/getPicture/${sessionScope.loginUser.userId}'/>">
 	                    </label>
 	                    <div class="col-sm-10">
-						  <form:input type="file" path="profilePart" class="form-control"
+						  <form:input type="file" path="profilePart" id="profilePart" class="form-control"
 						              accept="image/gif, image/jpeg, image/png" />
 					    </div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="name">姓名 :</label>
 						<div class="col-sm-10">
-						  <form:input type="text" path="name" class="form-control" placeholder="請填真實姓名 " 
+						  <form:input type="text" path="name" id="name" class="form-control" placeholder="請填真實姓名 " 
 						              required="required" />
                         </div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="gender">性別 :</label>
 						<div class="col-sm-10">
-							<form:select class="form-control" path="gender" required="required">
+							<form:select class="form-control" id="gender" path="gender" required="required">
 								<form:option value="">請選擇性別</form:option>
 								<form:option value="男">男</form:option>
 								<form:option value="女">女</form:option>
@@ -66,20 +66,20 @@
 						<label class="col-sm-2 col-form-label" for="phoneNum">手機 : </label>
 						<div class="col-sm-10">
 						  <form:input type="tel" path="phoneNum" maxlength="10" 
-						              placeholder="0987654321" class="form-control" 
+						              placeholder="0987654321" id="phoneNum" class="form-control" 
 						              pattern="09[1-8][0-9]([\-|\s]?)[0-9]{3}\1[0-9]{3}" />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="birth">生日: </label>
 						<div class="col-sm-10">
-							<form:input type="date" path="birth" class="form-control" />
+							<form:input type="date" path="birth" id="birth" class="form-control" />
                         </div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="educationLevel">教育程度:</label>
 						<div class="col-sm-10">
-							<form:select class="form-control" path="educationLevel" required="required">
+							<form:select class="form-control" path="educationLevel" id="educationLevel" required="required">
 								<form:option value="">請選擇教育程度</form:option>
 								<form:option value="國小">國小</form:option>
 								<form:option value="國中">國中</form:option>
@@ -93,7 +93,7 @@
 					<div class="form-group row">
 						<label for="type1" class="col-sm-2 col-form-label">工作經驗 : </label>					
 							<div class="col-sm-6">
-								<form:select path="type1" class="form-control">
+								<form:select path="type1" class="form-control" id="type1">
 									<form:option value="">請選擇工作類型</form:option>
 									<form:option value="餐飲">餐飲(餐廳、飲料店、小吃攤販)</form:option>
 									<form:option value="服務">服務(收銀員、促銷)</form:option>
@@ -108,17 +108,17 @@
 							</div>
 							<div class="col-sm-2">
 								<form:input type="text" path="position1" class="form-control"
-									        placeholder="工作名稱 " />
+									        placeholder="工作名稱 " id="position1"/>
 							</div>
 							<div class="col-sm-2">
 								<form:input type="text" path="term1" class="form-control"
-									        placeholder="工作年資 " />
+									        placeholder="工作年資 " id="term1"/>
 							</div>
 					</div>
 					<div class="form-group row">
 						<label for="type2" class="col-sm-2 col-form-label">工作經驗 : </label>
 						<div class="col-sm-6">
-							<form:select path="type2" class="form-control">
+							<form:select path="type2" class="form-control" id="type2">
 								<form:option value="">請選擇工作類型</form:option>
 								<form:option value="餐飲">餐飲(餐廳、飲料店、小吃攤販)</form:option>
 								<form:option value="服務">服務(收銀員、促銷)</form:option>
@@ -133,24 +133,26 @@
 							</form:select>
 						</div>
 						<div class="col-sm-2">
-							<form:input type="text" path="position2" class="form-control"
+							<form:input type="text" path="position2" class="form-control" id="position2"
 								        placeholder="工作名稱 " />
 						</div>
 						<div class="col-sm-2">
-							<form:input type="text" path="term2" class="form-control"
+							<form:input type="text" path="term2" class="form-control" id="term2"
 								        placeholder="工作年資 " />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="selfIntro">簡單自我介紹:</label>
 						<div class="col-sm-10">
-						  <form:textarea class="form-control" path="selfIntro" rows="3"></form:textarea>
+						  <form:textarea class="form-control" path="selfIntro" rows="3" id="MY"></form:textarea>
 					    </div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm">
 							<input type="submit" class="btn btn-success" value="更新履歷" /> 
+							<button type="button" class="btn btn-primary"  onclick="keyinAll()">一鍵登入</button>
 						</div>
+						
 					</div>
 				</form:form>
 			</div>
@@ -162,6 +164,30 @@
 			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
+	<script>
+			//一鍵登入
+			function keyinAll(){
+				document.getElementById("profilePart").value="";
+				document.getElementById("name").value="主克伯";
+				document.getElementById("gender").value="男";
+				document.getElementById("phoneNum").value="0931331330";
+				document.getElementById("educationLevel").value="大學";
+				document.getElementById("type1").value="服務";
+				document.getElementById("position1").value="業務經理";
+				document.getElementById("term1").value="1";
+				document.getElementById("type2").value="勞力";
+				document.getElementById("position2").value="勞工";
+				document.getElementById("term2").value="2";
+				document.getElementById("MY").value="我叫蕭義樺，今年26歲，出生於新竹縣竹東鎮。父母從事封裝測試的品管工作，目前皆已退休。";	
+				
+				
+			}
+			
+	
+
+	</script>
+	
+	
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

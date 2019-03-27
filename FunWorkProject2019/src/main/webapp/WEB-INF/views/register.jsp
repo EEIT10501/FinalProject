@@ -77,9 +77,8 @@
 						<button type="submit" class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModal">註冊</button>
 						<input type="reset" class="btn btn-danger" id="cancel" value="重填">
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#exampleModal">一鍵登錄</button>
-
+						<button type="button" class="btn btn-primary"  style="color:black" onclick="keyinAll()">一鍵登錄</button>
+						
 						<!-- Modal -->
 						<div class="modal fade" id="exampleModal" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalLabel"
@@ -122,10 +121,12 @@
 	</div>
 	<script>
 			function keyinAll(){
-				
-				
+				document.getElementById("email").value="saber7818@hotmail.com";
+				document.getElementById("name").value="主克伯";
+				document.getElementById("pwd1").value="Asd321";
+				document.getElementById("pwd2").value="Asd321";
 			}
-	
+			
 	
 	
 // 		    function formCheck() {
