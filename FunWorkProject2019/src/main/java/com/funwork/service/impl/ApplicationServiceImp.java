@@ -12,9 +12,9 @@ import com.funwork.model.Application;
 import com.funwork.model.Job;
 import com.funwork.service.ApplicationService;
 
+@Transactional
 @Service
 public class ApplicationServiceImp implements ApplicationService {
-
 	@Autowired
 	ApplicationDao dao;
 
@@ -107,5 +107,10 @@ public class ApplicationServiceImp implements ApplicationService {
 	public List<Application> findByJobId(Integer jobId) {
 		return dao.findByJobId(jobId);
 	}
+
+  @Override
+  public Application isApplicantExist(Integer userId, Integer jobId) {
+    return dao.isApplicantExist(userId,jobId);
+  }
 
 }

@@ -9,18 +9,6 @@ public interface CompanyDao {
 
   void saveCompany(Company company);
 
-  void deleteCompanyByPrimaryKey(int key);
-
-  List<Company> findAllCompanys();
-
-  void deleteAllCompanys();
-
-  public boolean isCompanyExist(Company company);
-
-  Company findByName(String name);
-
-  List<Company> getAllCompanysByReviewStatus(String reviewStatus);
-
   void updateCompanyById(int id, Company company);
 
   List<Company> findAllCompanyByUserId(Integer userId);
@@ -28,10 +16,12 @@ public interface CompanyDao {
   List<String> findAllCompanyByUser(User user);
 
   Company findCompanyByUserAndName(Integer userId, String companyName);
-  
+
   List<Company> getCompanyReviewList();
 
   void updateCompany(Company company);
 
   List<Company> getReviewHistory();
+
+  boolean isTaxIdExist(String taxId);
 }

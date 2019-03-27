@@ -114,8 +114,8 @@ public class HomeController {
    */
   @PostMapping("/login")
   @ResponseBody
-  public String login(@RequestParam("email") String email, @RequestParam("password") String password,
-      HttpServletRequest req) {
+  public String login(@RequestParam("email") String email, 
+      @RequestParam("password") String password, HttpServletRequest req) {
     User user = userService.loginCheck(email, password);
     if (user != null) {
       if (user.getIsOpen()) {
@@ -140,7 +140,8 @@ public class HomeController {
    */
   @PostMapping(value = "/register")
   public String register(@RequestParam("email") String email, @RequestParam("name") String name,
-      @RequestParam("password") String password, @RequestParam("password2") String password2, HttpServletRequest req) {
+      @RequestParam("password") String password, @RequestParam("password2") String password2, 
+      HttpServletRequest req) {
     Map<String, String> errorMsg = new HashMap<String, String>();
     req.setAttribute("errorMsg", errorMsg);
     if (email == null || email.trim().length() == 0) {
@@ -155,7 +156,8 @@ public class HomeController {
     if (password2 == null || password2.trim().length() == 0) {
       errorMsg.put("pwd2Empty", "密碼確認欄必須輸入");
     }
-    if ((password != null && password2 != null) && (password.trim().length() > 0 && password2.trim().length() > 0)
+    if ((password != null && password2 != null) && (password.trim().length() > 0 
+        && password2.trim().length() > 0)
         && !password.trim().equals(password2.trim())) {
       errorMsg.put("pwdEmpty", "密碼欄與密碼確認欄必須一致");
     }
@@ -215,7 +217,8 @@ public class HomeController {
    * Process users change their password.
    */
   @PostMapping(value = "/accountSetting")
-  public String accountSetting(@RequestParam("password") String password, @RequestParam("password2") String password2,
+  public String accountSetting(@RequestParam("password") String password, 
+      @RequestParam("password2") String password2,
       HttpServletRequest req, HttpSession session) {
     Map<String, String> errorMsg = new HashMap<String, String>();
     Map<String, String> rightMsg = new HashMap<String, String>();

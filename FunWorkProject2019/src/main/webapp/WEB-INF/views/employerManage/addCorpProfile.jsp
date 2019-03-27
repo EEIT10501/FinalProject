@@ -135,13 +135,13 @@
 														class="form-control" placeholder="www.goodBusinessInc.com" />
 												</div>
 											</div>
-											<div class="row form-group mb-3">
-												<div class="col-md-12 mb-3 mb-md-0">
-													<label class="font-weight-bold" for="user">公司管理者:</label>
-													<form:input type="text" path="user" id="user"
-														class="form-control" placeholder="王瑜仙" />
-												</div>
-											</div>
+<!-- 											<div class="row form-group mb-3"> -->
+<!-- 												<div class="col-md-12 mb-3 mb-md-0"> -->
+<!-- 													<label class="font-weight-bold" for="user">公司管理者:</label> -->
+<%-- 													<form:input type="text" path="user" id="user" --%>
+<%-- 														class="form-control" placeholder="王瑜仙" /> --%>
+<!-- 												</div> -->
+<!-- 											</div> -->
 											<div class="row form-group mb-3">
 												<div class="col-md-12 mb-3 mb-md-0">
 													<label class="font-weight-bold" for="companyLogo">公司LOGO:</label>

@@ -1,10 +1,10 @@
 package com.funwork.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @DynamicInsert
 @Entity
@@ -44,7 +40,7 @@ public class Company implements Serializable {
   private Blob coverPic;
   @JsonIgnore
   private Clob description;
-  private String siteURL;
+  private String siteUrl;
   private String fileName;
 
   @JsonIgnore
@@ -54,7 +50,6 @@ public class Company implements Serializable {
   @JsonIgnore
   private MultipartFile companyCoverPic;
 
-  @XmlTransient
   @Transient
   public MultipartFile getCompanyLicensureImage() {
     return companyLicensureImage;
@@ -64,7 +59,6 @@ public class Company implements Serializable {
     this.companyLicensureImage = companyLicensureImage;
   }
 
-  @XmlTransient
   @Transient
   public MultipartFile getCompanyLogo() {
     return companyLogo;
@@ -74,7 +68,6 @@ public class Company implements Serializable {
     this.companyLogo = companyLogo;
   }
 
-  @XmlTransient
   @Transient
   public MultipartFile getCompanyCoverPic() {
     return companyCoverPic;
@@ -86,53 +79,6 @@ public class Company implements Serializable {
 
   @JsonIgnore
   private User user;
-
-  public Company() {
-  }
-
-  public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
-      Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
-      MultipartFile companyLicensureImage, MultipartFile companyLogo, MultipartFile companyCoverPic,
-      String forRecordColumn) {
-    super();
-    this.companyId = companyId;
-    this.name = name;
-    this.taxId = taxId;
-    this.address = address;
-    this.licensure = licensure;
-    this.reviewStatus = reviewStatus;
-    this.notificationTimes = notificationTimes;
-    this.logo = logo;
-    this.coverPic = coverPic;
-    this.description = description;
-    this.siteURL = siteURL;
-    this.fileName = fileName;
-    this.companyLicensureImage = companyLicensureImage;
-    this.companyLogo = companyLogo;
-    this.coverPic = coverPic;
-  }
-
-  public Company(Integer companyId, String name, String taxId, String address, Blob licensure, String reviewStatus,
-      Integer notificationTimes, Blob logo, Blob coverPic, Clob description, String siteURL, String fileName,
-      MultipartFile companyLicensureImage, MultipartFile companyLogo, MultipartFile companyCoverPic, User user) {
-    super();
-    this.companyId = companyId;
-    this.name = name;
-    this.taxId = taxId;
-    this.address = address;
-    this.licensure = licensure;
-    this.reviewStatus = reviewStatus;
-    this.notificationTimes = notificationTimes;
-    this.logo = logo;
-    this.coverPic = coverPic;
-    this.description = description;
-    this.siteURL = siteURL;
-    this.fileName = fileName;
-    this.companyLicensureImage = companyLicensureImage;
-    this.companyLogo = companyLogo;
-    this.coverPic = coverPic;
-    this.user = user;
-  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -221,12 +167,12 @@ public class Company implements Serializable {
     this.logo = logo;
   }
 
-  public String getSiteURL() {
-    return siteURL;
+  public String getSiteUrl() {
+    return siteUrl;
   }
 
-  public void setSiteURL(String siteURL) {
-    this.siteURL = siteURL;
+  public void setSiteUrl(String siteUrl) {
+    this.siteUrl = siteUrl;
   }
 
   public String getFileName() {
@@ -270,5 +216,4 @@ public class Company implements Serializable {
   public void setFailReason(String failReason) {
     this.failReason = failReason;
   }
-
 }

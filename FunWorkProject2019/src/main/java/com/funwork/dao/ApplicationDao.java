@@ -36,4 +36,6 @@ public interface ApplicationDao {
 
   List<Application> findByJobId(Integer userId);
 
+  Application isApplicantExist(Integer userId, Integer jobId);
+
 }

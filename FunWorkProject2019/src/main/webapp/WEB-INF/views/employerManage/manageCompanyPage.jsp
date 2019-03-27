@@ -138,14 +138,14 @@
 											<c:choose>
 												<c:when test="${company.reviewStatus =='審核通過'}">
 													<td><a
-														href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
+														href='<spring:url value="/addCorpProfile/${company.companyId}"/>'
 														class="btn btn-info btn-sm"> <span
 															class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
 													</a></td>
 												</c:when>
 												<c:when test="${company.reviewStatus =='完成公司建檔'}">
 													<td><a
-														href='<spring:url value="company?id=${company.companyId}"/>'
+														href='<spring:url value="/company?id=${company.companyId}"/>'
 														class="btn btn-info btn-sm"> <span
 															class="glyphicon-info-sigh glyphicon"></span> 公司專頁
 													</a></td>
@@ -156,7 +156,7 @@
 											</c:choose>
 											<c:choose>
 											<c:when test="${company.reviewStatus =='公司完成建檔'}">
-											<td><a href='<spring:url value="addCorpProfile?id=${company.companyId}"/>'
+											<td><a href='<spring:url value="/addCorpProfile/${company.companyId}"/>'
 														class="btn btn-warning btn-sm"> <span
 															class="glyphicon-info-sigh glyphicon"></span> 編輯
 													</a></td>

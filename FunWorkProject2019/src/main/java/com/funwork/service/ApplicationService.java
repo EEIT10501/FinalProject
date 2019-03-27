@@ -39,4 +39,6 @@ public interface ApplicationService {
 
 	List<Application> findByJobId(Integer jobId);
 
+  Application isApplicantExist(Integer userId, Integer jobId);
+
 }
