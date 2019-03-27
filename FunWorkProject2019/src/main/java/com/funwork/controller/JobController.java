@@ -10,7 +10,6 @@ import com.funwork.service.ApplicationService;
 import com.funwork.service.JobService;
 import com.funwork.service.NotificationService;
 import com.funwork.service.ResumeService;
-import com.funwork.service.ScheduleService;
 import com.funwork.service.UserService;
 import java.sql.Timestamp;
 import java.util.List;
@@ -40,8 +39,6 @@ public class JobController {
   NotificationService notificationService;
   @Autowired
   ApplicationService applicationService;
-  @Autowired
-  ScheduleService scheduleService;
   @Autowired
   ServletContext context;
 

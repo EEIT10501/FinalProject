@@ -1,76 +1,66 @@
 package com.funwork.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
-
+import allPay.payment.integration.AllInOne;
+import allPay.payment.integration.domain.AioCheckOutOneTime;
+import allPay.payment.integration.exception.AllPayException;
 import com.funwork.model.Order;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.funwork.model.Product;
 import com.funwork.model.User;
 import com.funwork.service.JobService;
 import com.funwork.service.OrderService;
 import com.funwork.service.UserService;
-
-import allPay.payment.integration.AllInOne;
-import allPay.payment.integration.domain.AioCheckOutOneTime;
-import allPay.payment.integration.domain.InvoiceObj;
-import allPay.payment.integration.exception.AllPayException;
+import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class OrderController {
+  private static final String MERCHANT_TRADE_NO = "MerchantTradeNo";
+  static final Logger logger = Logger.getLogger("com.funwork");
   @Autowired
   JobService jobService;
-
   @Autowired
   UserService userService;
-
   @Autowired
   OrderService orderService;
-
   AllInOne all;
 
-  public OrderController() {
-
-  }
-
-  @RequestMapping("/order")
-  public String Order(Model model) {
-    return "order";
-  }
-
-  @RequestMapping("/product")
+  /**
+   * Get product.
+   */
+  @GetMapping("/product")
   public String product(Model model) {
     List<Product> productList = orderService.getAllProducts();
-
     model.addAttribute("productList", productList);
     return "product";
   }
 
-  @RequestMapping(value = "/orderCheck/{productId}")
-  public String OrderCheck(Model model, @PathVariable("productId") Integer productId, HttpServletRequest req) {
+  /**
+   * Check order product.
+   */
+  @GetMapping(value = "/orderCheck/{productId}")
+  public String orderCheck(Model model, @PathVariable("productId") Integer productId, 
+      HttpSession session) {
     List<Product> prolist = orderService.getAllProducts();
     Hashtable<String, String> params = new Hashtable<>();
     Date date = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-    params.put("MerchantTradeNo", sdf.format(date));
+    params.put(MERCHANT_TRADE_NO, sdf.format(date));
     SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     params.put("MerchantTradeDate", sdf2.format(date));
     params.put("TotalAmount", Integer.toString(prolist.get(productId - 1).getPrice()));
@@ -85,8 +75,7 @@ public class OrderController {
     order.setPrice(prolist.get(productId - 1).getPrice());
     order.setStatus(0);
     order.setProduct(prolist.get(productId - 1));
-    HttpSession session = req.getSession(); // 取得session物件
-    User user = (User) session.getAttribute("loginUser"); // 取的在session裡面名為loginUser的物件
+    User user = (User) session.getAttribute("loginUser");
     order.setUser(user);
     orderService.insertOrder(order);
 
@@ -94,17 +83,18 @@ public class OrderController {
     return "order";
   }
 
-  @RequestMapping(value = "/orderReturn", method = RequestMethod.POST)
-  public String OrderReturn(Model model, HttpServletRequest req, HttpServletResponse res) {
-    System.out.println("交易代碼:" + req.getParameter("RtnCode"));
-
-    Order order = orderService.getOrderByTradeNo(req.getParameter("MerchantTradeNo"));
+  /**
+   * If success, return order page.
+   */
+  @PostMapping(value = "/orderReturn")
+  public String orderReturn(Model model, HttpServletRequest req, HttpServletResponse res) {
+    Order order = orderService.getOrderByTradeNo(req.getParameter(MERCHANT_TRADE_NO));
     order.setStatus(Integer.valueOf(req.getParameter("RtnCode")));
     orderService.insertOrder(order);
 
-    if (req.getParameter("RtnCode").equals("1") == true) {
+    if (req.getParameter("RtnCode").equals("1")) {
       User user = order.getUser();
-      
+
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       Calendar cal = Calendar.getInstance();
       Date date = new Date();
@@ -119,24 +109,22 @@ public class OrderController {
         user.setExposureLimit(5);
       }
 
-      java.sql.Date sqldate = new java.sql.Date(0);
       if (user.getVipEndDate() == null) {
-        user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
-      } else if (user.getVipEndDate().before(sqldate.valueOf(sdf.format(date)))) {
-        user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+        user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
+      } else if (user.getVipEndDate().before(java.sql.Date.valueOf(sdf.format(date)))) {
+        user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
       } else {
         cal.setTime(user.getVipEndDate());
-        System.out.println(cal.getTime());
         if (order.getProduct().getProductId() == 1) {
           cal.add(Calendar.DATE, 30);
-          user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+          user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
         } else if (order.getProduct().getProductId() == 2) {
           cal.add(Calendar.DATE, 180);
-          user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+          user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
           user.setExposureLimit(2);
         } else if (order.getProduct().getProductId() == 3) {
           cal.add(Calendar.DATE, 365);
-          user.setVipEndDate(sqldate.valueOf(sdf.format(cal.getTime())));
+          user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
           user.setExposureLimit(5);
         }
 
@@ -152,18 +140,21 @@ public class OrderController {
     return "order";
   }
 
-  @RequestMapping(value = "/orderSave", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+  /**
+   * Save order.
+   */
+  @PostMapping(value = "/orderSave", produces = "text/html;charset=UTF-8")
   public @ResponseBody String aioCheckOutDevide(AioCheckOutOneTime aio, HttpServletRequest req) {
     try {
       all = new AllInOne("");
     } catch (UnsupportedEncodingException e1) {
-      e1.printStackTrace();
+      logger.warning(e1.getMessage());
     }
-    InvoiceObj invoice = new InvoiceObj();
-    invoice = null;// 不開發票
+    // InvoiceObj invoice = new InvoiceObj();
+    // invoice = null;// 不開發票
 
-//    aio.setMerchantID("2000132");
-    aio.setMerchantTradeNo(req.getParameter("MerchantTradeNo"));
+    // aio.setMerchantID("2000132");
+    aio.setMerchantTradeNo(req.getParameter(MERCHANT_TRADE_NO));
     aio.setMerchantTradeDate(req.getParameter("MerchantTradeDate"));
     aio.setTotalAmount(req.getParameter("TotalAmount"));
     aio.setTradeDesc(req.getParameter("TradeDesc"));
@@ -172,9 +163,7 @@ public class OrderController {
     aio.setOrderResultURL("http://localhost:8080/FunWorkProject2019/orderReturn");
 
     try {
-      String html = all.aioCheckOut(aio);
-      System.out.println(html);
-      return html;
+      return all.aioCheckOut(aio);
     } catch (AllPayException e) {
       throw new Error(e.getNewExceptionMessage());
     }
