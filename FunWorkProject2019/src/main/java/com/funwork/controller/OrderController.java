@@ -6,7 +6,6 @@ import allPay.payment.integration.exception.AllPayException;
 import com.funwork.model.Order;
 import com.funwork.model.Product;
 import com.funwork.model.User;
-import com.funwork.service.JobService;
 import com.funwork.service.OrderService;
 import com.funwork.service.UserService;
 import java.io.UnsupportedEncodingException;
@@ -18,7 +17,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class OrderController {
   private static final String MERCHANT_TRADE_NO = "MerchantTradeNo";
   static final Logger logger = Logger.getLogger("com.funwork");
-  @Autowired
-  JobService jobService;
   @Autowired
   UserService userService;
   @Autowired
@@ -87,7 +83,7 @@ public class OrderController {
    * If success, return order page.
    */
   @PostMapping(value = "/orderReturn")
-  public String orderReturn(Model model, HttpServletRequest req, HttpServletResponse res) {
+  public String orderReturn(Model model, HttpServletRequest req) {
     Order order = orderService.getOrderByTradeNo(req.getParameter(MERCHANT_TRADE_NO));
     order.setStatus(Integer.valueOf(req.getParameter("RtnCode")));
     orderService.insertOrder(order);

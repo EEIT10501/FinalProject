@@ -95,7 +95,7 @@
 			 							<div class="row">
 											<div class="col-sm-3">
 												<img style="width: 100px; height: 100px"
-													src="<c:url value='/getProfilePic/${applicant.user.userId}'/>"><br>
+													src="<c:url value='/getPicture/${applicant.user.userId}'/>"><br>
 												<input type="hidden" id="jobTitleInput"
 													value="${applicant.job.title}"> <strong>自我介紹:</strong><br>
 												${resumes[loop.count-1].selfIntro}

@@ -1,35 +1,5 @@
 package com.funwork.controller;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.funwork.model.Application;
 import com.funwork.model.Job;
 import com.funwork.model.Resume;
@@ -39,311 +9,260 @@ import com.funwork.service.CompanyService;
 import com.funwork.service.JobService;
 import com.funwork.service.ResumeService;
 import com.funwork.service.UserService;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PostJobController {
+  static final Logger logger = Logger.getLogger("com.funwork");
+  private static final String LOGIN_USER = "loginUser";
+  private static final String JOB_BEAN = "jobBean";
+  private static final String TAIPEICITY = "taipeiCityNameJSON";
+  private static final String NEWTAIPEICITY = "newTaipeiCityNameJSON";
+  private static final String REDIRECT_MANAGE_JOB = "redirect:/manageJob";
+  @Autowired
+  CompanyService companyService;
+  @Autowired
+  JobService jobService;
+  @Autowired
+  UserService userService;
+  @Autowired
+  ApplicationService applicationService;
+  @Autowired
+  ResumeService resumeService;
+  @Autowired
+  ServletContext context;
+  Job jobBean = null;
 
-	@Autowired
-	CompanyService companyService;
+  /**
+   * Get applictionList by job.
+   */
+  @GetMapping(value = "/applications")
+  public String pullApplicantsByJob(@RequestParam("id") Integer id, Model model) {
+    List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(id));
+    List<Resume> reslist = new LinkedList<>();
+    LinkedList<User> userlist = new LinkedList<>();
+    for (Application app : list) {
+      Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
+      User user = userService.getUserById(app.getUser().getUserId());
+      reslist.add(resume);
+      userlist.add(user);
+    }
+    model.addAttribute("applicantsByJob", list);
+    model.addAttribute("resumes", reslist);
+    model.addAttribute("users", userlist);
+    model.addAttribute("jobId", id);
+    return "employerManage/applicantsList";
+  }
 
-	@Autowired
-	JobService jobService;
+  @GetMapping(value = "/jobProfile")
+  public String getJobPostById(@RequestParam("id") Integer id, Model model) {
+    model.addAttribute("job", jobService.getJobById(id));
+    return "employerManage/jobProfile";
+  }
 
-	@Autowired
-	UserService userService;
+  /**
+   * Provide blank form for making job profile.
+   */
+  @GetMapping(value = "/addJobProfile")
+  public String getRegisterCompanyForm(Model model, HttpSession session) {
+    Job job = new Job();
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
+    String taipeiCityNameJson = jobService.getCityNameList("台北市");
+    String newTaipeiCityNameJson = jobService.getCityNameList("新北市");
+    model.addAttribute(JOB_BEAN, job);
+    model.addAttribute(TAIPEICITY, taipeiCityNameJson);
+    model.addAttribute(NEWTAIPEICITY, newTaipeiCityNameJson);
+    model.addAttribute("companyNameList", companyNameList);
+    return "employerManage/addJobProfile";
+  }
 
-	@Autowired
-	ApplicationService applicationService;
+  /**
+   * Method below is for updating job post "編輯工作". Add additional evaluation on
+   * whether job posting is active.
+   */
+  @GetMapping(value = "/modJobProfile")
+  public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId, 
+      HttpSession session, String replicate) {
+    Job job = jobService.getJobById(jobId);
+    boolean isActive = job.getReviewStatus().equalsIgnoreCase("發布中");
+    if (!isActive) {
+      String addressCityArea = job.getAddress().substring(0, 3);
+      String addressCityName = job.getAddress().substring(3, 6);
+      String addressStreetNRest = job.getAddress().substring(6);
+      job.setCityArea(addressCityArea);
+      job.setCityName(addressCityName);
+      job.setAddress(addressStreetNRest);
+      model.addAttribute(JOB_BEAN, job);
+      jobBean = job;
+      User loginUser = (User) session.getAttribute(LOGIN_USER);
+      List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
+      String taipeiCityNameJson = jobService.getCityNameList("台北市");
+      String newTaipeiCityNameJson = jobService.getCityNameList("新北市");
+      model.addAttribute(TAIPEICITY, taipeiCityNameJson);
+      model.addAttribute(NEWTAIPEICITY, newTaipeiCityNameJson);
+      model.addAttribute("companyNameList", companyNameList);
+      return "employerManage/modJobProfilePage";
+    } else {
+      model.addAttribute("error1", "發布中的工作無法修改");
+      model.addAttribute("job", job);
+      return "employerManage/jobProfile";
+    }
+  }
 
-	@Autowired
-	ResumeService resumeService;
-
-	@Autowired
-	ServletContext context;
-
-	/* container to receive jobBean from backend server when calling updating job */
-//	Job jobBean = new Job();
-	Job jobBean = null;
-	
-	@RequestMapping(value = "/applications")
-	public String pullApplicantsByJob(@RequestParam("id") Integer id, Model model) {
-		System.out.println("ready to pull applicant by jobId" + id);
-		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(id));
-		List<Resume> reslist = new LinkedList<>();
-		LinkedList<User> userlist = new LinkedList<>();
-		for (Application app : list) {
-			Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
-			User user = userService.getUserById(app.getUser().getUserId());
-			reslist.add(resume);
-			userlist.add(user);
-		}
-		model.addAttribute("applicantsByJob", list);
-		model.addAttribute("resumes", reslist);
-		model.addAttribute("users", userlist);
-		model.addAttribute("jobId", id);
-		return "employerManage/applicantsList";
-	}
-
-	@RequestMapping(value = "/jobProfile")
-	public String getJobPostById(@RequestParam("id") Integer id, Model model) {
-		model.addAttribute("job", jobService.getJobById(id));
-		return "employerManage/jobProfile";
-	}
-
-	/**
-	 * Provide blank form for making job profile.
-	 */
-	@RequestMapping(value = "/addJobProfile", method = RequestMethod.GET)
-	public String getRegisterCompanyForm(Model model, HttpServletRequest request) {
-		Job job = new Job();
-		HttpSession session = request.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
-		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
-		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
-		model.addAttribute("jobBean", job);
-		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
-		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
-		model.addAttribute("companyNameList", companyNameList);
-		return "employerManage/addJobProfile";
-	}
-
-	/*
-	 * create a new job or to update one both enter same controller here. check
-	 * active job posting count against limit and then check if job posting is to
-	 * update previous record or insert new record
-	 */
-	@RequestMapping(value = "/modJobProfilePage", method = RequestMethod.POST)
-	public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model,
-			String replicate) {
-		HttpSession session = request.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
-		Integer limit = loginUser.getJobPostLimit();
-		System.out.println("activePost: "+activePost+"limit: "+limit);
-		
-		
-		if (activePost <= limit) {
-			System.out.println(jobBean);
-			if (jobBean == null) {
-				jobService.insertJob(jbean, loginUser.getUserId());
-				jobBean = null;
-			} else {
-				jobService.updateJobPostById(jobBean.getJobId(), jbean);
-			}
-		} else {
-			if (jobBean.getJobId() != null) {
-				jobService.updateJobPostById(jobBean.getJobId(), jbean);
-				jobBean = null;
-			} else {
-				model.addAttribute("error2", "超出工作刊登上限額度");
-				return "employerManage/addJobProfile";
-			}
-		}
-		return "redirect:/manageJob";
-	}
-
-	/**
-	 * provide data-included jobBean to users when replicate is called
-	 */
-	@RequestMapping(value = "/replicate", method = RequestMethod.GET)
-	public String replicateGetExistingJob(@ModelAttribute("jobBean") Job jbean, @RequestParam("jobId") Integer jobId,
-			HttpServletRequest request, Model model) {
-		Job job = jobService.getJobById(jobId);
-		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
-		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
-		String addressCityArea = job.getAddress().substring(0, 3);
-		String addressCityName = job.getAddress().substring(3, 6);
-		String addressStreetNRest = job.getAddress().substring(6);
-		job.setCityArea(addressCityArea);
-		job.setCityName(addressCityName);
-		job.setAddress(addressStreetNRest);
-		model.addAttribute("jobBean", job);
-		jobBean = job;
-		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
-		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
-
-		return "employerManage/repNModJobProfilePage";
-	}
-
-	/**
-	 * receive data-modified jobBean from users after replicate is called and edited
-	 */
-	@RequestMapping(value = "/receivedUpdatedPost", method = RequestMethod.POST)
-	public String replicateExistingJob(@ModelAttribute("jobBean") Job jbean, HttpServletRequest request, Model model,
-			RedirectAttributes redA) {
-		HttpSession session = request.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		int activePost = jobService.getJobPostedCount(loginUser.getUserId());
-		Integer limit = loginUser.getJobPostLimit();
-
-		if (activePost < limit) {
-			jobService.insertJob(jbean, loginUser.getUserId());
-			List<Job> jobsUpdated = jobService.findJobByUserId(loginUser.getUserId());
-			model.addAttribute("jobs", jobsUpdated);
-			return "employerManage/manageJobPage";
-		} else {
-			redA.addFlashAttribute("errorRep", "超出上限, 無法新增工作");
-			return "redirect:/manageJob";
-		}
-	}
-
-	/**
-	 * Method below is for updating job post "編輯工作". Add additional evaluation on
-	 * whether job posting is active.
-	 */
-	@RequestMapping(value = "/modJobProfile", method = RequestMethod.GET)
-	public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId, HttpServletRequest request,
-			String replicate) {
-		Job job = jobService.getJobById(jobId);
-		boolean isActive = job.getReviewStatus().equalsIgnoreCase("發布中");
-		if (!isActive) {
-			HttpSession session = request.getSession();
-			User loginUser = (User) session.getAttribute("loginUser");
-			List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
-			String taipeiCityNameJSON = jobService.getCityNameList("台北市");
-			String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
-			String addressCityArea = job.getAddress().substring(0, 3);
-			String addressCityName = job.getAddress().substring(3, 6);
-			String addressStreetNRest = job.getAddress().substring(6);
-			job.setCityArea(addressCityArea);
-			job.setCityName(addressCityName);
-			job.setAddress(addressStreetNRest);
-			model.addAttribute("jobBean", job);
-			jobBean = job;
-			model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
-			model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
-			model.addAttribute("companyNameList", companyNameList);
-			return "employerManage/modJobProfilePage";
-		} else {
-			model.addAttribute("error1", "發布中的工作無法修改");
-			model.addAttribute("job", job);
-			return "employerManage/jobProfile";
-		}
-
-	}
   /**
    * Process new Job.
    */
-	@RequestMapping(value = "/addJobProfile", method = RequestMethod.POST)
-	public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpServletRequest request) {
-    HttpSession session = request.getSession();
-    User loginUser = (User) session.getAttribute("loginUser");
+  @PostMapping(value = "/addJobProfile")
+  public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpSession session) {
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
     jobService.insertJob(jbean, loginUser.getUserId());
-    return "redirect:/manageJob";
+    return REDIRECT_MANAGE_JOB;
   }
 
-	@RequestMapping(value = "/getProfilePic/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getLogoPicture(HttpServletResponse resp, @PathVariable Integer userId) {
+  /**
+   * create a new job or to update one both enter same controller here. check
+   * active job posting count against limit and then check if job posting is to
+   * update previous record or insert new record
+   */
+  @PostMapping(value = "/modJobProfilePage")
+  public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, 
+      HttpSession session, Model model, String replicate) {
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    int activePost = jobService.getJobPostedCount(loginUser.getUserId());
+    Integer limit = loginUser.getJobPostLimit();
 
-		System.out.println("UserId" + userId);
-		System.out.println("Enter Profile getPicture");
-		System.out.println("UserId" + userId);
-		System.out.println("Enter Profile getPicture");
+    if (activePost <= limit) {
+      if (jobBean == null) {
+        jobService.insertJob(jbean, loginUser.getUserId());
+        jobBean = null;
+      } else {
+        jobService.updateJobPostById(jobBean.getJobId(), jbean);
+      }
+    } else {
+      if (jobBean.getJobId() != null) {
+        jobService.updateJobPostById(jobBean.getJobId(), jbean);
+        jobBean = null;
+      } else {
+        model.addAttribute("error2", "超出工作刊登上限額度");
+        return "employerManage/addJobProfile";
+      }
+    }
+    return REDIRECT_MANAGE_JOB;
+  }
 
-		String filePath = "/resources/images/NoImage.jpg";
-		byte[] media = null;
-		HttpHeaders headers = new HttpHeaders();
-		String filename = "";
-		int len = 0;
-		Resume bean = resumeService.getResumeByUserId(userId);
+  /**
+   * provide data-included jobBean to users when replicate is called.
+   */
+  @GetMapping(value = "/replicate")
+  public String replicateGetExistingJob(@ModelAttribute("jobBean") Job jbean, 
+      @RequestParam("jobId") Integer jobId, Model model) {
+    Job job = jobService.getJobById(jobId);
+    String addressCityArea = job.getAddress().substring(0, 3);
+    String addressCityName = job.getAddress().substring(3, 6);
+    String addressStreetNRest = job.getAddress().substring(6);
+    job.setCityArea(addressCityArea);
+    job.setCityName(addressCityName);
+    job.setAddress(addressStreetNRest);
+    model.addAttribute(JOB_BEAN, job);
+    jobBean = job;
+    String taipeiCityNameJson = jobService.getCityNameList("台北市");
+    String newTaipeiCityNameJson = jobService.getCityNameList("新北市");
+    model.addAttribute(TAIPEICITY, taipeiCityNameJson);
+    model.addAttribute(NEWTAIPEICITY, newTaipeiCityNameJson);
 
-		if (bean != null) {
-			System.out.println("enter if");
-			Blob blob = bean.getProfilePic();
-			filename = bean.getFileName();
-			if (blob != null) {
-				System.out.println("enter blob != null");
-				try {
-					len = (int) blob.length();
-					media = blob.getBytes(1, len);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-				}
-			} else {
-				media = toByteArray(filePath);
-				filename = filePath;
-			}
-		} else {
-			media = toByteArray(filePath);
-			filename = filePath;
-		}
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		System.out.println(filename);
-		String mimeType = context.getMimeType(filename);
-		MediaType mediatype = MediaType.valueOf(mimeType);
-		System.out.println("mediaType: " + mediatype);
-		headers.setContentType(mediatype);
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
+    return "employerManage/repNModJobProfilePage";
+  }
 
-	private byte[] toByteArray(String filePath) {
-		String root = context.getRealPath("/");
-		root = root.substring(0, root.length() - 1);
-		String fileLocation = root + filePath;
-		byte[] b = null;
-		try {
-			java.io.File file = new java.io.File(fileLocation);
-			long size = file.length();
-			b = new byte[(int) size];
-			InputStream fis = context.getResourceAsStream(filePath);
-			fis.read(b);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return b;
-	}
+  /**
+   * receive data-modified jobBean from users after replicate is called and
+   * edited.
+   */
+  @PostMapping(value = "/receivedUpdatedPost")
+  public String replicateExistingJob(@ModelAttribute("jobBean") Job jbean, 
+      HttpSession session, Model model,
+      RedirectAttributes redA) {
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    int activePost = jobService.getJobPostedCount(loginUser.getUserId());
+    Integer limit = loginUser.getJobPostLimit();
 
-	@RequestMapping(value = "/resumes", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
-	public String queryAllResumesExcel(Model model, @RequestParam("jobId") Integer jobId) {
-		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
-		List<Resume> reslist = new LinkedList<>();
-		for (Application app : list) {
-			Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
-			reslist.add(resume);
-		}
-		model.addAttribute("allMembers", reslist);
-		return "fileDownload/showMembers";
-	}
+    if (activePost < limit) {
+      jobService.insertJob(jbean, loginUser.getUserId());
+      List<Job> jobsUpdated = jobService.findJobByUserId(loginUser.getUserId());
+      model.addAttribute("jobs", jobsUpdated);
+      return "employerManage/manageJobPage";
+    } else {
+      redA.addFlashAttribute("errorRep", "超出上限, 無法新增工作");
+      return REDIRECT_MANAGE_JOB;
+    }
+  }
 
-	// 顯示單筆Member資料，然後導向顯示畫面
-	@RequestMapping(value = "resumesAAA/{key}.xls", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
-	public String displayMemberEXCEL(@PathVariable Integer key, Model model) {
-		System.out.println("queryResumeExcel");
-		Resume resume = resumeService.getResumeByUserId(key);
-		model.addAttribute(resume);
-		return "fileDownload/showMember";
-	}
+  /**
+   * Query All Resume by Excel.
+   */
+  @GetMapping(value = "/resumes", produces = "application/vnd.ms-excel")
+  public String queryAllResumesExcel(Model model, @RequestParam("jobId") Integer jobId) {
+    List<Application> list = applicationService
+        .findAllApplicantsByJob(jobService.getJobById(jobId));
+    List<Resume> reslist = new LinkedList<>();
+    for (Application app : list) {
+      Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
+      reslist.add(resume);
+    }
+    model.addAttribute("allMembers", reslist);
+    return "fileDownload/showMembers";
+  }
 
-	@GetMapping(value = "/getJobPostedCount/{userId}")
-	@ResponseBody
-	public Integer getJobPostedCount(@PathVariable("userId") Integer userId) {
-		return jobService.getJobPostedCount(userId);
-	}
+  /**
+   * Query All Resume by Excel.
+   */
+  @GetMapping(value = "resumesAAA/{key}.xls", produces = "application/vnd.ms-excel")
+  public String displayMemberExcel(@PathVariable Integer key, Model model) {
+    Resume resume = resumeService.getResumeByUserId(key);
+    model.addAttribute(resume);
+    return "fileDownload/showMember";
+  }
 
-	@RequestMapping(value = "/resumes", method = RequestMethod.GET, produces = "application/pdf")
-	public String queryAllResumesPDF(Model model, @RequestParam("jobId") Integer jobId) {
-		System.out.println(jobId);
-		System.out.println("queryResumesPDF");
-		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
-		List<Resume> reslist = new LinkedList<>();
-		for (Application app : list) {
-			Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
-			reslist.add(resume);
-		}
-		model.addAttribute("allMembers", reslist);
-		model.addAttribute("job", jobService.getJobById(jobId));
-		return "fileDownload/showMembers";
-	}
+  @GetMapping(value = "/getJobPostedCount/{userId}")
+  @ResponseBody
+  public Integer getJobPostedCount(@PathVariable("userId") Integer userId) {
+    return jobService.getJobPostedCount(userId);
+  }
 
-	@GetMapping(value = "/getAllJobPostingCount")
-	@ResponseBody
-	public Integer getAllJobPostingCount() {
-		return jobService.getAllJobPostingCount();
-	}
+  /**
+   * Query All Resume by Pdf.
+   */
+  @GetMapping(value = "/resumes", produces = "application/pdf")
+  public String queryAllResumesPdf(Model model, @RequestParam("jobId") Integer jobId) {
+    List<Application> list = applicationService
+        .findAllApplicantsByJob(jobService.getJobById(jobId));
+    List<Resume> reslist = new LinkedList<>();
+    for (Application app : list) {
+      Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
+      reslist.add(resume);
+    }
+    model.addAttribute("allMembers", reslist);
+    model.addAttribute("job", jobService.getJobById(jobId));
+    return "fileDownload/showMembers";
+  }
 
+  @GetMapping(value = "/getAllJobPostingCount")
+  @ResponseBody
+  public Integer getAllJobPostingCount() {
+    return jobService.getAllJobPostingCount();
+  }
 }
