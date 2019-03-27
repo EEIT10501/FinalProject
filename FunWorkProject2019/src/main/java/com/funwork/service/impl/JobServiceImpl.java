@@ -6,12 +6,9 @@ import com.funwork.dao.JobDao;
 import com.funwork.dao.NotificationDao;
 import com.funwork.dao.UserDao;
 import com.funwork.model.City;
-import com.funwork.model.Company;
 import com.funwork.model.Job;
 import com.funwork.model.Notification;
 import com.funwork.service.JobService;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class JobServiceImpl implements JobService {
-
   @Autowired
   JobDao jobDao;
   @Autowired
@@ -43,18 +39,8 @@ public class JobServiceImpl implements JobService {
   UserDao userDao;
 
   @Override
-  public List<Job> getAllJobs() {
-    return jobDao.getAllJobs();
-  }
-
-  @Override
   public List<Job> getJobReviewList() {
     return jobDao.getJobReviewList();
-  }
-
-  @Override
-  public List<Job> getJobPassed() {
-    return jobDao.getJobPassed();
   }
 
   @Override
@@ -108,12 +94,6 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public List<City> getAllCitys() {
-    return cityDao.getAllCitys();
-
-  }
-
-  @Override
   public List<City> getCityName(Integer cityId) {
     return cityDao.getCityName(cityId);
 
@@ -122,11 +102,6 @@ public class JobServiceImpl implements JobService {
   @Override
   public List<Job> findJobByUserId(Integer userId) {
     return jobDao.findJobByUserId(userId);
-  }
-
-  @Override
-  public List<Job> findJobByUserIdNJobStatus(Integer userId) {
-    return jobDao.findJobByUserIdNJobStatus(userId);
   }
 
   @Override
@@ -140,22 +115,12 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public List<String> getCityAreaList() {
-    return cityDao.getCityAreaList();
-  }
-
-  @Override
   public String getCityNameList(String cityArea) {
     return cityDao.getCityNameList(cityArea);
   }
 
   @Override
-  public City getCityByCityName(String cityName) {
-    return cityDao.getCityByCityName(cityName);
-  }
-
-  @Override
-  public Job insertJob(Job jbean, Integer userId) {
+  public void insertJob(Job jbean, Integer userId) {
     String cityName = jbean.getCityName();
     jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
 
@@ -180,8 +145,8 @@ public class JobServiceImpl implements JobService {
       jbean.setJobCompany(companyDao.findCompanyByUserAndName(userId, companyName));
     }
     jbean.setCity(cityDao.getCityByCityName(cityName));
-    
-    return jobDao.insertJob(jbean);
+
+    jobDao.insertJob(jbean);
   }
 
   @Override
@@ -340,7 +305,7 @@ public class JobServiceImpl implements JobService {
 
   @Override
   public void updateJobByExpired() {
-	  jobDao.updateJobByExpired();
+    jobDao.updateJobByExpired();
   }
 
 }

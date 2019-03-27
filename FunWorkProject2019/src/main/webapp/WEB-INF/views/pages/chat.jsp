@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,23 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<title>工作審核</title>
+<title>訊息</title>
 </head>
 <style>
 .card-text-size {
 	font-size: 14px;
 }
-
 .footerbackground {
 	background: #343a40;
 	color: white;
 }
-
 .nav-item:hover {
 	background-color: gray;
 	border-radius: 15px;
 }
-
 .asideblock {
 	height: 600px;
 }
@@ -59,7 +54,7 @@
 						<input type="hidden" id="apId" value="${application.applicationId}"> 
 						<input type="text" class="form-control" placeholder="傳送訊息..." id="message"> 
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" id="send">發送</button>
+							<button class="btn btn-info" type="button" id="send">發送</button>
 						</span>
 					</div>
 				</div>
@@ -74,8 +69,10 @@
 	</div>
 	<script>
 		var userId = $("#userId").attr('value');
+		var userName = "${user.userName}";
 		var connWsStr = "ws://127.0.0.1:8080/${pageContext.request.contextPath}/chat/" + userId;
 		var toUserId = $("#toUserId").attr('value');
+		var toUserName = "${toUser.userName}";
 		var apId = $("#apId").attr('value');
 
 		$(function() {
@@ -92,19 +89,11 @@
 			websocket.onopen = function(evnt) {
 			};
 
-			websocket.onmessage = function(evnt) {
-				for(i=0;i<100000000;i++){			
-				}
-				$("#msg").empty();
-				$("#apList").empty();
-				getOldMsg();
-				$.ajax({
-					url : "${pageContext.request.contextPath}/newMsg",
-					type : "GET",
-					success : function(data) {
-						$("#newMsg").html("(" + data + ")");
-					}
-				});	
+			websocket.onmessage = function(evnt) {                             
+				var timeStr = getTimeStr(new Date());
+				createMsg(toUserId,toUserName,evnt.data,timeStr);
+		        getChatList();
+		        getNewMsgCount();
 			};
 			websocket.onerror = function(evnt) {
 			};
@@ -129,7 +118,9 @@
 						return;
 					}
 					message = message;
-					websocket.send(message);
+					websocket.send(message);									
+	                var timeStr = getTimeStr(new Date());		            
+		            createMsg(userId,userName,message,timeStr);
 
 					$.ajax({
 						url : "${pageContext.request.contextPath}/message/connWS?userId="
@@ -137,6 +128,7 @@
 								+ "&message=" + message + "&apId=" + apId,
 						type : "GET",
 						success : function(data) {
+							getChatList();
 						}
 					});
 					message = $("#message").val("");
@@ -145,74 +137,79 @@
 				}
 			}
 			
-			// 用ajax抓取歷史訊息
 			function getOldMsg(){
 				$.ajax({
 					url : "${pageContext.request.contextPath}/chatJSON?apId=" + apId,
 					type : "GET",
 					success : function(data) {
 						$.each(data, function(index, element) {
-							var time = new Date(element.time);
-							var min = time.getMinutes();
-							if(min < 10){
-								min = "0" + min;
-							}
-							var timeStr = time.getFullYear() + "年"
-							+ (time.getMonth() + 1) + "月" + time.getDate()
-							+ "日 " + time.getHours() + ":" + min;
-							
-							var imgTr = $("<td>").html("<img width='50' height='50' src='<c:url value='/getPicture/" + element.sender.userId + "'/>' />")
-							
-							$("<tr>").appendTo("#msg")
-							.append(imgTr)
-							.append($("<td width='50'>"))
-							.append($("<td width='620px'>").text(element.sender.userName + "：" + element.content))
-							.append($("<td>").text(timeStr));
+							var timeStr = getTimeStr(new Date(element.time));
+							createMsg(element.sender.userId,element.sender.userName,element.content,timeStr);
 						});
-						
-						$("#myDiv").scrollTop(10000);
 					}
 				});
-				
+			}
+			
+			function getChatList(){
 				$.ajax({
-					url : "${pageContext.request.contextPath}/apJSON?userId=" + userId,
-					type : "GET",
-					success : function(data) {
-						$.each(data, function(index, element) {
-							var time = new Date(element.latestMsgTime);
-							var min = time.getMinutes();
-							if(min < 10){
-								min = "0" + min;
-							}
-							var timeStr = time.getFullYear() + "年"
-							+ (time.getMonth() + 1) + "月" + time.getDate()
-							+ "日 " + time.getHours() + ":" + min;
-									
-							var toUserName = "";
-							if(userId != element.user.userId){
-								toUserName = element.user.userName;
-							}else{
-								toUserName = element.job.jobOwner.userName;
-							}
-									
-							var a = $("<a>").attr("href", "<c:url value='/chat/"+ element.applicationId +"'/>").attr("class", "list-group-item list-group-item-action");
-							a.html(element.job.title + "<br>" + toUserName + "<br>" + element.latestMsg + "<br>" + timeStr);						
-							a.appendTo("#apList");	
-						});
-					}
-				});
+                    url : "${pageContext.request.contextPath}/apJSON?userId=" + userId,
+                    type : "GET",
+                    success : function(data) {
+                    	$("#apList").empty();
+                    	
+                        $.each(data, function(index, element) {                          
+                            var timeStr = getTimeStr(new Date(element.latestMsgTime));                          
+                            var toUserName = "";
+                            if(userId != element.user.userId){
+                                toUserName = element.user.userName;
+                            } else{
+                                toUserName = element.job.jobOwner.userName;
+                            }
+                                    
+                            var a = $("<a>").attr("href", "<c:url value='/chat/"+ element.applicationId +"'/>").attr("class", "list-group-item list-group-item-action");
+                            a.html(element.job.title + "<br>" + toUserName + "<br>" + element.latestMsg + "<br>" + timeStr);                        
+                            a.appendTo("#apList");  
+                        });
+                    }
+                });
+			}
 				
-			}	
+			function getNewMsgCount(){
+				$.ajax({
+	                url : "${pageContext.request.contextPath}/newMsg",
+	                type : "GET",
+	                success : function(data) {
+	                    $("#newMsg").html("(" + data + ")");
+	                }
+	            }); 
+			}
+			
+			function getTimeStr(time){
+			  var min = time.getMinutes();
+              if(min < 10){
+                  min = "0" + min;
+              }
+              var timeStr = time.getFullYear() + "年"
+              + (time.getMonth() + 1) + "月" + time.getDate()
+              + "日 " + time.getHours() + ":" + min;
+              return timeStr;
+            }
+			
+			function createMsg(userId,name,msg,timeStr){
+			    var imgTr = $("<td>").html("<img width='50' height='50' src='<c:url value='/getPicture/" + userId + "'/>' />")
+                
+                $("<tr>").appendTo("#msg")
+                .append(imgTr)
+                .append($("<td width='50'>"))
+                .append($("<td width='620px'>").text(name + "：" + msg))
+                .append($("<td>").text(timeStr));
+                  
+                $("#myDiv").scrollTop(10000);
+			}
+			
 			getOldMsg();
-			
-			$.ajax({
-				url : "${pageContext.request.contextPath}/newMsg",
-				type : "GET",
-				success : function(data) {
-					$("#newMsg").html("(" + data + ")");
-				}
-			});	
-			
+			getChatList();
+			getNewMsgCount();	
 		});
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>

@@ -1,40 +1,24 @@
 package com.funwork.dao;
 
+import com.funwork.model.Interview;
 import java.util.List;
 
-import com.funwork.model.Interview;
-import com.funwork.model.Job;
-import com.funwork.model.User;
-
 public interface InterviewDao {
-	Interview findByPrimaryKey(int key);
-	
-	void saveInterview(Interview interview);
+  Interview findByPrimaryKey(int key);
 
-	void updateInterview(Interview interview);
+  void saveInterview(Interview interview);
 
-	void deleteInterviewByPrimaryKey(int key);
+  void updateInterview(Interview interview);
 
-	List<Interview> findAllInterviews();
+  List<Interview> findByApplicationIdAndTimeProcessing(int key);
 
-	void deleteAllInterviews();
+  List<Interview> findByApplicationIdAndTimeCompleted(int key);
 
-	public boolean isInterviewExist(Interview interview);
+  List<Interview> findByApplicationIdAndTimeExpired(int key);
 
-	List<Interview> findByApplicationIds(int key);
+  List<Interview> findInterviewByAdmit(Integer jobId);
 
-	List<Interview> findByApplicationIdAndTimeProcessing(int key);
+  Interview findByAdmitJobUserName(Integer jobId, String userName);
 
-	List<Interview> findByApplicationIdAndTimeCompleted(int key);
-
-	List<Interview> findByApplicationIdAndTimeExpired(int key);
-	
-	List<Interview> findInterviewByAdmit(Integer jobId);
-	
-	Interview findByAdmit_Job_UserName(Integer jobId,String userName);
-
-	List<Interview> findInterviewsByJobOwnerId(Job job);
-
-	List<Interview> findInterviewsByJobOwner(User jobOwner);
-
+  List<Interview> findInterviewsByJobOwner(Integer userId);
 }
