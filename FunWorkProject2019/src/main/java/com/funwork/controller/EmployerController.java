@@ -27,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,374 +50,352 @@ import com.funwork.service.UserService;
 
 @Controller
 public class EmployerController {
+  private static final String LOGIN_USER = "loginUser";
+  private static final String REDIRECT_TO_INDEX = "redirect:/";
+  private static final String COMPANYS = "companys";
+  @Autowired
+  CompanyService companyService;
+  @Autowired
+  JobService jobService;
+  @Autowired
+  UserService userService;
+  @Autowired
+  ApplicationService applicationService;
+  @Autowired
+  ServletContext context;
 
-	@Autowired
-	CompanyService companyService;
+  @GetMapping("/mainHub")
+  public String accessMain() {
+    return "employerManage/mainHub";
+  }
 
-	@Autowired
-	JobService jobService;
+  /**
+   * Show jobs by user.
+   */
+  @GetMapping("/manageJob")
+  public String manageJob(Model model, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    User user = (User) session.getAttribute(LOGIN_USER);
+    if (user != null) {
+      List<Job> list = jobService.findJobByUserId(user.getUserId());
+      model.addAttribute("jobs", list);
+      return "employerManage/manageJobPage";
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	ApplicationService applicationService;
+  @RequestMapping("/manageCompanyPage")
+  public String list(Model model, HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    User user = (User) session.getAttribute(LOGIN_USER);
+    if (user != null) {
+      List<Company> list = companyService.findAllCompanyByUserId(user.getUserId());
+      model.addAttribute(COMPANYS, list);
+      return "employerManage/manageCompanyPage";
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-	@Autowired
-	ServletContext context;
+  @ResponseBody
+  @RequestMapping(value = "/searchResultByReviewStatus")
+  public String getcompanysByReviewStatus(@RequestParam("qstr") String status, Model model) {
+    System.out.println("received AJAX request and qstr is " + status);
+    System.out.println("new request model content before service called: " + model.containsAttribute("companys"));
+    List<Company> companys = companyService.findAllCompanys(status);
+    System.out.println("companys list contains element(T:Empty): " + companys.isEmpty());
+    System.out.println("list element number is " + companys.size());
+    for (Company c : companys) {
+      System.out.println(c.toString());
+    }
+    model.addAttribute("companys", companys);
+    model.addAttribute("flag", companys);
+    return "OK";
+  }
 
-	@RequestMapping("/mainHub")
-	public String accessMain() {
-		return "employerManage/mainHub";
-	}
+  @RequestMapping(value = "/resultCorStatsJSON/{qstr}", method = RequestMethod.GET, produces = { "application/json" })
+  public ResponseEntity<List<Company>> getcompanysByReviewStatus(Model model, @PathVariable("qstr") String qstr,
+      HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    User user = (User) session.getAttribute("loginUser");
+    System.out.println(user.getUserId());
+    System.out.println("received AJAX request and qstr is " + qstr);
+    List<Company> list = companyService.findAllCompanys(qstr);
+    List<Company> arr = new ArrayList<>();
+    if (qstr.equalsIgnoreCase("全部")) {
+      List<Company> listAll = companyService.findAllCompanyByUserId(user.getUserId());
+      ResponseEntity<List<Company>> re = new ResponseEntity<>(listAll, HttpStatus.OK);
+      return re;
+    } else {
+      for (Company com : list) {
+        if (com.getUser().getUserId() == user.getUserId()) {
+          arr.add(com);
+        }
+      }
+      ResponseEntity<List<Company>> re = new ResponseEntity<>(arr, HttpStatus.OK);
+      return re;
+    }
+  }
 
-	@RequestMapping("/addJobProfile")
-	public String buildCorpProfile() {
-		return "employerManage/addJobProfile";
-	}
+  @RequestMapping("/company")
+  public String getcompanyById(@RequestParam("id") Integer id, Model model) {
+    List<Job> list = jobService.findJobByUserId(companyService.findByPrimaryKey(id).getUser().getUserId());
+    model.addAttribute("company", companyService.findByPrimaryKey(id));
+    model.addAttribute("jobs", list);
+    return "employerManage/companyProfile";
+  }
 
-	@RequestMapping("/addCorpProfile")
-	public String addCorpProfile() {
-		return "employerManage/addCorpProfile";
-	}
+  @RequestMapping(value = "/registerCompany", method = RequestMethod.GET)
+  public String getRegisterCompanyForm(Model model) {
+    Company cb = new Company();
+    model.addAttribute("companyBean", cb);
+    return "employerManage/registerCompany";
+  }
 
-	@SuppressWarnings("unused")
-	@RequestMapping("/manageJob")
-	public String manageJob(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-		jobService.findJobByUserId(user.getUserId());
+  @RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
+  public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
 
-		if (user != null) {
-			List<Job> list = jobService.findJobByUserId(user.getUserId());
-			for(Job job:list ) {
-				List<Application> apps = applicationService.findAllApplicantsByJob(job);
-				job.setAppsList(apps.size());
-			}
-			model.addAttribute("jobs", list);
-			return "employerManage/manageJobPage";
-		} 
-		else 
-			return "redirect:/";
-		
-	}
+      HttpServletRequest request, final RedirectAttributes redirectAttrs) {
+    String[] suppressedFields = result.getSuppressedFields();
+    if (suppressedFields.length > 0) {
+      throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+    }
 
-	@RequestMapping("/manageCompanyPage")
-	public String list(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-		if (user != null) {
-			List<Company> list = companyService.findAllCompanyByUserId(user.getUserId());
-			model.addAttribute("companys", list);
-			return "employerManage/manageCompanyPage";
-		} else {
-			return "redirect:/";
-		}
-	}
+    MultipartFile image = cb.getCompanyLicensureImage();
+    String originalFilename = image.getOriginalFilename();
+    cb.setFileName(originalFilename);
 
-	@ResponseBody
-	@RequestMapping(value = "/searchResultByReviewStatus")
-	public String getcompanysByReviewStatus(@RequestParam("qstr") String status, Model model) {
-		System.out.println("received AJAX request and qstr is " + status);
-		System.out.println("new request model content before service called: " + model.containsAttribute("companys"));
-		List<Company> companys = companyService.findAllCompanys(status);
-		System.out.println("companys list contains element(T:Empty): " + companys.isEmpty());
-		System.out.println("list element number is " + companys.size());
-		for (Company c : companys) {
-			System.out.println(c.toString());
-		}
-		model.addAttribute("companys", companys);
-		model.addAttribute("flag", companys);
-		return "OK";
-	}
+    List<Company> companyList = companyService.findAllCompanys();
+    Map<String, String> errors = new HashMap<>();
+    for (Company com : companyList) {
+      if (cb.getTaxId().equals(com.getTaxId())) {
+        System.out.println("here");
+        errors.put("error_TaxId", "重複的Tax ID");
+        redirectAttrs.addFlashAttribute("errors", errors);
+        return "redirect:/registerCompany";
+      }
+    }
 
-	@RequestMapping(value = "/resultCorStatsJSON/{qstr}", method = RequestMethod.GET, produces = { "application/json" })
-	public ResponseEntity<List<Company>> getcompanysByReviewStatus(Model model, @PathVariable("qstr") String qstr,
-			HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-		System.out.println(user.getUserId());
-		System.out.println("received AJAX request and qstr is " + qstr);
-		List<Company> list = companyService.findAllCompanys(qstr);
-		List<Company> arr = new ArrayList<>();
-		if (qstr.equalsIgnoreCase("全部")) {
-			List<Company> listAll = companyService.findAllCompanyByUserId(user.getUserId());
-			ResponseEntity<List<Company>> re = new ResponseEntity<>(listAll, HttpStatus.OK);
-			return re;
-		} else {
-			for (Company com : list) {
-				if (com.getUser().getUserId() == user.getUserId()) {
-					arr.add(com);
-				}
-			}
-			ResponseEntity<List<Company>> re = new ResponseEntity<>(arr, HttpStatus.OK);
-			return re;
-		}
-	}
+    if (image != null && !image.isEmpty()) {
+      try {
+        byte[] b = image.getBytes();
+        Blob blob = new SerialBlob(b);
+        cb.setLicensure(blob);
+      } catch (Exception e) {
+        e.printStackTrace();
+        throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
+      }
+    }
 
-	@RequestMapping("/company")
-	public String getcompanyById(@RequestParam("id") Integer id, Model model) {
-		System.out.println("getCompanyById");
-		List<Job> list = jobService.findJobByUserId(companyService.findByPrimaryKey(id)
-				.getUser().getUserId());
-		model.addAttribute("company", companyService.findByPrimaryKey(id));
-		model.addAttribute("jobs", list);
-		return "employerManage/companyProfile";
-	}
+    HttpSession session = request.getSession();
+    User user = (User) session.getAttribute("loginUser");
+    if (user != null) {
+      cb.setUser(user);
+      companyService.saveCompany(cb);
+      return "redirect:/manageCompanyPage";
+    } else {
+      return "redirect:/";
+    }
+  }
 
-	@RequestMapping(value = "/registerCompany", method = RequestMethod.GET)
-	public String getRegisterCompanyForm(Model model) {
-		Company cb = new Company();
-		model.addAttribute("companyBean", cb);
-		return "employerManage/registerCompany";
-	}
+  @RequestMapping(value = "/addCorpProfile", method = RequestMethod.GET)
+  public String getAddCorpProfileForm(@RequestParam("id") Integer id, Model model) {
+    System.out.println("here");
+    model.addAttribute("companyBean", companyService.findByPrimaryKey(id));
+    return "employerManage/addCorpProfile";
+  }
 
-	@RequestMapping(value = "/registerCompany", method = RequestMethod.POST)
-	public String processgetAddNewcompanyForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
+  @RequestMapping(value = "/addCorpProfile", method = RequestMethod.POST)
+  public String processAddCorpProfileForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
+      HttpServletRequest request) {
+    System.out.println("Enter controller of processAddCorpProfileForm");
+    String[] suppressedFields = result.getSuppressedFields();
+    if (suppressedFields.length > 0) {
+      throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+    }
+    MultipartFile logoImage = cb.getCompanyLogo();
+    MultipartFile coverImage = cb.getCompanyCoverPic();
+    System.out.println("coverImage: " + coverImage);
+    String originalFilenameCover = coverImage.getOriginalFilename();
 
-			HttpServletRequest request, final RedirectAttributes redirectAttrs) {
-		System.out.println("Enter controller");
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-		}
+    if (logoImage != null && !logoImage.isEmpty() && coverImage != null && !coverImage.isEmpty()) {
+      try {
+        byte[] b = logoImage.getBytes();
+        Blob blob = new SerialBlob(b);
+        cb.setLogo(blob);
+        byte[] b2 = coverImage.getBytes();
+        Blob blob2 = new SerialBlob(b2);
+        cb.setCoverPic(blob2);
+      } catch (Exception e) {
+        e.printStackTrace();
+        throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
+      }
+    }
+    Integer id = cb.getCompanyId();
+    companyService.updateCompanyById(id, cb);
+    return "redirect:/company?id=" + id;
+  }
 
-		MultipartFile image = cb.getCompanyLicensureImage();
-		String originalFilename = image.getOriginalFilename();
-		cb.setFileName(originalFilename);
+  @RequestMapping(value = "/getLicPicture/{companyId}", method = RequestMethod.GET)
+  public ResponseEntity<byte[]> getLicPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
 
-		List<Company> companyList = companyService.findAllCompanys();
-		Map<String, String> errors = new HashMap<>();
-		for (Company com : companyList) {
-			if (cb.getTaxId().equals(com.getTaxId())) {
-				System.out.println("here");
-				errors.put("error_TaxId", "重複的Tax ID");
-				redirectAttrs.addFlashAttribute("errors", errors);
-				return "redirect:/registerCompany";
-			}
-		}
+    System.out.println(companyId);
+    System.out.println("Enter license getPicture");
 
-		if (image != null && !image.isEmpty()) {
-			try {
-				byte[] b = image.getBytes();
-				Blob blob = new SerialBlob(b);
-				cb.setLicensure(blob);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
-			}
-		}
+    String filePath = "/resources/images/NoImage.jpg";
+    byte[] media = null;
+    HttpHeaders headers = new HttpHeaders();
+    String filename = "";
+    int len = 0;
+    Company bean = companyService.findByPrimaryKey(companyId);
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-		if (user != null) {
-			cb.setUser(user);
-			companyService.saveCompany(cb);
-			return "redirect:/manageCompanyPage";
-		} else {
-			return "redirect:/";
-		}
-	}
+    if (bean != null) {
+      Blob blob = bean.getLicensure();
+      filename = bean.getFileName();
+      if (blob != null) {
+        try {
+          len = (int) blob.length();
+          media = blob.getBytes(1, len);
+        } catch (SQLException e) {
+          e.printStackTrace();
+          throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
+        }
+      } else {
+        media = toByteArray(filePath);
+        filename = filePath;
+      }
+    } else {
+      media = toByteArray(filePath);
+      filename = filePath;
+    }
+    headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+    System.out.println(filename);
+    String mimeType = context.getMimeType(filename);
 
-	@RequestMapping(value = "/addCorpProfile", method = RequestMethod.GET)
-	public String getAddCorpProfileForm(@RequestParam("id") Integer id, Model model) {
-		System.out.println("here");
-		model.addAttribute("companyBean", companyService.findByPrimaryKey(id));
-		return "employerManage/addCorpProfile";
-	}
+    MediaType mediatype = MediaType.valueOf(mimeType);
+    System.out.println("mediaType: " + mediatype);
+    headers.setContentType(mediatype);
+    ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+    return responseEntity;
+  }
 
-	@RequestMapping(value = "/addCorpProfile", method = RequestMethod.POST)
-	public String processAddCorpProfileForm(@ModelAttribute("companyBean") Company cb, BindingResult result,
-			HttpServletRequest request) {
-		System.out.println("Enter controller of processAddCorpProfileForm");
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位：" + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-		}
-		MultipartFile logoImage = cb.getCompanyLogo();
-		MultipartFile coverImage = cb.getCompanyCoverPic();
-		System.out.println("coverImage: " + coverImage);
-		String originalFilenameCover = coverImage.getOriginalFilename();
+  @RequestMapping(value = "/getCoverPicture/{companyId}", method = RequestMethod.GET)
+  public ResponseEntity<byte[]> getCoverPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
 
-		if (logoImage != null && !logoImage.isEmpty() && coverImage != null && !coverImage.isEmpty()) {
-			try {
-				byte[] b = logoImage.getBytes();
-				Blob blob = new SerialBlob(b);
-				cb.setLogo(blob);
-				byte[] b2 = coverImage.getBytes();
-				Blob blob2 = new SerialBlob(b2);
-				cb.setCoverPic(blob2);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常:  " + e.getMessage());
-			}
-		}
-		Integer id = cb.getCompanyId();
-		companyService.updateCompanyById(id, cb);
-		return "redirect:/company?id=" + id;
-	}
+    System.out.println("Enter getCoverPicture controller");
 
-	@RequestMapping(value = "/getLicPicture/{companyId}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getLicPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
+    String filePath = "/resources/images/NoImage.jpg";
+    byte[] media = null;
+    HttpHeaders headers = new HttpHeaders();
+    String filename = "";
+    int len = 0;
+    Company bean = companyService.findByPrimaryKey(companyId);
 
-		System.out.println(companyId);
-		System.out.println("Enter license getPicture");
+    if (bean != null) {
+      System.out.println("enter if");
+      Blob blob = bean.getCoverPic();
+      filename = bean.getFileName();
+      if (blob != null) {
+        System.out.println("enter blob != null");
+        try {
+          len = (int) blob.length();
+          media = blob.getBytes(1, len);
+        } catch (SQLException e) {
+          e.printStackTrace();
+          throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
+        }
+      } else {
+        media = toByteArray(filePath);
+        filename = filePath;
+      }
+    } else {
+      media = toByteArray(filePath);
+      filename = filePath;
+    }
+    headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+    System.out.println(filename);
+    String mimeType = context.getMimeType(filename);
 
-		String filePath = "/resources/images/NoImage.jpg";
-		byte[] media = null;
-		HttpHeaders headers = new HttpHeaders();
-		String filename = "";
-		int len = 0;
-		Company bean = companyService.findByPrimaryKey(companyId);
+    MediaType mediatype = MediaType.valueOf(mimeType);
+    System.out.println("mediaType: " + mediatype);
+    headers.setContentType(mediatype);
+    ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+    return responseEntity;
+  }
 
-		if (bean != null) {
-			System.out.println("enter if");
-			Blob blob = bean.getLicensure();
-			filename = bean.getFileName();
-			if (blob != null) {
-				System.out.println("enter blob != null");
-				try {
-					len = (int) blob.length();
-					media = blob.getBytes(1, len);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-				}
-			} else {
-				media = toByteArray(filePath);
-				filename = filePath;
-			}
-		} else {
-			media = toByteArray(filePath);
-			filename = filePath;
-		}
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		System.out.println(filename);
-		String mimeType = context.getMimeType(filename);
+  @RequestMapping(value = "/getLogoPicture/{companyId}", method = RequestMethod.GET)
+  public ResponseEntity<byte[]> getLogoPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
 
-		MediaType mediatype = MediaType.valueOf(mimeType);
-		System.out.println("mediaType: " + mediatype);
-		headers.setContentType(mediatype);
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
+    System.out.println(companyId);
+    System.out.println("Enter logo getPicture");
 
-	@RequestMapping(value = "/getCoverPicture/{companyId}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getCoverPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
+    String filePath = "/resources/images/NoImage.jpg";
+    byte[] media = null;
+    HttpHeaders headers = new HttpHeaders();
+    String filename = "";
+    int len = 0;
+    Company bean = companyService.findByPrimaryKey(companyId);
 
-		System.out.println("Enter getCoverPicture controller");
+    if (bean != null) {
+      System.out.println("enter if");
+      Blob blob = bean.getLogo();
+      filename = bean.getFileName();
+      if (blob != null) {
+        System.out.println("enter blob != null");
+        try {
+          len = (int) blob.length();
+          media = blob.getBytes(1, len);
+        } catch (SQLException e) {
+          e.printStackTrace();
+          throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
+        }
+      } else {
+        media = toByteArray(filePath);
+        filename = filePath;
+      }
+    } else {
+      media = toByteArray(filePath);
+      filename = filePath;
+    }
+    headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+    System.out.println(filename);
+    String mimeType = context.getMimeType(filename);
 
-		String filePath = "/resources/images/NoImage.jpg";
-		byte[] media = null;
-		HttpHeaders headers = new HttpHeaders();
-		String filename = "";
-		int len = 0;
-		Company bean = companyService.findByPrimaryKey(companyId);
+    MediaType mediatype = MediaType.valueOf(mimeType);
+    System.out.println("mediaType: " + mediatype);
+    headers.setContentType(mediatype);
+    ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+    return responseEntity;
+  }
 
-		if (bean != null) {
-			System.out.println("enter if");
-			Blob blob = bean.getCoverPic();
-			filename = bean.getFileName();
-			if (blob != null) {
-				System.out.println("enter blob != null");
-				try {
-					len = (int) blob.length();
-					media = blob.getBytes(1, len);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-				}
-			} else {
-				media = toByteArray(filePath);
-				filename = filePath;
-			}
-		} else {
-			media = toByteArray(filePath);
-			filename = filePath;
-		}
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		System.out.println(filename);
-		String mimeType = context.getMimeType(filename);
+  private byte[] toByteArray(String filePath) {
+    String root = context.getRealPath("/");
+    root = root.substring(0, root.length() - 1);
+    String fileLocation = root + filePath;
+    byte[] b = null;
+    try {
+      java.io.File file = new java.io.File(fileLocation);
+      long size = file.length();
+      b = new byte[(int) size];
+      InputStream fis = context.getResourceAsStream(filePath);
+      fis.read(b);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return b;
+  }
 
-		MediaType mediatype = MediaType.valueOf(mimeType);
-		System.out.println("mediaType: " + mediatype);
-		headers.setContentType(mediatype);
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
-
-	@RequestMapping(value = "/getLogoPicture/{companyId}", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getLogoPicture(HttpServletResponse resp, @PathVariable Integer companyId) {
-
-		System.out.println(companyId);
-		System.out.println("Enter logo getPicture");
-
-		String filePath = "/resources/images/NoImage.jpg";
-		byte[] media = null;
-		HttpHeaders headers = new HttpHeaders();
-		String filename = "";
-		int len = 0;
-		Company bean = companyService.findByPrimaryKey(companyId);
-
-		if (bean != null) {
-			System.out.println("enter if");
-			Blob blob = bean.getLogo();
-			filename = bean.getFileName();
-			if (blob != null) {
-				System.out.println("enter blob != null");
-				try {
-					len = (int) blob.length();
-					media = blob.getBytes(1, len);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					throw new RuntimeException("ProductController的getPicture()發生SQLException: " + e.getMessage());
-				}
-			} else {
-				media = toByteArray(filePath);
-				filename = filePath;
-			}
-		} else {
-			media = toByteArray(filePath);
-			filename = filePath;
-		}
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		System.out.println(filename);
-		String mimeType = context.getMimeType(filename);
-
-		MediaType mediatype = MediaType.valueOf(mimeType);
-		System.out.println("mediaType: " + mediatype);
-		headers.setContentType(mediatype);
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
-
-	private byte[] toByteArray(String filePath) {
-		String root = context.getRealPath("/");
-		root = root.substring(0, root.length() - 1);
-		String fileLocation = root + filePath;
-		byte[] b = null;
-		try {
-			java.io.File file = new java.io.File(fileLocation);
-			long size = file.length();
-			b = new byte[(int) size];
-			InputStream fis = context.getResourceAsStream(filePath);
-			fis.read(b);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return b;
-	}
-
-	@ExceptionHandler(CompanyNotFoundException.class)
-	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("invalidCompanyId", exception.getCompanyId());
-		mv.addObject("exception", exception);
-		mv.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
-		mv.setViewName("companyNotFound");
-		return mv;
-	}
+  @ExceptionHandler(CompanyNotFoundException.class)
+  public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {
+    ModelAndView mv = new ModelAndView();
+    mv.addObject("invalidCompanyId", exception.getCompanyId());
+    mv.addObject("exception", exception);
+    mv.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
+    mv.setViewName("companyNotFound");
+    return mv;
+  }
 
 }

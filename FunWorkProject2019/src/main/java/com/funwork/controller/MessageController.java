@@ -45,10 +45,12 @@ public class MessageController {
       @RequestParam(value = "message", required = true) String message,
       @RequestParam(value = "apId", required = true) Integer apId) {
     applicationService.updateLatestMsg(apId, message);
-    messageService.insertMessage(message, userId, toUserId, apId, 0);
+    
     if (wsMessageService.sendToAllTerminal(toUserId.toString(), message)) {
+      messageService.insertMessage(message, userId, toUserId, apId, 1);
       return "success";
     } else {
+      messageService.insertMessage(message, userId, toUserId, apId, 0);
       return "fail";
     }
   }

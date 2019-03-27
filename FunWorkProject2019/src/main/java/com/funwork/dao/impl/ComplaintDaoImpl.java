@@ -10,17 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ComplaintDaoImpl implements ComplaintDao {
-
   @Autowired
   SessionFactory factory;
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<Complaint> getAllComplaints() {
-    String hql = "FROM Complaint";
-    Session session = factory.getCurrentSession();
-    return session.createQuery(hql).getResultList();
-  }
 
   @SuppressWarnings("unchecked")
   @Override

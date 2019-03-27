@@ -4,8 +4,6 @@ import com.funwork.model.Complaint;
 import java.util.List;
 
 public interface ComplaintService {
-  List<Complaint> getAllComplaints();
-
   List<Complaint> getComplaintProcessList();
 
   Complaint getComplaintById(Integer cpId);

@@ -4,7 +4,6 @@ import com.funwork.model.Complaint;
 import java.util.List;
 
 public interface ComplaintDao {
-  List<Complaint> getAllComplaints();
 
   List<Complaint> getComplaintProcessList();
 

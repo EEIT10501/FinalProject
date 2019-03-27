@@ -65,7 +65,6 @@ public class WebSocketChat {
     if (session == null) {
       logger.warning("session is null");
     }
-    sendMessageToUser(this.userId, message);
   }
 
   @OnError
