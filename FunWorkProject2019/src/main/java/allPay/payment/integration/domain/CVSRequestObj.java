@@ -1,7 +1,7 @@
 package allPay.payment.integration.domain;
 
 /**
- * ç•¶ChoosePaymentç‚ºCVSæ™‚çš„å–è™Ÿçµæœé€šçŸ¥ç‰©ä»¶
+ * ·íChoosePayment¬°CVS®Éªº¨ú¸¹µ²ªG³qª¾ª«¥ó
  * @author mark.chiu
  *
  */
@@ -9,104 +9,104 @@ public class CVSRequestObj {
 	
 	/**
 	 * MerchantID
-	 * æœƒå“¡ç·¨è™Ÿ
+	 * ·|­û½s¸¹
 	 */
 	private String MerchantID;
 	
 	/**
 	 * MerchantTradeNo
-	 * æœƒå“¡äº¤æ˜“ç·¨è™Ÿ
+	 * ·|­û¥æ©ö½s¸¹
 	 */
 	private String MerchantTradeNo;
 	
 	/**
 	 * RtnCode
-	 * äº¤æ˜“ç‹€æ…‹
+	 * ¥æ©öª¬ºA
 	 */
 	private String RtnCode;
 	
 	/**
 	 * RtnMsg
-	 * äº¤æ˜“è¨Šæ¯
+	 * ¥æ©ö°T®§
 	 */
 	private String RtnMsg;
 	
 	/**
 	 * TradeNo
-	 * allPayçš„äº¤æ˜“ç·¨è™Ÿ
+	 * allPayªº¥æ©ö½s¸¹
 	 */
 	private String TradeNo;
 	
 	/**
 	 * TradeAmt
-	 * äº¤æ˜“é‡‘é¡
+	 * ¥æ©öª÷ÃB
 	 */
 	private String TradeAmt;
 	
 	/**
 	 * PayAmt
-	 * å¯¦éš›ä»˜æ¬¾é‡‘é¡
+	 * ¹ê»Ú¥I´Úª÷ÃB
 	 */
 	private String PayAmt;
 	
 	/**
 	 * RedeemAmt
-	 * æŠ˜æŠµé‡‘é¡
+	 * §é©èª÷ÃB
 	 */
 	private String RedeemAmt;
 	
 	/**
 	 * PaymentType
-	 * æœƒå“¡é¸æ“‡çš„ä»˜æ¬¾æ–¹å¼
+	 * ·|­û¿ï¾Üªº¥I´Ú¤è¦¡
 	 */
 	private String PaymentType;
 	
 	/**
 	 * TradeDate
-	 * è¨‚å–®æˆç«‹æ™‚é–“
+	 * ­q³æ¦¨¥ß®É¶¡
 	 */
 	private String TradeDate;
 	
 	/**
 	 * Barcode1
-	 * æ¢ç¢¼ç¬¬ä¸€æ®µè™Ÿç¢¼
+	 * ±ø½X²Ä¤@¬q¸¹½X
 	 */
 	private String Barcode1;
 	
 	/**
 	 * Barcode2
-	 * æ¢ç¢¼ç¬¬äºŒæ®µè™Ÿç¢¼
+	 * ±ø½X²Ä¤G¬q¸¹½X
 	 */
 	private String Barcode2;
 	
 	/**
 	 * Barcode3
-	 * æ¢ç¢¼ç¬¬ä¸‰æ®µè™Ÿç¢¼
+	 * ±ø½X²Ä¤T¬q¸¹½X
 	 */
 	private String Barcode3;
 	
 	/**
 	 * CheckMacValue
-	 * æª¢æŸ¥ç¢¼
+	 * ÀË¬d½X
 	 */
 	private String CheckMacValue;
 	
 	/**
 	 * PaymentNo
-	 * ç¹³è²»ä»£ç¢¼
+	 * Ãº¶O¥N½X
 	 */
 	private String PaymentNo;
 	
 	/**
 	 * ExpireDate
-	 * ç¹³è²»æœŸé™
+	 * Ãº¶O´Á­­
 	 */
 	private String ExpireDate;
 	
 	/********************* getters and setters *********************/
 
 	/**
-	 * å–å¾—MerchantID æœƒå“¡ç·¨è™Ÿ
+	 * ¨ú±oMerchantID ·|­û½s¸¹
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
@@ -114,7 +114,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šMerchantID æœƒå“¡ç·¨è™Ÿ
+	 * ³]©wMerchantID ·|­û½s¸¹
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {
@@ -122,7 +122,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—MerchantTradeNo æœƒå“¡äº¤æ˜“ç·¨è™Ÿ
+	 * ¨ú±oMerchantTradeNo ·|­û¥æ©ö½s¸¹
 	 * @return MerchantTradeNo
 	 */
 	public String getMerchantTradeNo() {
@@ -130,7 +130,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šMerchantTradeNo æœƒå“¡äº¤æ˜“ç·¨è™Ÿ
+	 * ³]©wMerchantTradeNo ·|­û¥æ©ö½s¸¹
 	 * @param merchantTradeNo
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {
@@ -138,7 +138,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—RtnCode äº¤æ˜“ç‹€æ…‹
+	 * ¨ú±oRtnCode ¥æ©öª¬ºA
 	 * @return RtnCode
 	 */
 	public String getRtnCode() {
@@ -146,7 +146,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šRtnCode äº¤æ˜“ç‹€æ…‹
+	 * ³]©wRtnCode ¥æ©öª¬ºA
 	 * @param rtnCode
 	 */
 	public void setRtnCode(String rtnCode) {
@@ -154,7 +154,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—RtnMsg äº¤æ˜“è¨Šæ¯
+	 * ¨ú±oRtnMsg ¥æ©ö°T®§
 	 * @return RtnMsg
 	 */
 	public String getRtnMsg() {
@@ -162,7 +162,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šRtnMsg äº¤æ˜“è¨Šæ¯
+	 * ³]©wRtnMsg ¥æ©ö°T®§
 	 * @param rtnMsg
 	 */
 	public void setRtnMsg(String rtnMsg) {
@@ -170,7 +170,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—TradeNo allPayçš„äº¤æ˜“ç·¨è™Ÿ
+	 * ¨ú±oTradeNo allPayªº¥æ©ö½s¸¹
 	 * @return TradeNo
 	 */
 	public String getTradeNo() {
@@ -178,7 +178,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šTradeNo allPayçš„äº¤æ˜“ç·¨è™Ÿ
+	 * ³]©wTradeNo allPayªº¥æ©ö½s¸¹
 	 * @param tradeNo
 	 */
 	public void setTradeNo(String tradeNo) {
@@ -186,7 +186,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—TradeAmt äº¤æ˜“é‡‘é¡
+	 * ¨ú±oTradeAmt ¥æ©öª÷ÃB
 	 * @return TradeAmt
 	 */
 	public String getTradeAmt() {
@@ -194,7 +194,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šTradeAmt äº¤æ˜“é‡‘é¡
+	 * ³]©wTradeAmt ¥æ©öª÷ÃB
 	 * @param tradeAmt
 	 */
 	public void setTradeAmt(String tradeAmt) {
@@ -202,7 +202,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—PaymentType æœƒå“¡é¸æ“‡çš„ä»˜æ¬¾æ–¹å¼
+	 * ¨ú±oPaymentType ·|­û¿ï¾Üªº¥I´Ú¤è¦¡
 	 * @return PaymentType
 	 */
 	public String getPaymentType() {
@@ -210,7 +210,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šPaymentType æœƒå“¡é¸æ“‡çš„ä»˜æ¬¾æ–¹å¼
+	 * ³]©wPaymentType ·|­û¿ï¾Üªº¥I´Ú¤è¦¡
 	 * @param paymentType
 	 */
 	public void setPaymentType(String paymentType) {
@@ -218,7 +218,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—TradeDate è¨‚å–®æˆç«‹æ™‚é–“
+	 * ¨ú±oTradeDate ­q³æ¦¨¥ß®É¶¡
 	 * @return TradeDate
 	 */
 	public String getTradeDate() {
@@ -226,7 +226,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šTradeDate è¨‚å–®æˆç«‹æ™‚é–“
+	 * ³]©wTradeDate ­q³æ¦¨¥ß®É¶¡
 	 * @param tradeDate
 	 */
 	public void setTradeDate(String tradeDate) {
@@ -234,7 +234,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—CheckMacValue æª¢æŸ¥ç¢¼
+	 * ¨ú±oCheckMacValue ÀË¬d½X
 	 * @return CheckMacValue
 	 */
 	public String getCheckMacValue() {
@@ -242,7 +242,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šCheckMacValue æª¢æŸ¥ç¢¼
+	 * ³]©wCheckMacValue ÀË¬d½X
 	 * @param checkMacValue
 	 */
 	public void setCheckMacValue(String checkMacValue) {
@@ -250,7 +250,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—PaymentNo ç¹³è²»ä»£ç¢¼
+	 * ¨ú±oPaymentNo Ãº¶O¥N½X
 	 * @return PaymentNo
 	 */
 	public String getPaymentNo() {
@@ -258,7 +258,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šPaymentNo ç¹³è²»ä»£ç¢¼
+	 * ³]©wPaymentNo Ãº¶O¥N½X
 	 * @param paymentNo
 	 */
 	public void setPaymentNo(String paymentNo) {
@@ -266,7 +266,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—ExpireDate ç¹³è²»æœŸé™
+	 * ¨ú±oExpireDate Ãº¶O´Á­­
 	 * @return ExpireDate
 	 */
 	public String getExpireDate() {
@@ -274,7 +274,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šExpireDate ç¹³è²»æœŸé™
+	 * ³]©wExpireDate Ãº¶O´Á­­
 	 * @param expireDate
 	 */
 	public void setExpireDate(String expireDate) {
@@ -282,7 +282,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—Barcode1 æ¢ç¢¼ç¬¬ä¸€æ®µè™Ÿç¢¼
+	 * ¨ú±oBarcode1 ±ø½X²Ä¤@¬q¸¹½X
 	 * @return Barcode1
 	 */
 	public String getBarcode1() {
@@ -290,7 +290,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šBarcode1 æ¢ç¢¼ç¬¬ä¸€æ®µè™Ÿç¢¼
+	 * ³]©wBarcode1 ±ø½X²Ä¤@¬q¸¹½X
 	 * @param barcode1
 	 */
 	public void setBarcode1(String barcode1) {
@@ -298,7 +298,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—Barcode2 æ¢ç¢¼ç¬¬äºŒæ®µè™Ÿç¢¼
+	 * ¨ú±oBarcode2 ±ø½X²Ä¤G¬q¸¹½X
 	 * @return Barcode2
 	 */
 	public String getBarcode2() {
@@ -306,7 +306,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šBarcode2 æ¢ç¢¼ç¬¬äºŒæ®µè™Ÿç¢¼
+	 * ³]©wBarcode2 ±ø½X²Ä¤G¬q¸¹½X
 	 * @param barcode2
 	 */
 	public void setBarcode2(String barcode2) {
@@ -314,7 +314,7 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * å–å¾—Barcode3 æ¢ç¢¼ç¬¬ä¸‰æ®µè™Ÿç¢¼
+	 * ¨ú±oBarcode3 ±ø½X²Ä¤T¬q¸¹½X
 	 * @return Barcode3
 	 */
 	public String getBarcode3() {
@@ -322,35 +322,35 @@ public class CVSRequestObj {
 	}
 
 	/**
-	 * è¨­å®šBarcode3 æ¢ç¢¼ç¬¬ä¸‰æ®µè™Ÿç¢¼
+	 * ³]©wBarcode3 ±ø½X²Ä¤T¬q¸¹½X
 	 * @param barcode3
 	 */
 	public void setBarcode3(String barcode3) {
 		Barcode3 = barcode3;
 	}
 	/**
-	 * å–å¾—PayAmt å¯¦éš›ä»˜æ¬¾é‡‘é¡
+	 * ¨ú±oPayAmt ¹ê»Ú¥I´Úª÷ÃB
 	 * @return PayAmt
 	 */
 	public String getPayAmt() {
 		return PayAmt;
 	}
 	/**
-	 * è¨­å®šPayAmt å¯¦éš›ä»˜æ¬¾é‡‘é¡
+	 * ³]©wPayAmt ¹ê»Ú¥I´Úª÷ÃB
 	 * @param payAmt
 	 */
 	public void setPayAmt(String payAmt) {
 		PayAmt = payAmt;
 	}
 	/**
-	 * å–å¾—RedeemAmt æŠ˜æŠµé‡‘é¡
+	 * ¨ú±oRedeemAmt §é©èª÷ÃB
 	 * @return RedeemAmt
 	 */
 	public String getRedeemAmt() {
 		return RedeemAmt;
 	}
 	/**
-	 * è¨­å®šRedeemAmt æŠ˜æŠµé‡‘é¡
+	 * ³]©wRedeemAmt §é©èª÷ÃB
 	 * @param redeemAmt
 	 */
 	public void setRedeemAmt(String redeemAmt) {

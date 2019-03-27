@@ -162,17 +162,17 @@ public class OrderController {
     InvoiceObj invoice = new InvoiceObj();
     invoice = null;// 不開發票
 
-    aio.setMerchantID("2000132");
+//    aio.setMerchantID("2000132");
     aio.setMerchantTradeNo(req.getParameter("MerchantTradeNo"));
     aio.setMerchantTradeDate(req.getParameter("MerchantTradeDate"));
     aio.setTotalAmount(req.getParameter("TotalAmount"));
     aio.setTradeDesc(req.getParameter("TradeDesc"));
     aio.setItemName(req.getParameter("ItemName"));
-    aio.setReturnURL("http://localhost:8081/FunWorkProject2019/orderReturn");
-    aio.setOrderResultURL("http://localhost:8081/FunWorkProject2019/orderReturn");
+    aio.setReturnURL("http://211.23.128.214:5000");
+    aio.setOrderResultURL("http://localhost:8080/FunWorkProject2019/orderReturn");
 
     try {
-      String html = all.aioCheckOut(aio, invoice);
+      String html = all.aioCheckOut(aio);
       System.out.println(html);
       return html;
     } catch (AllPayException e) {
