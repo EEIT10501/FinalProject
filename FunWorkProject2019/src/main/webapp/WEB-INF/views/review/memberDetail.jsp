@@ -133,7 +133,13 @@
                             </div>
                             <div class="col-sm-5">${user.rating}</div>
                         </div>
-                         <div class="row justify-content-center">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-3">
+                                <h5>應約次數</h5>
+                            </div>
+                            <div class="col-sm-5">${user.presence}次</div>
+                        </div>
+                        <div class="row justify-content-center">
                             <div class="col-sm-3">
                                 <h5>缺席次數</h5>
                             </div>

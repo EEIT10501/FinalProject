@@ -52,7 +52,10 @@ public class InterviewServiceImp implements InterviewService {
 	}
 
 	@Override
-	public void updateInterview(Interview interview) {
+	public void updateInterviewResult(String interviewResult, int key) {
+		Interview interview = interviewDao.findByPrimaryKey(key);
+		interview.setInterviewResult(interviewResult);
+		System.out.println(interview.getInterviewStatus());
 		interviewDao.updateInterview(interview);
 	}
 
@@ -109,5 +112,10 @@ public class InterviewServiceImp implements InterviewService {
 	@Override
 	public List<Interview> findInterviewsByJobOwner(User jobOwner){
 		return interviewDao.findInterviewsByJobOwner(jobOwner);
+	}
+
+	@Override
+	public void updateInterview(Interview interview) {
+		interviewDao.updateInterview(interview);
 	}
 }

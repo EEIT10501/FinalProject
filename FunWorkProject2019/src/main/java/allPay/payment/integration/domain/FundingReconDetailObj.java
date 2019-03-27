@@ -1,7 +1,7 @@
 package allPay.payment.integration.domain;
 
 /**
- * 涓嬭級淇＄敤鍗℃挜娆惧皪甯宠硣鏂欐獢鐗╀欢
+ * 更獺ノ挤蹿癸眀戈郎ン
  * @author mark.chiu
  *
  */
@@ -9,81 +9,87 @@ public class FundingReconDetailObj {
 	
 	/**
 	 * MerchantID
-	 * 鏈冨摗绶ㄨ櫉(鐢盿llPay鎻愪緵)
+	 * 穦絪腹(パallPay矗ㄑ)
 	 */
 	private String MerchantID = "";
 	
 	/**
 	 * PayDateType
-	 * 鏌ヨ鏃ユ湡椤炲垾
+	 * 琩高ら戳摸
 	 */
 	private String PayDateType = "";
 	
 	/**
 	 * StartDate
-	 * 鏌ヨ闁嬪鏃ユ湡
+	 * 琩高秨﹍ら戳
 	 */
 	private String StartDate = "";
 	
 	/**
 	 * EndDate
-	 * 鏌ヨ绲愭潫鏃ユ湡
+	 * 琩高挡ら戳
 	 */
 	private String EndDate = "";
 	
 	/********************* getters and setters *********************/
 	
 	/**
-	 * 鍙栧緱MerchantID 鏈冨摗绶ㄨ櫉(鐢盿llPay鎻愪緵)
+	 * 眔MerchantID 穦絪腹(パOˇPay矗ㄑ)
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
 		return MerchantID;
 	}
 	/**
-	 * 瑷畾MerchantID 鏈冨摗绶ㄨ櫉(鐢盿llPay鎻愪緵)
+	 * 砞﹚MerchantID 穦絪腹(パOˇPay矗ㄑ)
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {
 		MerchantID = merchantID;
 	}
 	/**
-	 * 鍙栧緱PayDateType 鏌ヨ鏃ユ湡椤炲垾
+	 * 眔PayDateType 琩高ら戳摸璶琩高ら戳摸
+	 * 璝琩高挤蹿ら戳玥把计叫盿fund
+	 * 璝琩高闽眀ら戳玥把计叫盿close
+	 * 璝琩高眀ら戳玥把计叫盿enter
 	 * @return PayDateType
 	 */
 	public String getPayDateType() {
 		return PayDateType;
 	}
 	/**
-	 * 瑷畾PayDateType 鏌ヨ鏃ユ湡椤炲垾
+	 * 砞﹚PayDateType 琩高ら戳摸璶琩高ら戳摸
+	 * 璝琩高挤蹿ら戳玥把计叫盿fund
+	 * 璝琩高闽眀ら戳玥把计叫盿close
+	 * 璝琩高眀ら戳玥把计叫盿enter
 	 * @param payDateType
 	 */
 	public void setPayDateType(String payDateType) {
 		PayDateType = payDateType;
 	}
 	/**
-	 * 鍙栧緱StartDate 鏌ヨ闁嬪鏃ユ湡
+	 * 眔StartDate 琩高秨﹍ら戳ら戳Αyyyy-MM-dd
 	 * @return StartDate
 	 */
 	public String getStartDate() {
 		return StartDate;
 	}
 	/**
-	 * 瑷畾StartDate 鏌ヨ闁嬪鏃ユ湡
+	 * 砞﹚StartDate 琩高秨﹍ら戳ら戳Αyyyy-MM-dd
 	 * @param startDate
 	 */
 	public void setStartDate(String startDate) {
 		StartDate = startDate;
 	}
 	/**
-	 * 鍙栧緱EndDate 鏌ヨ绲愭潫鏃ユ湡
+	 * 眔EndDate 琩高挡ら戳ら戳Αyyyy-MM-dd
 	 * @return EndDate
 	 */
 	public String getEndDate() {
 		return EndDate;
 	}
 	/**
-	 * 瑷畾EndDate 鏌ヨ绲愭潫鏃ユ湡
+	 * 砞﹚EndDate 琩高挡ら戳ら戳Αyyyy-MM-dd
 	 * @param endDate
 	 */
 	public void setEndDate(String endDate) {

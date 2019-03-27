@@ -14,8 +14,10 @@ public interface InterviewService {
 
 	Integer saveInterview(String interType, String interComment, String interPlace, String interTime, Integer apId);
 
-	void updateInterview(Interview interview);
+	void updateInterviewResult(String interviewResult, int key);
 
+	void updateInterview(Interview interview);
+	
 	void deleteInterviewByPrimaryKey(int key);
 
 	List<Interview> findAllInterviews();

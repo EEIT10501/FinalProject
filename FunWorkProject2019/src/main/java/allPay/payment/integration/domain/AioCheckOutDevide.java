@@ -1,7 +1,7 @@
 package allPay.payment.integration.domain;
 
 /**
- * 產生信用卡分期付款訂單物件
+ * ���ͫH�Υd�����I�ڭq�檫��
  * @author mark.chiu
  *
  */
@@ -9,501 +9,541 @@ public class AioCheckOutDevide {
 	
 	/**
 	 * MerchantID
-	 * 會員編號(由allPay提供)
+	 * �|���s��(��allPay����)
 	 */
 	private String MerchantID = "";
 	
 	/**
 	 * MerchantTradeNo
-	 * 會員交易編號，該交易編號不可重複
+	 * �|������s���A�ӥ���s�����i����
 	 */
 	private String MerchantTradeNo = "";
 	
 	/**
 	 * StoreID
-	 * 會員商店代碼，提供會員填入店家代碼使用
+	 * �|���ө��N�X�A���ѷ|����J���a�N�X�ϥ�
 	 */
 	private String StoreID = "";
 	
 	/**
 	 * MerchantTradeDate
-	 * 會員交易時間
+	 * �|������ɶ�
 	 */
 	private String MerchantTradeDate = "";
 	
 	/**
 	 * PaymentType
-	 * 交易類型
+	 * �������
 	 */
 	private String PaymentType = "aio";
 	
 	/**
 	 * TotalAmount
-	 * 交易金額
+	 * ������B
 	 */
 	private String TotalAmount = "";
 	
 	/**
 	 * TradeDesc
-	 * 交易描述
+	 * ����y�z
 	 */
 	private String TradeDesc = "";
 	
 	/**
 	 * ItemName
-	 * 商品名稱
+	 * �ӫ~�W��
 	 */
 	private String ItemName = "";
 	
 	/**
 	 * ReturnURL
-	 * 付款完成通知回傳網址
+	 * �I�ڧ����q���^�Ǻ��}
 	 */
 	private String ReturnURL = "";
 	
 	/**
 	 * ChoosePayment
-	 * 選擇預設付款方式
+	 * ��ܹw�]�I�ڤ覡
 	 */
 	private String ChoosePayment = "Credit";
 	
 	/**
 	 * ClientBackURL
-	 * Client端返回會員系統的按鈕連結
+	 * Client�ݪ�^�|���t�Ϊ����s�s��
 	 */
 	private String ClientBackURL = "";
 	
 	/**
 	 * ItemURL
-	 * 商品銷售網址
+	 * �ӫ~�P����}
 	 */
 	private String ItemURL = "";
 	
 	/**
 	 * Remark
-	 * 備註欄位
+	 * �Ƶ����
 	 */
 	private String Remark = "";
 	
 	/**
 	 * ChooseSubPayment
-	 * 選擇預設付款子項目
+	 * ��ܹw�]�I�ڤl����
 	 */
 	private String ChooseSubPayment = "";
 	
 	/**
 	 * OrderResultURL
-	 * Client端回傳付款結果網址
+	 * Client�ݦ^�ǥI�ڵ��G���}
 	 */
 	private String OrderResultURL = "";
 	
 	/**
 	 * NeedExtraPaidInfo
-	 * 是否需要額外的付款資訊
+	 * �O�_�ݭn�B�~���I�ڸ�T
 	 */
 	private String NeedExtraPaidInfo = "";
 	
 	/**
 	 * DeviceSource
-	 * 裝置來源，請帶空值，由allPay自動判定。
+	 * �˸m�ӷ��A�бa�ŭȡA��allPay�۰ʧP�w�C
 	 */
 	private String DeviceSource = "";
 	
 	/**
 	 * IgnorePayment
-	 * 隱藏付款方式，設定檔自動帶入
+	 * ���åI�ڤ覡�A�]�w�ɦ۰ʱa�J
 	 */
 	private String IgnorePayment = "";
 	
 	/**
 	 * PlatformID
-	 * 特約合作平台商代號(由allPay提供)，設定檔自動帶入
+	 * �S���X�@���x�ӥN��(��allPay����)�A�]�w�ɦ۰ʱa�J
 	 */
 	private String PlatformID = "";
 	
 	/**
-	 * InvoiceMark
-	 * 電子發票開立註記，程式自動判斷
-	 */
-	private String InvoiceMark = "";
-	
-	/**
 	 * HoldTradeAMT
-	 * 是否延遲撥款
+	 * �O�_���𼷴�
 	 */
 	private String HoldTradeAMT = "";
 	
 	/**
 	 * EncryptType
-	 * CheckMacValue加密類型
+	 * CheckMacValue�[�K����
 	 */
 	private String EncryptType = "1";
 	
 	/**
 	 * UseRedeem
-	 * 是否可以使用購物金/紅包折抵
+	 * �O�_�i�H�ϥ��ʪ���/���]���
 	 */
 	private String UseRedeem = "";
 	
 	/**
 	 * CreditInstallment
-	 * 刷卡分期期數
+	 * ��d��������
 	 */
 	private String CreditInstallment = "";
 	
 	/**
 	 * InstallmentAmount
-	 * 使用刷卡分期的總付款金額
+	 * �ϥΨ�d�������`�I�ڪ��B
 	 */
-	private String InstallmentAmount = "";
+//	private String InstallmentAmount = "";
 	
 	/********************* getters and setters *********************/
 	
 	/**
-	 * 取得MerchantID 會員編號(由allPay提供)
+	 * ���oMerchantID �|���s��(��O'Pay����)�A�����x���S���X�@���x���إ߭q��ɡA�����~���ġC�@�륭�x�ӽЩ��������
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
 		return MerchantID;
 	}
 	/**
-	 * 設定MerchantID 會員編號(由allPay提供)
+	 * �]�wMerchantID �|���s��(��O'Pay����)�A�����x���S���X�@���x���إ߭q��ɡA�����~���ġC�@�륭�x�ӽЩ��������
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {
 		MerchantID = merchantID;
 	}
 	/**
-	 * 取得MerchantTradeNo 會員交易編號，該交易編號不可重複
+	 * ���oMerchantTradeNo �|������s���A�^�Ʀr�j�p�g�V�X�A�ӥ���s�����i���ơA�p���ϥ�PlatformID�A���x�ө��U�Ҧ��Ӯa���q��s���礣�i���ơC
 	 * @return MerchantTradeNo
 	 */
 	public String getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	/**
-	 * 設定MerchantTradeNo 會員交易編號，該交易編號不可重複
+	 * �]�wMerchantTradeNo �|������s���A�^�Ʀr�j�p�g�V�X�A�ӥ���s�����i���ơA�p���ϥ�PlatformID�A���x�ө��U�Ҧ��Ӯa���q��s���礣�i���ơC
 	 * @param merchantTradeNo
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {
 		MerchantTradeNo = merchantTradeNo;
 	}
 	/**
-	 * 取得MerchantTradeDate 會員交易時間
+	 * ���oMerchantTradeDate �|������ɶ�
 	 * @return MerchantTradeDate
 	 */
 	public String getMerchantTradeDate() {
 		return MerchantTradeDate;
 	}
 	/**
-	 * 設定MerchantTradeDate 會員交易時間，請以 yyyy/MM/dd HH:mm:ss格式帶入
+	 * �]�wMerchantTradeDate �|������ɶ��A�ХH yyyy/MM/dd HH:mm:ss�榡�a�J
 	 * @param merchantTradeDate
 	 */
 	public void setMerchantTradeDate(String merchantTradeDate) {
 		MerchantTradeDate = merchantTradeDate;
 	}
 	/**
-	 * 取得PaymentType 交易類型
+	 * ���oPaymentType �������
 	 * @return PaymentType
 	 */
 	public String getPaymentType() {
 		return PaymentType;
 	}
 	/**
-	 * 設定PaymentType 交易類型
+	 * �]�wPaymentType �������
 	 * @param paymentType
 	 */
 //	public void setPaymentType(String paymentType) {
 //		PaymentType = paymentType;
 //	}
 	/**
-	 * 取得TotalAmount 交易金額
+	 * ���oTotalAmount ������B�A�бa��ơA���i���p���I
+	 * ���B���i��0��
+	 * CVS�̧C���27���A�̰����20000��
+	 * �H�Υd���B�Y�D�S���|���βĤT���ӤH/�Ӱ��p��(ĳ��)�A���B���i�p��5��
 	 * @return TotalAmount
 	 */
 	public String getTotalAmount() {
 		return TotalAmount;
 	}
 	/**
-	 * 設定TotalAmount 交易金額
+	 * �]�wTotalAmount ������B�A�бa��ơA���i���p���I
+	 * ���B���i��0��
+	 * CVS�̧C���27���A�̰����20000��
+	 * �H�Υd���B�Y�D�S���|���βĤT���ӤH/�Ӱ��p��(ĳ��)�A���B���i�p��5��
 	 * @param totalAmount
 	 */
 	public void setTotalAmount(String totalAmount) {
 		TotalAmount = totalAmount;
 	}
 	/**
-	 * 取得TradeDesc 交易描述
+	 * ���oTradeDesc ����y�z
 	 * @return TradeDesc
 	 */
 	public String getTradeDesc() {
 		return TradeDesc;
 	}
 	/**
-	 * 設定TradeDesc 交易描述
+	 * �]�wTradeDesc ����y�z
 	 * @param tradeDesc
 	 */
 	public void setTradeDesc(String tradeDesc) {
 		TradeDesc = tradeDesc;
 	}
 	/**
-	 * 取得ItemName 商品名稱
+	 * ���oItemName �ӫ~�W�١A�Y���h���A�ݦb���y��ܭ� �@��@����ܰӫ~�W�٪��ܡA�ӫ~�W�ٽХH�Ÿ�#���j�C
 	 * @return ItemName
 	 */
 	public String getItemName() {
 		return ItemName;
 	}
 	/**
-	 * 設定ItemName 商品名稱
+	 * �]�wItemName �ӫ~�W�١A�Y���h���A�ݦb���y��ܭ� �@��@����ܰӫ~�W�٪��ܡA�ӫ~�W�ٽХH�Ÿ�#���j�C
 	 * @param itemName
 	 */
 	public void setItemName(String itemName) {
 		ItemName = itemName;
 	}
 	/**
-	 * 取得ReturnURL 付款完成通知回傳網址
+	 * ���oReturnURL �I�ڧ����q���^�Ǻ��}�A����O�̥I�ڧ�����A�ڥI�_�|�N�I�� ���G�ѼƥH����(Server POST)�^�Ǩ� �Ӻ��}�C
 	 * @return ReturnURL
 	 */
 	public String getReturnURL() {
 		return ReturnURL;
 	}
 	/**
-	 * 設定ReturnURL 付款完成通知回傳網址
+	 * �]�wReturnURL �I�ڧ����q���^�Ǻ��}�A����O�̥I�ڧ�����A�ڥI�_�|�N�I�� ���G�ѼƥH����(Server POST)�^�Ǩ� �Ӻ��}�C
 	 * @param returnURL
 	 */
 	public void setReturnURL(String returnURL) {
 		ReturnURL = returnURL;
 	}
 	/**
-	 * 取得ChoosePayment 選擇預設付款方式
+	 * ���oChoosePayment ��ܹw�]�I�ڤ覡
 	 * @return ChoosePayment
 	 */
 	public String getChoosePayment() {
 		return ChoosePayment;
 	}
 	/**
-	 * 設定ChoosePayment 選擇預設付款方式
+	 * �]�wChoosePayment ��ܹw�]�I�ڤ覡
 	 * @param choosePayment
 	 */
 //	public void setChoosePayment(String choosePayment) {
 //		ChoosePayment = choosePayment;
 //	}
 	/**
-	 * 取得ClientBackURL Client端返回會員系統的按鈕連結
+	 * ���oClientBackURL Client�ݪ�^�|���t�Ϊ����s�s���C�]�w���ѼơA�ڥI�_�|�b�I�ڧ��� �Ψ������������W���[��^�ө�] �����s�C
+	 *���O���I�惡���s��A�|�N�����ɦ^�즹�]�w�����}�C 
+	 *�`�N�ƶ��G���Ѽƶȱ���N�����ɦ^�A���|�N�I�ڵ��G��TPOST��]�w�Ȥ���URL�C�o��²�T OTP ���ҥ��ѦӦ��ѼƦ��ȮɡA�����W��|��ܫ��s�C
+	 *�Y�ɦ^���}���ϥ� https �ɡA���� �s�����i��|�X�{ĵ�i�T���C
 	 * @return ClientBackURL
 	 */
 	public String getClientBackURL() {
 		return ClientBackURL;
 	}
 	/**
-	 * 設定ClientBackURL Client端返回會員系統的按鈕連結
+	 * �]�wClientBackURL Client�ݪ�^�|���t�Ϊ����s�s���C�]�w���ѼơA�ڥI�_�|�b�I�ڧ��� �Ψ������������W���[��^�ө�] �����s�C
+	 *���O���I�惡���s��A�|�N�����ɦ^�즹�]�w�����}�C 
+	 *�`�N�ƶ��G���Ѽƶȱ���N�����ɦ^�A���|�N�I�ڵ��G��TPOST��]�w�Ȥ���URL�C�o��²�T OTP ���ҥ��ѦӦ��ѼƦ��ȮɡA�����W��|��ܫ��s�C
+	 *�Y�ɦ^���}���ϥ� https �ɡA���� �s�����i��|�X�{ĵ�i�T���C
 	 * @param clientBackURL
 	 */
 	public void setClientBackURL(String clientBackURL) {
 		ClientBackURL = clientBackURL;
 	}
 	/**
-	 * 取得ItemURL 商品銷售網址
+	 * ���oItemURL �ӫ~�P����}�C�]�w���ѼơA�ڥI�_�|�b�I�ڧ��� �Ψ������������W���[��^�ө�] �����s�C
+	 *���O���I�惡���s��A�|�N�����ɦ^�즹�]�w�����}�C 
+	 *�`�N�ƶ��G���Ѽƶȱ���N�����ɦ^�A���|�N�I�ڵ��G��TPOST��]�w�Ȥ���URL�C�o��²�T OTP ���ҥ��ѦӦ��ѼƦ��ȮɡA�����W��|��ܫ��s�C
+	 *�Y�ɦ^���}���ϥ� https �ɡA���� �s�����i��|�X�{ĵ�i�T���C
 	 * @return ItemURL
 	 */
 	public String getItemURL() {
 		return ItemURL;
 	}
 	/**
-	 * 設定 ItemURL 商品銷售網址
+	 * �]�w ItemURL �ӫ~�P����}�C�]�w���ѼơA�ڥI�_�|�b�I�ڧ��� �Ψ������������W���[��^�ө�] �����s�C
+	 *���O���I�惡���s��A�|�N�����ɦ^�즹�]�w�����}�C 
+	 *�`�N�ƶ��G���Ѽƶȱ���N�����ɦ^�A���|�N�I�ڵ��G��TPOST��]�w�Ȥ���URL�C�o��²�T OTP ���ҥ��ѦӦ��ѼƦ��ȮɡA�����W��|��ܫ��s�C
+	 *�Y�ɦ^���}���ϥ� https �ɡA���� �s�����i��|�X�{ĵ�i�T���C
 	 * @param itemURL
 	 */
 	public void setItemURL(String itemURL) {
 		ItemURL = itemURL;
 	}
 	/**
-	 * 取得Remark 備註欄位
+	 * ���oRemark �Ƶ����
 	 * @return Remark
 	 */
 	public String getRemark() {
 		return Remark;
 	}
 	/**
-	 * 設定Remark 備註欄位
+	 * �]�wRemark �Ƶ����
 	 * @param remark
 	 */
 	public void setRemark(String remark) {
 		Remark = remark;
 	}
 	/**
-	 * 取得ChooseSubPayment 選擇預設付款子項目
+	 * ���oChooseSubPayment ��ܹw�]�I�ڤl���ءC�Y�]�w���ѼơA�ϥΪ̫h�L�k�ݨ����y ��ܭ��A�B�ϥΪ̥����n�w�n�J�ڥI�_�C
+	 *  �Ҧp�G�I�ڤ覡[ChoosePayment]�]�w WebATM�A�I�ڤl���� [ChooseSubPayment]�]�w TAISHIN�A
+	 *  ��������ȷ|�H�x�s�Ȧ檺 ���� ATM �I�ڡC�аѦҥI�ڤ覡�@����
 	 * @return ChooseSubPayment
 	 */
 	public String getChooseSubPayment() {
 		return ChooseSubPayment;
 	}
 	/**
-	 * 設定ChooseSubPayment 選擇預設付款子項目
+	 * �]�wChooseSubPayment ��ܹw�]�I�ڤl���ءC�Y�]�w���ѼơA�ϥΪ̫h�L�k�ݨ����y ��ܭ��A�B�ϥΪ̥����n�w�n�J�ڥI�_�C
+	 *  �Ҧp�G�I�ڤ覡[ChoosePayment]�]�w WebATM�A�I�ڤl���� [ChooseSubPayment]�]�w TAISHIN�A
+	 *  ��������ȷ|�H�x�s�Ȧ檺 ���� ATM �I�ڡC�аѦҥI�ڤ覡�@����
 	 * @param chooseSubPayment
 	 */
 	public void setChooseSubPayment(String chooseSubPayment) {
 		ChooseSubPayment = chooseSubPayment;
 	}
 	/**
-	 * 取得OrderResultURL Client端回傳付款結果網址
+	 * ���oOrderResultURL Client�ݦ^�ǥI�ڵ��G���}�C�I�ڧ�����A�ڥI�_�N�����ɦ^��| �����}�A�ñN�I�ڵ��G�a�^ 
+	 * �`�N�ƶ��G
+	 * 1.	�S�a���Ѽƫh�|��ܼڥI�_���I �ڧ������C
+	 * 2.	�p�G�n�N�I�ڵ��G����ܦb�|�� �t�Τ��A�г]�w���ѼơC
+	 * 3.	�Y�]�w���ѼơA�N�|�ϳ]�w�� Client �ݪ�^�|���t�Ϊ����s�s ��[ClientBackURL]���ġC
+	 * 4.	�����Ȧ� WebATM �b������\ ��,�|���d�b�Ȧ檺����,�ä��|�� �^���ڥI�_,�ҥH�ڥI�_�]���|�N �����ɦ^��[OrderResultURL]������
+	 * 5.	�]�I�q�M�D�ήɥ��(ATM�BCVS) ���䴩���ѼơC
+	 * 6.	��ĳ�b���ն��q�ɥ����n�]�w�� �ѼơA�i�N�e�����d�b�ڥI�_�A�� ���ڥI�_�Ҵ��Ѫ����~�T���A�K�i �H���İ����C
+	 * 7.	�Y���]�w���ѼơA�аȥ��ھڦ^�� ��������A�ӧP�_��ܥI�ڦ��\ �P�_�������C
+	 * 8.	�Y�ɦ^���}���ϥ� https �ɡA���� �s�����i��|�X�{ĵ�i�T���C
 	 * @return OrderResultURL
 	 */
 	public String getOrderResultURL() {
 		return OrderResultURL;
 	}
 	/**
-	 * 設定OrderResultURL Client端回傳付款結果網址
+	 * �]�wOrderResultURL Client�ݦ^�ǥI�ڵ��G���}�C�I�ڧ�����A�ڥI�_�N�����ɦ^��| �����}�A�ñN�I�ڵ��G�a�^ 
+	 * �`�N�ƶ��G
+	 * 1.	�S�a���Ѽƫh�|��ܼڥI�_���I �ڧ������C
+	 * 2.	�p�G�n�N�I�ڵ��G����ܦb�|�� �t�Τ��A�г]�w���ѼơC
+	 * 3.	�Y�]�w���ѼơA�N�|�ϳ]�w�� Client �ݪ�^�|���t�Ϊ����s�s ��[ClientBackURL]���ġC
+	 * 4.	�����Ȧ� WebATM �b������\ ��,�|���d�b�Ȧ檺����,�ä��|�� �^���ڥI�_,�ҥH�ڥI�_�]���|�N �����ɦ^��[OrderResultURL]������
+	 * 5.	�]�I�q�M�D�ήɥ��(ATM�BCVS) ���䴩���ѼơC
+	 * 6.	��ĳ�b���ն��q�ɥ����n�]�w�� �ѼơA�i�N�e�����d�b�ڥI�_�A�� ���ڥI�_�Ҵ��Ѫ����~�T���A�K�i �H���İ����C
+	 * 7.	�Y���]�w���ѼơA�аȥ��ھڦ^�� ��������A�ӧP�_��ܥI�ڦ��\ �P�_�������C
+	 * 8.	�Y�ɦ^���}���ϥ� https �ɡA���� �s�����i��|�X�{ĵ�i�T���C
 	 * @param orderResultURL
 	 */
 	public void setOrderResultURL(String orderResultURL) {
 		OrderResultURL = orderResultURL;
 	}
 	/**
-	 * 取得NeedExtraPaidInfo 是否需要額外的付款資訊 
+	 * ���oNeedExtraPaidInfo �O�_�ݭn�B�~���I�ڸ�T �C�^�ǧ�ԲӪ��I�ڸ�T��ReturnURL�Ѽƫ��w��URL�C�w�]��N�C
 	 * @return NeedExtraPaidInfo
 	 */
 	public String getNeedExtraPaidInfo() {
 		return NeedExtraPaidInfo;
 	}
 	/**
-	 * 設定NeedExtraPaidInfo 是否需要額外的付款資訊 
+	 * �]�wNeedExtraPaidInfo �O�_�ݭn�B�~���I�ڸ�T �C�^�ǧ�ԲӪ��I�ڸ�T��ReturnURL�Ѽƫ��w��URL�C�w�]��N�C
 	 * @param needExtraPaidInfo
 	 */
 	public void setNeedExtraPaidInfo(String needExtraPaidInfo) {
 		NeedExtraPaidInfo = needExtraPaidInfo;
 	}
 	/**
-	 * 取得DeviceSource 裝置來源
+	 * ���oDeviceSource �˸m�ӷ�
 	 * @return DeviceSource
 	 */
 	public String getDeviceSource() {
 		return DeviceSource;
 	}
 	/**
-	 * 設定DeviceSource 裝置來源
+	 * �]�wDeviceSource �˸m�ӷ�
 	 * @param deviceSource
 	 */
 //	public void setDeviceSource(String deviceSource) {
 //		DeviceSource = deviceSource;
 //	}
 	/**
-	 * 取得IgnorePayment 隱藏付款方式
+	 * ���oIgnorePayment ���åI�ڤ覡
 	 * @return IgnorePayment
 	 */
 	public String getIgnorePayment() {
 		return IgnorePayment;
 	}
 	/**
-	 * 設定IgnorePayment 隱藏付款方式
+	 * �]�wIgnorePayment ���åI�ڤ覡
 	 * @param ignorePayment
 	 */
 	public void setIgnorePayment(String ignorePayment) {
 		IgnorePayment = ignorePayment;
 	}
 	/**
-	 * 取得PlatformID 特約合作平台商代號(由allPay提供)
+	 * ���oPlatformID �S���X�@���x�ӥN��(��O��Pay����)
 	 * @return PlatformID
 	 */
 	public String getPlatformID() {
 		return PlatformID;
 	}
 	/**
-	 * 設定PlatformID 特約合作平台商代號(由allPay提供)
+	 * �]�wPlatformID �S���X�@���x�ӥN��(��O��Pay����)
 	 * @param platformID
 	 */
 	public void setPlatformID(String platformID) {
 		PlatformID = platformID;
 	}
 	/**
-	 * 取得InvoiceMark 電子發票開立註記
-	 * @return InvoiceMark
-	 */
-	public String getInvoiceMark() {
-		return InvoiceMark;
-	}
-	/**
-	 * 設定InvoiceMark 電子發票開立註記
-	 * @param invoiceMark
-	 */
-	public void setInvoiceMark(String invoiceMark) {
-		InvoiceMark = invoiceMark;
-	}
-	/**
-	 * 取得HoldTradeAMT 是否延遲撥款
+	 * ���oHoldTradeAMT �O�_���𼷴�
+	 * 1. �Y�������𼷴ڡA�бa�G0�A�R��I�ڧ�����A�ڥI�_�̦X�����w���ɶ��A���ڵ��|�� 
+	 * 2. �Y�����𼷴ڡA�бa�G1�A�R��I �ڧ�����A�ݦA�I�s�u�|���ӽм� �ڰh�ڡvAPI�A���ڥI�_���ڵ��| ���A�ΰh�ڵ��R��C
+	 * �`�N�ƶ��G ���խY�|���@�����ӽм��ڡA�����q�� �ڶ��|�@����b�ڥI�_�A����|���ӽ� ���ڡC
+	 * 		       �����𼷴ڤ��A�Ρu�H�Υd�v�B�u�]�I�q�v ���I�ڤ覡�C
 	 * @return HoldTradeAMT
 	 */
 	public String getHoldTradeAMT() {
 		return HoldTradeAMT;
 	}
 	/**
-	 * 設定HoldTradeAMT 是否延遲撥款
+	 * �]�wHoldTradeAMT �O�_���𼷴�
+	 * 1. �Y�������𼷴ڡA�бa�G0�A�R��I�ڧ�����A�ڥI�_�̦X�����w���ɶ��A���ڵ��|�� 
+	 * 2. �Y�����𼷴ڡA�бa�G1�A�R��I �ڧ�����A�ݦA�I�s�u�|���ӽм� �ڰh�ڡvAPI�A���ڥI�_���ڵ��| ���A�ΰh�ڵ��R��C
+	 * �`�N�ƶ��G ���խY�|���@�����ӽм��ڡA�����q�� �ڶ��|�@����b�ڥI�_�A����|���ӽ� ���ڡC
+	 * 		       �����𼷴ڤ��A�Ρu�H�Υd�v�B�u�]�I�q�v ���I�ڤ覡�C
 	 * @param holdTradeAMT
 	 */
 	public void setHoldTradeAMT(String holdTradeAMT) {
 		HoldTradeAMT = holdTradeAMT;
 	}
 	/**
-	 * 取得EncryptType CheckMacValue加密類型
+	 * ���oEncryptType CheckMacValue�[�K����
 	 * @return EncryptType
 	 */
 	public String getEncryptType() {
 		return EncryptType;
 	}
 	/**
-	 * 設定EncryptType CheckMacValue加密類型
+	 * �]�wEncryptType CheckMacValue�[�K����
 	 * @param encryptType
 	 */
 //	public void setEncryptType(String encryptType) {
 //		EncryptType = encryptType;
 //	}
 	/**
-	 * 取得UseRedeem 是否可以使用購物金/紅包折抵
+	 * ���oUseRedeem �O�_�i�H�ϥ��ʪ���/���]���C�Ψӳ]�w��������O�_�i�H�ϥ��ʪ� ��/���]���C 
+	 * 1. �Y���i�ϥήɡA�бa�G��
+	 * 2. �Y�����i�ϥήɡA�бa�GN
+	 * �`�N�ƶ��G 
+	 * 1. ���覡�i��u�t�ӫ�x�����]�� ��]�w�v�\��s�W�z��������A �Y�w�}�ҧ��]�w�A�ݦA�t�X���� �ơA�ӨM�w��������O�_�i�H�ϥ� �ʪ���/���]���C 
+	 * 2. �t�X����ʪ���/���]�|���A�ڥI �_�N��U�i��K�O�n���A��褧�� �B�A�h�ѷ|���t��C 
+	 * 3. �Y�i�ϥ��ʪ���/���]���ɡA�� �`�N�����I�ڵ��G�q���ɡA�ХH�� �����B[TradeAmt]���q����B���ˬd�C
 	 * @return UseRedeem
 	 */
 	public String getUseRedeem() {
 		return UseRedeem;
 	}
 	/**
-	 * 設定UseRedeem 是否可以使用購物金/紅包折抵
+	 * �]�wUseRedeem �O�_�i�H�ϥ��ʪ���/���]���C�Ψӳ]�w��������O�_�i�H�ϥ��ʪ� ��/���]���C 
+	 * 1. �Y���i�ϥήɡA�бa�G��
+	 * 2. �Y�����i�ϥήɡA�бa�GN
+	 * �`�N�ƶ��G 
+	 * 1. ���覡�i��u�t�ӫ�x�����]�� ��]�w�v�\��s�W�z��������A �Y�w�}�ҧ��]�w�A�ݦA�t�X���� �ơA�ӨM�w��������O�_�i�H�ϥ� �ʪ���/���]���C 
+	 * 2. �t�X����ʪ���/���]�|���A�ڥI �_�N��U�i��K�O�n���A��褧�� �B�A�h�ѷ|���t��C 
+	 * 3. �Y�i�ϥ��ʪ���/���]���ɡA�� �`�N�����I�ڵ��G�q���ɡA�ХH�� �����B[TradeAmt]���q����B���ˬd�C
 	 * @param useRedeem
 	 */
 	public void setUseRedeem(String useRedeem) {
 		UseRedeem = useRedeem;
 	}
 	/**
-	 * 取得CreditInstallment 刷卡分期期數
+	 * ���oCreditInstallment ��d�������ơA���Ѩ�d�������ơA���o�p��2
 	 * @return CreditInstallment
 	 */
 	public String getCreditInstallment() {
 		return CreditInstallment;
 	}
 	/**
-	 * 設定CreditInstallment 刷卡分期期數
+	 * �]�wCreditInstallment ��d�������ơA���Ѩ�d�������ơA���o�p��2
 	 * @param creditInstallment
 	 */
 	public void setCreditInstallment(String creditInstallment) {
 		CreditInstallment = creditInstallment;
 	}
 	/**
-	 * 取得InstallmentAmount 使用刷卡分期的總付款金額
+	 * ���oInstallmentAmount �ϥΨ�d�������`�I�ڪ��B�A��d�������`�I�ڪ��B�C�Y�P������B��TotalAmount��ۦP�ɡA���ݶǤJ���ѼơC
 	 * @return InstallmentAmount
 	 */
-	public String getInstallmentAmount() {
-		return InstallmentAmount;
-	}
+//	public String getInstallmentAmount() {
+//		return InstallmentAmount;
+//	}
 	/**
-	 * 設定InstallmentAmount 使用刷卡分期的總付款金額
+	 * �]�wInstallmentAmount �ϥΨ�d�������`�I�ڪ��B�A��d�������`�I�ڪ��B�C�Y�P������B��TotalAmount��ۦP�ɡA���ݶǤJ���ѼơC
 	 * @param installmentAmount
 	 */
-	public void setInstallmentAmount(String installmentAmount) {
-		InstallmentAmount = installmentAmount;
-	}
+//	public void setInstallmentAmount(String installmentAmount) {
+//		InstallmentAmount = installmentAmount;
+//	}
 	/**
-	 * 取得StoreID 會員商店代碼，提供會員填入店家代碼使用
+	 * ���oStoreID �|���ө��N�X�A���ѷ|����J���a�N�X�ϥ�
 	 * @return StoreID
 	 */
 	public String getStoreID() {
 		return StoreID;
 	}
 	/**
-	 * 設定StoreID 會員商店代碼，提供會員填入店家代碼使用
+	 * �]�wStoreID �|���ө��N�X�A���ѷ|����J���a�N�X�ϥ�
 	 * @param storeID
 	 */
 	public void setStoreID(String storeID) {
@@ -517,9 +557,9 @@ public class AioCheckOutDevide {
 				+ ", ReturnURL=" + ReturnURL + ", ChoosePayment=" + ChoosePayment + ", ClientBackURL=" + ClientBackURL
 				+ ", ItemURL=" + ItemURL + ", Remark=" + Remark + ", ChooseSubPayment=" + ChooseSubPayment
 				+ ", OrderResultURL=" + OrderResultURL + ", NeedExtraPaidInfo=" + NeedExtraPaidInfo + ", DeviceSource="
-				+ DeviceSource + ", IgnorePayment=" + IgnorePayment + ", PlatformID=" + PlatformID + ", InvoiceMark="
-				+ InvoiceMark + ", HoldTradeAMT=" + HoldTradeAMT + ", EncryptType=" + EncryptType + ", UseRedeem="
-				+ UseRedeem + ", CreditInstallment=" + CreditInstallment + ", InstallmentAmount=" + InstallmentAmount
-				+ "]";
+
+				+ DeviceSource + ", IgnorePayment=" + IgnorePayment + ", PlatformID=" + PlatformID + ", HoldTradeAMT=" + HoldTradeAMT + ", EncryptType=" + EncryptType + ", UseRedeem="
+
+				+ UseRedeem + ", CreditInstallment=" + CreditInstallment + "]";
 	}
 }

@@ -2,13 +2,12 @@
 <allPayPayment>
   <AioCheckOut>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/Cashier/AioCheckOut/V5</url>
-        <url type="Test">https://payment-stage.allPay.com.tw/Cashier/AioCheckOut/V5</url>
+        <url type="Production">https://payment.opay.tw/Cashier/AioCheckOut/V5</url>
+        <url type="Test">https://payment-stage.opay.tw/Cashier/AioCheckOut/V5</url>
     </ServiceAddress>
     <Config>
         <switchparam>
             <n>ChoosePayment</n>
-            <n>InvoiceMark</n>
         </switchparam>
     </Config>
     <Parameters>
@@ -45,6 +44,8 @@
       </param>
       <param  type="Opt"  require="1" name="ChoosePayment"> 
         <option>ALL</option>
+        <option>AccountLink</option>
+        <option>WeiXinpay</option>
         <option>Credit</option>
         <condparam owner="Credit">
         <!--Reqirement checking of following credit card related sub parameter would be handled in 
@@ -53,10 +54,8 @@
                 <option>Y</option>
                 <option>N</option>
             </param>
-            <param type="Int"  require="0" name="CreditInstallment" category="Divide">
-                <mode>BETWEEN</mode> <!--BETWEEN, GE, LE, EXCLUDE  -->
-                <maximum>60</maximum>
-                <minimal>2</minimal>
+            <param type="String"  require="0" name="CreditInstallment" category="Divide">
+                <pattern>^(3|6|12|18|24){1}(,3|,6|,12|,18|,24){0,4}$</pattern>
             </param>
             <param type="Int"  require="0" name="InstallmentAmount" category="Divide">
                 <mode>GE</mode> <!--BETWEEN, GE, LE, EXCLUDE  -->
@@ -193,91 +192,6 @@
       <param type="String"  require="0" name="PlatformID">
         <pattern>^(\d{7,10}|)$</pattern>
       </param>
-      <param type="String"  require="0" name="InvoiceMark">
-        <option>Y</option>
-        <condparam owner="Y">
-            <param type="String"  require="1" name="RelateNumber">
-                <pattern>^[\w_\-#$]{0,30}$</pattern>
-            </param>
-            <param type="String"  require="1" name="CustomerID">
-                <pattern>^[\w_]{1,20}$</pattern>
-            </param>
-            <param type="String"  require="1" name="CustomerIdentifier">
-                <pattern>^(\d{8}|)$</pattern>
-            </param>
-            <param type="String"  require="1" name="CustomerName" urlencode="1">
-                <pattern>^.{0,20}$</pattern>
-            </param>
-            <param type="String"  require="1" name="CustomerAddr" urlencode="1">
-                <pattern>^.{0,200}$</pattern>
-            </param>
-            <param type="String"  require="1" name="CustomerPhone">
-                <pattern>^(\d{10,20}|)$</pattern>
-            </param>
-            <param type="String"  require="1" name="CustomerEmail" urlencode="1">
-                <pattern>^.{0,200}$</pattern>
-            </param>
-            <param type="Opt"  require="1" name="ClearanceMark">
-                <option>1</option>
-                <option>2</option>
-                <option></option>
-            </param>
-            <param type="Opt"  require="1" name="TaxType">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>9</option>
-            </param>
-            <param type="Opt"  require="1" name="CarruerType">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option></option>
-            </param>
-            <param type="String"  require="1" name="CarruerNum"> <!-- Patten of this column is defined in verification.rb???-->
-            	<pattern>.{0,16}</pattern>
-            </param>
-            <param type="Opt"  require="1" name="Donation">
-                <option>1</option>
-                <option>2</option>
-            </param>
-            <param type="String"  require="1" name="LoveCode">
-                <pattern>^([Xx]\d{2,6}|\d{3,7}|)$</pattern>
-            </param>
-            <param type="Opt"  require="1" name="Print">
-                <option>0</option>
-                <option>1</option>
-            </param>
-            <param type="String"  require="1" name="InvoiceItemName" urlencode="1">
-                <pattern>^.{0,4096}$</pattern>
-            </param>
-            <param type="String"  require="1" name="InvoiceItemCount">
-                <pattern>^[\d\|]{0,4096}$</pattern>
-            </param>
-            <param type="String"  require="1" name="InvoiceItemWord" urlencode="1">
-                <pattern>^.{0,4096}$</pattern>
-            </param>
-            <param type="String"  require="1" name="InvoiceItemPrice">
-                <pattern>^.{0,4096}$</pattern>
-            </param>
-            <param type="String"  require="1" name="InvoiceItemTaxType">
-                <pattern>^.{0,4096}$</pattern>
-            </param>
-            <param type="String"  require="1" name="InvoiceRemark" urlencode="1">
-                <pattern>^.{0,4096}$</pattern>
-            </param>
-            <param type="Int"  require="1" name="DelayDay">
-                <mode>BETWEEN</mode>
-                <maximum>15</maximum>
-                <minimal>0</minimal>
-            </param>
-            <param type="Opt"  require="1" name="InvType">
-                <option>07</option>
-                <option>08</option>
-            </param>
-        </condparam>
-        <option>N</option>
-      </param>
       <param  type="Opt"  require="0" name="HoldTradeAMT">
         <option>0</option>
         <option>1</option>
@@ -293,8 +207,8 @@
   </AioCheckOut>
   <QueryTradeInfo>
     <ServiceAddress>
-        <url type="Production">https://payment.allpay.com.tw/Cashier/QueryTradeInfo/V2</url>
-        <url type="Test">https://payment-stage.allPay.com.tw/Cashier/QueryTradeInfo/V2</url>
+        <url type="Production">https://payment.opay.tw/Cashier/QueryTradeInfo/V4</url>
+        <url type="Test">https://payment-stage.opay.tw/Cashier/QueryTradeInfo/V4</url>
     </ServiceAddress>
     <Config>
         <switchparam>
@@ -320,8 +234,8 @@
   
   <QueryCreditCardPeriodInfo>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/Cashier/QueryCreditCardPeriodInfo</url>
-        <url type="Test">https://payment-stage.allpay.com.tw/Cashier/QueryCreditCardPeriodInfo</url>
+        <url type="Production">https://payment.opay.tw/Cashier/QueryCreditCardPeriodInfo</url>
+        <url type="Test">https://payment-stage.opay.tw/Cashier/QueryCreditCardPeriodInfo</url>
     </ServiceAddress>
     <Config>
         <switchparam>
@@ -344,8 +258,8 @@
   
   <DoAction>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/CreditDetail/DoAction</url>
-        <url type="Test">https://payment-stage.allpay.com.tw/CreditDetail/DoAction</url>
+        <url type="Production">https://payment.opay.tw/CreditDetail/DoAction</url>
+        <url type="Test">https://payment-stage.opay.tw/CreditDetail/DoAction</url>
     </ServiceAddress>
     <Config>
         <switchparam>
@@ -382,8 +296,8 @@
   
   <AioChargeback>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/Cashier/AioChargeback</url>
-        <url type="Test">https://payment-stage.allPay.com.tw/Cashier/AioChargeback</url>
+        <url type="Production">https://payment.opay.tw/Cashier/AioChargeback</url>
+        <url type="Test">https://payment-stage.opay.tw/Cashier/AioChargeback</url>
     </ServiceAddress>
     <Config>
         <switchparam>
@@ -417,8 +331,8 @@
   
   <Capture>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/Cashier/Capture</url>
-        <url type="Test">https://payment-stage.allPay.com.tw/Cashier/Capture</url>
+        <url type="Production">https://payment.opay.tw/Cashier/Capture</url>
+        <url type="Test">https://payment-stage.opay.tw/Cashier/Capture</url>
     </ServiceAddress>
     <Config>
         <switchparam>
@@ -466,8 +380,8 @@
   
   <TradeNoAio>
     <ServiceAddress>
-        <url type="Production">https://vendor.allPay.com.tw/PaymentMedia/TradeNoAio</url>
-        <url type="Test">https://vendor-stage.allPay.com.tw/PaymentMedia/TradeNoAio</url>
+        <url type="Production">https://vendor.opay.tw/PaymentMedia/TradeNoAio</url>
+        <url type="Test">https://vendor-stage.opay.tw/PaymentMedia/TradeNoAio</url>
     </ServiceAddress>
     <Config>
         <switchparam>
@@ -522,8 +436,8 @@
   
   <QueryTradeV2>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/CreditDetail/QueryTrade/V2</url>
-        <url type="Test">https://payment-stage.allPay.com.tw/CreditDetail/QueryTrade/V2</url>
+        <url type="Production">https://payment.opay.tw/CreditDetail/QueryTrade/V2</url>
+        <url type="Test">https://payment-stage.opay.tw/CreditDetail/QueryTrade/V2</url>
     </ServiceAddress>
     <Config>
         <switchparam>
@@ -551,8 +465,8 @@
   
   <FundingReconDetail>
     <ServiceAddress>
-        <url type="Production">https://payment.allPay.com.tw/CreditDetail/FundingReconDetail</url>
-        <url type="Test">https://payment-stage.allPay.com.tw/CreditDetail/FundingReconDetail</url>
+        <url type="Production">https://payment.opay.tw/CreditDetail/FundingReconDetail</url>
+        <url type="Test">https://payment-stage.opay.tw/CreditDetail/FundingReconDetail</url>
     </ServiceAddress>
     <Config>
         <switchparam>
