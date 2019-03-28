@@ -10,19 +10,29 @@
 <title>訊息</title>
 </head>
 <style>
-.card-text-size {
-	font-size: 14px;
-}
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
-}
+
 .asideblock {
-	height: 600px;
+	min-height: 620px;
+	height:100%
+}
+
+#msg{
+margin:0px;
+}
+
+#msg img{
+width:50px;
+height:50px;
+}
+
+#msg p{
+font-size:5px;
+}
+
+.toUserPic{
+margin:0px;
+padding:0px;
+width:60px;
 }
 </style>
 <body>
@@ -43,29 +53,30 @@
 						<p><a href="<c:url value='/applications?id=${application.job.jobId}' />">${application.user.userName}</a>於<fmt:formatDate value="${application.applicationTime}" pattern="yyyy/MM/dd" />應徵了此工作</p>
 					</c:otherwise>
 				</c:choose>		
-				<div style="width:100%;height:400px;overflow:auto" id="myDiv">	
+				<div style="width:100%;height:470px;overflow:auto" id="myDiv">	
 					<table class="table table-hover" id="msgTable">
 						<tbody id="msg"></tbody>
-					</table>		
-				</div>		
-				<div class="col-lg">
-					<div class="input-group">
+					</table>
+				</div>
+				<div class="input-group">
 						<input type="hidden" id="userId" value="${user.userId}"> 
 						<input type="hidden" id="toUserId" value="${toUser.userId}"> 
 						<input type="hidden" id="apId" value="${application.applicationId}"> 
 						<input type="text" class="form-control" placeholder="傳送訊息..." id="message"> 
 						<span class="input-group-btn">
-							<button class="btn btn-info" type="button" id="send">發送</button>
+							<button class="btn btn-info" type="button" id="send" style="margin-left:5px">發送</button>
 						</span>
-					</div>
-				</div>
+					</div>			
+				
+					
+				
 			</div>
-			<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-2"></div>
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
+		<div class="row no-gutter">
+			<div class="col text-center footerbackground">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
 	<script>
@@ -197,21 +208,21 @@
             }
 			
 			function createMsg(userId,name,msg,timeStr){
-			    var imgTr = $("<td>").html("<img width='50' height='50' src='<c:url value='/getPicture/" + userId + "'/>' />")
+			    var imgTr = $("<td class='align-middle toUserPic'>").html("<img class='rounded-circle' src='<c:url value='/getPicture/" + userId + "'/>' />")
 			    
 			    if(userId==toUserId){
 			    	 $("<tr>").appendTo("#msg")
 		                .append(imgTr)
-		                .append($("<td>").text(name + "：" + msg))
-		                .append($("<td>").text(timeStr))
-		                .append($("<td>"));
+		                .append($("<td class='align-middle'>").text(name + "：" + msg).append($("<p>").text(timeStr)))
+		                
+		                .append($("<td class='align-middle'>"));
 			    	
 			    }else{
 			    	$("<tr>").appendTo("#msg")
-			    	.append($("<td>"))
-	                .append($("<td>").text(timeStr))                
-	                .append($("<td>").text(name + "：" + msg))
-	                .append(imgTr)
+			    	.append($("<td class='align-middle toUserPic'>"))
+			    	.append($("<td class='align-middle'>"))         
+	                .append($("<td class='align-middle text-right'>").text(msg).append($("<p>").text(timeStr)))
+	                
 	                
 	                
 	                
