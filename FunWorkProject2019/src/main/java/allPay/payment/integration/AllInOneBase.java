@@ -29,8 +29,8 @@ public class AllInOneBase {
 	protected static String fundingReconDetailUrl;
 	protected static String aioChargebackUrl;
 	protected static String[] ignorePayment;
-	public AllInOneBase() throws UnsupportedEncodingException{
-//		try{
+	public AllInOneBase(){
+		try{
 			Document doc;
 			
 			/* when using web project, please use the following code with try/catch wrapped*/
@@ -72,9 +72,9 @@ public class AllInOneBase {
 			if(HashKey == null){
 				throw new AllPayException(ErrorMessage.MInfo_NOT_SETTING);
 			}
-//		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (UnsupportedEncodingException e) {
+//			 TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

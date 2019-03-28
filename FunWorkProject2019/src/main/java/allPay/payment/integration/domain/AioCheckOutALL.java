@@ -1,7 +1,7 @@
 package allPay.payment.integration.domain;
 
 /**
- * ²£¥Í­q³æª«¥ó(¤£«ü©w¥I´Ú¤è¦¡¡A¥Ñ¼Ú¥IÄ_Åã¥Ü)
+ * ç”¢ç”Ÿè¨‚å–®ç‰©ä»¶(ä¸æŒ‡å®šä»˜æ¬¾æ–¹å¼ï¼Œç”±æ­ä»˜å¯¶é¡¯ç¤º)
  * @author mark.chiu
  *
  */
@@ -9,863 +9,863 @@ public class AioCheckOutALL {
 	
 	/**
 	 * MerchantID
-	 * ·|­û½s¸¹(¥ÑO'Pay´£¨Ñ)¡A·í¦¹¥­¥x¬°¯S¬ù¦X§@¥­¥x±ı«Ø¥ß­q³æ®É¡A¸ÓÄæ¦ì¤~¦³®Ä¡C¤@¯ë¥­¥x°Ó½Ğ©¿²¤¦¹Äæ¦ì
+	 * æœƒå“¡ç·¨è™Ÿ(ç”±O'Payæä¾›)ï¼Œç•¶æ­¤å¹³å°ç‚ºç‰¹ç´„åˆä½œå¹³å°æ¬²å»ºç«‹è¨‚å–®æ™‚ï¼Œè©²æ¬„ä½æ‰æœ‰æ•ˆã€‚ä¸€èˆ¬å¹³å°å•†è«‹å¿½ç•¥æ­¤æ¬„ä½
 	 */
 	private String MerchantID = "";
 	
 	/**
 	 * MerchantTradeNo
-	 * ·|­û¥æ©ö½s¸¹¡A¥²¶·¬°°ß¤@­È¡A«ØÄ³¨Ï¥Î20½XUID
+	 * æœƒå“¡äº¤æ˜“ç·¨è™Ÿï¼Œå¿…é ˆç‚ºå”¯ä¸€å€¼ï¼Œå»ºè­°ä½¿ç”¨20ç¢¼UID
 	 */
 	private String MerchantTradeNo = "";
 	
 	/**
 	 * StoreID
-	 * ·|­û°Ó©±¥N½X¡A´£¨Ñ·|­û¶ñ¤J©±®a¥N½X¨Ï¥Î
+	 * æœƒå“¡å•†åº—ä»£ç¢¼ï¼Œæä¾›æœƒå“¡å¡«å…¥åº—å®¶ä»£ç¢¼ä½¿ç”¨
 	 */
 	private String StoreID = "";
 	
 	/**
 	 * MerchantTradeDate
-	 * ·|­û¥æ©ö®É¶¡¡A®æ¦¡¬°yyyy/MM/dd HH:mm:ss
+	 * æœƒå“¡äº¤æ˜“æ™‚é–“ï¼Œæ ¼å¼ç‚ºyyyy/MM/dd HH:mm:ss
 	 */
 	private String MerchantTradeDate = "";
 	
 	/**
 	 * PaymentType
-	 * ¥æ©öÃş«¬
+	 * äº¤æ˜“é¡å‹
 	 */
 	private String PaymentType = "aio";
 	
 	/**
 	 * TotalAmount
-	 * ¥æ©öª÷ÃB
+	 * äº¤æ˜“é‡‘é¡
 	 */
 	private String TotalAmount = "";
 	
 	/**
 	 * TradeDesc
-	 * ¥æ©ö´y­z
+	 * äº¤æ˜“æè¿°
 	 */
 	private String TradeDesc = "";
 	
 	/**
 	 * ItemName
-	 * °Ó«~¦WºÙ
+	 * å•†å“åç¨±
 	 */
 	private String ItemName = "";
 	
 	/**
 	 * ReturnURL
-	 * ¥I´Ú§¹¦¨³qª¾¦^¶Çºô§}
+	 * ä»˜æ¬¾å®Œæˆé€šçŸ¥å›å‚³ç¶²å€
 	 */
 	private String ReturnURL = "";
 	
 	/**
 	 * ChoosePayment
-	 * ¿ï¾Ü¹w³]¥I´Ú¤è¦¡
+	 * é¸æ“‡é è¨­ä»˜æ¬¾æ–¹å¼
 	 */
 	private String ChoosePayment = "ALL";
 	
 	/**
 	 * ClientBackURL
-	 * Clientºİªğ¦^·|­û¨t²Îªº«ö¶s³sµ²
+	 * Clientç«¯è¿”å›æœƒå“¡ç³»çµ±çš„æŒ‰éˆ•é€£çµ
 	 */
 	private String ClientBackURL = "";
 	
 	/**
 	 * ItemURL
-	 * °Ó«~¾P°âºô§}
+	 * å•†å“éŠ·å”®ç¶²å€
 	 */
 	private String ItemURL = "";
 	
 	/**
 	 * Remark
-	 * ³ÆµùÄæ¦ì
+	 * å‚™è¨»æ¬„ä½
 	 */
 	private String Remark = "";
 	
 	/**
 	 * ChooseSubPayment
-	 * ¿ï¾Ü¹w³]¥I´Ú¤l¶µ¥Ø
+	 * é¸æ“‡é è¨­ä»˜æ¬¾å­é …ç›®
 	 */
 	private String ChooseSubPayment = "";
 	
 	/**
 	 * OrderResultURL
-	 * Clientºİ¦^¶Ç¥I´Úµ²ªGºô§}
+	 * Clientç«¯å›å‚³ä»˜æ¬¾çµæœç¶²å€
 	 */
 	private String OrderResultURL = "";
 	
 	/**
 	 * NeedExtraPaidInfo
-	 * ¬O§_»İ­nÃB¥~ªº¥I´Ú¸ê°T
+	 * æ˜¯å¦éœ€è¦é¡å¤–çš„ä»˜æ¬¾è³‡è¨Š
 	 */
 	private String NeedExtraPaidInfo = "";
 	
 	/**
 	 * DeviceSource
-	 * ¸Ë¸m¨Ó·½¡A½Ğ±aªÅ­È¡A¥ÑallPay¦Û°Ê§P©w¡C
+	 * è£ç½®ä¾†æºï¼Œè«‹å¸¶ç©ºå€¼ï¼Œç”±allPayè‡ªå‹•åˆ¤å®šã€‚
 	 */
 	private String DeviceSource = "";
 	
 	/**
 	 * IgnorePayment
-	 * ÁôÂÃ¥I´Ú¤è¦¡¡A³]©wÀÉ¦Û°Ê±a¤J
+	 * éš±è—ä»˜æ¬¾æ–¹å¼ï¼Œè¨­å®šæª”è‡ªå‹•å¸¶å…¥
 	 */
 	private String IgnorePayment = "";
 	
 	/**
 	 * PlatformID
-	 * ¯S¬ù¦X§@¥­¥x°Ó¥N¸¹(¥ÑallPay´£¨Ñ)¡A³]©wÀÉ¦Û°Ê±a¤J
+	 * ç‰¹ç´„åˆä½œå¹³å°å•†ä»£è™Ÿ(ç”±allPayæä¾›)ï¼Œè¨­å®šæª”è‡ªå‹•å¸¶å…¥
 	 */
 	private String PlatformID = "";
 	
 	/**
 	 * HoldTradeAMT
-	 * ¬O§_©µ¿ğ¼·´Ú
+	 * æ˜¯å¦å»¶é²æ’¥æ¬¾
 	 */
 	private String HoldTradeAMT = "";
 	
 	/**
 	 * EncryptType
-	 * CheckMacValue¥[±KÃş«¬
+	 * CheckMacValueåŠ å¯†é¡å‹
 	 */
 	private String EncryptType = "1";
 	
 	/**
 	 * UseRedeem
-	 * ¬O§_¥i¥H¨Ï¥ÎÁÊª«ª÷/¬õ¥]§é©è
+	 * æ˜¯å¦å¯ä»¥ä½¿ç”¨è³¼ç‰©é‡‘/ç´…åŒ…æŠ˜æŠµ
 	 */
 	private String UseRedeem = "";
 	
 	/**
 	 * ExpireDate
-	 * ¤¹³\Ãº¶O¦³®Ä¤Ñ¼Æ¡A­Y»İ³]©w³Ìªø 60 ¤Ñ¡A³Ìµu1¤Ñ¡C¥¼³]©w¦¹°Ñ¼Æ«h¹w³]¬°3¤Ñ
+	 * å…è¨±ç¹³è²»æœ‰æ•ˆå¤©æ•¸ï¼Œè‹¥éœ€è¨­å®šæœ€é•· 60 å¤©ï¼Œæœ€çŸ­1å¤©ã€‚æœªè¨­å®šæ­¤åƒæ•¸å‰‡é è¨­ç‚º3å¤©
 	 */
 	private String ExpireDate = "";
 	
 	/**
 	 * PaymentInfoURL
-	 * Serverºİ¦^¶Ç¥I´Ú¬ÛÃö¸ê°T
+	 * Serverç«¯å›å‚³ä»˜æ¬¾ç›¸é—œè³‡è¨Š
 	 */
 	private String PaymentInfoURL = "";
 	
 	/**
 	 * ClientRedirectURL
-	 * Clientºİ¦^¶Ç¥I´Ú¬ÛÃö¸ê°T
+	 * Clientç«¯å›å‚³ä»˜æ¬¾ç›¸é—œè³‡è¨Š
 	 */
 	private String ClientRedirectURL = "";
 	
 	/**
 	 * StoreExpireDate
-	 * ¶W°ÓÃº¶OºI¤î®É¶¡
+	 * è¶…å•†ç¹³è²»æˆªæ­¢æ™‚é–“
 	 */
 	private String StoreExpireDate = "";
 	
 	/**
 	 * Desc_1
-	 * ¥æ©ö´y­z1
+	 * äº¤æ˜“æè¿°1
 	 */
 	private String Desc_1 = "";
 	
 	/**
 	 * Desc_2
-	 * ¥æ©ö´y­z2
+	 * äº¤æ˜“æè¿°2
 	 */
 	private String Desc_2 = "";
 	
 	/**
 	 * Desc_3
-	 * ¥æ©ö´y­z3
+	 * äº¤æ˜“æè¿°3
 	 */
 	private String Desc_3 = "";
 	
 	/**
 	 * Desc_4
-	 * ¥æ©ö´y­z4
+	 * äº¤æ˜“æè¿°4
 	 */
 	private String Desc_4 = "";
 	
 	/**
 	 * ExpireTime
-	 * ¥I´ÚºI¤î®É¶¡¡A®æ¦¡¬°yyyy/MM/dd HH:mm:ss¡C¥u¯à±a¤J°e¥X¥æ©ö«áªº72¤p®É(¤T¤Ñ)¤§¤º®É¶¡¡C¤£¶ñ«h¹w³]¬°°e¥X¥æ©ö«áªº72¤p®É¡C
+	 * ä»˜æ¬¾æˆªæ­¢æ™‚é–“ï¼Œæ ¼å¼ç‚ºyyyy/MM/dd HH:mm:ssã€‚åªèƒ½å¸¶å…¥é€å‡ºäº¤æ˜“å¾Œçš„72å°æ™‚(ä¸‰å¤©)ä¹‹å…§æ™‚é–“ã€‚ä¸å¡«å‰‡é è¨­ç‚ºé€å‡ºäº¤æ˜“å¾Œçš„72å°æ™‚ã€‚
 	 */
 	private String ExpireTime = "";
 	
 	/**
 	 * Redeem
-	 * «H¥Î¥d¬O§_¨Ï¥Î¬õ§Q§é©è¡A³]¬°Y®É¡A·í¼Ú¥IÄ_·|­û¿ï¾Ü«H¥Î¥d¥I´Ú®É¡A·|¶i¤J¬õ§Q§é©èªº¥æ©ö¬yµ{
+	 * ä¿¡ç”¨å¡æ˜¯å¦ä½¿ç”¨ç´…åˆ©æŠ˜æŠµï¼Œè¨­ç‚ºYæ™‚ï¼Œç•¶æ­ä»˜å¯¶æœƒå“¡é¸æ“‡ä¿¡ç”¨å¡ä»˜æ¬¾æ™‚ï¼Œæœƒé€²å…¥ç´…åˆ©æŠ˜æŠµçš„äº¤æ˜“æµç¨‹
 	 */
 	private String Redeem = "";
 	
 	/**
 	 * CreditInstallment
-	 * ¨ê¥d¤À´Á´Á¼Æ¡A´£¨Ñ¨ê¥d¤À´Á´Á¼Æ¡A¤£±o¤p©ó2
+	 * åˆ·å¡åˆ†æœŸæœŸæ•¸ï¼Œæä¾›åˆ·å¡åˆ†æœŸæœŸæ•¸ï¼Œä¸å¾—å°æ–¼2
 	 */
 	private String CreditInstallment = "";
 	
 	/**
 	 * InstallmentAmount
-	 * ¨Ï¥Î¨ê¥d¤À´ÁªºÁ`¥I´Úª÷ÃB¡A¨ê¥d¤À´ÁªºÁ`¥I´Úª÷ÃB¡C­Y»P¥æ©öª÷ÃBÆäTotalAmountÆå¬Û¦P®É¡A¤£»İ¶Ç¤J¦¹°Ñ¼Æ¡C
+	 * ä½¿ç”¨åˆ·å¡åˆ†æœŸçš„ç¸½ä»˜æ¬¾é‡‘é¡ï¼Œåˆ·å¡åˆ†æœŸçš„ç¸½ä»˜æ¬¾é‡‘é¡ã€‚è‹¥èˆ‡äº¤æ˜“é‡‘é¡ï›´TotalAmountï›µç›¸åŒæ™‚ï¼Œä¸éœ€å‚³å…¥æ­¤åƒæ•¸ã€‚
 	 */
 //	private String InstallmentAmount = "";
 	
 	/**
 	 * PeriodAmount
-	 * ¨C¦¸±ÂÅvª÷ÃB
+	 * æ¯æ¬¡æˆæ¬Šé‡‘é¡
 	 */
 	private String PeriodAmount = "";
 	
 	/**
 	 * PeriodType
-	 * ¶g´ÁºØÃş   D¡G¥H¤Ñ¬°¶g´Á¡AM¡G¥H¤ë¬°¶g´Á¡AY¡G¥H¦~¬°¶g´Á
+	 * é€±æœŸç¨®é¡   Dï¼šä»¥å¤©ç‚ºé€±æœŸï¼ŒMï¼šä»¥æœˆç‚ºé€±æœŸï¼ŒYï¼šä»¥å¹´ç‚ºé€±æœŸ
 	 */
 	private String PeriodType = "";
 	
 	/**
 	 * Frequency
-	 * °õ¦æÀW²v¡A¦¹°Ñ¼Æ¥Î¨Ó©w¸q¦h¤[­n°õ¦æ¤@¦¸
+	 * åŸ·è¡Œé »ç‡ï¼Œæ­¤åƒæ•¸ç”¨ä¾†å®šç¾©å¤šä¹…è¦åŸ·è¡Œä¸€æ¬¡
 	 */
 	private String Frequency = "";
 	
 	/**
 	 * ExecTimes
-	 * °õ¦æ¦¸¼Æ
+	 * åŸ·è¡Œæ¬¡æ•¸
 	 */
 	private String ExecTimes = "";
 	
 	/**
 	 * PeriodReturnURL
-	 * ©w´Á©wÃBªº°õ¦æµ²ªG¦^À³URL
+	 * å®šæœŸå®šé¡çš„åŸ·è¡Œçµæœå›æ‡‰URL
 	 */
 	private String PeriodReturnURL = "";
 	
 	/********************* getters and setters *********************/
 	
 	/**
-	 * ¨ú±oMerchantID ·|­û½s¸¹(¥ÑO'Pay´£¨Ñ)¡A·í¦¹¥­¥x¬°¯S¬ù¦X§@¥­¥x±ı«Ø¥ß­q³æ®É¡A¸ÓÄæ¦ì¤~¦³®Ä¡C¤@¯ë¥­¥x°Ó½Ğ©¿²¤¦¹Äæ¦ì
+	 * å–å¾—MerchantID æœƒå“¡ç·¨è™Ÿ(ç”±O'Payæä¾›)ï¼Œç•¶æ­¤å¹³å°ç‚ºç‰¹ç´„åˆä½œå¹³å°æ¬²å»ºç«‹è¨‚å–®æ™‚ï¼Œè©²æ¬„ä½æ‰æœ‰æ•ˆã€‚ä¸€èˆ¬å¹³å°å•†è«‹å¿½ç•¥æ­¤æ¬„ä½
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
 		return MerchantID;
 	}
 	/**
-	 * ³]©wMerchantID ·|­û½s¸¹(¥ÑO'Pay´£¨Ñ)¡A·í¦¹¥­¥x¬°¯S¬ù¦X§@¥­¥x±ı«Ø¥ß­q³æ®É¡A¸ÓÄæ¦ì¤~¦³®Ä¡C¤@¯ë¥­¥x°Ó½Ğ©¿²¤¦¹Äæ¦ì
+	 * è¨­å®šMerchantID æœƒå“¡ç·¨è™Ÿ(ç”±O'Payæä¾›)ï¼Œç•¶æ­¤å¹³å°ç‚ºç‰¹ç´„åˆä½œå¹³å°æ¬²å»ºç«‹è¨‚å–®æ™‚ï¼Œè©²æ¬„ä½æ‰æœ‰æ•ˆã€‚ä¸€èˆ¬å¹³å°å•†è«‹å¿½ç•¥æ­¤æ¬„ä½
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {
 		MerchantID = merchantID;
 	}
 	/**
-	 * ¨ú±oMerchantTradeNo ·|­û¥æ©ö½s¸¹¡A­^¼Æ¦r¤j¤p¼g²V¦X¡A¸Ó¥æ©ö½s¸¹¤£¥i­«½Æ¡A¦p¦³¨Ï¥ÎPlatformID¡A¥­¥x°Ó©³¤U©Ò¦³°Ó®a¤§­q³æ½s¸¹¥ç¤£¥i­«½Æ¡C
+	 * å–å¾—MerchantTradeNo æœƒå“¡äº¤æ˜“ç·¨è™Ÿï¼Œè‹±æ•¸å­—å¤§å°å¯«æ··åˆï¼Œè©²äº¤æ˜“ç·¨è™Ÿä¸å¯é‡è¤‡ï¼Œå¦‚æœ‰ä½¿ç”¨PlatformIDï¼Œå¹³å°å•†åº•ä¸‹æ‰€æœ‰å•†å®¶ä¹‹è¨‚å–®ç·¨è™Ÿäº¦ä¸å¯é‡è¤‡ã€‚
 	 * @return MerchantTradeNo
 	 */
 	public String getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	/**
-	 * ³]©wMerchantTradeNo ·|­û¥æ©ö½s¸¹¡A­^¼Æ¦r¤j¤p¼g²V¦X¡A¸Ó¥æ©ö½s¸¹¤£¥i­«½Æ¡A¦p¦³¨Ï¥ÎPlatformID¡A¥­¥x°Ó©³¤U©Ò¦³°Ó®a¤§­q³æ½s¸¹¥ç¤£¥i­«½Æ¡C
+	 * è¨­å®šMerchantTradeNo æœƒå“¡äº¤æ˜“ç·¨è™Ÿï¼Œè‹±æ•¸å­—å¤§å°å¯«æ··åˆï¼Œè©²äº¤æ˜“ç·¨è™Ÿä¸å¯é‡è¤‡ï¼Œå¦‚æœ‰ä½¿ç”¨PlatformIDï¼Œå¹³å°å•†åº•ä¸‹æ‰€æœ‰å•†å®¶ä¹‹è¨‚å–®ç·¨è™Ÿäº¦ä¸å¯é‡è¤‡ã€‚
 	 * @param merchantTradeNo
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {
 		MerchantTradeNo = merchantTradeNo;
 	}
 	/**
-	 * ¨ú±oMerchantTradeDate ·|­û¥æ©ö®É¶¡¡A®æ¦¡¬°yyyy/MM/dd HH:mm:ss
+	 * å–å¾—MerchantTradeDate æœƒå“¡äº¤æ˜“æ™‚é–“ï¼Œæ ¼å¼ç‚ºyyyy/MM/dd HH:mm:ss
 	 * @return MerchantTradeDate
 	 */
 	public String getMerchantTradeDate() {
 		return MerchantTradeDate;
 	}
 	/**
-	 * ³]©wMerchantTradeDate ·|­û¥æ©ö®É¶¡¡A½Ğ¥H yyyy/MM/dd HH:mm:ss®æ¦¡±a¤J
+	 * è¨­å®šMerchantTradeDate æœƒå“¡äº¤æ˜“æ™‚é–“ï¼Œè«‹ä»¥ yyyy/MM/dd HH:mm:ssæ ¼å¼å¸¶å…¥
 	 * @param merchantTradeDate
 	 */
 	public void setMerchantTradeDate(String merchantTradeDate) {
 		MerchantTradeDate = merchantTradeDate;
 	}
 	/**
-	 * ¨ú±oPaymentType ¥æ©öÃş«¬
+	 * å–å¾—PaymentType äº¤æ˜“é¡å‹
 	 * @return PaymentType
 	 */
 	public String getPaymentType() {
 		return PaymentType;
 	}
 	/**
-	 * ³]©wPaymentType ¥æ©öÃş«¬
+	 * è¨­å®šPaymentType äº¤æ˜“é¡å‹
 	 * @param paymentType
 	 */
 //	public void setPaymentType(String paymentType) {
 //		PaymentType = paymentType;
 //	}
 	/**
-	 * ¨ú±oTotalAmount ¥æ©öª÷ÃB¡A¶·¬°¥¿¾ã¼Æ
+	 * å–å¾—TotalAmount äº¤æ˜“é‡‘é¡ï¼Œé ˆç‚ºæ­£æ•´æ•¸
 	 * @return TotalAmount
 	 */
 	public String getTotalAmount() {
 		return TotalAmount;
 	}
 	/**
-	 * ³]©wTotalAmount ¥æ©öª÷ÃB¡A¶·¬°¥¿¾ã¼Æ
+	 * è¨­å®šTotalAmount äº¤æ˜“é‡‘é¡ï¼Œé ˆç‚ºæ­£æ•´æ•¸
 	 * @param totalAmount
 	 */
 	public void setTotalAmount(String totalAmount) {
 		TotalAmount = totalAmount;
 	}
 	/**
-	 * ¨ú±oTradeDesc ¥æ©ö´y­z
+	 * å–å¾—TradeDesc äº¤æ˜“æè¿°
 	 * @return TradeDesc
 	 */
 	public String getTradeDesc() {
 		return TradeDesc;
 	}
 	/**
-	 * ³]©wTradeDesc ¥æ©ö´y­z
+	 * è¨­å®šTradeDesc äº¤æ˜“æè¿°
 	 * @param tradeDesc
 	 */
 	public void setTradeDesc(String tradeDesc) {
 		TradeDesc = tradeDesc;
 	}
 	/**
-	 * ¨ú±oItemName °Ó«~¦WºÙ¡A­Y¦³¦hµ§¡A»İ¦bª÷¬y¿ï¾Ü­¶ ¤@¦æ¤@¦æÅã¥Ü°Ó«~¦WºÙªº¸Ü¡A°Ó«~¦WºÙ½Ğ¥H²Å¸¹#¤À¹j¡C
+	 * å–å¾—ItemName å•†å“åç¨±ï¼Œè‹¥æœ‰å¤šç­†ï¼Œéœ€åœ¨é‡‘æµé¸æ“‡é  ä¸€è¡Œä¸€è¡Œé¡¯ç¤ºå•†å“åç¨±çš„è©±ï¼Œå•†å“åç¨±è«‹ä»¥ç¬¦è™Ÿ#åˆ†éš”ã€‚
 	 * @return ItemName
 	 */
 	public String getItemName() {
 		return ItemName;
 	}
 	/**
-	 * ³]©wItemName °Ó«~¦WºÙ¡A­Y¦³¦hµ§¡A»İ¦bª÷¬y¿ï¾Ü­¶ ¤@¦æ¤@¦æÅã¥Ü°Ó«~¦WºÙªº¸Ü¡A°Ó«~¦WºÙ½Ğ¥H²Å¸¹#¤À¹j¡C
+	 * è¨­å®šItemName å•†å“åç¨±ï¼Œè‹¥æœ‰å¤šç­†ï¼Œéœ€åœ¨é‡‘æµé¸æ“‡é  ä¸€è¡Œä¸€è¡Œé¡¯ç¤ºå•†å“åç¨±çš„è©±ï¼Œå•†å“åç¨±è«‹ä»¥ç¬¦è™Ÿ#åˆ†éš”ã€‚
 	 * @param itemName
 	 */
 	public void setItemName(String itemName) {
 		ItemName = itemName;
 	}
 	/**
-	 * ¨ú±oReturnURL ¥I´Ú§¹¦¨³qª¾¦^¶Çºô§}¡A·í®ø¶OªÌ¥I´Ú§¹¦¨«á¡A¼Ú¥IÄ_·|±N¥I´Ú µ²ªG°Ñ¼Æ¥H¹õ«á(Server POST)¦^¶Ç¨ì ¸Óºô§}¡C
+	 * å–å¾—ReturnURL ä»˜æ¬¾å®Œæˆé€šçŸ¥å›å‚³ç¶²å€ï¼Œç•¶æ¶ˆè²»è€…ä»˜æ¬¾å®Œæˆå¾Œï¼Œæ­ä»˜å¯¶æœƒå°‡ä»˜æ¬¾ çµæœåƒæ•¸ä»¥å¹•å¾Œ(Server POST)å›å‚³åˆ° è©²ç¶²å€ã€‚
 	 * @return ReturnURL
 	 */
 	public String getReturnURL() {
 		return ReturnURL;
 	}
 	/**
-	 * ³]©wReturnURL ¥I´Ú§¹¦¨³qª¾¦^¶Çºô§}¡A·í®ø¶OªÌ¥I´Ú§¹¦¨«á¡A¼Ú¥IÄ_·|±N¥I´Ú µ²ªG°Ñ¼Æ¥H¹õ«á(Server POST)¦^¶Ç¨ì ¸Óºô§}¡C
+	 * è¨­å®šReturnURL ä»˜æ¬¾å®Œæˆé€šçŸ¥å›å‚³ç¶²å€ï¼Œç•¶æ¶ˆè²»è€…ä»˜æ¬¾å®Œæˆå¾Œï¼Œæ­ä»˜å¯¶æœƒå°‡ä»˜æ¬¾ çµæœåƒæ•¸ä»¥å¹•å¾Œ(Server POST)å›å‚³åˆ° è©²ç¶²å€ã€‚
 	 * @param returnURL
 	 */
 	public void setReturnURL(String returnURL) {
 		ReturnURL = returnURL;
 	}
 	/**
-	 * ¨ú±oChoosePayment ¿ï¾Ü¹w³]¥I´Ú¤è¦¡
+	 * å–å¾—ChoosePayment é¸æ“‡é è¨­ä»˜æ¬¾æ–¹å¼
 	 * @return ChoosePayment
 	 */
 	public String getChoosePayment() {
 		return ChoosePayment;
 	}
 	/**
-	 * ³]©wChoosePayment ¿ï¾Ü¹w³]¥I´Ú¤è¦¡
+	 * è¨­å®šChoosePayment é¸æ“‡é è¨­ä»˜æ¬¾æ–¹å¼
 	 * @param choosePayment
 	 */
 //	public void setChoosePayment(String choosePayment) {
 //		ChoosePayment = choosePayment;
 //	}
 	/**
-	 * ¨ú±oClientBackURL Clientºİªğ¦^·|­û¨t²Îªº«ö¶s³sµ²¡C³]©w¦¹°Ñ¼Æ¡A¼Ú¥IÄ_·|¦b¥I´Ú§¹¦¨ ©Î¨ú¸¹§¹¦¨­¶­±¤WÅã¥Ü[ªğ¦^°Ó©±] ªº«ö¶s¡C
-	 *®ø¶OªÌÂI¿ï¦¹«ö¶s«á¡A·|±N­¶­±¾É¦^¨ì¦¹³]©wªººô§}¡C 
-	 *ª`·N¨Æ¶µ¡G¥»°Ñ¼Æ¶È±±¨î±N­¶­±¾É¦^¡A¤£·|±N¥I´Úµ²ªG¸ê°TPOST¨ì³]©w­È¤ºªºURL¡Cµo¥ÍÂ²°T OTP ÅçÃÒ¥¢±Ñ¦Ó¦¹°Ñ¼Æ¦³­È®É¡A­¶­±¤W¥ç·|Åã¥Ü«ö¶s¡C
-	 *­Y¾É¦^ºô§}¥¼¨Ï¥Î https ®É¡A³¡¥÷ ÂsÄı¾¹¥i¯à·|¥X²{Äµ§i°T®§¡C
+	 * å–å¾—ClientBackURL Clientç«¯è¿”å›æœƒå“¡ç³»çµ±çš„æŒ‰éˆ•é€£çµã€‚è¨­å®šæ­¤åƒæ•¸ï¼Œæ­ä»˜å¯¶æœƒåœ¨ä»˜æ¬¾å®Œæˆ æˆ–å–è™Ÿå®Œæˆé é¢ä¸Šé¡¯ç¤º[è¿”å›å•†åº—] çš„æŒ‰éˆ•ã€‚
+	 *æ¶ˆè²»è€…é»é¸æ­¤æŒ‰éˆ•å¾Œï¼Œæœƒå°‡é é¢å°å›åˆ°æ­¤è¨­å®šçš„ç¶²å€ã€‚ 
+	 *æ³¨æ„äº‹é …ï¼šæœ¬åƒæ•¸åƒ…æ§åˆ¶å°‡é é¢å°å›ï¼Œä¸æœƒå°‡ä»˜æ¬¾çµæœè³‡è¨ŠPOSTåˆ°è¨­å®šå€¼å…§çš„URLã€‚ç™¼ç”Ÿç°¡è¨Š OTP é©—è­‰å¤±æ•—è€Œæ­¤åƒæ•¸æœ‰å€¼æ™‚ï¼Œé é¢ä¸Šäº¦æœƒé¡¯ç¤ºæŒ‰éˆ•ã€‚
+	 *è‹¥å°å›ç¶²å€æœªä½¿ç”¨ https æ™‚ï¼Œéƒ¨ä»½ ç€è¦½å™¨å¯èƒ½æœƒå‡ºç¾è­¦å‘Šè¨Šæ¯ã€‚
 	 * @return ClientBackURL
 	 */
 	public String getClientBackURL() {
 		return ClientBackURL;
 	}
 	/**
-	 * ³]©wClientBackURL Clientºİªğ¦^·|­û¨t²Îªº«ö¶s³sµ²¡C³]©w¦¹°Ñ¼Æ¡A¼Ú¥IÄ_·|¦b¥I´Ú§¹¦¨ ©Î¨ú¸¹§¹¦¨­¶­±¤WÅã¥Ü[ªğ¦^°Ó©±] ªº«ö¶s¡C
-	 *®ø¶OªÌÂI¿ï¦¹«ö¶s«á¡A·|±N­¶­±¾É¦^¨ì¦¹³]©wªººô§}¡C 
-	 *ª`·N¨Æ¶µ¡G¥»°Ñ¼Æ¶È±±¨î±N­¶­±¾É¦^¡A¤£·|±N¥I´Úµ²ªG¸ê°TPOST¨ì³]©w­È¤ºªºURL¡Cµo¥ÍÂ²°T OTP ÅçÃÒ¥¢±Ñ¦Ó¦¹°Ñ¼Æ¦³­È®É¡A­¶­±¤W¥ç·|Åã¥Ü«ö¶s¡C
-	 *­Y¾É¦^ºô§}¥¼¨Ï¥Î https ®É¡A³¡¥÷ ÂsÄı¾¹¥i¯à·|¥X²{Äµ§i°T®§¡C
+	 * è¨­å®šClientBackURL Clientç«¯è¿”å›æœƒå“¡ç³»çµ±çš„æŒ‰éˆ•é€£çµã€‚è¨­å®šæ­¤åƒæ•¸ï¼Œæ­ä»˜å¯¶æœƒåœ¨ä»˜æ¬¾å®Œæˆ æˆ–å–è™Ÿå®Œæˆé é¢ä¸Šé¡¯ç¤º[è¿”å›å•†åº—] çš„æŒ‰éˆ•ã€‚
+	 *æ¶ˆè²»è€…é»é¸æ­¤æŒ‰éˆ•å¾Œï¼Œæœƒå°‡é é¢å°å›åˆ°æ­¤è¨­å®šçš„ç¶²å€ã€‚ 
+	 *æ³¨æ„äº‹é …ï¼šæœ¬åƒæ•¸åƒ…æ§åˆ¶å°‡é é¢å°å›ï¼Œä¸æœƒå°‡ä»˜æ¬¾çµæœè³‡è¨ŠPOSTåˆ°è¨­å®šå€¼å…§çš„URLã€‚ç™¼ç”Ÿç°¡è¨Š OTP é©—è­‰å¤±æ•—è€Œæ­¤åƒæ•¸æœ‰å€¼æ™‚ï¼Œé é¢ä¸Šäº¦æœƒé¡¯ç¤ºæŒ‰éˆ•ã€‚
+	 *è‹¥å°å›ç¶²å€æœªä½¿ç”¨ https æ™‚ï¼Œéƒ¨ä»½ ç€è¦½å™¨å¯èƒ½æœƒå‡ºç¾è­¦å‘Šè¨Šæ¯ã€‚
 	 * @param clientBackURL
 	 */
 	public void setClientBackURL(String clientBackURL) {
 		ClientBackURL = clientBackURL;
 	}
 	/**
-	 * ¨ú±oItemURL °Ó«~¾P°âºô§}
+	 * å–å¾—ItemURL å•†å“éŠ·å”®ç¶²å€
 	 * @return ItemURL
 	 */
 	public String getItemURL() {
 		return ItemURL;
 	}
 	/**
-	 * ³]©w ItemURL °Ó«~¾P°âºô§}
+	 * è¨­å®š ItemURL å•†å“éŠ·å”®ç¶²å€
 	 * @param itemURL
 	 */
 	public void setItemURL(String itemURL) {
 		ItemURL = itemURL;
 	}
 	/**
-	 * ¨ú±oRemark ³ÆµùÄæ¦ì
+	 * å–å¾—Remark å‚™è¨»æ¬„ä½
 	 * @return Remark
 	 */
 	public String getRemark() {
 		return Remark;
 	}
 	/**
-	 * ³]©wRemark ³ÆµùÄæ¦ì
+	 * è¨­å®šRemark å‚™è¨»æ¬„ä½
 	 * @param remark
 	 */
 	public void setRemark(String remark) {
 		Remark = remark;
 	}
 	/**
-	 * ¨ú±oChooseSubPayment ¿ï¾Ü¹w³]¥I´Ú¤l¶µ¥Ø¡C­Y³]©w¦¹°Ñ¼Æ¡A¨Ï¥ÎªÌ«hµLªk¬İ¨£ª÷¬y ¿ï¾Ü­¶¡A¥B¨Ï¥ÎªÌ¥²¶·­n¤wµn¤J¼Ú¥IÄ_¡C
-	 *  ¨Ò¦p¡G¥I´Ú¤è¦¡[ChoosePayment]³]©w WebATM¡A¥I´Ú¤l¶µ¥Ø [ChooseSubPayment]³]©w TAISHIN¡A
-	 *  ¦¹¦¸¥æ©ö¶È·|¥H¥x·s»È¦æªº ºô¸ô ATM ¥I´Ú¡C½Ğ°Ñ¦Ò¥I´Ú¤è¦¡¤@Äıªí
+	 * å–å¾—ChooseSubPayment é¸æ“‡é è¨­ä»˜æ¬¾å­é …ç›®ã€‚è‹¥è¨­å®šæ­¤åƒæ•¸ï¼Œä½¿ç”¨è€…å‰‡ç„¡æ³•çœ‹è¦‹é‡‘æµ é¸æ“‡é ï¼Œä¸”ä½¿ç”¨è€…å¿…é ˆè¦å·²ç™»å…¥æ­ä»˜å¯¶ã€‚
+	 *  ä¾‹å¦‚ï¼šä»˜æ¬¾æ–¹å¼[ChoosePayment]è¨­å®š WebATMï¼Œä»˜æ¬¾å­é …ç›® [ChooseSubPayment]è¨­å®š TAISHINï¼Œ
+	 *  æ­¤æ¬¡äº¤æ˜“åƒ…æœƒä»¥å°æ–°éŠ€è¡Œçš„ ç¶²è·¯ ATM ä»˜æ¬¾ã€‚è«‹åƒè€ƒä»˜æ¬¾æ–¹å¼ä¸€è¦½è¡¨
 	 * @return ChooseSubPayment
 	 */
 	public String getChooseSubPayment() {
 		return ChooseSubPayment;
 	}
 	/**
-	 * ³]©wChooseSubPayment ¿ï¾Ü¹w³]¥I´Ú¤l¶µ¥Ø¡C­Y³]©w¦¹°Ñ¼Æ¡A¨Ï¥ÎªÌ«hµLªk¬İ¨£ª÷¬y ¿ï¾Ü­¶¡A¥B¨Ï¥ÎªÌ¥²¶·­n¤wµn¤J¼Ú¥IÄ_¡C
-	 *  ¨Ò¦p¡G¥I´Ú¤è¦¡[ChoosePayment]³]©w WebATM¡A¥I´Ú¤l¶µ¥Ø [ChooseSubPayment]³]©w TAISHIN¡A
-	 *  ¦¹¦¸¥æ©ö¶È·|¥H¥x·s»È¦æªº ºô¸ô ATM ¥I´Ú¡C½Ğ°Ñ¦Ò¥I´Ú¤è¦¡¤@Äıªí
+	 * è¨­å®šChooseSubPayment é¸æ“‡é è¨­ä»˜æ¬¾å­é …ç›®ã€‚è‹¥è¨­å®šæ­¤åƒæ•¸ï¼Œä½¿ç”¨è€…å‰‡ç„¡æ³•çœ‹è¦‹é‡‘æµ é¸æ“‡é ï¼Œä¸”ä½¿ç”¨è€…å¿…é ˆè¦å·²ç™»å…¥æ­ä»˜å¯¶ã€‚
+	 *  ä¾‹å¦‚ï¼šä»˜æ¬¾æ–¹å¼[ChoosePayment]è¨­å®š WebATMï¼Œä»˜æ¬¾å­é …ç›® [ChooseSubPayment]è¨­å®š TAISHINï¼Œ
+	 *  æ­¤æ¬¡äº¤æ˜“åƒ…æœƒä»¥å°æ–°éŠ€è¡Œçš„ ç¶²è·¯ ATM ä»˜æ¬¾ã€‚è«‹åƒè€ƒä»˜æ¬¾æ–¹å¼ä¸€è¦½è¡¨
 	 * @param chooseSubPayment
 	 */
 	public void setChooseSubPayment(String chooseSubPayment) {
 		ChooseSubPayment = chooseSubPayment;
 	}
 	/**
-	 * ¨ú±oOrderResultURL Clientºİ¦^¶Ç¥I´Úµ²ªGºô§}¡C¥I´Ú§¹¦¨«á¡A¼Ú¥IÄ_±N­¶­±¾É¦^¨ì·| ­ûºô§}¡A¨Ã±N¥I´Úµ²ªG±a¦^ 
-	 * ª`·N¨Æ¶µ¡G
-	 * 1.	¨S±a¦¹°Ñ¼Æ«h·|Åã¥Ü¼Ú¥IÄ_ªº¥I ´Ú§¹¦¨­¶¡C
-	 * 2.	¦pªG­n±N¥I´Úµ²ªG­¶Åã¥Ü¦b·|­û ¨t²Î¤º¡A½Ğ³]©w¦¹°Ñ¼Æ¡C
-	 * 3.	­Y³]©w¦¹°Ñ¼Æ¡A±N·|¨Ï³]©wªº Client ºİªğ¦^·|­û¨t²Îªº«ö¶s³s µ²[ClientBackURL]¥¢®Ä¡C
-	 * 4.	³¡¤À»È¦æ WebATM ¦b¥æ©ö¦¨¥\ «á,·|°±¯d¦b»È¦æªº­¶­±,¨Ã¤£·|¾É ¦^µ¹¼Ú¥IÄ_,©Ò¥H¼Ú¥IÄ_¤]¤£·|±N ­¶­±¾É¦^¨ì[OrderResultURL]ªº­¶­±
-	 * 5.	°]¥I³q©M«D¤Î®É¥æ©ö(ATM¡BCVS) ¤£¤ä´©¦¹°Ñ¼Æ¡C
-	 * 6.	«ØÄ³¦b´ú¸Õ¶¥¬q®É¥ı¤£­n³]©w¦¹ °Ñ¼Æ¡A¥i±Nµe­±°±¯d¦b¼Ú¥IÄ_¡A¬İ ¨£¼Ú¥IÄ_©Ò´£¨Ñªº¿ù»~°T®§¡A«K¥i ¥H¦³®Ä°£¿ù¡C
-	 * 7.	­Y¦³³]©w¦¹°Ñ¼Æ¡A½Ğ°È¥²®Ú¾Ú¦^¶Ç ªº¥æ©öª¬ºA¨Ó§PÂ_Åã¥Ü¥I´Ú¦¨¥\ »P§_ªº­¶­±¡C
-	 * 8.	­Y¾É¦^ºô§}¥¼¨Ï¥Î https ®É¡A³¡¥÷ ÂsÄı¾¹¥i¯à·|¥X²{Äµ§i°T®§¡C
+	 * å–å¾—OrderResultURL Clientç«¯å›å‚³ä»˜æ¬¾çµæœç¶²å€ã€‚ä»˜æ¬¾å®Œæˆå¾Œï¼Œæ­ä»˜å¯¶å°‡é é¢å°å›åˆ°æœƒ å“¡ç¶²å€ï¼Œä¸¦å°‡ä»˜æ¬¾çµæœå¸¶å› 
+	 * æ³¨æ„äº‹é …ï¼š
+	 * 1.	æ²’å¸¶æ­¤åƒæ•¸å‰‡æœƒé¡¯ç¤ºæ­ä»˜å¯¶çš„ä»˜ æ¬¾å®Œæˆé ã€‚
+	 * 2.	å¦‚æœè¦å°‡ä»˜æ¬¾çµæœé é¡¯ç¤ºåœ¨æœƒå“¡ ç³»çµ±å…§ï¼Œè«‹è¨­å®šæ­¤åƒæ•¸ã€‚
+	 * 3.	è‹¥è¨­å®šæ­¤åƒæ•¸ï¼Œå°‡æœƒä½¿è¨­å®šçš„ Client ç«¯è¿”å›æœƒå“¡ç³»çµ±çš„æŒ‰éˆ•é€£ çµ[ClientBackURL]å¤±æ•ˆã€‚
+	 * 4.	éƒ¨åˆ†éŠ€è¡Œ WebATM åœ¨äº¤æ˜“æˆåŠŸ å¾Œ,æœƒåœç•™åœ¨éŠ€è¡Œçš„é é¢,ä¸¦ä¸æœƒå° å›çµ¦æ­ä»˜å¯¶,æ‰€ä»¥æ­ä»˜å¯¶ä¹Ÿä¸æœƒå°‡ é é¢å°å›åˆ°[OrderResultURL]çš„é é¢
+	 * 5.	è²¡ä»˜é€šå’ŒéåŠæ™‚äº¤æ˜“(ATMã€CVS) ä¸æ”¯æ´æ­¤åƒæ•¸ã€‚
+	 * 6.	å»ºè­°åœ¨æ¸¬è©¦éšæ®µæ™‚å…ˆä¸è¦è¨­å®šæ­¤ åƒæ•¸ï¼Œå¯å°‡ç•«é¢åœç•™åœ¨æ­ä»˜å¯¶ï¼Œçœ‹ è¦‹æ­ä»˜å¯¶æ‰€æä¾›çš„éŒ¯èª¤è¨Šæ¯ï¼Œä¾¿å¯ ä»¥æœ‰æ•ˆé™¤éŒ¯ã€‚
+	 * 7.	è‹¥æœ‰è¨­å®šæ­¤åƒæ•¸ï¼Œè«‹å‹™å¿…æ ¹æ“šå›å‚³ çš„äº¤æ˜“ç‹€æ…‹ä¾†åˆ¤æ–·é¡¯ç¤ºä»˜æ¬¾æˆåŠŸ èˆ‡å¦çš„é é¢ã€‚
+	 * 8.	è‹¥å°å›ç¶²å€æœªä½¿ç”¨ https æ™‚ï¼Œéƒ¨ä»½ ç€è¦½å™¨å¯èƒ½æœƒå‡ºç¾è­¦å‘Šè¨Šæ¯ã€‚
 	 * @return OrderResultURL
 	 */
 	public String getOrderResultURL() {
 		return OrderResultURL;
 	}
 	/**
-	 * ³]©wOrderResultURL Clientºİ¦^¶Ç¥I´Úµ²ªGºô§}¡C¥I´Ú§¹¦¨«á¡A¼Ú¥IÄ_±N­¶­±¾É¦^¨ì·| ­ûºô§}¡A¨Ã±N¥I´Úµ²ªG±a¦^ 
-	 * ª`·N¨Æ¶µ¡G
-	 * 1.	¨S±a¦¹°Ñ¼Æ«h·|Åã¥Ü¼Ú¥IÄ_ªº¥I ´Ú§¹¦¨­¶¡C
-	 * 2.	¦pªG­n±N¥I´Úµ²ªG­¶Åã¥Ü¦b·|­û ¨t²Î¤º¡A½Ğ³]©w¦¹°Ñ¼Æ¡C
-	 * 3.	­Y³]©w¦¹°Ñ¼Æ¡A±N·|¨Ï³]©wªº Client ºİªğ¦^·|­û¨t²Îªº«ö¶s³s µ²[ClientBackURL]¥¢®Ä¡C
-	 * 4.	³¡¤À»È¦æ WebATM ¦b¥æ©ö¦¨¥\ «á,·|°±¯d¦b»È¦æªº­¶­±,¨Ã¤£·|¾É ¦^µ¹¼Ú¥IÄ_,©Ò¥H¼Ú¥IÄ_¤]¤£·|±N ­¶­±¾É¦^¨ì[OrderResultURL]ªº­¶­±
-	 * 5.	°]¥I³q©M«D¤Î®É¥æ©ö(ATM¡BCVS) ¤£¤ä´©¦¹°Ñ¼Æ¡C
-	 * 6.	«ØÄ³¦b´ú¸Õ¶¥¬q®É¥ı¤£­n³]©w¦¹ °Ñ¼Æ¡A¥i±Nµe­±°±¯d¦b¼Ú¥IÄ_¡A¬İ ¨£¼Ú¥IÄ_©Ò´£¨Ñªº¿ù»~°T®§¡A«K¥i ¥H¦³®Ä°£¿ù¡C
-	 * 7.	­Y¦³³]©w¦¹°Ñ¼Æ¡A½Ğ°È¥²®Ú¾Ú¦^¶Ç ªº¥æ©öª¬ºA¨Ó§PÂ_Åã¥Ü¥I´Ú¦¨¥\ »P§_ªº­¶­±¡C
-	 * 8.	­Y¾É¦^ºô§}¥¼¨Ï¥Î https ®É¡A³¡¥÷ ÂsÄı¾¹¥i¯à·|¥X²{Äµ§i°T®§¡C
+	 * è¨­å®šOrderResultURL Clientç«¯å›å‚³ä»˜æ¬¾çµæœç¶²å€ã€‚ä»˜æ¬¾å®Œæˆå¾Œï¼Œæ­ä»˜å¯¶å°‡é é¢å°å›åˆ°æœƒ å“¡ç¶²å€ï¼Œä¸¦å°‡ä»˜æ¬¾çµæœå¸¶å› 
+	 * æ³¨æ„äº‹é …ï¼š
+	 * 1.	æ²’å¸¶æ­¤åƒæ•¸å‰‡æœƒé¡¯ç¤ºæ­ä»˜å¯¶çš„ä»˜ æ¬¾å®Œæˆé ã€‚
+	 * 2.	å¦‚æœè¦å°‡ä»˜æ¬¾çµæœé é¡¯ç¤ºåœ¨æœƒå“¡ ç³»çµ±å…§ï¼Œè«‹è¨­å®šæ­¤åƒæ•¸ã€‚
+	 * 3.	è‹¥è¨­å®šæ­¤åƒæ•¸ï¼Œå°‡æœƒä½¿è¨­å®šçš„ Client ç«¯è¿”å›æœƒå“¡ç³»çµ±çš„æŒ‰éˆ•é€£ çµ[ClientBackURL]å¤±æ•ˆã€‚
+	 * 4.	éƒ¨åˆ†éŠ€è¡Œ WebATM åœ¨äº¤æ˜“æˆåŠŸ å¾Œ,æœƒåœç•™åœ¨éŠ€è¡Œçš„é é¢,ä¸¦ä¸æœƒå° å›çµ¦æ­ä»˜å¯¶,æ‰€ä»¥æ­ä»˜å¯¶ä¹Ÿä¸æœƒå°‡ é é¢å°å›åˆ°[OrderResultURL]çš„é é¢
+	 * 5.	è²¡ä»˜é€šå’ŒéåŠæ™‚äº¤æ˜“(ATMã€CVS) ä¸æ”¯æ´æ­¤åƒæ•¸ã€‚
+	 * 6.	å»ºè­°åœ¨æ¸¬è©¦éšæ®µæ™‚å…ˆä¸è¦è¨­å®šæ­¤ åƒæ•¸ï¼Œå¯å°‡ç•«é¢åœç•™åœ¨æ­ä»˜å¯¶ï¼Œçœ‹ è¦‹æ­ä»˜å¯¶æ‰€æä¾›çš„éŒ¯èª¤è¨Šæ¯ï¼Œä¾¿å¯ ä»¥æœ‰æ•ˆé™¤éŒ¯ã€‚
+	 * 7.	è‹¥æœ‰è¨­å®šæ­¤åƒæ•¸ï¼Œè«‹å‹™å¿…æ ¹æ“šå›å‚³ çš„äº¤æ˜“ç‹€æ…‹ä¾†åˆ¤æ–·é¡¯ç¤ºä»˜æ¬¾æˆåŠŸ èˆ‡å¦çš„é é¢ã€‚
+	 * 8.	è‹¥å°å›ç¶²å€æœªä½¿ç”¨ https æ™‚ï¼Œéƒ¨ä»½ ç€è¦½å™¨å¯èƒ½æœƒå‡ºç¾è­¦å‘Šè¨Šæ¯ã€‚
 	 * @param orderResultURL
 	 */
 	public void setOrderResultURL(String orderResultURL) {
 		OrderResultURL = orderResultURL;
 	}
 	/**
-	 * ¨ú±oNeedExtraPaidInfo ¬O§_»İ­nÃB¥~ªº¥I´Ú¸ê°T¡C¦^¶Ç§ó¸Ô²Óªº¥I´Ú¸ê°T¦ÜReturnURL°Ñ¼Æ«ü©wªºURL¡C¹w³]¬°N¡C
+	 * å–å¾—NeedExtraPaidInfo æ˜¯å¦éœ€è¦é¡å¤–çš„ä»˜æ¬¾è³‡è¨Šã€‚å›å‚³æ›´è©³ç´°çš„ä»˜æ¬¾è³‡è¨Šè‡³ReturnURLåƒæ•¸æŒ‡å®šçš„URLã€‚é è¨­ç‚ºNã€‚
 	 * @return NeedExtraPaidInfo
 	 */
 	public String getNeedExtraPaidInfo() {
 		return NeedExtraPaidInfo;
 	}
 	/**
-	 * ³]©wNeedExtraPaidInfo ¬O§_»İ­nÃB¥~ªº¥I´Ú¸ê°T ¡C¦^¶Ç§ó¸Ô²Óªº¥I´Ú¸ê°T¦ÜReturnURL°Ñ¼Æ«ü©wªºURL¡C¹w³]¬°N¡C
+	 * è¨­å®šNeedExtraPaidInfo æ˜¯å¦éœ€è¦é¡å¤–çš„ä»˜æ¬¾è³‡è¨Š ã€‚å›å‚³æ›´è©³ç´°çš„ä»˜æ¬¾è³‡è¨Šè‡³ReturnURLåƒæ•¸æŒ‡å®šçš„URLã€‚é è¨­ç‚ºNã€‚
 	 * @param needExtraPaidInfo
 	 */
 	public void setNeedExtraPaidInfo(String needExtraPaidInfo) {
 		NeedExtraPaidInfo = needExtraPaidInfo;
 	}
 	/**
-	 * ¨ú±oDeviceSource ¸Ë¸m¨Ó·½
+	 * å–å¾—DeviceSource è£ç½®ä¾†æº
 	 * @return DeviceSource
 	 */
 	public String getDeviceSource() {
 		return DeviceSource;
 	}
 	/**
-	 * ³]©wDeviceSource ¸Ë¸m¨Ó·½
+	 * è¨­å®šDeviceSource è£ç½®ä¾†æº
 	 * @param deviceSource
 	 */
 //	public void setDeviceSource(String deviceSource) {
 //		DeviceSource = deviceSource;
 //	}
 	/**
-	 * ¨ú±oIgnorePayment ÁôÂÃ¥I´Ú¤è¦¡
+	 * å–å¾—IgnorePayment éš±è—ä»˜æ¬¾æ–¹å¼
 	 * @return IgnorePayment
 	 */
 	public String getIgnorePayment() {
 		return IgnorePayment;
 	}
 	/**
-	 * ³]©wIgnorePayment ÁôÂÃ¥I´Ú¤è¦¡
+	 * è¨­å®šIgnorePayment éš±è—ä»˜æ¬¾æ–¹å¼
 	 * @param ignorePayment
 	 */
 	public void setIgnorePayment(String ignorePayment) {
 		IgnorePayment = ignorePayment;
 	}
 	/**
-	 * ¨ú±oPlatformID ¯S¬ù¦X§@¥­¥x°Ó¥N¸¹(¥ÑO¡¦Pay´£¨Ñ)
+	 * å–å¾—PlatformID ç‰¹ç´„åˆä½œå¹³å°å•†ä»£è™Ÿ(ç”±Oâ€™Payæä¾›)
 	 * @return PlatformID
 	 */
 	public String getPlatformID() {
 		return PlatformID;
 	}
 	/**
-	 * ³]©wPlatformID ¯S¬ù¦X§@¥­¥x°Ó¥N¸¹(¥ÑO¡¦Pay´£¨Ñ)
+	 * è¨­å®šPlatformID ç‰¹ç´„åˆä½œå¹³å°å•†ä»£è™Ÿ(ç”±Oâ€™Payæä¾›)
 	 * @param platformID
 	 */
 	public void setPlatformID(String platformID) {
 		PlatformID = platformID;
 	}
 	/**
-	 * ¨ú±oHoldTradeAMT ¬O§_©µ¿ğ¼·´Ú
-	 * 1. ­Y¬°¤£©µ¿ğ¼·´Ú¡A½Ğ±a¡G0¡A¶R¤è¥I´Ú§¹¦¨«á¡A¼Ú¥IÄ_¨Ì¦X¬ù¬ù©w¤§®É¶¡¡A¼·´Úµ¹·|­û 
-	 * 2. ­Y¬°©µ¿ğ¼·´Ú¡A½Ğ±a¡G1¡A¶R¤è¥I ´Ú§¹¦¨«á¡A»İ¦A©I¥s¡u·|­û¥Ó½Ğ¼· ´Ú°h´Ú¡vAPI¡AÅı¼Ú¥IÄ_¼·´Úµ¹·| ­û¡A©Î°h´Úµ¹¶R¤è¡C
-	 * ª`·N¨Æ¶µ¡G ¡°­Õ­Y·|­û¤@ª½¤£¥Ó½Ğ¼·´Ú¡A¦¹µ§­q³æ ´Ú¶µ·|¤@ª½©ñ¦b¼Ú¥IÄ_¡Aª½¨ì·|­û¥Ó½Ğ ¼·´Ú¡C
-	 * 		       ¡°©µ¿ğ¼·´Ú¤£¾A¥Î¡u«H¥Î¥d¡v¡B¡u°]¥I³q¡v ¤§¥I´Ú¤è¦¡¡C
+	 * å–å¾—HoldTradeAMT æ˜¯å¦å»¶é²æ’¥æ¬¾
+	 * 1. è‹¥ç‚ºä¸å»¶é²æ’¥æ¬¾ï¼Œè«‹å¸¶ï¼š0ï¼Œè²·æ–¹ä»˜æ¬¾å®Œæˆå¾Œï¼Œæ­ä»˜å¯¶ä¾åˆç´„ç´„å®šä¹‹æ™‚é–“ï¼Œæ’¥æ¬¾çµ¦æœƒå“¡ 
+	 * 2. è‹¥ç‚ºå»¶é²æ’¥æ¬¾ï¼Œè«‹å¸¶ï¼š1ï¼Œè²·æ–¹ä»˜ æ¬¾å®Œæˆå¾Œï¼Œéœ€å†å‘¼å«ã€Œæœƒå“¡ç”³è«‹æ’¥ æ¬¾é€€æ¬¾ã€APIï¼Œè®“æ­ä»˜å¯¶æ’¥æ¬¾çµ¦æœƒ å“¡ï¼Œæˆ–é€€æ¬¾çµ¦è²·æ–¹ã€‚
+	 * æ³¨æ„äº‹é …ï¼š â€»å€˜è‹¥æœƒå“¡ä¸€ç›´ä¸ç”³è«‹æ’¥æ¬¾ï¼Œæ­¤ç­†è¨‚å–® æ¬¾é …æœƒä¸€ç›´æ”¾åœ¨æ­ä»˜å¯¶ï¼Œç›´åˆ°æœƒå“¡ç”³è«‹ æ’¥æ¬¾ã€‚
+	 * 		       â€»å»¶é²æ’¥æ¬¾ä¸é©ç”¨ã€Œä¿¡ç”¨å¡ã€ã€ã€Œè²¡ä»˜é€šã€ ä¹‹ä»˜æ¬¾æ–¹å¼ã€‚
 	 * @return HoldTradeAMT
 	 */
 	public String getHoldTradeAMT() {
 		return HoldTradeAMT;
 	}
 	/**
-	 * ³]©wHoldTradeAMT ¬O§_©µ¿ğ¼·´Ú
-	 * 1. ­Y¬°¤£©µ¿ğ¼·´Ú¡A½Ğ±a¡G0¡A¶R¤è¥I´Ú§¹¦¨«á¡A¼Ú¥IÄ_¨Ì¦X¬ù¬ù©w¤§®É¶¡¡A¼·´Úµ¹·|­û 
-	 * 2. ­Y¬°©µ¿ğ¼·´Ú¡A½Ğ±a¡G1¡A¶R¤è¥I ´Ú§¹¦¨«á¡A»İ¦A©I¥s¡u·|­û¥Ó½Ğ¼· ´Ú°h´Ú¡vAPI¡AÅı¼Ú¥IÄ_¼·´Úµ¹·| ­û¡A©Î°h´Úµ¹¶R¤è¡C
-	 * ª`·N¨Æ¶µ¡G ¡°­Õ­Y·|­û¤@ª½¤£¥Ó½Ğ¼·´Ú¡A¦¹µ§­q³æ ´Ú¶µ·|¤@ª½©ñ¦b¼Ú¥IÄ_¡Aª½¨ì·|­û¥Ó½Ğ ¼·´Ú¡C
-	 * 		       ¡°©µ¿ğ¼·´Ú¤£¾A¥Î¡u«H¥Î¥d¡v¡B¡u°]¥I³q¡v ¤§¥I´Ú¤è¦¡¡C
+	 * è¨­å®šHoldTradeAMT æ˜¯å¦å»¶é²æ’¥æ¬¾
+	 * 1. è‹¥ç‚ºä¸å»¶é²æ’¥æ¬¾ï¼Œè«‹å¸¶ï¼š0ï¼Œè²·æ–¹ä»˜æ¬¾å®Œæˆå¾Œï¼Œæ­ä»˜å¯¶ä¾åˆç´„ç´„å®šä¹‹æ™‚é–“ï¼Œæ’¥æ¬¾çµ¦æœƒå“¡ 
+	 * 2. è‹¥ç‚ºå»¶é²æ’¥æ¬¾ï¼Œè«‹å¸¶ï¼š1ï¼Œè²·æ–¹ä»˜ æ¬¾å®Œæˆå¾Œï¼Œéœ€å†å‘¼å«ã€Œæœƒå“¡ç”³è«‹æ’¥ æ¬¾é€€æ¬¾ã€APIï¼Œè®“æ­ä»˜å¯¶æ’¥æ¬¾çµ¦æœƒ å“¡ï¼Œæˆ–é€€æ¬¾çµ¦è²·æ–¹ã€‚
+	 * æ³¨æ„äº‹é …ï¼š â€»å€˜è‹¥æœƒå“¡ä¸€ç›´ä¸ç”³è«‹æ’¥æ¬¾ï¼Œæ­¤ç­†è¨‚å–® æ¬¾é …æœƒä¸€ç›´æ”¾åœ¨æ­ä»˜å¯¶ï¼Œç›´åˆ°æœƒå“¡ç”³è«‹ æ’¥æ¬¾ã€‚
+	 * 		       â€»å»¶é²æ’¥æ¬¾ä¸é©ç”¨ã€Œä¿¡ç”¨å¡ã€ã€ã€Œè²¡ä»˜é€šã€ ä¹‹ä»˜æ¬¾æ–¹å¼ã€‚
 	 * @param holdTradeAMT
 	 */
 	public void setHoldTradeAMT(String holdTradeAMT) {
 		HoldTradeAMT = holdTradeAMT;
 	}
 	/**
-	 * ¨ú±oEncryptType CheckMacValue¥[±KÃş«¬
+	 * å–å¾—EncryptType CheckMacValueåŠ å¯†é¡å‹
 	 * @return EncryptType
 	 */
 	public String getEncryptType() {
 		return EncryptType;
 	}
 	/**
-	 * ³]©wEncryptType CheckMacValue¥[±KÃş«¬
+	 * è¨­å®šEncryptType CheckMacValueåŠ å¯†é¡å‹
 	 * @param encryptType
 	 */
 //	public void setEncryptType(String encryptType) {
 //		EncryptType = encryptType;
 //	}
 	/**
-	 * ¨ú±oUseRedeem ¬O§_¥i¥H¨Ï¥ÎÁÊª«ª÷/¬õ¥]§é©è¡C¥Î¨Ó³]©w¦¹µ§¥æ©ö¬O§_¥i¥H¨Ï¥ÎÁÊª« ª÷/¬õ¥]§é©è¡C 
-	 * 1. ­Y¬°¥i¨Ï¥Î®É¡A½Ğ±a¡G¢ç
-	 * 2. ­Y¬°¤£¥i¨Ï¥Î®É¡A½Ğ±a¡GN
-	 * ª`·N¨Æ¶µ¡G 
-	 * 1. §é©è¤è¦¡¥i©ó¡u¼t°Ó«á¥x¡ş¬õ¥]§é ©è³]©w¡v¥\¯à·s¼W±zªº§é©è±ø¥ó¡A ­Y¤w¶}±Ò§é©è³]©w¡A»İ¦A°t¦X¦¹°Ñ ¼Æ¡A¨Ó¨M©w¦¹µ§¥æ©ö¬O§_¥i¥H¨Ï¥Î ÁÊª«ª÷/¬õ¥]§é©è¡C 
-	 * 2. °t¦X§é©èÁÊª«ª÷/¬õ¥]·|­û¡A¼Ú¥I Ä_±N¨ó§U¶i¦æ§K¶OÃn¥ú¡A§é©è¤§ª÷ ÃB¡A«h¥Ñ·|­û­t¾á¡C 
-	 * 3. ­Y¥i¨Ï¥ÎÁÊª«ª÷/¬õ¥]§é©è®É¡A»İ ª`·N±µ¦¬¥I´Úµ²ªG³qª¾®É¡A½Ğ¥H¥æ ©öª÷ÃB[TradeAmt]°µ­q³æª÷ÃBªºÀË¬d¡C
+	 * å–å¾—UseRedeem æ˜¯å¦å¯ä»¥ä½¿ç”¨è³¼ç‰©é‡‘/ç´…åŒ…æŠ˜æŠµã€‚ç”¨ä¾†è¨­å®šæ­¤ç­†äº¤æ˜“æ˜¯å¦å¯ä»¥ä½¿ç”¨è³¼ç‰© é‡‘/ç´…åŒ…æŠ˜æŠµã€‚ 
+	 * 1. è‹¥ç‚ºå¯ä½¿ç”¨æ™‚ï¼Œè«‹å¸¶ï¼šï¼¹
+	 * 2. è‹¥ç‚ºä¸å¯ä½¿ç”¨æ™‚ï¼Œè«‹å¸¶ï¼šN
+	 * æ³¨æ„äº‹é …ï¼š 
+	 * 1. æŠ˜æŠµæ–¹å¼å¯æ–¼ã€Œå» å•†å¾Œå°ï¼ç´…åŒ…æŠ˜ æŠµè¨­å®šã€åŠŸèƒ½æ–°å¢æ‚¨çš„æŠ˜æŠµæ¢ä»¶ï¼Œ è‹¥å·²é–‹å•ŸæŠ˜æŠµè¨­å®šï¼Œéœ€å†é…åˆæ­¤åƒ æ•¸ï¼Œä¾†æ±ºå®šæ­¤ç­†äº¤æ˜“æ˜¯å¦å¯ä»¥ä½¿ç”¨ è³¼ç‰©é‡‘/ç´…åŒ…æŠ˜æŠµã€‚ 
+	 * 2. é…åˆæŠ˜æŠµè³¼ç‰©é‡‘/ç´…åŒ…æœƒå“¡ï¼Œæ­ä»˜ å¯¶å°‡å”åŠ©é€²è¡Œå…è²»æ›å…‰ï¼ŒæŠ˜æŠµä¹‹é‡‘ é¡ï¼Œå‰‡ç”±æœƒå“¡è² æ“”ã€‚ 
+	 * 3. è‹¥å¯ä½¿ç”¨è³¼ç‰©é‡‘/ç´…åŒ…æŠ˜æŠµæ™‚ï¼Œéœ€ æ³¨æ„æ¥æ”¶ä»˜æ¬¾çµæœé€šçŸ¥æ™‚ï¼Œè«‹ä»¥äº¤ æ˜“é‡‘é¡[TradeAmt]åšè¨‚å–®é‡‘é¡çš„æª¢æŸ¥ã€‚
 	 * @return UseRedeem
 	 */
 	public String getUseRedeem() {
 		return UseRedeem;
 	}
 	/**
-	 * ³]©wUseRedeem ¬O§_¥i¥H¨Ï¥ÎÁÊª«ª÷/¬õ¥]§é©è¡C¥Î¨Ó³]©w¦¹µ§¥æ©ö¬O§_¥i¥H¨Ï¥ÎÁÊª« ª÷/¬õ¥]§é©è¡C 
-	 * 1. ­Y¬°¥i¨Ï¥Î®É¡A½Ğ±a¡G¢ç
-	 * 2. ­Y¬°¤£¥i¨Ï¥Î®É¡A½Ğ±a¡GN
-	 * ª`·N¨Æ¶µ¡G 
-	 * 1. §é©è¤è¦¡¥i©ó¡u¼t°Ó«á¥x¡ş¬õ¥]§é ©è³]©w¡v¥\¯à·s¼W±zªº§é©è±ø¥ó¡A ­Y¤w¶}±Ò§é©è³]©w¡A»İ¦A°t¦X¦¹°Ñ ¼Æ¡A¨Ó¨M©w¦¹µ§¥æ©ö¬O§_¥i¥H¨Ï¥Î ÁÊª«ª÷/¬õ¥]§é©è¡C 
-	 * 2. °t¦X§é©èÁÊª«ª÷/¬õ¥]·|­û¡A¼Ú¥I Ä_±N¨ó§U¶i¦æ§K¶OÃn¥ú¡A§é©è¤§ª÷ ÃB¡A«h¥Ñ·|­û­t¾á¡C 
-	 * 3. ­Y¥i¨Ï¥ÎÁÊª«ª÷/¬õ¥]§é©è®É¡A»İ ª`·N±µ¦¬¥I´Úµ²ªG³qª¾®É¡A½Ğ¥H¥æ ©öª÷ÃB[TradeAmt]°µ­q³æª÷ÃBªºÀË¬d¡C
+	 * è¨­å®šUseRedeem æ˜¯å¦å¯ä»¥ä½¿ç”¨è³¼ç‰©é‡‘/ç´…åŒ…æŠ˜æŠµã€‚ç”¨ä¾†è¨­å®šæ­¤ç­†äº¤æ˜“æ˜¯å¦å¯ä»¥ä½¿ç”¨è³¼ç‰© é‡‘/ç´…åŒ…æŠ˜æŠµã€‚ 
+	 * 1. è‹¥ç‚ºå¯ä½¿ç”¨æ™‚ï¼Œè«‹å¸¶ï¼šï¼¹
+	 * 2. è‹¥ç‚ºä¸å¯ä½¿ç”¨æ™‚ï¼Œè«‹å¸¶ï¼šN
+	 * æ³¨æ„äº‹é …ï¼š 
+	 * 1. æŠ˜æŠµæ–¹å¼å¯æ–¼ã€Œå» å•†å¾Œå°ï¼ç´…åŒ…æŠ˜ æŠµè¨­å®šã€åŠŸèƒ½æ–°å¢æ‚¨çš„æŠ˜æŠµæ¢ä»¶ï¼Œ è‹¥å·²é–‹å•ŸæŠ˜æŠµè¨­å®šï¼Œéœ€å†é…åˆæ­¤åƒ æ•¸ï¼Œä¾†æ±ºå®šæ­¤ç­†äº¤æ˜“æ˜¯å¦å¯ä»¥ä½¿ç”¨ è³¼ç‰©é‡‘/ç´…åŒ…æŠ˜æŠµã€‚ 
+	 * 2. é…åˆæŠ˜æŠµè³¼ç‰©é‡‘/ç´…åŒ…æœƒå“¡ï¼Œæ­ä»˜ å¯¶å°‡å”åŠ©é€²è¡Œå…è²»æ›å…‰ï¼ŒæŠ˜æŠµä¹‹é‡‘ é¡ï¼Œå‰‡ç”±æœƒå“¡è² æ“”ã€‚ 
+	 * 3. è‹¥å¯ä½¿ç”¨è³¼ç‰©é‡‘/ç´…åŒ…æŠ˜æŠµæ™‚ï¼Œéœ€ æ³¨æ„æ¥æ”¶ä»˜æ¬¾çµæœé€šçŸ¥æ™‚ï¼Œè«‹ä»¥äº¤ æ˜“é‡‘é¡[TradeAmt]åšè¨‚å–®é‡‘é¡çš„æª¢æŸ¥ã€‚
 	 * @param useRedeem
 	 */
 	public void setUseRedeem(String useRedeem) {
 		UseRedeem = useRedeem;
 	}
 	/**
-	 * ¨ú±oExpireDate ¤¹³\Ãº¶O¦³®Ä¤Ñ¼Æ¡A­Y»İ³]©w³Ìªø 60 ¤Ñ¡A³Ìµu1¤Ñ¡C¥¼³]©w¦¹°Ñ¼Æ«h¹w³]¬°3¤Ñ
-	 * ª`·N¨Æ¶µ¡G ¥H¤Ñ¬°³æ¦ì
+	 * å–å¾—ExpireDate å…è¨±ç¹³è²»æœ‰æ•ˆå¤©æ•¸ï¼Œè‹¥éœ€è¨­å®šæœ€é•· 60 å¤©ï¼Œæœ€çŸ­1å¤©ã€‚æœªè¨­å®šæ­¤åƒæ•¸å‰‡é è¨­ç‚º3å¤©
+	 * æ³¨æ„äº‹é …ï¼š ä»¥å¤©ç‚ºå–®ä½
 	 * @return ExpireDate
 	 */
 	public String getExpireDate() {
 		return ExpireDate;
 	}
 	/**
-	 * ³]©wExpireDate ¤¹³\Ãº¶O¦³®Ä¤Ñ¼Æ¡A­Y»İ³]©w³Ìªø 60 ¤Ñ¡A³Ìµu1¤Ñ¡C¥¼³]©w¦¹°Ñ¼Æ«h¹w³]¬°3¤Ñ
-	 * ª`·N¨Æ¶µ¡G ¥H¤Ñ¬°³æ¦ì
+	 * è¨­å®šExpireDate å…è¨±ç¹³è²»æœ‰æ•ˆå¤©æ•¸ï¼Œè‹¥éœ€è¨­å®šæœ€é•· 60 å¤©ï¼Œæœ€çŸ­1å¤©ã€‚æœªè¨­å®šæ­¤åƒæ•¸å‰‡é è¨­ç‚º3å¤©
+	 * æ³¨æ„äº‹é …ï¼š ä»¥å¤©ç‚ºå–®ä½
 	 * @param expireDate
 	 */
 	public void setExpireDate(String expireDate) {
 		ExpireDate = expireDate;
 	}
 	/**
-	 * ¨ú±oPaymentInfoURL Serverºİ¦^¶Ç¥I´Ú¬ÛÃö¸ê°T¡C­Y¦³³]©w¦¹°Ñ¼Æ¡A­q³æ«Ø¥ß§¹¦¨«á(«D¥I´Ú§¹¦¨)
-	 * ¡A¼Ú¥IÄ_·|Serverºİ­I´º¦^¶Ç®ø¶OªÌ¥I´Ú¤è¦¡¬ÛÃö¸ê°T(¨Ò¡G»È¦æ¥N½X¡BÃº¶OµêÀÀ±b¸¹Ãº¶O´Á­­¡Kµ¥)¡C
-	 * ª`·N¨Æ¶µ¡G­¶­±±N·|°±¯d¦b¼Ú¥IÄ_¡AÅã¥ÜÃº¶Oªº¬ÛÃö¸ê°T¡C
+	 * å–å¾—PaymentInfoURL Serverç«¯å›å‚³ä»˜æ¬¾ç›¸é—œè³‡è¨Šã€‚è‹¥æœ‰è¨­å®šæ­¤åƒæ•¸ï¼Œè¨‚å–®å»ºç«‹å®Œæˆå¾Œ(éä»˜æ¬¾å®Œæˆ)
+	 * ï¼Œæ­ä»˜å¯¶æœƒServerç«¯èƒŒæ™¯å›å‚³æ¶ˆè²»è€…ä»˜æ¬¾æ–¹å¼ç›¸é—œè³‡è¨Š(ä¾‹ï¼šéŠ€è¡Œä»£ç¢¼ã€ç¹³è²»è™›æ“¬å¸³è™Ÿç¹³è²»æœŸé™â€¦ç­‰)ã€‚
+	 * æ³¨æ„äº‹é …ï¼šé é¢å°‡æœƒåœç•™åœ¨æ­ä»˜å¯¶ï¼Œé¡¯ç¤ºç¹³è²»çš„ç›¸é—œè³‡è¨Šã€‚
 	 * @return PaymentInfoURL
 	 */
 	public String getPaymentInfoURL() {
 		return PaymentInfoURL;
 	}
 	/**
-	 * ³]©wPaymentInfoURL Serverºİ¦^¶Ç¥I´Ú¬ÛÃö¸ê°T¡C­Y¦³³]©w¦¹°Ñ¼Æ¡A­q³æ«Ø¥ß§¹¦¨«á(«D¥I´Ú§¹¦¨)
-	 * ¡A¼Ú¥IÄ_·|Serverºİ­I´º¦^¶Ç®ø¶OªÌ¥I´Ú¤è¦¡¬ÛÃö¸ê°T(¨Ò¡G»È¦æ¥N½X¡BÃº¶OµêÀÀ±b¸¹Ãº¶O´Á­­¡Kµ¥)¡C
-	 * ª`·N¨Æ¶µ¡G­¶­±±N·|°±¯d¦b¼Ú¥IÄ_¡AÅã¥ÜÃº¶Oªº¬ÛÃö¸ê°T¡C
+	 * è¨­å®šPaymentInfoURL Serverç«¯å›å‚³ä»˜æ¬¾ç›¸é—œè³‡è¨Šã€‚è‹¥æœ‰è¨­å®šæ­¤åƒæ•¸ï¼Œè¨‚å–®å»ºç«‹å®Œæˆå¾Œ(éä»˜æ¬¾å®Œæˆ)
+	 * ï¼Œæ­ä»˜å¯¶æœƒServerç«¯èƒŒæ™¯å›å‚³æ¶ˆè²»è€…ä»˜æ¬¾æ–¹å¼ç›¸é—œè³‡è¨Š(ä¾‹ï¼šéŠ€è¡Œä»£ç¢¼ã€ç¹³è²»è™›æ“¬å¸³è™Ÿç¹³è²»æœŸé™â€¦ç­‰)ã€‚
+	 * æ³¨æ„äº‹é …ï¼šé é¢å°‡æœƒåœç•™åœ¨æ­ä»˜å¯¶ï¼Œé¡¯ç¤ºç¹³è²»çš„ç›¸é—œè³‡è¨Šã€‚
 	 * @param paymentInfoURL
 	 */
 	public void setPaymentInfoURL(String paymentInfoURL) {
 		PaymentInfoURL = paymentInfoURL;
 	}
 	/**
-	 * ¨ú±oClientRedirectURL Clientºİ¦^¶Ç¥I´Ú¬ÛÃö¸ê°T¡C­Y¦³³]©w¦¹°Ñ¼Æ¡A­q³æ«Ø¥ß§¹¦¨«á(«D¥I´Ú§¹¦¨)
-	 * ¡A¼Ú¥IÄ_·|Clientºİ¦^¶Ç®ø¶OªÌ¥I´Ú¤è¦¡¬ÛÃö¸ê°T(¨Ò¡G»È¦æ¥N½X¡BÃº¶OµêÀÀ±b¸¹Ãº¶O´Á­­¡Kµ¥)¥B±N­¶­±Âà¨ì·|­û¨t²Î«ü©wªº­¶­±¡A
-	 * Åã¥ÜÃº¶Oªº¬ÛÃö¸ê°T¡C
-	 * ª`·N¨Æ¶µ¡G 
-	 * 1. ­Y³]©w¦¹°Ñ¼Æ¡A±N·|¨Ï³]©wªºªğ¦^·|­û¨t²Îªº«ö¶s³sµ²[ClientBackURL]¥¢®Ä¡C 
-	 * 2. ­Y¾É¦^ºô§}¥¼¨Ï¥Îhttps®É¡A³¡¥÷ÂsÄı¾¹¥i¯à·|¥X²{Äµ§i°T®§¡C
+	 * å–å¾—ClientRedirectURL Clientç«¯å›å‚³ä»˜æ¬¾ç›¸é—œè³‡è¨Šã€‚è‹¥æœ‰è¨­å®šæ­¤åƒæ•¸ï¼Œè¨‚å–®å»ºç«‹å®Œæˆå¾Œ(éä»˜æ¬¾å®Œæˆ)
+	 * ï¼Œæ­ä»˜å¯¶æœƒClientç«¯å›å‚³æ¶ˆè²»è€…ä»˜æ¬¾æ–¹å¼ç›¸é—œè³‡è¨Š(ä¾‹ï¼šéŠ€è¡Œä»£ç¢¼ã€ç¹³è²»è™›æ“¬å¸³è™Ÿç¹³è²»æœŸé™â€¦ç­‰)ä¸”å°‡é é¢è½‰åˆ°æœƒå“¡ç³»çµ±æŒ‡å®šçš„é é¢ï¼Œ
+	 * é¡¯ç¤ºç¹³è²»çš„ç›¸é—œè³‡è¨Šã€‚
+	 * æ³¨æ„äº‹é …ï¼š 
+	 * 1. è‹¥è¨­å®šæ­¤åƒæ•¸ï¼Œå°‡æœƒä½¿è¨­å®šçš„è¿”å›æœƒå“¡ç³»çµ±çš„æŒ‰éˆ•é€£çµ[ClientBackURL]å¤±æ•ˆã€‚ 
+	 * 2. è‹¥å°å›ç¶²å€æœªä½¿ç”¨httpsæ™‚ï¼Œéƒ¨ä»½ç€è¦½å™¨å¯èƒ½æœƒå‡ºç¾è­¦å‘Šè¨Šæ¯ã€‚
 	 * @return ClientRedirectURL
 	 */
 	public String getClientRedirectURL() {
 		return ClientRedirectURL;
 	}
 	/**
-	 * ³]©wClientRedirectURL Clientºİ¦^¶Ç¥I´Ú¬ÛÃö¸ê°T¡C­Y¦³³]©w¦¹°Ñ¼Æ¡A­q³æ«Ø¥ß§¹¦¨«á(«D¥I´Ú§¹¦¨)
-	 * ¡A¼Ú¥IÄ_·|Clientºİ¦^¶Ç®ø¶OªÌ¥I´Ú¤è¦¡¬ÛÃö¸ê°T(¨Ò¡G»È¦æ¥N½X¡BÃº¶OµêÀÀ±b¸¹Ãº¶O´Á­­¡Kµ¥)¥B±N­¶­±Âà¨ì·|­û¨t²Î«ü©wªº­¶­±¡A
-	 * Åã¥ÜÃº¶Oªº¬ÛÃö¸ê°T¡C
-	 * ª`·N¨Æ¶µ¡G 
-	 * 1. ­Y³]©w¦¹°Ñ¼Æ¡A±N·|¨Ï³]©wªºªğ¦^·|­û¨t²Îªº«ö¶s³sµ²[ClientBackURL]¥¢®Ä¡C 
-	 * 2. ­Y¾É¦^ºô§}¥¼¨Ï¥Îhttps®É¡A³¡¥÷ÂsÄı¾¹¥i¯à·|¥X²{Äµ§i°T®§¡C
+	 * è¨­å®šClientRedirectURL Clientç«¯å›å‚³ä»˜æ¬¾ç›¸é—œè³‡è¨Šã€‚è‹¥æœ‰è¨­å®šæ­¤åƒæ•¸ï¼Œè¨‚å–®å»ºç«‹å®Œæˆå¾Œ(éä»˜æ¬¾å®Œæˆ)
+	 * ï¼Œæ­ä»˜å¯¶æœƒClientç«¯å›å‚³æ¶ˆè²»è€…ä»˜æ¬¾æ–¹å¼ç›¸é—œè³‡è¨Š(ä¾‹ï¼šéŠ€è¡Œä»£ç¢¼ã€ç¹³è²»è™›æ“¬å¸³è™Ÿç¹³è²»æœŸé™â€¦ç­‰)ä¸”å°‡é é¢è½‰åˆ°æœƒå“¡ç³»çµ±æŒ‡å®šçš„é é¢ï¼Œ
+	 * é¡¯ç¤ºç¹³è²»çš„ç›¸é—œè³‡è¨Šã€‚
+	 * æ³¨æ„äº‹é …ï¼š 
+	 * 1. è‹¥è¨­å®šæ­¤åƒæ•¸ï¼Œå°‡æœƒä½¿è¨­å®šçš„è¿”å›æœƒå“¡ç³»çµ±çš„æŒ‰éˆ•é€£çµ[ClientBackURL]å¤±æ•ˆã€‚ 
+	 * 2. è‹¥å°å›ç¶²å€æœªä½¿ç”¨httpsæ™‚ï¼Œéƒ¨ä»½ç€è¦½å™¨å¯èƒ½æœƒå‡ºç¾è­¦å‘Šè¨Šæ¯ã€‚
 	 * @param clientRedirectURL
 	 */
 	public void setClientRedirectURL(String clientRedirectURL) {
 		ClientRedirectURL = clientRedirectURL;
 	}
 	/**
-	 * ¨ú±oStoreExpireDate ¶W°ÓÃº¶OºI¤î®É¶¡¡A¥H¤Ñ¬°³æ¦ì¡A¹w³]¬°7¤Ñ
-	 * ¨Ò¡G08/01ªº20:15¤ÀÁÊ¶R°Ó«~¡AÃº¶O´Á­­¬°7¤Ñ¡Aªí¥Ü8/08ªº20:15¤À«e±z¥²¶·«e©¹Ãº¶O¡C
+	 * å–å¾—StoreExpireDate è¶…å•†ç¹³è²»æˆªæ­¢æ™‚é–“ï¼Œä»¥å¤©ç‚ºå–®ä½ï¼Œé è¨­ç‚º7å¤©
+	 * ä¾‹ï¼š08/01çš„20:15åˆ†è³¼è²·å•†å“ï¼Œç¹³è²»æœŸé™ç‚º7å¤©ï¼Œè¡¨ç¤º8/08çš„20:15åˆ†å‰æ‚¨å¿…é ˆå‰å¾€ç¹³è²»ã€‚
 	 * @return StoreExpireDate
 	 */
 	public String getStoreExpireDate() {
 		return StoreExpireDate;
 	}
 	/**
-	 * ³]©wStoreExpireDate ¶W°ÓÃº¶OºI¤î®É¶¡¡A¥H¤Ñ¬°³æ¦ì¡A¹w³]¬°7¤Ñ
-	 * ¨Ò¡G08/01ªº20:15¤ÀÁÊ¶R°Ó«~¡AÃº¶O´Á­­¬°7¤Ñ¡Aªí¥Ü8/08ªº20:15¤À«e±z¥²¶·«e©¹Ãº¶O¡C
+	 * è¨­å®šStoreExpireDate è¶…å•†ç¹³è²»æˆªæ­¢æ™‚é–“ï¼Œä»¥å¤©ç‚ºå–®ä½ï¼Œé è¨­ç‚º7å¤©
+	 * ä¾‹ï¼š08/01çš„20:15åˆ†è³¼è²·å•†å“ï¼Œç¹³è²»æœŸé™ç‚º7å¤©ï¼Œè¡¨ç¤º8/08çš„20:15åˆ†å‰æ‚¨å¿…é ˆå‰å¾€ç¹³è²»ã€‚
 	 * @param storeExpireDate
 	 */
 	public void setStoreExpireDate(String storeExpireDate) {
 		StoreExpireDate = storeExpireDate;
 	}
 	/**
-	 * ¨ú±oDesc_1 ¥æ©ö´y­z1¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * å–å¾—Desc_1 äº¤æ˜“æè¿°1ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @return Desc_1
 	 */
 	public String getDesc_1() {
 		return Desc_1;
 	}
 	/**
-	 * ³]©wDesc_1 ¥æ©ö´y­z1¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * è¨­å®šDesc_1 äº¤æ˜“æè¿°1ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @param desc_1
 	 */
 	public void setDesc_1(String desc_1) {
 		Desc_1 = desc_1;
 	}
 	/**
-	 * ¨ú±oDesc_2 ¥æ©ö´y­z2¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * å–å¾—Desc_2 äº¤æ˜“æè¿°2ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @return Desc_2
 	 */
 	public String getDesc_2() {
 		return Desc_2;
 	}
 	/**
-	 * ³]©wDesc_2 ¥æ©ö´y­z2¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * è¨­å®šDesc_2 äº¤æ˜“æè¿°2ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @param desc_2
 	 */
 	public void setDesc_2(String desc_2) {
 		Desc_2 = desc_2;
 	}
 	/**
-	 * ¨ú±oDesc_3 ¥æ©ö´y­z3¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * å–å¾—Desc_3 äº¤æ˜“æè¿°3ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @return Desc_3
 	 */
 	public String getDesc_3() {
 		return Desc_3;
 	}
 	/**
-	 * ³]©wDesc_3 ¥æ©ö´y­z3¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * è¨­å®šDesc_3 äº¤æ˜“æè¿°3ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @param desc_3
 	 */
 	public void setDesc_3(String desc_3) {
 		Desc_3 = desc_3;
 	}
 	/**
-	 * ¨ú±oDesc_4 ¥æ©ö´y­z4¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * å–å¾—Desc_4 äº¤æ˜“æè¿°4ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @return Desc_4
 	 */
 	public String getDesc_4() {
 		return Desc_4;
 	}
 	/**
-	 * ³]©wDesc_4 ¥æ©ö´y­z4¡A·|¥X²{¦b¶W°ÓÃº¶O¥­¥x¿Ã¹õ¤W
+	 * è¨­å®šDesc_4 äº¤æ˜“æè¿°4ï¼Œæœƒå‡ºç¾åœ¨è¶…å•†ç¹³è²»å¹³å°è¢å¹•ä¸Š
 	 * @param desc_4
 	 */
 	public void setDesc_4(String desc_4) {
 		Desc_4 = desc_4;
 	}
 	/**
-	 * ¨ú±oExpireTime ¥I´ÚºI¤î®É¶¡¡A®æ¦¡¬°yyyy/MM/dd HH:mm:ss¡C¥u¯à±a¤J°e¥X¥æ©ö«áªº72¤p®É(¤T¤Ñ)¤§¤º®É¶¡¡C¤£¶ñ«h¹w³]¬°°e¥X¥æ©ö«áªº72¤p®É¡C
+	 * å–å¾—ExpireTime ä»˜æ¬¾æˆªæ­¢æ™‚é–“ï¼Œæ ¼å¼ç‚ºyyyy/MM/dd HH:mm:ssã€‚åªèƒ½å¸¶å…¥é€å‡ºäº¤æ˜“å¾Œçš„72å°æ™‚(ä¸‰å¤©)ä¹‹å…§æ™‚é–“ã€‚ä¸å¡«å‰‡é è¨­ç‚ºé€å‡ºäº¤æ˜“å¾Œçš„72å°æ™‚ã€‚
 	 * @return ExpireTime
 	 */
 	public String getExpireTime() {
 		return ExpireTime;
 	}
 	/**
-	 * ³]©wExpireTime ¥I´ÚºI¤î®É¶¡¡A®æ¦¡¬°yyyy/MM/dd HH:mm:ss¡C¥u¯à±a¤J°e¥X¥æ©ö«áªº72¤p®É(¤T¤Ñ)¤§¤º®É¶¡¡C¤£¶ñ«h¹w³]¬°°e¥X¥æ©ö«áªº72¤p®É¡C
+	 * è¨­å®šExpireTime ä»˜æ¬¾æˆªæ­¢æ™‚é–“ï¼Œæ ¼å¼ç‚ºyyyy/MM/dd HH:mm:ssã€‚åªèƒ½å¸¶å…¥é€å‡ºäº¤æ˜“å¾Œçš„72å°æ™‚(ä¸‰å¤©)ä¹‹å…§æ™‚é–“ã€‚ä¸å¡«å‰‡é è¨­ç‚ºé€å‡ºäº¤æ˜“å¾Œçš„72å°æ™‚ã€‚
 	 * @param expireTime
 	 */
 	public void setExpireTime(String expireTime) {
 		ExpireTime = expireTime;
 	}
 	/**
-	 * ¨ú±oRedeem «H¥Î¥d¬O§_¨Ï¥Î¬õ§Q§é©è¡A³]¬°Y®É¡A·í¼Ú¥IÄ_·|­û¿ï¾Ü«H¥Î¥d¥I´Ú®É¡A·|¶i¤J¬õ§Q§é©èªº¥æ©ö¬yµ{
+	 * å–å¾—Redeem ä¿¡ç”¨å¡æ˜¯å¦ä½¿ç”¨ç´…åˆ©æŠ˜æŠµï¼Œè¨­ç‚ºYæ™‚ï¼Œç•¶æ­ä»˜å¯¶æœƒå“¡é¸æ“‡ä¿¡ç”¨å¡ä»˜æ¬¾æ™‚ï¼Œæœƒé€²å…¥ç´…åˆ©æŠ˜æŠµçš„äº¤æ˜“æµç¨‹
 	 * @return Redeem
 	 */
 	public String getRedeem() {
 		return Redeem;
 	}
 	/**
-	 * ³]©wRedeem «H¥Î¥d¬O§_¨Ï¥Î¬õ§Q§é©è¡A³]¬°Y®É¡A·í¼Ú¥IÄ_·|­û¿ï¾Ü«H¥Î¥d¥I´Ú®É¡A·|¶i¤J¬õ§Q§é©èªº¥æ©ö¬yµ{
+	 * è¨­å®šRedeem ä¿¡ç”¨å¡æ˜¯å¦ä½¿ç”¨ç´…åˆ©æŠ˜æŠµï¼Œè¨­ç‚ºYæ™‚ï¼Œç•¶æ­ä»˜å¯¶æœƒå“¡é¸æ“‡ä¿¡ç”¨å¡ä»˜æ¬¾æ™‚ï¼Œæœƒé€²å…¥ç´…åˆ©æŠ˜æŠµçš„äº¤æ˜“æµç¨‹
 	 * @param redeem
 	 */
 	public void setRedeem(String redeem) {
 		Redeem = redeem;
 	}
 	/**
-	 * ¨ú±oCreditInstallment ¨ê¥d¤À´Á´Á¼Æ¡A´£¨Ñ¨ê¥d¤À´Á´Á¼Æ¡A¤£±o¤p©ó2
+	 * å–å¾—CreditInstallment åˆ·å¡åˆ†æœŸæœŸæ•¸ï¼Œæä¾›åˆ·å¡åˆ†æœŸæœŸæ•¸ï¼Œä¸å¾—å°æ–¼2
 	 * @return CreditInstallment
 	 */
 	public String getCreditInstallment() {
 		return CreditInstallment;
 	}
 	/**
-	 * ³]©wCreditInstallment ¨ê¥d¤À´Á´Á¼Æ¡A´£¨Ñ¨ê¥d¤À´Á´Á¼Æ¡A¤£±o¤p©ó2
+	 * è¨­å®šCreditInstallment åˆ·å¡åˆ†æœŸæœŸæ•¸ï¼Œæä¾›åˆ·å¡åˆ†æœŸæœŸæ•¸ï¼Œä¸å¾—å°æ–¼2
 	 * @param creditInstallment
 	 */
 	public void setCreditInstallment(String creditInstallment) {
 		CreditInstallment = creditInstallment;
 	}
 	/**
-	 * ¨ú±oInstallmentAmount ¨Ï¥Î¨ê¥d¤À´ÁªºÁ`¥I´Úª÷ÃB¡A¨ê¥d¤À´ÁªºÁ`¥I´Úª÷ÃB¡C­Y»P¥æ©öª÷ÃBÆäTotalAmountÆå¬Û¦P®É¡A¤£»İ¶Ç¤J¦¹°Ñ¼Æ¡C
+	 * å–å¾—InstallmentAmount ä½¿ç”¨åˆ·å¡åˆ†æœŸçš„ç¸½ä»˜æ¬¾é‡‘é¡ï¼Œåˆ·å¡åˆ†æœŸçš„ç¸½ä»˜æ¬¾é‡‘é¡ã€‚è‹¥èˆ‡äº¤æ˜“é‡‘é¡ï›´TotalAmountï›µç›¸åŒæ™‚ï¼Œä¸éœ€å‚³å…¥æ­¤åƒæ•¸ã€‚
 	 * @return InstallmentAmount
 	 */
 //	public String getInstallmentAmount() {
 //		return InstallmentAmount;
 //	}
 	/**
-	 * ³]©wInstallmentAmount ¨Ï¥Î¨ê¥d¤À´ÁªºÁ`¥I´Úª÷ÃB¡A¨ê¥d¤À´ÁªºÁ`¥I´Úª÷ÃB¡C­Y»P¥æ©öª÷ÃBÆäTotalAmountÆå¬Û¦P®É¡A¤£»İ¶Ç¤J¦¹°Ñ¼Æ¡C
+	 * è¨­å®šInstallmentAmount ä½¿ç”¨åˆ·å¡åˆ†æœŸçš„ç¸½ä»˜æ¬¾é‡‘é¡ï¼Œåˆ·å¡åˆ†æœŸçš„ç¸½ä»˜æ¬¾é‡‘é¡ã€‚è‹¥èˆ‡äº¤æ˜“é‡‘é¡ï›´TotalAmountï›µç›¸åŒæ™‚ï¼Œä¸éœ€å‚³å…¥æ­¤åƒæ•¸ã€‚
 	 * @param installmentAmount
 	 */
 //	public void setInstallmentAmount(String installmentAmount) {
 //		InstallmentAmount = installmentAmount;
 //	}
 	/**
-	 * ¨ú±oPeriodAmount ¨C¦¸±ÂÅvª÷ÃB
-	 * ª`·N¨Æ¶µ¡G ¼Ú¥IÄ_·|¨Ì¦¹¦¸±ÂÅvª÷ÃB[PeriodAmount]©Ò³]©wªºª÷ÃB°µ¬°¤§«á©T©w±ÂÅvªºª÷ÃB¡C 
-	 * ¥æ©öª÷ÃB[TotalAmount]³]©wª÷ÃB¥²¶·©M±ÂÅvª÷ÃB[PeriodAmount]¬Û¦P¡C
-	 * ½Ğ±a¾ã¼Æ¡A¤£¥i¦³¤p¼ÆÂI¡C¶È­­·s¥x¹ô¡C
+	 * å–å¾—PeriodAmount æ¯æ¬¡æˆæ¬Šé‡‘é¡
+	 * æ³¨æ„äº‹é …ï¼š æ­ä»˜å¯¶æœƒä¾æ­¤æ¬¡æˆæ¬Šé‡‘é¡[PeriodAmount]æ‰€è¨­å®šçš„é‡‘é¡åšç‚ºä¹‹å¾Œå›ºå®šæˆæ¬Šçš„é‡‘é¡ã€‚ 
+	 * äº¤æ˜“é‡‘é¡[TotalAmount]è¨­å®šé‡‘é¡å¿…é ˆå’Œæˆæ¬Šé‡‘é¡[PeriodAmount]ç›¸åŒã€‚
+	 * è«‹å¸¶æ•´æ•¸ï¼Œä¸å¯æœ‰å°æ•¸é»ã€‚åƒ…é™æ–°å°å¹£ã€‚
 	 * @return PeriodAmount
 	 */
 	public String getPeriodAmount() {
 		return PeriodAmount;
 	}
 	/**
-	 * ³]©wPeriodAmount ¨C¦¸±ÂÅvª÷ÃB
-	 * ª`·N¨Æ¶µ¡G ¼Ú¥IÄ_·|¨Ì¦¹¦¸±ÂÅvª÷ÃB[PeriodAmount]©Ò³]©wªºª÷ÃB°µ¬°¤§«á©T©w±ÂÅvªºª÷ÃB¡C 
-	 * ¥æ©öª÷ÃB[TotalAmount]³]©wª÷ÃB¥²¶·©M±ÂÅvª÷ÃB[PeriodAmount]¬Û¦P¡C
-	 * ½Ğ±a¾ã¼Æ¡A¤£¥i¦³¤p¼ÆÂI¡C¶È­­·s¥x¹ô¡C
+	 * è¨­å®šPeriodAmount æ¯æ¬¡æˆæ¬Šé‡‘é¡
+	 * æ³¨æ„äº‹é …ï¼š æ­ä»˜å¯¶æœƒä¾æ­¤æ¬¡æˆæ¬Šé‡‘é¡[PeriodAmount]æ‰€è¨­å®šçš„é‡‘é¡åšç‚ºä¹‹å¾Œå›ºå®šæˆæ¬Šçš„é‡‘é¡ã€‚ 
+	 * äº¤æ˜“é‡‘é¡[TotalAmount]è¨­å®šé‡‘é¡å¿…é ˆå’Œæˆæ¬Šé‡‘é¡[PeriodAmount]ç›¸åŒã€‚
+	 * è«‹å¸¶æ•´æ•¸ï¼Œä¸å¯æœ‰å°æ•¸é»ã€‚åƒ…é™æ–°å°å¹£ã€‚
 	 * @param periodAmount
 	 */
 	public void setPeriodAmount(String periodAmount) {
 		PeriodAmount = periodAmount;
 	}
 	/**
-	 * ¨ú±oPeriodType ¶g´ÁºØÃş   D¡G¥H¤Ñ¬°¶g´Á¡AM¡G¥H¤ë¬°¶g´Á¡AY¡G¥H¦~¬°¶g´Á
+	 * å–å¾—PeriodType é€±æœŸç¨®é¡   Dï¼šä»¥å¤©ç‚ºé€±æœŸï¼ŒMï¼šä»¥æœˆç‚ºé€±æœŸï¼ŒYï¼šä»¥å¹´ç‚ºé€±æœŸ
 	 * @return PeriodType
 	 */
 	public String getPeriodType() {
 		return PeriodType;
 	}
 	/**
-	 * ³]©wPeriodType ¶g´ÁºØÃş   D¡G¥H¤Ñ¬°¶g´Á¡AM¡G¥H¤ë¬°¶g´Á¡AY¡G¥H¦~¬°¶g´Á
+	 * è¨­å®šPeriodType é€±æœŸç¨®é¡   Dï¼šä»¥å¤©ç‚ºé€±æœŸï¼ŒMï¼šä»¥æœˆç‚ºé€±æœŸï¼ŒYï¼šä»¥å¹´ç‚ºé€±æœŸ
 	 * @param periodType
 	 */
 	public void setPeriodType(String periodType) {
 		PeriodType = periodType;
 	}
 	/**
-	 * ¨ú±oFrequency °õ¦æÀW²v¡A¦¹°Ñ¼Æ¥Î¨Ó©w¸q¦h¤[­n°õ¦æ¤@¦¸
-	 * ª`·N¨Æ¶µ¡G 
-	 * 1. ¦Ü¤Ö­n¤j©óµ¥©ó1¦¸¥H¤W¡C 
-	 * 2. ·íPeriodType³]¬°D®É¡A³Ì¦h¥i³]365¦¸¡C 
-	 * 3. ·íPeriodType³]¬°M®É¡A³Ì¦h¥i³]12¦¸¡C 
-	 * 4. ·íPeriodType³]¬°Y®É¡A³Ì¦h¥i³]1¦¸¡C
+	 * å–å¾—Frequency åŸ·è¡Œé »ç‡ï¼Œæ­¤åƒæ•¸ç”¨ä¾†å®šç¾©å¤šä¹…è¦åŸ·è¡Œä¸€æ¬¡
+	 * æ³¨æ„äº‹é …ï¼š 
+	 * 1. è‡³å°‘è¦å¤§æ–¼ç­‰æ–¼1æ¬¡ä»¥ä¸Šã€‚ 
+	 * 2. ç•¶PeriodTypeè¨­ç‚ºDæ™‚ï¼Œæœ€å¤šå¯è¨­365æ¬¡ã€‚ 
+	 * 3. ç•¶PeriodTypeè¨­ç‚ºMæ™‚ï¼Œæœ€å¤šå¯è¨­12æ¬¡ã€‚ 
+	 * 4. ç•¶PeriodTypeè¨­ç‚ºYæ™‚ï¼Œæœ€å¤šå¯è¨­1æ¬¡ã€‚
 	 * @return Frequency
 	 */
 	public String getFrequency() {
 		return Frequency;
 	}
 	/**
-	 * ³]©wFrequency °õ¦æÀW²v¡A¦¹°Ñ¼Æ¥Î¨Ó©w¸q¦h¤[­n°õ¦æ¤@¦¸
-	 * ª`·N¨Æ¶µ¡G 
-	 * 1. ¦Ü¤Ö­n¤j©óµ¥©ó1¦¸¥H¤W¡C 
-	 * 2. ·íPeriodType³]¬°D®É¡A³Ì¦h¥i³]365¦¸¡C 
-	 * 3. ·íPeriodType³]¬°M®É¡A³Ì¦h¥i³]12¦¸¡C 
-	 * 4. ·íPeriodType³]¬°Y®É¡A³Ì¦h¥i³]1¦¸¡C
+	 * è¨­å®šFrequency åŸ·è¡Œé »ç‡ï¼Œæ­¤åƒæ•¸ç”¨ä¾†å®šç¾©å¤šä¹…è¦åŸ·è¡Œä¸€æ¬¡
+	 * æ³¨æ„äº‹é …ï¼š 
+	 * 1. è‡³å°‘è¦å¤§æ–¼ç­‰æ–¼1æ¬¡ä»¥ä¸Šã€‚ 
+	 * 2. ç•¶PeriodTypeè¨­ç‚ºDæ™‚ï¼Œæœ€å¤šå¯è¨­365æ¬¡ã€‚ 
+	 * 3. ç•¶PeriodTypeè¨­ç‚ºMæ™‚ï¼Œæœ€å¤šå¯è¨­12æ¬¡ã€‚ 
+	 * 4. ç•¶PeriodTypeè¨­ç‚ºYæ™‚ï¼Œæœ€å¤šå¯è¨­1æ¬¡ã€‚
 	 * @param frequency
 	 */
 	public void setFrequency(String frequency) {
 		Frequency = frequency;
 	}
 	/**
-	 * ¨ú±oExecTimes °õ¦æ¦¸¼Æ¡AÁ`¦@­n°õ¦æ´X¦¸¡C
+	 * å–å¾—ExecTimes åŸ·è¡Œæ¬¡æ•¸ï¼Œç¸½å…±è¦åŸ·è¡Œå¹¾æ¬¡ã€‚
 	 * @return ExecTimes
 	 */
 	public String getExecTimes() {
 		return ExecTimes;
 	}
 	/**
-	 * ³]©wExecTimes °õ¦æ¦¸¼Æ¡AÁ`¦@­n°õ¦æ´X¦¸¡C
+	 * è¨­å®šExecTimes åŸ·è¡Œæ¬¡æ•¸ï¼Œç¸½å…±è¦åŸ·è¡Œå¹¾æ¬¡ã€‚
 	 * @param execTimes
 	 */
 	public void setExecTimes(String execTimes) {
 		ExecTimes = execTimes;
 	}
 	/**
-	 * ¨ú±oPeriodReturnURL ©w´Á©wÃBªº°õ¦æµ²ªG¦^À³URL¡A­Y¥æ©ö¬O«H¥Î¥d©w´Á©wÃBªº¤è¦¡¡A«h¨C¦¸°õ¦æ±ÂÅv§¹¡A·|±N±ÂÅvµ²ªG¦^¶Ç¨ì³o­Ó³]©wªºURL¡C
+	 * å–å¾—PeriodReturnURL å®šæœŸå®šé¡çš„åŸ·è¡Œçµæœå›æ‡‰URLï¼Œè‹¥äº¤æ˜“æ˜¯ä¿¡ç”¨å¡å®šæœŸå®šé¡çš„æ–¹å¼ï¼Œå‰‡æ¯æ¬¡åŸ·è¡Œæˆæ¬Šå®Œï¼Œæœƒå°‡æˆæ¬Šçµæœå›å‚³åˆ°é€™å€‹è¨­å®šçš„URLã€‚
 	 * @return PeriodReturnURL
 	 */
 	public String getPeriodReturnURL() {
 		return PeriodReturnURL;
 	}
 	/**
-	 * ³]©wPeriodReturnURL ©w´Á©wÃBªº°õ¦æµ²ªG¦^À³URL¡A­Y¥æ©ö¬O«H¥Î¥d©w´Á©wÃBªº¤è¦¡¡A«h¨C¦¸°õ¦æ±ÂÅv§¹¡A·|±N±ÂÅvµ²ªG¦^¶Ç¨ì³o­Ó³]©wªºURL¡C
+	 * è¨­å®šPeriodReturnURL å®šæœŸå®šé¡çš„åŸ·è¡Œçµæœå›æ‡‰URLï¼Œè‹¥äº¤æ˜“æ˜¯ä¿¡ç”¨å¡å®šæœŸå®šé¡çš„æ–¹å¼ï¼Œå‰‡æ¯æ¬¡åŸ·è¡Œæˆæ¬Šå®Œï¼Œæœƒå°‡æˆæ¬Šçµæœå›å‚³åˆ°é€™å€‹è¨­å®šçš„URLã€‚
 	 * @param periodReturnURL
 	 */
 	public void setPeriodReturnURL(String periodReturnURL) {
 		PeriodReturnURL = periodReturnURL;
 	}
 	/**
-	 * ¨ú±oStoreID ·|­û°Ó©±¥N½X¡A´£¨Ñ·|­û¶ñ¤J©±®a¥N½X¨Ï¥Î
+	 * å–å¾—StoreID æœƒå“¡å•†åº—ä»£ç¢¼ï¼Œæä¾›æœƒå“¡å¡«å…¥åº—å®¶ä»£ç¢¼ä½¿ç”¨
 	 * @return StoreID
 	 */
 	public String getStoreID() {
 		return StoreID;
 	}
 	/**
-	 * ³]©wStoreID ·|­û°Ó©±¥N½X¡A´£¨Ñ·|­û¶ñ¤J©±®a¥N½X¨Ï¥Î
+	 * è¨­å®šStoreID æœƒå“¡å•†åº—ä»£ç¢¼ï¼Œæä¾›æœƒå“¡å¡«å…¥åº—å®¶ä»£ç¢¼ä½¿ç”¨
 	 * @param storeID
 	 */
 	public void setStoreID(String storeID) {

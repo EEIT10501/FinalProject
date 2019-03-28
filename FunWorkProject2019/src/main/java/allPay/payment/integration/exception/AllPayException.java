@@ -14,7 +14,7 @@ public class AllPayException extends Error{
 	}
 	public void ShowExceptionMessage(){
 		
-		System.out.println("µo¥Í¿ù»~: " + getNewExceptionMessage());
+		System.out.println("ÂµoÂ¥ÃÂ¿Ã¹Â»~: " + getNewExceptionMessage());
 	}
 	
 }

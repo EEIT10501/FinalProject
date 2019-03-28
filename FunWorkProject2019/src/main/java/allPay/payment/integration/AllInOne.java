@@ -1,6 +1,5 @@
 package allPay.payment.integration;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -50,42 +50,39 @@ import allPay.payment.integration.verification.VerifyQueryTradeInfo;
 import allPay.payment.integration.verification.VerifyTradeNoAio;
 
 /**
- * ���\��L�i���O�����O
- * 
+ * 全功能無履約保證類別
  * @author mark.chiu
  *
  */
-public class AllInOne extends AllInOneBase {
-
+public class AllInOne extends AllInOneBase{
+	
 	private final static Logger log = Logger.getLogger(AllInOne.class.getName());
-
+	
 	/**
-	 * AllInOne Constructor �ѼƱa�Jlog4j.properties�����|�A�Y�a�J�Ŧr��h�w�]������log
-	 * 
+	 * AllInOne Constructor 
+	 * 參數帶入log4j.properties的路徑，若帶入空字串則預設不產生log
 	 * @param log4jPropertiesPath
-	 * @throws UnsupportedEncodingException 
 	 */
-	public AllInOne(String log4jPropertiesPath) throws UnsupportedEncodingException {
+	public AllInOne(String log4jPropertiesPath){
 		super();
-		if (log4jPropertiesPath != "" && log4jPropertiesPath != null) {
-			if (log4jPropertiesPath.substring(log4jPropertiesPath.length() - 1).equals("/"))
+		if(log4jPropertiesPath != "" && log4jPropertiesPath != null){
+			if(log4jPropertiesPath.substring(log4jPropertiesPath.length()-1).equals("/"))
 				PropertyConfigurator.configure(log4jPropertiesPath + "log4j.properties");
 			else
 				PropertyConfigurator.configure(log4jPropertiesPath + "/log4j.properties");
-		} else {
+		} else{
 			Logger.getRootLogger().setLevel(Level.OFF);
 		}
 	}
-
+	
 	/**
-	 * �ˬdHashtable�����ˬd�X�O�_���T(�T�O��ƥ��Q«��)
-	 * 
+	 * 檢查Hashtable中的檢查碼是否正確(確保資料未被竄改)
 	 * @param Hashtable params
-	 * @return boolean
+	 * @return boolean 
 	 */
-	public boolean compareCheckMacValue(Hashtable<String, String> params) {
+	public boolean compareCheckMacValue(Hashtable<String, String> params){
 		String checkMacValue = "";
-		if (!params.containsKey("CheckMacValue")) {
+		if(!params.containsKey("CheckMacValue")){
 			throw new AllPayException(ErrorMessage.HASHTABLE_WITHOUT_CHKMACVALUE);
 		}
 		try {
@@ -93,24 +90,23 @@ public class AllInOne extends AllInOneBase {
 		} catch (AllPayException e) {
 			throw new AllPayException(ErrorMessage.GEN_CHECK_MAC_VALUE_FAIL);
 		}
-		if (checkMacValue.equals(params.get("CheckMacValue"))) {
+		if(checkMacValue.equals(params.get("CheckMacValue"))){
 			return true;
-		} else {
+		} else{
 			return false;
 		}
 	}
-
+	
 	/**
-	 * �|���ӽм���/�h�ڪ���k
-	 * 
+	 * 會員申請撥款/退款的方法
 	 * @param captureObj
 	 * @return response string
 	 */
-	public String capture(CaptureObj captureObj) {
+	public String capture(CaptureObj captureObj){
 		captureObj.setPlatformID(PlatformID);
-		if (!PlatformID.isEmpty() && captureObj.getMerchantID().isEmpty()) {
+		if(!PlatformID.isEmpty() && captureObj.getMerchantID().isEmpty()){
 			captureObj.setMerchantID(MerchantID);
-		} else if (!PlatformID.isEmpty() && !captureObj.getMerchantID().isEmpty()) {
+		} else if(!PlatformID.isEmpty() && !captureObj.getMerchantID().isEmpty()){
 		} else {
 			captureObj.setMerchantID(MerchantID);
 		}
@@ -133,19 +129,18 @@ public class AllInOne extends AllInOneBase {
 		}
 		return result;
 	}
-
+	
 	/**
-	 * �U���H�Υd���ڹ�b����ɪ���k
-	 * 
+	 * 下載信用卡撥款對帳資料檔的方法
 	 * @param fundingReconDetailObj
 	 * @return response string
 	 */
-	public String fundingReconDetail(FundingReconDetailObj fundingReconDetailObj) {
+	public String fundingReconDetail(FundingReconDetailObj fundingReconDetailObj){
 		fundingReconDetailObj.setMerchantID(MerchantID);
 		log.info("fundingReconDetail params: " + fundingReconDetailObj.toString());
 		String result = "";
 		String CheckMacValue = "";
-		try {
+		try{
 			VerifyFundingReconDetail verify = new VerifyFundingReconDetail();
 			fundingReconDetailUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(fundingReconDetailObj);
@@ -157,29 +152,29 @@ public class AllInOne extends AllInOneBase {
 			List<String> subRE = new ArrayList<String>();
 			Pattern pattern = Pattern.compile("\\d{8}\\,\\d{6}\\,\\d{5}");
 			Matcher matcher = pattern.matcher(result);
-			while (matcher.find()) {
+			while(matcher.find()){
 				subRE.add(matcher.group());
 			}
 			pattern = Pattern.compile("\\,+\\u6bcf\\u65e5\\u5c0f\\u8a08");
 			matcher = pattern.matcher(result);
-			while (matcher.find()) {
+			while(matcher.find()){
 				subRE.add(matcher.group());
 				break;
 			}
 			pattern = Pattern.compile("\\,+\\u5408\\u8a08");
 			matcher = pattern.matcher(result);
-			while (matcher.find()) {
+			while(matcher.find()){
 				subRE.add(matcher.group());
 				break;
 			}
 			pattern = Pattern.compile("\\u6388\\u6b0a\\u55ae\\u865f");
 			matcher = pattern.matcher(result);
-			while (matcher.find()) {
+			while(matcher.find()){
 				subRE.add(matcher.group());
 				break;
 			}
-			for (String tmp : subRE) {
-				result = result.replace(tmp, "\r\n" + tmp);
+			for(String tmp : subRE){
+				result = result.replace(tmp, "\r\n"+tmp);
 			}
 			result = result.substring(2);
 		} catch (AllPayException e2) {
@@ -189,25 +184,24 @@ public class AllInOne extends AllInOneBase {
 		}
 		return result;
 	}
-
+	
 	/**
-	 * �|���q���h�ڪ���k
-	 * 
+	 * 會員通知退款的方法
 	 * @param aioChargebackObj
 	 * @return response string
 	 */
-	public String aioChargeback(AioChargebackObj aioChargebackObj) {
+	public String aioChargeback(AioChargebackObj aioChargebackObj){
 		aioChargebackObj.setPlatformID(PlatformID);
-		if (!PlatformID.isEmpty() && aioChargebackObj.getMerchantID().isEmpty()) {
+		if(!PlatformID.isEmpty() && aioChargebackObj.getMerchantID().isEmpty()){
 			aioChargebackObj.setMerchantID(MerchantID);
-		} else if (!PlatformID.isEmpty() && !aioChargebackObj.getMerchantID().isEmpty()) {
+		} else if(!PlatformID.isEmpty() && !aioChargebackObj.getMerchantID().isEmpty()){
 		} else {
 			aioChargebackObj.setMerchantID(MerchantID);
 		}
 		log.info("aioChargeback params: " + aioChargebackObj.toString());
 		String result = "";
 		String CheckMacValue = "";
-		try {
+		try{
 			VerifyAioChargeback verify = new VerifyAioChargeback();
 			aioChargebackUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(aioChargebackObj);
@@ -223,14 +217,13 @@ public class AllInOne extends AllInOneBase {
 		}
 		return result;
 	}
-
+	
 	/**
-	 * �d�߫H�Υd�浧���ӰO������k
-	 * 
+	 * 查詢信用卡單筆明細記錄的方法
 	 * @param queryTradeObj
 	 * @return response string
 	 */
-	public String queryTrade(QueryTradeObj queryTradeObj) {
+	public String queryTrade(QueryTradeObj queryTradeObj){
 		queryTradeObj.setMerchantID(MerchantID);
 		log.info("queryTrade params: " + queryTradeObj.toString());
 		String result = "";
@@ -251,19 +244,18 @@ public class AllInOne extends AllInOneBase {
 		}
 		return result;
 	}
-
+	
 	/**
-	 * �U���|����b�C���ɪ���k
-	 * 
+	 * 下載會員對帳媒體檔的方法
 	 * @param tradeNoAioObj
 	 * @return response string
 	 */
-	public String tradeNoAio(TradeNoAioObj tradeNoAioObj) {
+	public String tradeNoAio(TradeNoAioObj tradeNoAioObj){
 		tradeNoAioObj.setMerchantID(MerchantID);
 		log.info("tradeNoAio params: " + tradeNoAioObj.toString());
 		String result = "";
 		String CheckMacValue = "";
-		try {
+		try{
 			VerifyTradeNoAio verify = new VerifyTradeNoAio();
 			tradeNoAioUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(tradeNoAioObj);
@@ -273,24 +265,24 @@ public class AllInOne extends AllInOneBase {
 			log.info("tradeNoAio post String: " + httpValue);
 			result = AllPayFunction.httpPost(tradeNoAioUrl, httpValue, "BIG5");
 			List<String> subRE = new ArrayList<String>();
-			if (tradeNoAioObj.getMediaFormated().equals("0")) {
+			if(tradeNoAioObj.getMediaFormated().equals("0")){
 				Pattern pattern = Pattern.compile("\\d{4}\\-\\d{2}\\-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d{16}");
 				Matcher matcher = pattern.matcher(result);
-				while (matcher.find()) {
+				while(matcher.find()){
 					subRE.add(matcher.group());
 				}
-				for (String tmp : subRE) {
-					result = result.replace(tmp, "\r\n" + tmp);
+				for(String tmp : subRE){
+					result = result.replace(tmp, "\r\n"+tmp);
 				}
-			} else if (tradeNoAioObj.getMediaFormated().equals("1")) {
+			} else if(tradeNoAioObj.getMediaFormated().equals("1")){
 				result = result.replace("=", "");
 				Pattern pattern = Pattern.compile("\"\\d{4}\\/\\d{2}\\/\\d{2} \\d{2}:\\d{2}:\\d{2}\"");
 				Matcher matcher = pattern.matcher(result);
-				while (matcher.find()) {
+				while(matcher.find()){
 					subRE.add(matcher.group());
 				}
-				for (String tmp : subRE) {
-					result = result.replace(tmp, "\r\n" + tmp);
+				for(String tmp : subRE){
+					result = result.replace(tmp, "\r\n"+tmp);
 				}
 			}
 		} catch (AllPayException e2) {
@@ -300,18 +292,17 @@ public class AllInOne extends AllInOneBase {
 		}
 		return result;
 	}
-
+	
 	/**
-	 * �H�Υd���b/�h��/����/��󪺤�k
-	 * 
+	 * 信用卡關帳/退刷/取消/放棄的方法
 	 * @param doActionObj
 	 * @return response string
 	 */
-	public String doAction(DoActionObj doActionObj) {
+	public String doAction(DoActionObj doActionObj){
 		doActionObj.setPlatformID(PlatformID);
-		if (!PlatformID.isEmpty() && doActionObj.getMerchantID().isEmpty()) {
+		if(!PlatformID.isEmpty() && doActionObj.getMerchantID().isEmpty()){
 			doActionObj.setMerchantID(MerchantID);
-		} else if (!PlatformID.isEmpty() && !doActionObj.getMerchantID().isEmpty()) {
+		} else if(!PlatformID.isEmpty() && !doActionObj.getMerchantID().isEmpty()){
 		} else {
 			doActionObj.setMerchantID(MerchantID);
 		}
@@ -331,21 +322,20 @@ public class AllInOne extends AllInOneBase {
 			e2.ShowExceptionMessage();
 			log.error(e2.getNewExceptionMessage());
 			throw new AllPayException(e2.getNewExceptionMessage());
-		}
+		} 
 		return result;
 	}
-
+	
 	/**
-	 * �d�߭q���ƪ���k
-	 * 
+	 * 查詢訂單資料的方法
 	 * @param queryTradeInfoObj
 	 * @return response string
 	 */
-	public String queryTradeInfo(QueryTradeInfoObj queryTradeInfoObj) {
+	public String queryTradeInfo(QueryTradeInfoObj queryTradeInfoObj){
 		queryTradeInfoObj.setPlatformID(PlatformID);
-		if (!PlatformID.isEmpty() && queryTradeInfoObj.getMerchantID().isEmpty()) {
+		if(!PlatformID.isEmpty() && queryTradeInfoObj.getMerchantID().isEmpty()){
 			queryTradeInfoObj.setMerchantID(MerchantID);
-		} else if (!PlatformID.isEmpty() && !queryTradeInfoObj.getMerchantID().isEmpty()) {
+		} else if(!PlatformID.isEmpty() && !queryTradeInfoObj.getMerchantID().isEmpty()){
 		} else {
 			queryTradeInfoObj.setMerchantID(MerchantID);
 		}
@@ -369,10 +359,9 @@ public class AllInOne extends AllInOneBase {
 		}
 		return result;
 	}
-
+	
 	/**
-	 * �H�Υd�w���w�B�q��d��
-	 * 
+	 * 信用卡定期定額訂單查詢
 	 * @param queryCreditCardPeriodInfoObj
 	 * @return response JSON string
 	 */
@@ -398,136 +387,145 @@ public class AllInOne extends AllInOneBase {
 		}
 		return result;
 	}
-
+	
+	
 	/**
-	 * ���ͭq��Html Form����k
-	 * 
-	 * @param obj AioCheckOut����������
+	 * 產生訂單Html Form的方法
+	 * @param obj AioCheckOut類型的物件
 	 * @return String
 	 */
-	public String aioCheckOut(Object obj) {
+	public String aioCheckOut(Object obj){
 		StringBuilder out = new StringBuilder();
 		String ignoreParam = "";
-		if (obj instanceof AioCheckOutALL) {
+		if(obj instanceof AioCheckOutALL){
 			((AioCheckOutALL) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutALL) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutALL) obj).getMerchantID().isEmpty()){
 				((AioCheckOutALL) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutALL) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutALL) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutALL) obj).setMerchantID(MerchantID);
 			}
-
-			if (ignorePayment.length > 0) {
+			
+			if(ignorePayment.length > 0){
 				ignoreParam = Arrays.toString(ignorePayment);
 				ignoreParam = ignoreParam.replaceAll(", ", "#");
-				ignoreParam = ignoreParam.substring(1, ignoreParam.length() - 1);
+				ignoreParam = ignoreParam.substring(1, ignoreParam.length()-1);
 				((AioCheckOutALL) obj).setIgnorePayment(ignoreParam);
 			}
 			log.info("aioCheckOutALL params: " + ((AioCheckOutALL) obj).toString());
-		} else if (obj instanceof AioCheckOutAccountLink) {
+		} else if(obj instanceof AioCheckOutAccountLink){
 			((AioCheckOutAccountLink) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutAccountLink) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutAccountLink) obj).getMerchantID().isEmpty()){
 				((AioCheckOutAccountLink) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutAccountLink) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutAccountLink) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutAccountLink) obj).setMerchantID(MerchantID);
 			}
+//<<<<<<< HEAD
+			
+//=======
+//			((AioCheckOutAccountLink) obj).setInvoiceMark(invoice == null? "N" : "Y");
+//>>>>>>> c4232d7404d4ce3918d095abfc0dbf74f29dda88
 			log.info("aioCheckOutAccountLink params: " + ((AioCheckOutAccountLink) obj).toString());
-		} else if (obj instanceof AioCheckOutWeiXinpay) {
+		} else if(obj instanceof AioCheckOutWeiXinpay){
 			((AioCheckOutWeiXinpay) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutWeiXinpay) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutWeiXinpay) obj).getMerchantID().isEmpty()){
 				((AioCheckOutWeiXinpay) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutWeiXinpay) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutWeiXinpay) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutWeiXinpay) obj).setMerchantID(MerchantID);
 			}
-
+//<<<<<<< HEAD
+//			
+//=======
+//			((AioCheckOutWeiXinpay) obj).setInvoiceMark(invoice == null? "N" : "Y");
+//>>>>>>> c4232d7404d4ce3918d095abfc0dbf74f29dda88
 			log.info("aioCheckOutWeiXinpay params: " + ((AioCheckOutWeiXinpay) obj).toString());
-		} else if (obj instanceof AioCheckOutTopUpUsed) {
+		}else if(obj instanceof AioCheckOutTopUpUsed){
 			((AioCheckOutTopUpUsed) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutTopUpUsed) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutTopUpUsed) obj).getMerchantID().isEmpty()){
 				((AioCheckOutTopUpUsed) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutTopUpUsed) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutTopUpUsed) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutTopUpUsed) obj).setMerchantID(MerchantID);
 			}
-
+			
 			log.info("aioCheckOutTopUpUsed params: " + ((AioCheckOutTopUpUsed) obj).toString());
-		} else if (obj instanceof AioCheckOutATM) {
+		}else if(obj instanceof AioCheckOutATM){
 			((AioCheckOutATM) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutATM) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutATM) obj).getMerchantID().isEmpty()){
 				((AioCheckOutATM) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutATM) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutATM) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutATM) obj).setMerchantID(MerchantID);
 			}
-
+			
 			log.info("aioCheckOutATM params: " + ((AioCheckOutATM) obj).toString());
-		} else if (obj instanceof AioCheckOutCVS) {
+		} else if(obj instanceof AioCheckOutCVS){
 			((AioCheckOutCVS) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutCVS) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutCVS) obj).getMerchantID().isEmpty()){
 				((AioCheckOutCVS) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutCVS) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutCVS) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutCVS) obj).setMerchantID(MerchantID);
 			}
-
+			
 			String TotalAmount = ((AioCheckOutCVS) obj).getTotalAmount();
-			if (Integer.parseInt(TotalAmount) < 27 || Integer.parseInt(TotalAmount) > 20000) {
+			if(Integer.parseInt(TotalAmount) < 27 || Integer.parseInt(TotalAmount) > 20000){
 				throw new AllPayException(ErrorMessage.CVS_TOTALAMT_ERROR);
 			}
 			log.info("aioCheckOutCVS params: " + ((AioCheckOutCVS) obj).toString());
-		} else if (obj instanceof AioCheckOutDevide) {
+		} else if(obj instanceof AioCheckOutDevide){
 			((AioCheckOutDevide) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutDevide) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutDevide) obj).getMerchantID().isEmpty()){
 				((AioCheckOutDevide) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutDevide) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutDevide) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutDevide) obj).setMerchantID(MerchantID);
 			}
-
+			
 			log.info("aioCheckOutDevide params: " + ((AioCheckOutDevide) obj).toString());
-		} else if (obj instanceof AioCheckOutOneTime) {
+		} else if(obj instanceof AioCheckOutOneTime){
 			((AioCheckOutOneTime) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutOneTime) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutOneTime) obj).getMerchantID().isEmpty()){
 				((AioCheckOutOneTime) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutOneTime) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutOneTime) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutOneTime) obj).setMerchantID(MerchantID);
 			}
-
+			
 			log.info("aioCheckOutOneTime params: " + ((AioCheckOutOneTime) obj).toString());
-		} else if (obj instanceof AioCheckOutPeriod) {
+		} else if(obj instanceof AioCheckOutPeriod){
 			((AioCheckOutPeriod) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutPeriod) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutPeriod) obj).getMerchantID().isEmpty()){
 				((AioCheckOutPeriod) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutPeriod) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutPeriod) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutPeriod) obj).setMerchantID(MerchantID);
 			}
-
+			
 			log.info("aioCheckOutPeriod params: " + ((AioCheckOutPeriod) obj).toString());
-		} else if (obj instanceof AioCheckOutTenpay) {
+		} else if(obj instanceof AioCheckOutTenpay){
 			((AioCheckOutTenpay) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutTenpay) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutTenpay) obj).getMerchantID().isEmpty()){
 				((AioCheckOutTenpay) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutTenpay) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutTenpay) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutTenpay) obj).setMerchantID(MerchantID);
 			}
-
+			
 			log.info("aioCheckOutTenpay params: " + ((AioCheckOutTenpay) obj).toString());
-		} else if (obj instanceof AioCheckOutWebATM) {
+		} else if(obj instanceof AioCheckOutWebATM){
 			((AioCheckOutWebATM) obj).setPlatformID(PlatformID);
-			if (!PlatformID.isEmpty() && ((AioCheckOutWebATM) obj).getMerchantID().isEmpty()) {
+			if(!PlatformID.isEmpty() && ((AioCheckOutWebATM) obj).getMerchantID().isEmpty()){
 				((AioCheckOutWebATM) obj).setMerchantID(MerchantID);
-			} else if (!PlatformID.isEmpty() && !((AioCheckOutWebATM) obj).getMerchantID().isEmpty()) {
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutWebATM) obj).getMerchantID().isEmpty()){
 			} else {
 				((AioCheckOutWebATM) obj).setMerchantID(MerchantID);
 			}
-
+			
 			log.info("aioCheckOutWebATM params: " + ((AioCheckOutWebATM) obj).toString());
-		} else {
+		} else{
 			throw new AllPayException(ErrorMessage.UNDIFINED_OBJECT);
 		}
 		try {
@@ -542,23 +540,20 @@ public class AllInOne extends AllInOneBase {
 		}
 		return out.toString();
 	}
-
+	
 	/**
-	 * ATM,
-	 * CVS�������G�q����k�A�����ǰe��PaymentInfoURL����ơC�^�Ǫ������ATMRequestObj,
-	 * CVSRequestObj�G�ءA�ХξA������ӱ��H�K�X��
-	 * 
+	 * ATM, CVS取號結果通知方法，接收傳送至PaymentInfoURL的資料。回傳物件分為ATMRequestObj, CVSRequestObj二種，請用適當的物件承接以免出錯
 	 * @param req
 	 * @return obj
 	 */
-	public Object aioCheckOutFeedback(HttpServletRequest req) {
+	public Object aioCheckOutFeedback(HttpServletRequest req){
 		List<String> parameterNames = new ArrayList<String>(req.getParameterMap().keySet());
-		if (parameterNames.contains("BankCode")) {
+		if(parameterNames.contains("BankCode")){
 			ATMRequestObj obj = new ATMRequestObj();
-			for (String name : parameterNames) {
+			for(String name: parameterNames){
 				Method method;
 				try {
-					method = obj.getClass().getMethod("set" + name, null);
+					method = obj.getClass().getMethod("set"+name, null);
 					method.invoke(obj, req.getParameter(name));
 				} catch (Exception e) {
 					throw new AllPayException(ErrorMessage.OBJ_MISSING_FIELD);
@@ -566,19 +561,18 @@ public class AllInOne extends AllInOneBase {
 			}
 			log.info("ATMRequest params: " + obj.toString());
 			String checkMacValue = AllPayFunction.genCheckMacValue(HashKey, HashIV, obj);
-			log.info("ATMRequest self generate CheckMacValue: " + checkMacValue + ", received CheckMacValue: "
-					+ obj.getCheckMacValue());
-			if (!checkMacValue.equals(obj.getCheckMacValue())) {
+			log.info("ATMRequest self generate CheckMacValue: " + checkMacValue + ", received CheckMacValue: " + obj.getCheckMacValue());
+			if(!checkMacValue.equals(obj.getCheckMacValue())){
 				log.error(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
 				throw new AllPayException(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
 			}
 			return obj;
-		} else {
+		}else{
 			CVSRequestObj obj = new CVSRequestObj();
-			for (String name : parameterNames) {
+			for(String name: parameterNames){
 				Method method;
 				try {
-					method = obj.getClass().getMethod("set" + name, null);
+					method = obj.getClass().getMethod("set"+name, null);
 					method.invoke(obj, req.getParameter(name));
 				} catch (Exception e) {
 					throw new AllPayException(ErrorMessage.OBJ_MISSING_FIELD);
@@ -586,19 +580,17 @@ public class AllInOne extends AllInOneBase {
 			}
 			log.info("CVSRequest params: " + obj.toString());
 			String checkMacValue = AllPayFunction.genCheckMacValue(HashKey, HashIV, obj);
-			log.info("CVSRequest self generate CheckMacValue: " + checkMacValue + ", received CheckMacValue: "
-					+ obj.getCheckMacValue());
-			if (!checkMacValue.equals(obj.getCheckMacValue())) {
+			log.info("CVSRequest self generate CheckMacValue: " + checkMacValue + ", received CheckMacValue: " + obj.getCheckMacValue());
+			if(!checkMacValue.equals(obj.getCheckMacValue())){
 				log.error(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
 				throw new AllPayException(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
 			}
 			return obj;
 		}
 	}
-
+	
 	/**
-	 * ����HTML code
-	 * 
+	 * 產生HTML code
 	 * @param aio object
 	 * @return string
 	 */
@@ -610,10 +602,9 @@ public class AllInOne extends AllInOneBase {
 		fieldValue.put("CheckMacValue", CheckMacValue);
 		Set<String> key = fieldValue.keySet();
 		String name[] = key.toArray(new String[key.size()]);
-		builder.append("<form id=\"allPayAPIForm\" action=\"" + aioCheckOutUrl + "\" method=\"post\">");
-		for (int i = 0; i < name.length; i++) {
-			builder.append(
-					"<input type=\"hidden\" name=\"" + name[i] + "\" value=\"" + fieldValue.get(name[i]) + "\">");
+		builder.append("<form id=\"allPayAPIForm\" action=\""+ aioCheckOutUrl + "\" method=\"post\">");
+		for(int i = 0 ; i < name.length ; i++) {
+			builder.append("<input type=\"hidden\" name=\""+name[i]+"\" value=\""+fieldValue.get(name[i])+"\">");
 		}
 		builder.append("<script language=\"JavaScript\">");
 		builder.append("allPayAPIForm.submit()");

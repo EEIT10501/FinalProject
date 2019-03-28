@@ -208,7 +208,7 @@
   <QueryTradeInfo>
     <ServiceAddress>
         <url type="Production">https://payment.opay.tw/Cashier/QueryTradeInfo/V4</url>
-        <url type="Test">https://payment-stage.opay.tw/Cashier/QueryTradeInfo/V4</url>
+        <url type="Test">https://payment-stage.opay.tw/Cashier/QueryTradeInfo/V5</url>
     </ServiceAddress>
     <Config>
         <switchparam>

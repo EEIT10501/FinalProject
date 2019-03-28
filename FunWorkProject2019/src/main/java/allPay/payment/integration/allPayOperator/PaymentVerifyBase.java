@@ -14,7 +14,6 @@ import allPay.payment.integration.exception.AllPayException;
 
 public class PaymentVerifyBase{
 	protected String confPath = "/allPay/payment/integration/config/AllpayPayment.xml";
-//	/FunWorkProject2019/src/main/java/allPay/payment/integration/config/AllpayPayment.xml
 	protected Document doc;
 	public PaymentVerifyBase(){
 		URL fileURL = this.getClass().getResource(confPath);
@@ -24,7 +23,7 @@ public class PaymentVerifyBase{
 	
 	protected void requireCheck(String FieldName, String objValue, String require){
 		if(require.equals("1") && objValue.isEmpty())
-			throw new AllPayException(FieldName+"������");
+			throw new AllPayException(FieldName+"為必填");
 	}
 	
 	protected void valueCheck(String type, String objValue, Element ele){
@@ -56,13 +55,13 @@ public class PaymentVerifyBase{
 			}
 			int value = Integer.valueOf(objValue);
 			if(mode.equals("GE") && value < Integer.valueOf(minimum)){
-				throw new AllPayException(ele.getAttribute("name")+"����p��"+minimum);
+				throw new AllPayException(ele.getAttribute("name")+"不能小於"+minimum);
 			} else if(mode.equals("LE") && value > Integer.valueOf(maximum)){
-				throw new AllPayException(ele.getAttribute("name")+"����j��"+maximum);
+				throw new AllPayException(ele.getAttribute("name")+"不能大於"+maximum);
 			} else if(mode.equals("BETWEEN") && value < Integer.valueOf(minimum) && value > Integer.valueOf(maximum)){
-				throw new AllPayException(ele.getAttribute("name")+"��������"+minimum+"�M"+maximum+"����");
+				throw new AllPayException(ele.getAttribute("name")+"必須介於"+minimum+"和"+maximum+"之間");
 			} else if(mode.equals("EXCLUDE") && value >= Integer.valueOf(minimum) && value <= Integer.valueOf(maximum)){
-				throw new AllPayException(ele.getAttribute("name")+"�����p��"+minimum+"�Τj��"+maximum);
+				throw new AllPayException(ele.getAttribute("name")+"必須小於"+minimum+"或大於"+maximum);
 			}
 		} else if(type.equals("DepOpt")){
 			// TODO

@@ -11,6 +11,8 @@ public interface OrderService {
   List<Product> getAllProducts();
 
   Order insertOrder(Order order);
+  
+  Order insertOrder(Order order,Integer rtncode);
 
   Order getOrderByTradeNo(String orderTradeNo);
 

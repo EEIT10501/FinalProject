@@ -86,50 +86,9 @@ public class OrderController {
   public String orderReturn(Model model, HttpServletRequest req) {
     Order order = orderService.getOrderByTradeNo(req.getParameter(MERCHANT_TRADE_NO));
     order.setStatus(Integer.valueOf(req.getParameter("RtnCode")));
-    orderService.insertOrder(order);
+    orderService.insertOrder(order,Integer.valueOf(req.getParameter("RtnCode")));
 
-    if (req.getParameter("RtnCode").equals("1")) {
-      User user = order.getUser();
-
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-      Calendar cal = Calendar.getInstance();
-      Date date = new Date();
-      cal.setTime(date);
-      if (order.getProduct().getProductId() == 1) {
-        cal.add(Calendar.DATE, 30);
-      } else if (order.getProduct().getProductId() == 2) {
-        cal.add(Calendar.DATE, 180);
-        user.setExposureLimit(2);
-      } else if (order.getProduct().getProductId() == 3) {
-        cal.add(Calendar.DATE, 365);
-        user.setExposureLimit(5);
-      }
-
-      if (user.getVipEndDate() == null) {
-        user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
-      } else if (user.getVipEndDate().before(java.sql.Date.valueOf(sdf.format(date)))) {
-        user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
-      } else {
-        cal.setTime(user.getVipEndDate());
-        if (order.getProduct().getProductId() == 1) {
-          cal.add(Calendar.DATE, 30);
-          user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
-        } else if (order.getProduct().getProductId() == 2) {
-          cal.add(Calendar.DATE, 180);
-          user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
-          user.setExposureLimit(2);
-        } else if (order.getProduct().getProductId() == 3) {
-          cal.add(Calendar.DATE, 365);
-          user.setVipEndDate(java.sql.Date.valueOf(sdf.format(cal.getTime())));
-          user.setExposureLimit(5);
-        }
-
-      }
-      user.setJobPostLimit(99);
-      user.setJobPostPeriod(365);
-      user.setMebershipLevel(2);
-      userService.updateUser(user);
-    }
+    
 
     model.addAttribute(order);
 
@@ -141,13 +100,7 @@ public class OrderController {
    */
   @PostMapping(value = "/orderSave", produces = "text/html;charset=UTF-8")
   public @ResponseBody String aioCheckOutDevide(AioCheckOutOneTime aio, HttpServletRequest req) {
-    try {
-      all = new AllInOne("");
-    } catch (UnsupportedEncodingException e1) {
-      logger.warning(e1.getMessage());
-    }
-    // InvoiceObj invoice = new InvoiceObj();
-    // invoice = null;// 不開發票
+    all = new AllInOne("");
 
     // aio.setMerchantID("2000132");
     aio.setMerchantTradeNo(req.getParameter(MERCHANT_TRADE_NO));
@@ -155,8 +108,8 @@ public class OrderController {
     aio.setTotalAmount(req.getParameter("TotalAmount"));
     aio.setTradeDesc(req.getParameter("TradeDesc"));
     aio.setItemName(req.getParameter("ItemName"));
-    aio.setReturnURL("http://localhost:8080/FunWorkProject2019/orderReturn");
-    aio.setOrderResultURL("http://localhost:8080/FunWorkProject2019/orderReturn");
+    aio.setReturnURL("http://eeit10507.southeastasia.cloudapp.azure.com:8080/FunWorkProject2019/orderReturn");
+    aio.setOrderResultURL("http://eeit10507.southeastasia.cloudapp.azure.com:8080/FunWorkProject2019/orderReturn");
 
     try {
       return all.aioCheckOut(aio);
