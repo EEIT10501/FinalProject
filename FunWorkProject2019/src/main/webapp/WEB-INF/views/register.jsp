@@ -93,20 +93,11 @@
 										</button>
 									</div>
 									<div class="modal-body"><h4>註冊成功請至信箱進行帳號驗證</h4></div>
-<!-- 									<div class="modal-footer"> -->
-<!-- 										<button type="button" class="btn btn-secondary" -->
-<!-- 											data-dismiss="modal">Close</button> -->
-										<!--         <button type="button" class="btn btn-primary">Save changes</button> -->
-<!-- 									</div> -->
+
 								</div>
 							</div>
 						</div>
-						<!-- 						<div class="form-group row"> -->
-						<!-- 							<div class="col-sm"> -->
-						<!-- 								<input type="submit" class="btn btn-primary" id="submit" value="註冊" />  -->
-						<!-- 								<input type="reset" class="btn btn-danger" id="cancel" value="重填"> -->
-						<!-- 							</div> -->
-						<!-- 						</div> -->
+
 					</fieldset>
 				</form>
 			</div>
@@ -121,26 +112,12 @@
 	</div>
 	<script>
 			function keyinAll(){
-				document.getElementById("email").value="saber7818@hotmail.com";
+				document.getElementById("email").value="eeit10501@outlook.com";
 				document.getElementById("name").value="主克伯";
 				document.getElementById("pwd1").value="Asd321";
 				document.getElementById("pwd2").value="Asd321";
 			}
 			
-	
-	
-// 		    function formCheck() {
-// 			var pwd1 = document.getElementById("pwd1").value;
-// 			var pwd2 = document.getElementById("pwd2").value;
-// 			if (pwd1 != pwd2) {
-// 				alert("密碼輸入不一致,請重新輸入");
-// 				return false;
-// 			} else {
-// 				alert("註冊成功請至信箱進行帳號驗證")
-// 				return true;
-// 			}
-
-// 		}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script
