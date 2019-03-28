@@ -198,12 +198,27 @@
 			
 			function createMsg(userId,name,msg,timeStr){
 			    var imgTr = $("<td>").html("<img width='50' height='50' src='<c:url value='/getPicture/" + userId + "'/>' />")
+			    
+			    if(userId==toUserId){
+			    	 $("<tr>").appendTo("#msg")
+		                .append(imgTr)
+		                .append($("<td>").text(name + "：" + msg))
+		                .append($("<td>").text(timeStr))
+		                .append($("<td>"));
+			    	
+			    }else{
+			    	$("<tr>").appendTo("#msg")
+			    	.append($("<td>"))
+	                .append($("<td>").text(timeStr))                
+	                .append($("<td>").text(name + "：" + msg))
+	                .append(imgTr)
+	                
+	                
+	                
+			    	
+			    }
                 
-                $("<tr>").appendTo("#msg")
-                .append(imgTr)
-                .append($("<td width='50'>"))
-                .append($("<td width='620px'>").text(name + "：" + msg))
-                .append($("<td>").text(timeStr));
+                
                   
                 $("#myDiv").scrollTop(10000);
 			}
