@@ -1,21 +1,15 @@
 package com.funwork.dao;
 
-import java.util.List;
-
 import com.funwork.model.City;
+import java.util.List;
 
 public interface CityDao {
 
-	List<City> getAllCitys();
+  List<City> getCityName(Integer cityId);
 
-	List<City> getCityName(Integer cityId);
+  String getCityNameList(String cityArea);
 
-	List<String> getCityAreaList();
+  City getCityByCityName(String cityName);
 
-	String getCityNameList(String cityArea);
-	
-	City getCityByCityName(String cityName);
-	
-	City getCityByPk(Integer cityId);
-
+  City getCityByPk(Integer cityId);
 }

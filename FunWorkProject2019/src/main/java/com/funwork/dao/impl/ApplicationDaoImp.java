@@ -1,38 +1,26 @@
 package com.funwork.dao.impl;
 
+import com.funwork.dao.ApplicationDao;
+import com.funwork.model.Application;
+import com.funwork.model.Job;
+import com.funwork.model.User;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.funwork.dao.ApplicationDao;
-import com.funwork.model.Application;
-import com.funwork.model.Job;
-import com.funwork.model.User;
-
 @Repository
 public class ApplicationDaoImp implements ApplicationDao {
-
+  private static final String USERID = "userId";
   @Autowired
   SessionFactory factory;
 
   @Override
   public Application findByPrimaryKey(int key) {
     Session session = factory.getCurrentSession();
-    Application application = session.get(Application.class, key);
-    return application;
-  }
-
-  @Override
-  public Application findByDate(Date applicationTime) {
-    Session session = factory.getCurrentSession();
-    String hql = "FROM Application WHERE applicationTime =:applicationTime";
-//		session.createQuery(hql)
-    return null;
+    return session.get(Application.class, key);
   }
 
   @Override
@@ -50,20 +38,10 @@ public class ApplicationDaoImp implements ApplicationDao {
   }
 
   @Override
-  public void saveApplication(Application application) {
-    Session session = factory.getCurrentSession();
-  }
-
-  @Override
   public void updateApplication(Application application) {
     Session session = factory.getCurrentSession();
     Application app = session.get(Application.class, application.getApplicationId());
     app.setAppliedStatus("已邀約");
-  }
-
-  @Override
-  public void deleteApplicationByPrimaryKey(int key) {
-    Session session = factory.getCurrentSession();
   }
 
   @SuppressWarnings("unchecked")
@@ -74,25 +52,16 @@ public class ApplicationDaoImp implements ApplicationDao {
     return session.createQuery(hql).setParameter("job", job).getResultList();
   }
 
-  @Override
-  public void deleteAllApplications() {
-    Session session = factory.getCurrentSession();
-  }
-
-  @Override
-  public boolean isApplicationExist(Application application) {
-    Session session = factory.getCurrentSession();
-    return false;
-  }
-
   @SuppressWarnings("unchecked")
   @Override
   public List<Application> getApplicationByUserId(Integer userId) {
     Session session = factory.getCurrentSession();
-    String hql = "FROM Application a WHERE (a.user.userId = :userId OR a.job.jobOwner.userId = :userId2) and a.latestMsg IS NOT NULL ORDER BY a.latestMsgTime DESC";
-    List<Application> list = session.createQuery(hql).setParameter("userId", userId).setParameter("userId2", userId)
-        .getResultList();
-    return list;
+    String hql = "FROM Application a WHERE (a.user.userId = :userId "
+        + "OR a.job.jobOwner.userId = :userId2) and a.latestMsg IS NOT NULL " 
+        + "ORDER BY a.latestMsgTime DESC";
+
+    return session.createQuery(hql).setParameter(USERID, userId)
+        .setParameter("userId2", userId).getResultList();
   }
 
   @Override
@@ -108,9 +77,9 @@ public class ApplicationDaoImp implements ApplicationDao {
   public List<Application> getApplicationByUserIdByTime(Integer userId) {
 
     Session session = factory.getCurrentSession();
-    String hql = "FROM Application a WHERE (a.user.userId = :userId)" + "ORDER BY a.applicationTime ";
-    List<Application> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
-    return list;
+    String hql = "FROM Application a WHERE (a.user.userId = :userId)" 
+        + "ORDER BY a.applicationTime ";
+    return session.createQuery(hql).setParameter(USERID, userId).getResultList();
   }
 
   @Override
@@ -122,21 +91,12 @@ public class ApplicationDaoImp implements ApplicationDao {
 
   @SuppressWarnings("unchecked")
   @Override
-  public List<Application> findAllApplications(Integer userId) {
-    Session session = factory.getCurrentSession();
-    String hql = "FROM Application WHERE job.jobOwner.userId = :userId";
-    List<Application> list = session.createQuery(hql).setParameter("userId", userId).getResultList();
-    return list;
-  }
-
-  @SuppressWarnings("unchecked")
-  @Override
   public List<Application> findByJobId(Integer jobId) {
     Session session = factory.getCurrentSession();
     String hql = "FROM Application a WHERE a.job.jobId = :jobId";
-    if (session.createQuery(hql).setParameter("jobId", jobId).getResultList().size() != 0) {
 
-      List<Application> list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+    List<Application> list = session.createQuery(hql).setParameter("jobId", jobId).getResultList();
+    if (!list.isEmpty()) {
       return list;
     } else {
       return null;
@@ -149,8 +109,9 @@ public class ApplicationDaoImp implements ApplicationDao {
     Application application = null;
     Session session = factory.getCurrentSession();
     String hql = "FROM Application a WHERE a.job.jobId = :jobId AND a.user.userId = :userId";
-    List<Application> list = session.createQuery(hql)
-        .setParameter("jobId", jobId).setParameter("userId", userId).getResultList();
+    List<Application> list = session.createQuery(hql).setParameter("jobId", jobId)
+        .setParameter(USERID, userId)
+        .getResultList();
     if (!list.isEmpty()) {
       application = list.get(0);
     }

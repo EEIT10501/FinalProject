@@ -293,5 +293,4 @@ public class JobServiceImpl implements JobService {
   public void updateJobByExpired() {
     jobDao.updateJobByExpired();
   }
-
 }

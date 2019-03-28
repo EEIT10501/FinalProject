@@ -17,92 +17,84 @@ import org.hibernate.annotations.DynamicInsert;
 @DynamicInsert
 @Entity
 public class Interview implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private Integer interviewId;
-	private String interviewComment;
-	private String interviewType;
-	private String interviewPlace;
-	private String interviewStatus;
-	private String interviewResult;
-	private Timestamp interviewTime;
-	private Application application;
+  private static final long serialVersionUID = 1L;
+  private Integer interviewId;
+  private String interviewComment;
+  private String interviewType;
+  private String interviewPlace;
+  private String interviewStatus;
+  private String interviewResult;
+  private Timestamp interviewTime;
+  private Application application;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer getInterviewId() {
-		return interviewId;
-	}
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  public Integer getInterviewId() {
+    return interviewId;
+  }
 
-	public void setInterviewId(Integer interviewId) {
-		this.interviewId = interviewId;
-	}
+  public void setInterviewId(Integer interviewId) {
+    this.interviewId = interviewId;
+  }
 
-	@Column(columnDefinition = "nvarchar(MAX)")
-	public String getInterviewComment() {
-		return interviewComment;
-	}
+  @Column(columnDefinition = "nvarchar(MAX)")
+  public String getInterviewComment() {
+    return interviewComment;
+  }
 
-	public void setInterviewComment(String interviewComment) {
-		this.interviewComment = interviewComment;
-	}
+  public void setInterviewComment(String interviewComment) {
+    this.interviewComment = interviewComment;
+  }
 
-	@Column(nullable = false, columnDefinition = "nvarchar(MAX) default '無'")
-	public String getInterviewType() {
-		return interviewType;
-	}
+  @Column(nullable = false, columnDefinition = "nvarchar(MAX) default '無'")
+  public String getInterviewType() {
+    return interviewType;
+  }
 
-	public void setInterviewType(String interviewType) {
-		this.interviewType = interviewType;
-	}
+  public void setInterviewType(String interviewType) {
+    this.interviewType = interviewType;
+  }
 
-	public String getInterviewPlace() {
-		return interviewPlace;
-	}
+  public String getInterviewPlace() {
+    return interviewPlace;
+  }
 
-	public void setInterviewPlace(String interviewPlace) {
-		this.interviewPlace = interviewPlace;
-	}
+  public void setInterviewPlace(String interviewPlace) {
+    this.interviewPlace = interviewPlace;
+  }
 
-	public String getInterviewStatus() {
-		return interviewStatus;
-	}
+  public String getInterviewStatus() {
+    return interviewStatus;
+  }
 
-	public void setInterviewStatus(String interviewStatus) {
-		this.interviewStatus = interviewStatus;
-	}
+  public void setInterviewStatus(String interviewStatus) {
+    this.interviewStatus = interviewStatus;
+  }
 
-	public Timestamp getInterviewTime() {
-		return interviewTime;
-	}
+  public Timestamp getInterviewTime() {
+    return interviewTime;
+  }
 
-	public void setInterviewTime(Timestamp interviewTime) {
-		this.interviewTime = interviewTime;
-	}
-	
-	@Column(columnDefinition = "nvarchar(10) default '等待資料'")
-	public String getInterviewResult() {
-		return interviewResult;
-	}
+  public void setInterviewTime(Timestamp interviewTime) {
+    this.interviewTime = interviewTime;
+  }
 
-	public void setInterviewResult(String interviewResult) {
-		this.interviewResult = interviewResult;
-	}
+  @Column(columnDefinition = "nvarchar(10) default '等待資料'")
+  public String getInterviewResult() {
+    return interviewResult;
+  }
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_applicationId")
-	public Application getApplication() {
-		return application;
-	}
+  public void setInterviewResult(String interviewResult) {
+    this.interviewResult = interviewResult;
+  }
 
-	public void setApplication(Application application) {
-		this.application = application;
-	}
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "fk_applicationId")
+  public Application getApplication() {
+    return application;
+  }
 
-	@Override
-	public String toString() {
-		return "Interview [interviewId=" + interviewId + ", interviewComment=" + interviewComment + ", interviewType="
-				+ interviewType + ", interviewPlace=" + interviewPlace + ", interviewStatus=" + interviewStatus
-				+ ", interviewTime=" + interviewTime + ", applicationId=" + application.getApplicationId() + "]";
-	}
-
+  public void setApplication(Application application) {
+    this.application = application;
+  }
 }

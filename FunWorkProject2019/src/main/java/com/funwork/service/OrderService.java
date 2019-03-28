@@ -1,10 +1,8 @@
 package com.funwork.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.funwork.model.Order;
 import com.funwork.model.Product;
+import java.util.List;
 
 public interface OrderService {
 
@@ -12,12 +10,10 @@ public interface OrderService {
 
   List<Product> getAllProducts();
 
-  List<Order> getOrderByUser(Integer userId);
-
   Order insertOrder(Order order);
 
   Order getOrderByTradeNo(String orderTradeNo);
-  
+
   String getOrderByMouth();
 
   List<Order> getOrdersById(Integer userId);

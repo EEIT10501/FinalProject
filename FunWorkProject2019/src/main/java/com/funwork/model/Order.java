@@ -1,8 +1,6 @@
 package com.funwork.model;
 
-
 import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,16 +32,15 @@ public class Order {
     this.orderId = orderId;
   }
 
-
   public Timestamp getOrderTime() {
-	return orderTime;
-}
+    return orderTime;
+  }
 
-public void setOrderTime(Timestamp orderTime) {
-	this.orderTime = orderTime;
-}
+  public void setOrderTime(Timestamp orderTime) {
+    this.orderTime = orderTime;
+  }
 
-public Integer getStatus() {
+  public Integer getStatus() {
     return status;
   }
 
