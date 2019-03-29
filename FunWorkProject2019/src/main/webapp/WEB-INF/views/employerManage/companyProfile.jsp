@@ -79,7 +79,7 @@
 							<strong>公司登記營業地址: </strong>${company.address}<p></p>
 							<strong>公司是否通過系統檢核: </strong>${company.reviewStatus}<p></p>
 							<strong>公司使用者有無未讀訊息: </strong>${company.notificationTimes}<p></p>
-							<strong>公司網址: </strong>${company.siteURL}<p></p>
+							<strong>公司網址: </strong>${company.siteUrl}<p></p>
 							<%-- 				公司簡介:  <p>${company.description.}</p> --%>
 							<p>
 								<strong>公司license: </strong> <span class='label label-warning'>

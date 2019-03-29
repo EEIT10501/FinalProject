@@ -35,7 +35,7 @@ public class CompanyDaoImp implements CompanyDao {
 
   @Override
   public void updateCompanyById(int id, Company company) {
-    String hql = "UPDATE Company SET siteURL = :url, logo = :logo, "
+    String hql = "UPDATE Company SET siteUrl = :url, logo = :logo, "
         + "coverPic = :coverPic, reviewStatus = :status WHERE companyId = :id";
     Session session = factory.getCurrentSession();
     session.createQuery(hql).setParameter("url", company.getSiteUrl())
