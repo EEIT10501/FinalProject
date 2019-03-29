@@ -129,12 +129,13 @@ public class JobServiceImpl implements JobService {
     jbean.setAddress(jbean.getCityArea() + cityName + jbean.getAddress());
 
     // 地址轉經緯度
-    JobServiceImpl jobServiceImpl = new JobServiceImpl();
-    Map<String, String> latlng = jobServiceImpl
-        .getGeocoderLatitude(jbean.getCityArea() + cityName + jbean.getAddress());
+//    JobServiceImpl jobServiceImpl = new JobServiceImpl();
+//    Map<String, String> latlng = jobServiceImpl
+//        .getGeocoderLatitude(jbean.getCityArea() + cityName + jbean.getAddress());
     // 設定經緯度
-    jbean.setJobLat(latlng.get("lat"));
-    jbean.setJobLng(latlng.get("lng"));
+//    jbean.setJobLat(jbean.getJobLat());
+//    jbean.setJobLng(jbean.getJobLng());
+    System.out.println(jbean.getJobLat()+" "+jbean.getJobLng());
     if (jbean.getOther() == null || jbean.getOther().trim().length() == 0) {
       jbean.setOther("給雇主的話");
     }

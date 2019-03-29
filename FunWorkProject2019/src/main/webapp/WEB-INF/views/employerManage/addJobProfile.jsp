@@ -112,6 +112,8 @@
 						<div class="col-sm-6">
 							<form:input type="text" path="address" class="form-control" id="address" placeholder="請輸入工作地址" 
 							            required="required" />
+							<form:input type="hidden" path="jobLat" class="form-control" id="lat"/>
+							 <form:input type="hidden" path="jobLng" class="form-control" id="lng"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -198,21 +200,25 @@
 		$(".checkaddress").change(function(){
 			fulladdress =  $("#cityArea").val()+$("#cityName").val()+$("#address").val();
 // 			alert(fulladdress);
+			geocodeAddress(fulladdress)
 		})
 		
 	});	
-
+	
 	function geocodeAddress(fulladdress) {
-		var geocoder = new google.maps.Geocoder()
+		var geocoder = new google.maps.Geocoder();
         geocoder.geocode({"address": fulladdress}, function(results, status) {
           if (status === 'OK') {
         	  var lat = results[0].geometry.location.lat();
         	  var lng = results[0].geometry.location.lng();
-        	  alert(lat+" "lng)
+//         	  alert(lat+" "+lng)
+        	  $("#lat").val(lat);
+        	  $("#lng").val(lng);
+         
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
-        }
+        });
 	}
 	
 		function GetDateStr(AddDayCount) {  
