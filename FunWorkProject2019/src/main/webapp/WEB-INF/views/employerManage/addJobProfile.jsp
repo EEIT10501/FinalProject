@@ -231,7 +231,7 @@
 				url : "${pageContext.request.contextPath}/getJobPostedCount/${sessionScope.loginUser.userId}",
 				type : "GET",
 				success : function(data) {
-					if(data >= ${sessionScope.loginUser.jobPostLimit}){
+					if(data){
 						$("#noPost").html("已超出可刊登工作額度，升級會員可無上限刊登工作。");
 						$("#jobForm").hide();
 					}
