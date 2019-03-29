@@ -124,6 +124,7 @@ public class PostJobController {
     }
   }
 
+
   /**
    * Process new Job.
    */
@@ -131,7 +132,9 @@ public class PostJobController {
   public String processPostNewJob(@ModelAttribute("newJobPost") Job jbean, HttpSession session) {
     User loginUser = (User) session.getAttribute(LOGIN_USER);
     jobService.insertJob(jbean, loginUser.getUserId());
+
     return REDIRECT_MANAGE_JOB;
+
   }
 
   /**

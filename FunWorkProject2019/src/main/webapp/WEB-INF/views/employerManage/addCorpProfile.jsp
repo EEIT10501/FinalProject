@@ -41,25 +41,6 @@
 
 	});
 </script>
-<style>
-.card-text-size {
-	font-size: 14px;
-}
-
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
-}
-
-.asideblock {
-	height: 600px;
-}
-</style>
 <body>
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
@@ -129,9 +110,9 @@
 
 											<div class="row form-group mb-3">
 												<div class="col-md-12 mb-3 mb-md-0">
-													<label class="font-weight-bold" for="siteURL">公司網頁:
+													<label class="font-weight-bold" for="siteUrl">公司網頁:
 													</label>
-													<form:input type="text" path="siteURL" id="siteURL"
+													<form:input type="text" path="siteUrl" id="siteUrl"
 														class="form-control" placeholder="www.goodBusinessInc.com" />
 												</div>
 											</div>
