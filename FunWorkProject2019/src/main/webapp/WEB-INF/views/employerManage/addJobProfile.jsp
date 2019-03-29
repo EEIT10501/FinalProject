@@ -208,11 +208,11 @@
           if (status === 'OK') {
         	  var lat = results[0].geometry.location.lat();
         	  var lng = results[0].geometry.location.lng();
-        	  alert(lat+" "lng)
+        	  alert(lat+" "+lng)
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
-        }
+        });
 	}
 	
 		function GetDateStr(AddDayCount) {  
@@ -287,7 +287,7 @@
             $("#addresssup").val("近臺北小巨蛋");
             $("#paidDate").val("每月五號");
             $("#rateByHour").val("150");
-            $("#companyName").val("財團法人國家實驗研究院");
+            $("#companyName").val("資策會");
             $("#comment").val("請盡快審核");
         });
 	</script>
