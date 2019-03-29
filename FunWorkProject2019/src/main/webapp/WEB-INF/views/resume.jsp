@@ -6,22 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>履歷</title>
-<style>
-.card-text-size {
-    font-size: 14px;
-}
-.footerbackground {
-    background: #343a40;
-    color: white;
-}
-.nav-item:hover {
-    background-color: gray;
-    border-radius: 15px;
-}
-.asideblock {
-    height: 600px;
-}
-</style>
 </head>
 <body>
     <%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
@@ -179,8 +163,7 @@
 				document.getElementById("position2").value="勞工";
 				document.getElementById("term2").value="2";
 				document.getElementById("MY").value="我叫蕭義樺，今年26歲，出生於新竹縣竹東鎮。父母從事封裝測試的品管工作，目前皆已退休。";	
-				
-				
+				$('#date').val("1992-03-31");		
 			}
 
 	
