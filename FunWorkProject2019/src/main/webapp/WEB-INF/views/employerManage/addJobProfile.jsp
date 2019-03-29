@@ -198,10 +198,6 @@
 		    var d = dd.getDate() <10 ? ('0'+ dd.getDate()) :dd.getDate();  
 		    return y+"-"+m+"-"+d;  
 		}
-	
-		var userJobPostPeriod = ${sessionScope.loginUser.jobPostPeriod};
-		var mindate = GetDateStr(7);
-		var maxdate = GetDateStr(userJobPostPeriod);
 		
 		var taipeiCityName = ${taipeiCityNameJSON};
 		var newTaipeiCityName = ${newTaipeiCityNameJSON};	
@@ -224,6 +220,21 @@
 		});
 		
 		$(function() {
+			var userJobPostPeriod = ${sessionScope.loginUser.jobPostPeriod};
+			$.ajax({
+                url : "${pageContext.request.contextPath}/getJobPostedPeriod/${sessionScope.loginUser.userId}",
+                type : "GET",
+                success : function(data) {
+                    if(data){
+                    	userJobPostPeriod = data;
+                    }
+                }
+            }); 
+	        var mindate = GetDateStr(7);
+	        var maxdate = GetDateStr(userJobPostPeriod);
+	        
+	        
+			
 			$("#endDate").attr({"value":mindate,"min":mindate,"max":maxdate});
 			$("#cityName").html(taipeiCityNameOption);
 			

@@ -248,6 +248,14 @@ public class PostJobController {
     }
     return isJobPostedExceed;
   }
+  
+  @GetMapping(value = "/getJobPostedPeriod/{userId}")
+  @ResponseBody
+  public Integer getJobPostedPeriod(@PathVariable("userId") Integer userId) {
+    User user = userService.getUserById(userId);
+   
+    return user.getJobPostPeriod();
+  }
 
   /**
    * Query All Resume by Pdf.
