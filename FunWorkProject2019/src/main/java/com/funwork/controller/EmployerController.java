@@ -1,13 +1,16 @@
 package com.funwork.controller;
 
+import com.funwork.model.Application;
 import com.funwork.model.Company;
 import com.funwork.model.Job;
 import com.funwork.model.User;
+import com.funwork.service.ApplicationService;
 import com.funwork.service.CompanyService;
 import com.funwork.service.JobService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.Clob;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,6 +46,8 @@ public class EmployerController {
   @Autowired
   JobService jobService;
   @Autowired
+  ApplicationService applicationService;
+  @Autowired
   ServletContext context;
 
   @GetMapping("/mainHub")
@@ -55,14 +60,20 @@ public class EmployerController {
    */
   @GetMapping("/manageJob")
   public String manageJob(Model model, HttpSession session) {
-    User user = (User) session.getAttribute(LOGIN_USER);
-    if (user != null) {
-      List<Job> list = jobService.findJobByUserId(user.getUserId());
-      model.addAttribute("jobs", list);
-      return "employerManage/manageJobPage";
-    } else {
-      return REDIRECT_TO_INDEX;
-    }
+		User user = (User) session.getAttribute(LOGIN_USER);
+		jobService.findJobByUserId(user.getUserId());
+
+		if (user != null) {
+			List<Job> list = jobService.findJobByUserId(user.getUserId());
+			for(Job job:list ) {
+				List<Application> apps = applicationService.findAllApplicantsByJob(job);
+				job.setAppsList(apps.size());
+			}
+			model.addAttribute("jobs", list);
+			return "employerManage/manageJobPage";
+		} 
+		else 
+			return REDIRECT_TO_INDEX;
   }
 
   /**
@@ -87,6 +98,8 @@ public class EmployerController {
   public String getcompanyById(@RequestParam("id") Integer id, Model model) {
     Company company = companyService.findByPrimaryKey(id);
     List<Job> list = jobService.findJobByUserId(company.getUser().getUserId());
+    Clob descriptionClob = company.getDescription();
+    
     model.addAttribute("company", company);
     model.addAttribute("jobs", list);
     return "employerManage/companyProfile";

@@ -8,11 +8,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<title>公司詳細資料頁面</title>
+<title>張貼工作</title>
 </head>
 <style>
 </style>
 <body>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
+	async defer></script>	
+
+
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
@@ -93,7 +98,7 @@
 							            placeholder="ex:早上8:00~下午16:00，中間休息一小時" required="required" />
 						</div>
 					</div>
-					<div class="form-group row">
+					<div class="form-group row checkaddress">
 						<label for="address" class="col-sm-2 col-form-label">工作地址</label>
 						<div class="col-sm-2">
 							<form:select path="cityArea" id="cityArea" class="form-control">
@@ -107,6 +112,8 @@
 						<div class="col-sm-6">
 							<form:input type="text" path="address" class="form-control" id="address" placeholder="請輸入工作地址" 
 							            required="required" />
+							<form:input type="hidden" path="jobLat" class="form-control" id="lat"/>
+							 <form:input type="hidden" path="jobLng" class="form-control" id="lng"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -183,12 +190,35 @@
 			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
-	<script>
-		$(document).ready(function() {
-	        if ("${error2}" != "") {
-	            alert("超出工作刊登上限額度");
-	        }
-	    }); 
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		if ("${error2}" != "") {
+			alert("超出工作刊登上限額度");
+		}
+		
+		$(".checkaddress").change(function(){
+			fulladdress =  $("#cityArea").val()+$("#cityName").val()+$("#address").val();
+// 			alert(fulladdress);
+			geocodeAddress(fulladdress)
+		})
+		
+	});	
+	
+	function geocodeAddress(fulladdress) {
+		var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({"address": fulladdress}, function(results, status) {
+          if (status === 'OK') {
+        	  var lat = results[0].geometry.location.lat();
+        	  var lng = results[0].geometry.location.lng();
+        	  $("#lat").val(lat);
+        	  $("#lng").val(lng);
+         
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+	}
 	
 		function GetDateStr(AddDayCount) {  
 		    var dd = new Date();  
@@ -262,7 +292,7 @@
             $("#addresssup").val("近臺北小巨蛋");
             $("#paidDate").val("每月五號");
             $("#rateByHour").val("150");
-            $("#companyName").val("財團法人國家實驗研究院");
+            $("#companyName").val("資策會");
             $("#comment").val("請盡快審核");
         });
 	</script>
