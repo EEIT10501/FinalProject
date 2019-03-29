@@ -11,14 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<script language="javascript">
-　var Today=new Date();
+<script> var Today=new Date();
 </script>
 
 <title>基本資訊</title>
@@ -54,19 +50,18 @@
 			</div>
 			<div class="col-sm-8">
 				<fieldset>
-					<section
-						style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
+					<section style="padding: 2px; width: 100%; height: auto; float: left; margin: 10px;">
 						<div class="container-fluid">
 							<div class="card mb-3">
 								<div class="card-header">
 									<i class="fas fa-table"></i>
 									<h3>邀約管理</h3>
 								</div>
-
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 									<li class="nav-item"><a class="nav-link active"
 										id="pills-home-tab" data-toggle="pill" href="#pills-home"
-										role="tab" aria-controls="pills-home" aria-selected="true">進行中</a>
+										role="tab" aria-controls="pills-home" aria-selected="true">
+									進行中</a>
 									</li>
 									<li class="nav-item"><a class="nav-link"
 										id="pills-profile-tab" data-toggle="pill"
@@ -489,7 +484,6 @@
 																	action="${pageContext.request.contextPath}/updateInterviewResult"
 																	method="post">
 																	<div class="modal-body">
-<!-- 																	<h6>請幫使用者評分: <input type="number" value="0" name="interviewRating" readonly="readonly" required="required"></h6>  -->
 																		<h6>註記缺自動給0分</h6>
 																		<input type="hidden" name="interviewId"
 																			value="${interview1.interviewId}"> <input
@@ -642,7 +636,7 @@
 												<a>你目前沒有任何已失效的邀約</a>
 											</c:if>
 										</div>
-										</section>
+									</section>
 								</c:if>
 							<!-- ------------------------------------------------------------------------- -->
 							</div>
@@ -666,6 +660,7 @@
 									</div>
 								</div>
 							</footer>
+							</div>
 						</div>
 						<!-- /.content-wrapper -->
 						<!-- demo page ended -->
