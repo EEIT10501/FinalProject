@@ -409,14 +409,4 @@ public class EmployerController {
 		return b;
 	}
 
-	@ExceptionHandler(CompanyNotFoundException.class)
-	public ModelAndView handleError(HttpServletRequest request, CompanyNotFoundException exception) {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("invalidCompanyId", exception.getCompanyId());
-		mv.addObject("exception", exception);
-		mv.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
-		mv.setViewName("companyNotFound");
-		return mv;
-	}
-
 }

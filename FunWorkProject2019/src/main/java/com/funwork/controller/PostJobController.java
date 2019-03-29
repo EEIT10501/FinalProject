@@ -67,7 +67,6 @@ public class PostJobController {
 	
 	@RequestMapping(value = "/applications")
 	public String pullApplicantsByJob(@RequestParam("id") Integer id, Model model) {
-		System.out.println("ready to pull applicant by jobId" + id);
 		List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(id));
 		List<Resume> reslist = new LinkedList<>();
 		LinkedList<User> userlist = new LinkedList<>();
@@ -98,14 +97,18 @@ public class PostJobController {
 		Job job = new Job();
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-		List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
-		String taipeiCityNameJSON = jobService.getCityNameList("台北市");
-		String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
-		model.addAttribute("jobBean", job);
-		model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
-		model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
-		model.addAttribute("companyNameList", companyNameList);
-		return "employerManage/addJobProfile";
+		if(loginUser!=null) {
+			List<String> companyNameList = companyService.findAllCompanyByUser(loginUser);
+			String taipeiCityNameJSON = jobService.getCityNameList("台北市");
+			String newTaipeiCityNameJSON = jobService.getCityNameList("新北市");
+			model.addAttribute("jobBean", job);
+			model.addAttribute("taipeiCityNameJSON", taipeiCityNameJSON);
+			model.addAttribute("newTaipeiCityNameJSON", newTaipeiCityNameJSON);
+			model.addAttribute("companyNameList", companyNameList);
+			return "employerManage/addJobProfile";
+		}else{
+			return "/index";
+		}
 	}
 
 	/*
@@ -230,6 +233,7 @@ public class PostJobController {
     HttpSession session = request.getSession();
     User loginUser = (User) session.getAttribute("loginUser");
     jobService.insertJob(jbean, loginUser.getUserId());
+    
     return "redirect:/manageJob";
   }
 
