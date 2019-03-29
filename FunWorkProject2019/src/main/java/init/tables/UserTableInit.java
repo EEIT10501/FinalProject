@@ -59,7 +59,7 @@ public class UserTableInit {
         user.setExposureLimit(Integer.valueOf(exposureLimit));
         user.setJobPostLimit(Integer.valueOf(jobPostLimit));
         user.setJobPostPeriod(Integer.valueOf(jobPostPeriod));
-        user.setRating(Double.valueOf(rating));
+//        user.setRating(Double.valueOf(rating));
         user.setRole(Integer.valueOf(role));
         user.setAbscence(Integer.valueOf(abscence));
         user.setFacebook(facebook);
