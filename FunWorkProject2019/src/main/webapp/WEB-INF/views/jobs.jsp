@@ -18,80 +18,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
 
-<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
-	async defer></script>
-
 <title>找工作</title>
-<script>
-	$(document).ready(function() {
-		$("#jobtable").DataTable();
-
-	});
-
-	var map, infoWindow;
-	function initMap() {
-		map = new google.maps.Map(document.getElementById("map"), {
-			center : {
-				lat : 25.052,
-				lng : 121.532
-			},
-			zoom : 12
-		});
-
-		infoWindow = new google.maps.InfoWindow;
-
-		// Try HTML5 geolocation.
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var pos = {
-					lat : position.coords.latitude,
-					lng : position.coords.longitude
-				};
-
-				infoWindow.setPosition(pos);
-				infoWindow.setContent("我的位置");
-				infoWindow.open(map);
-				map.setCenter(pos);
-			}, function() {
-				handleLocationError(true, infoWindow, map.getCenter());
-			});
-		} else {
-			// Browser doesn't support Geolocation
-			handleLocationError(false, infoWindow, map.getCenter());
-		}
-		addMarker()
-	}
-
-	function addMarker() {
-		<c:forEach var="job" items="${jobs}"> 
-			var latLng = new google.maps.LatLng(${job.jobLat}, ${job.jobLng});
-			var marker${job.jobId} = new google.maps.Marker({
-				position : latLng,
-				map : map,
-				title: "${job.title}"
-			});
-			
-			var contentString = "<div><h6>${job.title}<h6></div><div style='margin-bottom:5px'>${job.address}</div><a href='<c:url value='/jobDetail/${job.jobId}'/>' class='btn btn-primary'><span class='glyphicon-info-sigh glyphicon'></span> 詳細資料 </a>"
-			var infowindow${job.jobId} = new google.maps.InfoWindow({
-			    content: contentString
-			  });
-			
-			marker${job.jobId}.addListener("click", function() {
-		          infowindow${job.jobId}.open(map, marker${job.jobId});
-		        });
-			</c:forEach>
-		}
-	
-
-	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-		infoWindow.setPosition(pos);
-		infoWindow
-				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
-						: 'Error: Your browser doesn\'t support geolocation.');
-		infoWindow.open(map);
-	}
-</script>
 
 
 <style>
@@ -175,6 +102,78 @@ width:200px;
 </head>
 
 <body>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
+	async defer></script>
+	<script>
+	$(document).ready(function() {
+		$("#jobtable").DataTable();
+
+	});
+
+	var map, infoWindow;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById("map"), {
+			center : {
+				lat : 25.052,
+				lng : 121.532
+			},
+			zoom : 12
+		});
+
+		infoWindow = new google.maps.InfoWindow;
+
+		// Try HTML5 geolocation.
+// 		if (navigator.geolocation) {
+// 			navigator.geolocation.getCurrentPosition(function(position) {
+// 				var pos = {
+// 					lat : position.coords.latitude,
+// 					lng : position.coords.longitude
+// 				};
+
+// 				infoWindow.setPosition(pos);
+// 				infoWindow.setContent("我的位置");
+// 				infoWindow.open(map);
+// 				map.setCenter(pos);
+// 			}, function() {
+// 				handleLocationError(true, infoWindow, map.getCenter());
+// 			});
+// 		} else {
+// 			// Browser doesn't support Geolocation
+// 			handleLocationError(false, infoWindow, map.getCenter());
+// 		}
+		addMarker()
+	}
+
+	function addMarker() {
+		<c:forEach var="job" items="${jobs}"> 
+			var latLng = new google.maps.LatLng(${job.jobLat}, ${job.jobLng});
+			var marker${job.jobId} = new google.maps.Marker({
+				position : latLng,
+				map : map,
+				title: "${job.title}"
+			});
+			
+			var contentString = "<div><h6>${job.title}<h6></div><div style='margin-bottom:5px'>${job.address}</div><a href='<c:url value='/jobDetail/${job.jobId}'/>' class='btn btn-primary'><span class='glyphicon-info-sigh glyphicon'></span> 詳細資料 </a>"
+			var infowindow${job.jobId} = new google.maps.InfoWindow({
+			    content: contentString
+			  });
+			
+			marker${job.jobId}.addListener("click", function() {
+		          infowindow${job.jobId}.open(map, marker${job.jobId});
+		        });
+			</c:forEach>
+		}
+	
+
+// 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+// 		infoWindow.setPosition(pos);
+// 		infoWindow
+// 				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
+// 						: 'Error: Your browser doesn\'t support geolocation.');
+// 		infoWindow.open(map);
+// 	}
+</script>
 
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 
@@ -214,9 +213,9 @@ width:200px;
 					<thead>
 						<tr class="align-middle">
 						    <th>類別</th>
+							<th>行業</th>
 							<th>名稱</th>
 							<th>地區</th>
-							<th>描述</th>
 							<th>聯絡人</th>
 							<th>截止時間</th>		
 						</tr>
@@ -226,12 +225,12 @@ width:200px;
 							<c:if test="${job.isExposure==true}">
 								<tr>
 									<td class="align-middle"><img class="img-fluid" src="<c:url value='/image/staryellow.png'/>"></td>
+									<td class="align-middle">${job.industry}</td>
 									<td class="text-left align-middle"><a class="jobtitle" href="<c:url value='/jobDetail/${job.jobId}'/>" class="">${job.title}</a>
 									<p style="font-size:12px">
 									<a class="jobcompany" href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'>${job.jobCompany.name}</a>
 										<c:if test="${job.jobCompany.name==null}">個人</c:if></p></td>
 									<td class="align-middle">${job.city.cityName}</td>
-									<td class="align-middle">${job.description}</td>
 									<td class="align-middle">${job.jobOwner.userName}</td>
 									<td class="align-middle"><fmt:formatDate type="both" value="${job.postEndDate}" /></td>					
 								</tr>
@@ -241,13 +240,13 @@ width:200px;
 							<c:if test="${job.isExposure==false}">
 								<tr>
 								    <td class="align-middle">一般</td>
+								    <td class="align-middle">${job.industry}</td>
 									<td class="text-left align-middle"><a class="jobtitle" href="<c:url value='/jobDetail/${job.jobId}'/>" class="">${job.title}</a>
 									<p style="font-size:12px">
 									<a class="jobcompany" href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'>${job.jobCompany.name}</a>
 										<c:if test="${job.jobCompany.name==null}">個人</c:if></p>
 									</td>
 									<td class="align-middle">${job.city.cityName}</td>
-									<td class="align-middle">${job.description}</td>
 									<td class="align-middle">${job.jobOwner.userName}</td>
 									<td class="align-middle"><fmt:formatDate type="both" value="${job.postEndDate}" /></td>							
 								</tr>

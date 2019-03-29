@@ -96,8 +96,8 @@ public class PostJobController {
    * whether job posting is active.
    */
   @GetMapping(value = "/modJobProfile")
-  public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId, 
-      HttpSession session, String replicate) {
+  public String getRegisterCompanyForm(Model model, @RequestParam("jobId") Integer jobId, HttpSession session,
+      String replicate) {
     Job job = jobService.getJobById(jobId);
     boolean isActive = job.getReviewStatus().equalsIgnoreCase("發布中");
     if (!isActive) {
@@ -124,7 +124,6 @@ public class PostJobController {
     }
   }
 
-
   /**
    * Process new Job.
    */
@@ -143,8 +142,8 @@ public class PostJobController {
    * update previous record or insert new record
    */
   @PostMapping(value = "/modJobProfilePage")
-  public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, 
-      HttpSession session, Model model, String replicate) {
+  public String processPostNewJob(@ModelAttribute("jobBean") Job jbean, HttpSession session, Model model,
+      String replicate) {
     User loginUser = (User) session.getAttribute(LOGIN_USER);
     int activePost = jobService.getJobPostedCount(loginUser.getUserId());
     Integer limit = loginUser.getJobPostLimit();
@@ -172,8 +171,8 @@ public class PostJobController {
    * provide data-included jobBean to users when replicate is called.
    */
   @GetMapping(value = "/replicate")
-  public String replicateGetExistingJob(@ModelAttribute("jobBean") Job jbean, 
-      @RequestParam("jobId") Integer jobId, Model model) {
+  public String replicateGetExistingJob(@ModelAttribute("jobBean") Job jbean, @RequestParam("jobId") Integer jobId,
+      Model model) {
     Job job = jobService.getJobById(jobId);
     String addressCityArea = job.getAddress().substring(0, 3);
     String addressCityName = job.getAddress().substring(3, 6);
@@ -196,8 +195,7 @@ public class PostJobController {
    * edited.
    */
   @PostMapping(value = "/receivedUpdatedPost")
-  public String replicateExistingJob(@ModelAttribute("jobBean") Job jbean, 
-      HttpSession session, Model model,
+  public String replicateExistingJob(@ModelAttribute("jobBean") Job jbean, HttpSession session, Model model,
       RedirectAttributes redA) {
     User loginUser = (User) session.getAttribute(LOGIN_USER);
     int activePost = jobService.getJobPostedCount(loginUser.getUserId());
@@ -219,8 +217,7 @@ public class PostJobController {
    */
   @GetMapping(value = "/resumes", produces = "application/vnd.ms-excel")
   public String queryAllResumesExcel(Model model, @RequestParam("jobId") Integer jobId) {
-    List<Application> list = applicationService
-        .findAllApplicantsByJob(jobService.getJobById(jobId));
+    List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
     List<Resume> reslist = new LinkedList<>();
     for (Application app : list) {
       Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
@@ -242,8 +239,22 @@ public class PostJobController {
 
   @GetMapping(value = "/getJobPostedCount/{userId}")
   @ResponseBody
-  public Integer getJobPostedCount(@PathVariable("userId") Integer userId) {
-    return jobService.getJobPostedCount(userId);
+  public Boolean isJobPostedExceed(@PathVariable("userId") Integer userId) {
+    Boolean isJobPostedExceed = false;
+    int nowPostCount = jobService.getJobPostedCount(userId);
+    User user = userService.getUserById(userId);
+    if (nowPostCount >= user.getJobPostLimit()) {
+      isJobPostedExceed = true;
+    }
+    return isJobPostedExceed;
+  }
+  
+  @GetMapping(value = "/getJobPostedPeriod/{userId}")
+  @ResponseBody
+  public Integer getJobPostedPeriod(@PathVariable("userId") Integer userId) {
+    User user = userService.getUserById(userId);
+   
+    return user.getJobPostPeriod();
   }
 
   /**
@@ -251,8 +262,7 @@ public class PostJobController {
    */
   @GetMapping(value = "/resumes", produces = "application/pdf")
   public String queryAllResumesPdf(Model model, @RequestParam("jobId") Integer jobId) {
-    List<Application> list = applicationService
-        .findAllApplicantsByJob(jobService.getJobById(jobId));
+    List<Application> list = applicationService.findAllApplicantsByJob(jobService.getJobById(jobId));
     List<Resume> reslist = new LinkedList<>();
     for (Application app : list) {
       Resume resume = resumeService.getResumeByUserId(app.getUser().getUserId());
