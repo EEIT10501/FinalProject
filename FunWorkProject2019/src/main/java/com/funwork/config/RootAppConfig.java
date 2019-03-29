@@ -25,14 +25,14 @@ public class RootAppConfig {
   @Bean
   public DataSource dataSource() {
     ComboPooledDataSource ds = new ComboPooledDataSource();
-    ds.setUser("sa");
-    ds.setPassword("passw0rd");
+    ds.setUser("memberuser@eeit105fk");
+    ds.setPassword("Eeit10507");
     try {
       ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     } catch (PropertyVetoException e) {
       logger.warning(e.getMessage());
     }
-    ds.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=funwork");
+    ds.setJdbcUrl("jdbc:sqlserver://eeit105fk.database.windows.net:1433;databaseName=funwork");
     ds.setInitialPoolSize(4);
     ds.setMaxPoolSize(8);
     return ds;
@@ -70,7 +70,7 @@ public class RootAppConfig {
     properties.put("hibernate.show_sql", Boolean.FALSE);
     properties.put("hibernate.format_sql", Boolean.FALSE);
     properties.put("default_batch_fetch_size", 10);
-    properties.put("hibernate.hbm2ddl.auto", "update");
+    properties.put("hibernate.hbm2ddl.auto", "validate");
     return properties;
   }
 }

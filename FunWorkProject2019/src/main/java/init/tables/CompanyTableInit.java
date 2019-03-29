@@ -50,7 +50,7 @@ public class CompanyTableInit {
         cb.setLogo(logBlob);
         Clob clob = SystemUtils2018.fileToClob(token[9]);
         cb.setDescription(clob);
-        cb.setSiteURL(token[10]);
+        cb.setSiteUrl(token[10]);
         cb.setFileName(token[11]);
         User ub = session.get(User.class, Integer.parseInt(token[5].trim()));
         cb.setUser(ub);

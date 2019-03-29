@@ -1,485 +1,462 @@
 package com.funwork.controller;
 
+import com.funwork.model.Interview;
+import com.funwork.model.Job;
+import com.funwork.model.Schedule;
+import com.funwork.model.User;
+import com.funwork.service.InterviewService;
+import com.funwork.service.JobService;
+import com.funwork.service.ScheduleService;
+import com.funwork.service.UserService;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.funwork.model.Application;
-import com.funwork.model.Interview;
-import com.funwork.model.Schedule;
-import com.funwork.model.User;
-import com.funwork.model.Job;
-import com.funwork.model.Resume;
-import com.funwork.service.InterviewService;
-import com.funwork.service.JobService;
-import com.funwork.service.ScheduleService;
-import com.funwork.service.UserService;
 
 @Controller
 public class ScheduleController {
+  private static final String LOGIN_USER = "loginUser";
+  private static final String REDIRECT_TO_INDEX = "redirect:/";
+  private static final String SCHEDULE_CALENDAR = "schedule/ScheduleCalendar";
+  private static final String WAGE_STAFF = "schedule/wageStaff";
+  private static final String TITLE = "title";
+  private static final String START = "start";
+  private static final String INTERVIEW_LIST = "interviewList";
+  private static final String POST_JOB_LIST = "postJobList";
+  private static final String STAFF_SCHEDULES = "staffSchedules";
+  private static final String WAGE_MANAGE = "schedule/wageManage";
+  private static final String HH_MM_SS_00 = " 00:00:00";
+  private static final String HH_MM_SS_23 = " 23:00:00";
+  private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm:ss";
+  @Autowired
+  ScheduleService scheduleService;
+  @Autowired
+  InterviewService interviewService;
+  @Autowired
+  UserService userService;
+  @Autowired
+  JobService jobService;
 
-	@Autowired
-	ScheduleService scheduleService;
+  /**
+   * Get ScheduleCalendar page.
+   */
+  @GetMapping("/ScheduleCalendar")
+  public String calendar(Model model, HttpSession session) {
+    User user = (User) session.getAttribute(LOGIN_USER);
+    if (user != null) {
+      List<Job> list = jobService.findJobByUserId(user.getUserId());
+      model.addAttribute("jobs", list);
+      return SCHEDULE_CALENDAR;
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-	@Autowired
-	InterviewService interviewService;
+  /**
+   * Save calendar.
+   */
+  @GetMapping("/ScheduleCalendar/{jobId}")
+  public String calendarSave(Model model, @PathVariable("jobId") Integer jobId) {
+    List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
+    JSONArray jsonArray = new JSONArray();
+    JSONObject object = null;
+    for (Schedule sj : scheduleList) {
+      object = new JSONObject();
+      object.put("id", sj.getScheduleId());
+      object.put(TITLE, sj.getScheduleName());
+      object.put(START, sj.getStartTime());
+      object.put("end", sj.getEndTime());
+      jsonArray.put(object);
+    }
+    List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+    model.addAttribute("json", jsonArray);
+    model.addAttribute(INTERVIEW_LIST, interviewList);
 
-	@Autowired
-	UserService userService;
+    return SCHEDULE_CALENDAR;
+  }
 
-	@Autowired
-	JobService jobService;
+  /**
+   * Change calendar.
+   */
+  @GetMapping("/ScheduleCalendar/change/{jobId}")
+  public String calendarChange(Model model, @PathVariable("jobId") Integer jobId) {
+    model.addAttribute("change", true);
+    List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+    List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
+    JSONArray jsonArray = new JSONArray();
+    JSONObject object = null;
+    for (Schedule sj : scheduleList) {
+      object = new JSONObject();
+      object.put("id", sj.getScheduleId());
+      object.put(TITLE, sj.getScheduleName());
+      object.put(START, sj.getStartTime());
+      object.put("end", sj.getEndTime());
+      jsonArray.put(object);
+    }
+    model.addAttribute("json", jsonArray);
+    model.addAttribute(INTERVIEW_LIST, interviewList);
 
-	public ScheduleController() {
-	}
+    return SCHEDULE_CALENDAR;
+  }
 
-	@RequestMapping("/ScheduleCalendar")
-	public String calendar(Model model, HttpServletRequest request) {
+  /**
+   * Insert schedule.
+   */
+  @PostMapping(value = "/ScheduleCalendar/save/{jobId}")
+  public String calendarIntoSql(Model model, @RequestParam("scheduleJSONArray") String scheduleJson,
+      @RequestParam("delString") String delString, @PathVariable("jobId") Integer jobId) {
+    model.addAttribute("change", true);
+    String[] delArray = delString.split(",");
+    for (int i = 0; i < delArray.length; i++) {
+      if (delArray[i].length() != 0) {
+        scheduleService.deleteScheduleByPrimaryKey(Integer.parseInt(delArray[i]));
+      }
+    }
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
+    JSONArray jsonArray = new JSONArray(scheduleJson);
 
-		if (user != null) {
-			List<Job> list = jobService.findJobByUserId(user.getUserId());
-			model.addAttribute("jobs", list);
-			return "schedule/ScheduleCalendar";
-		} else {
-			return "redirect:/";
-		}
-	}
+    for (int i = 0; i < jsonArray.length(); i++) {
+      Schedule schedule = new Schedule();
+      JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+      if (!jsonObject.isNull("scheduleId")) {
+        schedule.setScheduleId((Integer) jsonObject.get("scheduleId"));
+      }
+      schedule.setScheduleName((String) jsonObject.get("scheduleName"));
+      String starttime = ((String) jsonObject.get("startTime")).replaceAll("[^(0-9),-:]", " ");
 
-	@RequestMapping("/ScheduleCalendar/{jobId}")
-	public String calendarSave(Model model, @PathVariable("jobId") Integer jobId) {
+      schedule.setStartTime(Timestamp.valueOf(starttime));
+      String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
+      schedule.setEndTime(Timestamp.valueOf(endtime));
+      float restTime = (float) ((Timestamp.valueOf(endtime).getTime() 
+          - Timestamp.valueOf(starttime).getTime())
+          / (1000 * 60 * 60.0) / 4.0 * 0.5);
+      schedule.setRestHour(restTime);
 
-		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+      Interview interview = interviewService
+          .findByAdmitJobUserName(jobId, (String) jsonObject.get("scheduleName"));
+      schedule.setInterview(interview);
 
-		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
-		JSONArray jsonArray = new JSONArray();
-		JSONObject object = null;
-		for (Schedule sj : scheduleList) {
-			object = new JSONObject();
-			object.put("id", sj.getScheduleId());
-			object.put("title", sj.getScheduleName());
-			object.put("start", sj.getStartTime());
-			object.put("end", sj.getEndTime());
-//			object.put("color", sj.getColor());
-			jsonArray.put(object);
-		}
-		System.out.println(jsonArray);
-		model.addAttribute("json", jsonArray);
-		model.addAttribute("interviewList", interviewList);
+      scheduleService.insertSchedule(schedule);
+    }
 
-		return "schedule/ScheduleCalendar";
-	}
+    return SCHEDULE_CALENDAR;
+  }
 
-	@RequestMapping("/ScheduleCalendar/change/{jobId}")
-	public String calendarChange(Model model, @PathVariable("jobId") Integer jobId) {
-		model.addAttribute("change", true);
-		
-		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+  /**
+   * Get schedule form.
+   */
+  @GetMapping(value = "/addSchedule")
+  public String getScheduleForm(Model model) {
+    Schedule schedule = new Schedule();
+    model.addAttribute("schedule", schedule);
+    return "schedule/addSchedule";
+  }
 
-		List<Schedule> scheduleList = scheduleService.getSchedulesByDate(jobId);
-		JSONArray jsonArray = new JSONArray();
-		JSONObject object = null;
-		for (Schedule sj : scheduleList) {
-			object = new JSONObject();
-			object.put("id", sj.getScheduleId());
-			object.put("title", sj.getScheduleName());
-			object.put("start", sj.getStartTime());
-			object.put("end", sj.getEndTime());
-//			object.put("color", sj.getColor());
-			jsonArray.put(object);
-		}
-		model.addAttribute("json", jsonArray);
-		model.addAttribute("interviewList", interviewList);
+  @PostMapping(value = "/addSchedule")
+  public String addScheduleForm(@ModelAttribute("schedule") Schedule schedule) {
+    scheduleService.insertSchedule(schedule);
+    return SCHEDULE_CALENDAR;
+  }
 
-		return "schedule/ScheduleCalendar";
-	}
+  /**
+   * Manage wage.
+   */
+  @GetMapping("/wageManage")
+  public String wageManage(Model model, HttpServletRequest req) {
+    HttpSession session = req.getSession();
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    if (loginUser != null) {
+      model.addAttribute("user", loginUser);
+      List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+      model.addAttribute(POST_JOB_LIST, postJobList);
+      return WAGE_MANAGE;
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-	@RequestMapping(value = "/ScheduleCalendar/save/{jobId}", method = RequestMethod.POST)
-	public String calendarIntoSql(Model model, @RequestParam("scheduleJSONArray") String scheduleJSON,
-			@RequestParam("delString") String delString, @PathVariable("jobId") Integer jobId)
-			throws JSONException, ParseException {
-		model.addAttribute("change", true);
+  /**
+   * Get wage by search condition.
+   */
+  @PostMapping(value = "/selectWage")
+  public String selectWage(Model model, @RequestParam("jobId") Integer jobId, 
+      @RequestParam("start") String start,
+      @RequestParam("end") String end, HttpSession session) throws ParseException {
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    if (loginUser != null) {
+      if (start.equals("") || end.equals("")) {
+        model.addAttribute("user", loginUser);
+        List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+        model.addAttribute(POST_JOB_LIST, postJobList);
+        return WAGE_MANAGE;
+      }
+      model.addAttribute("user", loginUser);
+      model.addAttribute("btn1", start);
+      model.addAttribute("btn2", end);
+      List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+      model.addAttribute(POST_JOB_LIST, postJobList);
 
-//		System.out.println(scheduleJSON);
-		System.out.println(delString);
-//		String[] delArray = delString.replaceAll(","," ").trim().split("\\s+");
-		String[] delArray = delString.split(",");
-		for (int i = 0; i < delArray.length; i++) {
-			if (delArray[i].length() != 0) {
-//				System.out.println(delArray[i]);
-				scheduleService.deleteScheduleByPrimaryKey(Integer.parseInt(delArray[i]));
-			}
-		}
+      String starte = start + HH_MM_SS_00;
+      String ende = end + HH_MM_SS_23;
 
-		JSONArray jsonArray = new JSONArray(scheduleJSON);
+      // 設定日期格式
+      SimpleDateFormat sdf = new SimpleDateFormat(TIMESTAMP_FORMAT);
+      // 進行轉換
+      Timestamp startTime = null;
+      Timestamp endTime = null;
+      Date startD = sdf.parse(starte);
+      Date endD = sdf.parse(ende);
+      startTime = new Timestamp(startD.getTime());
+      endTime = new Timestamp(endD.getTime());
 
-		System.out.println(jsonArray);
-		for (int i = 0; i < jsonArray.length(); i++) {
-			Schedule schedule = new Schedule();
-			JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-			if (jsonObject.isNull("scheduleId") == false) {
-				schedule.setScheduleId((Integer) jsonObject.get("scheduleId"));
-			}
-			schedule.setScheduleName((String) jsonObject.get("scheduleName"));
-			String starttime = ((String) jsonObject.get("startTime")).replaceAll("[^(0-9),-:]", " ");
-//			System.out.println(starttime);
-			schedule.setStartTime(Timestamp.valueOf(starttime));
-			String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
-			schedule.setEndTime(Timestamp.valueOf(endtime));
-			float restTime =   (float) ((Timestamp.valueOf(endtime).getTime() - Timestamp.valueOf(starttime).getTime())/(1000*60*60)/4*0.5);
-			schedule.setRestHour(restTime);			
+      List<Schedule> admitScheduleList = scheduleService
+          .getSchedulesByJobIdAndTime(jobId, startTime, endTime);
+      model.addAttribute("admitScheduleList", admitScheduleList);
+      return WAGE_MANAGE;
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
 
-			Interview interview = interviewService.findByAdmit_Job_UserName(jobId,(String) jsonObject.get("scheduleName"));
-			schedule.setInterview(interview);
+  }
 
-			scheduleService.insertSchedule(schedule);
-		}
+  /**
+   * Let staff get wage.
+   */
+  @GetMapping("/wageStaff")
+  public String wageStaff(Model model, HttpSession session) {
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    if (loginUser != null) {
+      model.addAttribute("user", loginUser);
+      List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+      model.addAttribute(STAFF_SCHEDULES, staffSchedules);
+      return WAGE_STAFF;
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-		return "schedule/ScheduleCalendar";
-	}
+  /**
+   * Get wage by search condition.
+   */
+  @PostMapping(value = "/selectWageStaff")
+  public String selectWageStaff(Model model, @RequestParam("start") String start, 
+      @RequestParam("end") String end, HttpSession session) throws ParseException {
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    if (loginUser != null) {
+      if (start.equals("") || end.equals("")) {
+        model.addAttribute("user", loginUser);
+        List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+        model.addAttribute(STAFF_SCHEDULES, staffSchedules);
+        return WAGE_STAFF;
+      }
 
-	@RequestMapping(value = "/addSchedule", method = RequestMethod.GET)
-	public String getScheduleForm(Model model) {
-		Schedule schedule = new Schedule();
-		model.addAttribute("schedule", schedule);
-		return "schedule/addSchedule";
-	}
+      model.addAttribute("user", loginUser);
+      model.addAttribute("btn1", start);
+      model.addAttribute("btn2", end);
 
-	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST)
-	public String addScheduleForm(@ModelAttribute("schedule") Schedule schedule, BindingResult result,
-			HttpServletRequest request) {
-		scheduleService.insertSchedule(schedule);
-		return "redirect:/scheduleManage";
-	}
+      List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+      model.addAttribute(STAFF_SCHEDULES, staffSchedules);
 
-	@RequestMapping("/scheduleManage")
-	public String scheduleManage(Model model) {
-		List<Schedule> schedulelist = scheduleService.getAllSchedules();
-		model.addAttribute("schedules", schedulelist);
-		return "schedule/scheduleManage";
-	}
+      String starte = start + HH_MM_SS_00;
+      String ende = end + HH_MM_SS_23;
 
-	@RequestMapping("/deleteSchedule")
-	public String deleteScheduleByPrimaryKey(Model model, @RequestParam("scheduleId") Integer scheduleId) {
-		scheduleService.deleteScheduleByPrimaryKey(scheduleId);
-		return "redirect:/scheduleManage";
-	}
+      // 設定日期格式
+      SimpleDateFormat sdf = new SimpleDateFormat(TIMESTAMP_FORMAT);
+      // 進行轉換
+      Timestamp startTime = null;
+      Timestamp endTime = null;
+      Date startD = sdf.parse(starte);
+      Date endD = sdf.parse(ende);
+      startTime = new Timestamp(startD.getTime());
+      endTime = new Timestamp(endD.getTime());
 
-	@RequestMapping(value = "/updateSchedule", method = RequestMethod.GET)
-	public String getUpdateScheduleForm(Model model, @RequestParam("scheduleId") Integer scheduleId) {
-		Schedule updateSchedule = scheduleService.getScheduleByPrimaryKey(scheduleId);
-		model.addAttribute("schedule", updateSchedule);
-		return "schedule/updateSchedule";
-	}
+      List<Schedule> staffScheduleList = scheduleService
+          .getSchedulesByNameAndTime(loginUser.getUserName(), startTime, endTime);
+      model.addAttribute("staffScheduleList", staffScheduleList);
+      return WAGE_STAFF;
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
 
-	@RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
-	public String UpdateScheduleForm(@ModelAttribute("schedule") Schedule schedule, BindingResult result,
-			HttpServletRequest request) {
-		scheduleService.updateScheduleByPrimaryKey(schedule);
-		return "redirect:/scheduleManage";
-	}
+  }
 
-	@RequestMapping("/wageManage")
-	public String wageManage(Model model, HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser != null) {
-			model.addAttribute("user", loginUser);
-			List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
-			model.addAttribute("postJobList", postJobList);
-			return "schedule/wageManage";
-		} else {
-			return "redirect:/";
-		}
-	}
+  /**
+   * Let user check schedule.
+   */
+  @GetMapping("/UserSchedule")
+  public String userCalendar(Model model, HttpSession session) {
+    User user = (User) session.getAttribute(LOGIN_USER);
 
-	@RequestMapping(value = "/selectWage", method = RequestMethod.POST)
-	public String selectWage(Model model, @RequestParam("jobId") Integer jobId, @RequestParam("start") String start,
-			@RequestParam("end") String end, HttpServletRequest req) throws ParseException {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser != null) {
-			if (start.equals("") || end.equals("")) {
-				model.addAttribute("user", loginUser);
-				List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
-				model.addAttribute("postJobList", postJobList);
-				return "schedule/wageManage";
-			} else
-				model.addAttribute("user", loginUser);
-			model.addAttribute("btn1", start);
-			model.addAttribute("btn2", end);
-			List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
-			model.addAttribute("postJobList", postJobList);
-			String ad = new String(" 00:00:00");
-			String ed = new String(" 23:00:00");
-			String starte = start + ad;
-			String ende = end + ed;
+    if (user != null) {
+      List<Schedule> scheduleList = scheduleService.getSchedulesByUser(user.getUserId());
+      JSONArray jsonArray = new JSONArray();
+      JSONObject object = null;
+      for (Schedule sj : scheduleList) {
+        object = new JSONObject();
+        object.put("id", sj.getScheduleId());
+        object.put(TITLE, sj.getScheduleName());
+        object.put(START, sj.getStartTime());
+        object.put("end", sj.getEndTime());
+        jsonArray.put(object);
+      }
+      model.addAttribute("json", jsonArray);
 
-			// 設定日期格式
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			// 進行轉換
-			Timestamp startTime = null;
-			Timestamp endTime = null;
-			Date startD = sdf.parse(starte);
-			Date endD = sdf.parse(ende);
-			startTime = new Timestamp(startD.getTime());
-			endTime = new Timestamp(endD.getTime());
+      return "schedule/UserSchedule";
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-			List<Schedule> admitScheduleList = scheduleService.getSchedulesByJobIdAndTime(jobId, startTime, endTime);
-			model.addAttribute("admitScheduleList", admitScheduleList);
-			return "schedule/wageManage";
-		} else {
-			return "redirect:/";
-		}
+  /**
+   * Show schedule by condition.
+   */
+  @GetMapping("/UserSchedule/Date/{time1}/{time2}")
+  public String userCalendarDate(Model model, HttpSession session, 
+      @PathVariable("time1") String time1, @PathVariable("time2") String time2) {
 
-	}
+    User user = (User) session.getAttribute(LOGIN_USER);
+    if (user != null) {
+      List<Schedule> scheduleList = scheduleService.getUserScheduleByRange(user.getUserId(),
+          java.sql.Date.valueOf(time1), java.sql.Date.valueOf(time2));
+      JSONArray jsonArray = new JSONArray();
+      JSONObject object = null;
+      for (Schedule sj : scheduleList) {
+        object = new JSONObject();
+        object.put("id", sj.getScheduleId());
+        object.put(TITLE, sj.getScheduleName());
+        object.put(START, sj.getStartTime());
+        object.put("end", sj.getEndTime());
+        jsonArray.put(object);
+      }
+      model.addAttribute("json", jsonArray);
 
-	@RequestMapping("/wageStaff")
-	public String wageStaff(Model model, HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser != null) {
-			model.addAttribute("user", loginUser);
-			List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
-			model.addAttribute("staffSchedules", staffSchedules);
-//			System.out.println("staffSchedules size:"+staffSchedules.size());
-			return "schedule/wageStaff";
-		} else {
-			return "redirect:/";
-		}
-	}
+      return "schedule/UserSchedule";
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-	@RequestMapping(value = "/selectWageStaff", method = RequestMethod.POST)
-	public String selectWageStaff(Model model, @RequestParam("start") String start, @RequestParam("end") String end, HttpServletRequest req)
-			throws ParseException {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser != null) {
-			if (start.equals("") || end.equals("")) {
-				model.addAttribute("user", loginUser);
-				List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
-				model.addAttribute("staffSchedules", staffSchedules);
-				return "schedule/wageStaff";
-			} else
-				model.addAttribute("user", loginUser);
-			
-			model.addAttribute("btn1", start);
-			model.addAttribute("btn2", end);
-			
-			List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
-			model.addAttribute("staffSchedules", staffSchedules);
+  /**
+   * Show schedule by condition.
+   */
+  @GetMapping("/ScheduleCalendar/{jobId}/{time1}/{time2}")
+  public String jobCalendarDate(Model model, @PathVariable("jobId") Integer jobId, 
+      @PathVariable("time1") String time1, @PathVariable("time2") String time2) {
+    List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+    List<Schedule> scheduleList = scheduleService
+        .getJobSchedulesByRange(jobId, java.sql.Date.valueOf(time1),
+        java.sql.Date.valueOf(time2));
+    JSONArray jsonArray = new JSONArray();
+    JSONObject object = null;
+    for (Schedule sj : scheduleList) {
+      object = new JSONObject();
+      object.put("id", sj.getScheduleId());
+      object.put(TITLE, sj.getScheduleName());
+      object.put(START, sj.getStartTime());
+      object.put("end", sj.getEndTime());
+      jsonArray.put(object);
+    }
+    model.addAttribute("json", jsonArray);
+    model.addAttribute(INTERVIEW_LIST, interviewList);
 
-			String ad = new String(" 00:00:00");
-			String ed = new String(" 23:00:00");
-			String starte = start + ad;
-			String ende = end + ed;
+    return SCHEDULE_CALENDAR;
+  }
 
-			// 設定日期格式
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			// 進行轉換
-			Timestamp startTime = null;
-			Timestamp endTime = null;
-			Date startD = sdf.parse(starte);
-			Date endD = sdf.parse(ende);
-			startTime = new Timestamp(startD.getTime());
-			endTime = new Timestamp(endD.getTime());
-			
-			List<Schedule> staffScheduleList = scheduleService.getSchedulesByNameAndTime(loginUser.getUserName(), startTime, endTime);
-			model.addAttribute("staffScheduleList", staffScheduleList);
-//			System.out.println("staffScheduleList:"+staffScheduleList);
-//			System.out.println("staffScheduleList size:"+staffScheduleList.size());
-			return "schedule/wageStaff";
-		} else {
-			return "redirect:/";
-		}
+  /**
+   * Display Schedule on EXCEL.
+   */
+  @PostMapping(value = "showSchedule", produces = "application/vnd.ms-excel")
+  public String displayScheduleExcel(Model model, @RequestParam("start") String start, 
+      @RequestParam("end") String end,
+      HttpSession session) throws ParseException {
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    if (loginUser != null) {
+      if (start.equals("") || end.equals("")) {
+        model.addAttribute("user", loginUser);
+        List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
+        model.addAttribute(STAFF_SCHEDULES, staffSchedules);
+        return WAGE_STAFF;
+      } else {
+        model.addAttribute("user", loginUser);
 
-	}
+        String starte = start + HH_MM_SS_00;
+        String ende = end + HH_MM_SS_23;
 
-	@RequestMapping("/UserSchedule")
-	public String userCalendar(Model model, HttpServletRequest request) {
+        // 設定日期格式
+        SimpleDateFormat sdf = new SimpleDateFormat(TIMESTAMP_FORMAT);
+        // 進行轉換
+        Timestamp startTime = null;
+        Timestamp endTime = null;
+        Date startD = sdf.parse(starte);
+        Date endD = sdf.parse(ende);
+        startTime = new Timestamp(startD.getTime());
+        endTime = new Timestamp(endD.getTime());
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
+        List<Schedule> staffScheduleList = scheduleService
+            .getSchedulesByNameAndTime(loginUser.getUserName(), startTime,
+            endTime);
+        model.addAttribute("staffScheduleList", staffScheduleList);
 
-		if (user != null) {		
+        return "fileDownload/showSchedule";
+      }
 
-			List<Schedule> scheduleList = scheduleService.getSchedulesByUser(user.getUserId());
-			JSONArray jsonArray = new JSONArray();
-			JSONObject object = null;
-			for (Schedule sj : scheduleList) {
-				object = new JSONObject();
-				object.put("id", sj.getScheduleId());
-				object.put("title", sj.getScheduleName());
-				object.put("start", sj.getStartTime());
-				object.put("end", sj.getEndTime());
-//				object.put("color", sj.getColor());
-				jsonArray.put(object);
-			}
-			System.out.println(jsonArray);
-			model.addAttribute("json", jsonArray);
-		
-			return "schedule/UserSchedule";
-		} else {
-			return "redirect:/";
-		}
-	}
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 
-	
-	@RequestMapping("/UserSchedule/Date/{time1}/{time2}")
-	public String userCalendarDate(Model model, HttpServletRequest request,@PathVariable("time1") String time1,@PathVariable("time2") String time2) {
+  /**
+   * Display Schedule on EXCEL.
+   */
+  @PostMapping(value = "showSchedules", produces = "application/vnd.ms-excel")
+  public String displayShedulesExcel(Model model, @RequestParam("jobId") Integer jobId,
+      @RequestParam("start") String start, @RequestParam("end") String end, HttpServletRequest req)
+      throws ParseException {
+    HttpSession session = req.getSession();
+    User loginUser = (User) session.getAttribute(LOGIN_USER);
+    if (loginUser != null) {
+      if (start.equals("") || end.equals("")) {
+        model.addAttribute("user", loginUser);
+        List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+        model.addAttribute(POST_JOB_LIST, postJobList);
+        return WAGE_MANAGE;
+      }
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("loginUser");
-		
-		java.sql.Date sqldate = new java.sql.Date(0); 
+      model.addAttribute("user", loginUser);
+      List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
+      model.addAttribute(POST_JOB_LIST, postJobList);
+      String starte = start + HH_MM_SS_00;
+      String ende = end + HH_MM_SS_23;
 
-		if (user != null) {		
-			List<Schedule> scheduleList = scheduleService.getUserScheduleByRange(user.getUserId(),sqldate.valueOf(time1), sqldate.valueOf(time2));
-			JSONArray jsonArray = new JSONArray();
-			JSONObject object = null;
-			for (Schedule sj : scheduleList) {
-				object = new JSONObject();
-				object.put("id", sj.getScheduleId());
-				object.put("title", sj.getScheduleName());
-				object.put("start", sj.getStartTime());
-				object.put("end", sj.getEndTime());
-//				object.put("color", sj.getColor());
-				jsonArray.put(object);
-			}
-			System.out.println(jsonArray);
-			model.addAttribute("json", jsonArray);
-		
-			return "schedule/UserSchedule";
-		} else {
-			return "redirect:/";
-		}
-	}
-	
-	@RequestMapping("/ScheduleCalendar/{jobId}/{time1}/{time2}")
-	public String jobCalendarDate(Model model, @PathVariable("jobId") Integer jobId,@PathVariable("time1") String time1,@PathVariable("time2") String time2) {
-		java.sql.Date sqldate = new java.sql.Date(0);
-		
-		List<Interview> interviewList = interviewService.findInterviewByAdmit(jobId);
+      // 設定日期格式
+      SimpleDateFormat sdf = new SimpleDateFormat(TIMESTAMP_FORMAT);
+      // 進行轉換
+      Timestamp startTime = null;
+      Timestamp endTime = null;
+      Date startD = sdf.parse(starte);
+      Date endD = sdf.parse(ende);
+      startTime = new Timestamp(startD.getTime());
+      endTime = new Timestamp(endD.getTime());
 
-		List<Schedule> scheduleList = scheduleService.getJobSchedulesByRange(jobId, sqldate.valueOf(time1), sqldate.valueOf(time2));
-		JSONArray jsonArray = new JSONArray();
-		JSONObject object = null;
-		for (Schedule sj : scheduleList) {
-			object = new JSONObject();
-			object.put("id", sj.getScheduleId());
-			object.put("title", sj.getScheduleName());
-			object.put("start", sj.getStartTime());
-			object.put("end", sj.getEndTime());
-//			object.put("color", sj.getColor());
-			jsonArray.put(object);
-		}
-		System.out.println(jsonArray);
-		model.addAttribute("json", jsonArray);
-		model.addAttribute("interviewList", interviewList);
-
-		return "schedule/ScheduleCalendar";
-	}
-
-	@RequestMapping(value = "showSchedule", method = RequestMethod.POST, produces = "application/vnd.ms-excel")
-	public String displaySheduleEXCEL(Model model, @RequestParam("start") String start, @RequestParam("end") String end,
-			HttpServletRequest req) throws ParseException {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser != null) {
-			if (start.equals("") || end.equals("")) {
-				model.addAttribute("user", loginUser);
-				List<Schedule> staffSchedules = scheduleService.getSchedulesByUser(loginUser.getUserId());
-				model.addAttribute("staffSchedules", staffSchedules);
-				return "schedule/wageStaff";
-			} else {
-				model.addAttribute("user", loginUser);
-				String btn1 = (String) req.getAttribute(start);
-				String btn2 = (String) req.getAttribute(end);		
-
-				String ad = new String(" 00:00:00");
-				String ed = new String(" 23:00:00");
-				String starte = start + ad;
-				String ende = end + ed;
-
-				// 設定日期格式
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				// 進行轉換
-				Timestamp startTime = null;
-				Timestamp endTime = null;
-				Date startD = sdf.parse(starte);
-				Date endD = sdf.parse(ende);
-				startTime = new Timestamp(startD.getTime());
-				endTime = new Timestamp(endD.getTime());
-
-				List<Schedule> staffScheduleList = scheduleService.getSchedulesByNameAndTime(loginUser.getUserName(),
-						startTime, endTime);
-				model.addAttribute("staffScheduleList", staffScheduleList);
-
-				return "fileDownload/showSchedule";
-			}
-
-		} else {
-			return "redirect:/";
-		}
-	}
-	
-	@RequestMapping(value = "showSchedules", method = RequestMethod.POST, produces = "application/vnd.ms-excel")
-	public String displayShedulesEXCEL(Model model, @RequestParam("jobId") Integer jobId, @RequestParam("start") String start,
-			@RequestParam("end") String end, HttpServletRequest req) throws ParseException {
-		HttpSession session = req.getSession();
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser != null) {
-			if (start.equals("") || end.equals("")) {
-				model.addAttribute("user", loginUser);
-				List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
-				model.addAttribute("postJobList", postJobList);
-				return "schedule/wageManage";
-			} else
-				model.addAttribute("user", loginUser);
-
-			List<Job> postJobList = jobService.findJobByUserId(loginUser.getUserId());
-			model.addAttribute("postJobList", postJobList);
-			String ad = new String(" 00:00:00");
-			String ed = new String(" 23:00:00");
-			String starte = start + ad;
-			String ende = end + ed;
-
-			// 設定日期格式
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			// 進行轉換
-			Timestamp startTime = null;
-			Timestamp endTime = null;
-			Date startD = sdf.parse(starte);
-			Date endD = sdf.parse(ende);
-			startTime = new Timestamp(startD.getTime());
-			endTime = new Timestamp(endD.getTime());
-
-			List<Schedule> admitScheduleList = scheduleService.getSchedulesByJobIdAndTime(jobId, startTime, endTime);
-			model.addAttribute("admitScheduleList", admitScheduleList);
-			return "fileDownload/showOtherSchedule";
-		} else {
-			return "redirect:/";
-		}
-
-	}
+      List<Schedule> admitScheduleList = scheduleService
+          .getSchedulesByJobIdAndTime(jobId, startTime, endTime);
+      model.addAttribute("admitScheduleList", admitScheduleList);
+      return "fileDownload/showOtherSchedule";
+    } else {
+      return REDIRECT_TO_INDEX;
+    }
+  }
 }

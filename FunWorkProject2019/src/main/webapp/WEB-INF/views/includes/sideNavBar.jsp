@@ -40,10 +40,50 @@ background-color: #e3f2fd;
 background-color: #e3f2fd;
 }
 
+#accordionExample {
+background-color:#ecf5ff;
+min-height:620px;
+height:100%;
+max-width:150px;
+margin-left:-50px;
+font-weight:700;
+}
+
+#accordionExample button {
+background-color:#ecf5ff;
+font-weight:900;
+color:#0878A4;
+
+}
+
+#accordionExample button:hover{
+background-color:#0878A4;
+color:white;
+
+}
+
+#accordionExample div {
+background-color:#ecf5ff;
+border:none;
+}
+
+#accordionExample a{
+font-weight:700;
+color:#1ECFD6;
+}
+
+#accordionExample a:hover{
+background-color:white;
+color:#F2746B;
+text-decoration:none;
+border-radius:15px;
+}
+
+
 </style>
 </head>
 <body>
-	<div class="accordion text-center" id="accordionExample">
+	<div class="accordion text-center shadow" id="accordionExample">
 			<div class="card">
 			<div class="card-header" id="heading1">
 				<h2 class="mb-0">
@@ -135,7 +175,7 @@ background-color: #e3f2fd;
 			<div class="card-header" id="heading5">
 				<h2 class="mb-0">
 					<button class="btn collapsed" type="button" data-toggle="collapse"
-						data-target="#collapse5" aria-controls="collapse5" aria-expanded="false">排班薪資管理</button>
+						data-target="#collapse5" aria-controls="collapse5" aria-expanded="false">排班薪資</button>
 				</h2>
 			</div>
 

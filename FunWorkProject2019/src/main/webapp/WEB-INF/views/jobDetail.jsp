@@ -109,27 +109,29 @@
 	}
 </script>
 <style>
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-
-.asideblock {
-	height: 600px;
-}
-
 .showjobdetail h5 {
-	font-weight: bolder;
+color:#04060F;
+font-weight:900;
 }
 
 .showjobdetail h3 {
-	font-weight: 900;
+color:#003D73;
+font-weight:900;
+}
+
+.showjobdetail h6 {
+font-weight:700;
 }
 
 #map {
 	height: 400px;
 	margin-bottom: 5px;
 }
+
+.jobdetailrow {
+margin-bottom:10px;
+}
+
 </style>
 </head>
 
@@ -137,7 +139,7 @@
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 	<div style="height: 4rem"></div>
 	<div class="container-fluid">
-		<div class="row m-3 justify-content-around">
+		<div class="row m-3 justify-content-around align-items-center">
 			<div class="col-sm-2">
 			<%@ include file="/WEB-INF/views/includes/sideNavBar.jsp"%>
 			</div>
@@ -146,16 +148,16 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<h3>${jobBean.title}</h3>
-						<p>時薪：${jobBean.rateByHour}</p>
+						<p style="color:#C05640;font-weight:600">時薪：${jobBean.rateByHour}</p>
 					</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>工作內容</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.description}</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>工作時間</h5>
 					</div>
@@ -166,43 +168,43 @@
 <%-- 				</c:forEach> --%>
 					</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>需求人數</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.positionNum}</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>給薪日期</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.paidDate}</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>其他條件</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.other}</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>工作地點</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.city.cityName}</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>詳細地址</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.address}</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>地點說明</h5>
 					</div>
 					<div class="col-sm-5">${jobBean.addresssup}</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>聯絡資訊</h5>
 					</div>
@@ -212,7 +214,7 @@
 						<p>信箱：${jobBean.jobEmail}</p>
 					</div>
 				</div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center jobdetailrow">
 					<div class="col-sm-3">
 						<h5>所屬公司</h5>
 					</div>
@@ -220,12 +222,14 @@
 				</div>
 
 				<div class="row justify-content-center">
+				<div class="col-sm-4" style="margin-top:15px">
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-light" data-toggle="modal"
 						data-target="#reportModal" style="margin-right: 30px">檢舉</button>
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#resumeModal">我要應徵</button>
+				</div>
 				</div>
 				<!--以下是履歷的區塊 -->
 				<div class="modal fade" id="resumeModal" tabindex="-1" role="dialog"
@@ -379,8 +383,8 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
+		<div class="row no-gutter">
+			<div class="col text-center footerbackground"><footer>Copyright© 2019 趣打工 All rights reserved.</footer></div>
 		</div>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

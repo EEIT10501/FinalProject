@@ -1,71 +1,56 @@
 package com.funwork.service;
 
+import com.funwork.model.City;
+import com.funwork.model.Job;
 import java.util.List;
 import java.util.Map;
 
-import com.funwork.model.City;
-import com.funwork.model.Job;
-
 public interface JobService {
+  List<Job> getJobReviewList();
 
-	List<Job> getAllJobs();
+  List<Job> getJobByCityName(Integer cityId);
 
-	List<Job> getJobReviewList();
+  List<Job> getJobByCityArea(Integer cityId);
 
-	List<Job> getJobPassed();
+  Job getJobById(Integer jobId);
 
-	List<Job> getJobByCityName(Integer cityId);
+  Job jobReviewPass(Integer jobId);
 
-	List<Job> getJobByCityArea(Integer cityId);
+  Job jobReviewFail(Integer jobId, String failReason);
 
-	Job getJobById(Integer jobId);
+  List<City> getCityName(Integer cityId);
 
-	Job jobReviewPass(Integer jobId);
+  List<Job> findJobByUserId(Integer userId);
 
-	Job jobReviewFail(Integer jobId, String failReason);
+  List<Job> getCorrectJobs();
 
-	List<City> getAllCitys();
+  List<Job> getReviewHistory();
 
-	List<City> getCityName(Integer cityId);
+  String getCityNameList(String cityArea);
 
-	List<Job> findJobByUserId(Integer userId);
+  void insertJob(Job job, Integer userId);
 
-	List<Job> findJobByUserIdNJobStatus(Integer userId);
+  int getJobPostedCount(Integer userId);
 
-	List<Job> getCorrectJobs();
+  Map<String, String> getGeocoderLatitude(String address);
 
-	List<Job> getReviewHistory();
+  void updateJobPostById(Integer jobId, Job jbean);
 
-	List<String> getCityAreaList();
+  List<Job> getJobsBySearchStr(String searchStr);
 
-	String getCityNameList(String cityArea);
+  void changeJobExposure(Integer jobId);
 
-	City getCityByCityName(String cityName);
+  void changeJobFilled(Integer jobId);
 
-	Job insertJob(Job job, Integer userId);
+  City getCityByPk(Integer cityId);
 
-	int getJobPostedCount(Integer userId);
+  Integer getJobExposureCount(Integer userId);
 
-	Map<String, String> getGeocoderLatitude(String address);
+  Integer getAllJobPostingCount();
 
-	void updateJobPostById(Integer jobId, Job jbean);
+  String getAllPostingJobTypeJson();
 
-	List<Job> getJobsBySearchStr(String searchStr);
+  void updateJobByExpired();
 
-	void changeJobExposure(Integer jobId);
-
-	void changeJobFilled(Integer jobId);
-
-	City getCityByPk(Integer cityId);
-
-	Integer getJobExposureCount(Integer userId);
-
-	Integer getAllJobPostingCount();
-
-	String getAllPostingJobTypeJson();
-
-	void updateJobByExpired();
-
-	Integer updateViewTimesByJob(Integer jobId);
-
+  Integer updateViewTimesByJob(Integer jobId);
 }

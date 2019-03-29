@@ -10,13 +10,11 @@ public interface OrderDao {
   List<Order> getAllOrders();
 
   List<Product> getAllProducts();
-  
-  List<Order> getOrderByUser(Integer userId);
-  
+
   Order insertOrder(Order order);
-  
+
   Order getOrderByTradeNo(String orderTradeNo);
-  
+
   String getOrderByMouth();
 
   List<Order> getOrdersById(Integer userId);

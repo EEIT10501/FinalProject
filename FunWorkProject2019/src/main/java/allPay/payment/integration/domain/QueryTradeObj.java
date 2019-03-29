@@ -34,14 +34,14 @@ public class QueryTradeObj {
 	/********************* getters and setters *********************/
 	
 	/**
-	 * 取得MerchantID 會員編號(由allPay提供)
+	 * 取得MerchantID 會員編號(由O’Pay提供)
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
 		return MerchantID;
 	}
 	/**
-	 * 設定MerchantID 會員編號(由allPay提供)
+	 * 設定MerchantID 會員編號(由O’Pay提供)
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {

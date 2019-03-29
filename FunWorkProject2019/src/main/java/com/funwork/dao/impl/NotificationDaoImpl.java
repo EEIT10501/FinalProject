@@ -2,7 +2,6 @@ package com.funwork.dao.impl;
 
 import com.funwork.dao.NotificationDao;
 import com.funwork.model.Notification;
-import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +12,6 @@ public class NotificationDaoImpl implements NotificationDao {
 
   @Autowired
   SessionFactory factory;
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<Notification> getAllNotifications() {
-    String hql = "FROM Notification";
-    Session session = null;
-    session = factory.getCurrentSession();
-    return session.createQuery(hql).getResultList();
-  }
 
   @Override
   public void insertNotification(Notification notification) {

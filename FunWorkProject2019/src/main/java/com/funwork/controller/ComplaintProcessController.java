@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ComplaintProcessController {
-
   @Autowired
   ComplaintService complaintService;
 

@@ -1,43 +1,27 @@
 package com.funwork.service;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import com.funwork.model.Interview;
 import java.util.List;
 
-import com.funwork.model.Interview;
-import com.funwork.model.Job;
-import com.funwork.model.User;
-
 public interface InterviewService {
+  Interview findByPrimaryKey(int key);
 
-	Interview findByPrimaryKey(int key);
+  Integer saveInterview(String interType, String interComment, 
+      String interPlace, String interTime, Integer apId);
 
-	Integer saveInterview(String interType, String interComment, String interPlace, String interTime, Integer apId);
+  void updateInterviewResult(String interviewResult, int key);
 
-	void updateInterviewResult(String interviewResult, int key);
+  void updateInterview(Interview interview);
 
-	void updateInterview(Interview interview);
-	
-	void deleteInterviewByPrimaryKey(int key);
+  List<Interview> findByApplicationIdAndTimeProcessing(int key);
 
-	List<Interview> findAllInterviews();
+  List<Interview> findByApplicationIdAndTimeCompleted(int key);
 
-	void deleteAllInterviews();
+  List<Interview> findByApplicationIdAndTimeExpired(int key);
 
-	public boolean isInterviewExist(Interview interview);
-	
-	List<Interview> findByApplicationIds(int key);
-	 
-	List<Interview> findByApplicationIdAndTimeProcessing(int key);
+  List<Interview> findInterviewByAdmit(Integer jobId);
 
-	List<Interview> findByApplicationIdAndTimeCompleted(int key);
+  Interview findByAdmitJobUserName(Integer jobId, String userName);
 
-	List<Interview> findByApplicationIdAndTimeExpired(int key);
-	
-	List<Interview> findInterviewByAdmit(Integer jobId);
-	
-	Interview findByAdmit_Job_UserName(Integer jobId,String userName);
-
-	public List<Interview> findInterviewsByJobOwner(User jobOwner);
-	
+  public List<Interview> findInterviewsByJobOwner(Integer userId);
 }

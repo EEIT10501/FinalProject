@@ -126,14 +126,14 @@ public class ATMRequestObj {
 		MerchantID = merchantID;
 	}
 	/**
-	 * 取得MerchantTradeNo 會員交易編號
+	 * 取得MerchantTradeNo 會員交易編號，訂單產生時傳送給O’Pay的會員交易編號。
 	 * @return MerchantTradeNo
 	 */
 	public String getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	/**
-	 * 設定MerchantTradeNo 會員交易編號
+	 * 設定MerchantTradeNo 會員交易編號，訂單產生時傳送給O’Pay的會員交易編號。
 	 * @param MerchantTradeNo
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {

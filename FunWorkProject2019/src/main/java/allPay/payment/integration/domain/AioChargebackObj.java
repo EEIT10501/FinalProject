@@ -46,42 +46,42 @@ public class AioChargebackObj {
 	/********************* getters and setters *********************/
 	
 	/**
-	 * 取得MerchantID 會員編號(由allPay提供)
+	 * 取得MerchantID 會員編號(由O'Pay提供)
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
 		return MerchantID;
 	}
 	/**
-	 * 設定MerchantID 會員編號(由allPay提供)
+	 * 設定MerchantID 會員編號(由O'Pay提供)
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {
 		MerchantID = merchantID;
 	}
 	/**
-	 * 取得MerchantTradeNo 會員交易編號
+	 * 取得MerchantTradeNo 會員交易編號，訂單成立時的會員交易編號。
 	 * @return MerchantTradeNo
 	 */
 	public String getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	/**
-	 * 設定MerchantTradeNo 會員交易編號
+	 * 設定MerchantTradeNo 會員交易編號，訂單成立時的會員交易編號。
 	 * @param merchantTradeNo
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {
 		MerchantTradeNo = merchantTradeNo;
 	}
 	/**
-	 * 取得TradeNo allPay的交易編號
+	 * 取得TradeNo O'Pay的交易編號，歐付寶在付款成功時，回傳的O’Pay交易編號。
 	 * @return TradeNo
 	 */
 	public String getTradeNo() {
 		return TradeNo;
 	}
 	/**
-	 * 設定TradeNo allPay的交易編號
+	 * 設定TradeNo O'Pay的交易編號，歐付寶在付款成功時，回傳的O’Pay交易編號。
 	 * @param tradeNo
 	 */
 	public void setTradeNo(String tradeNo) {

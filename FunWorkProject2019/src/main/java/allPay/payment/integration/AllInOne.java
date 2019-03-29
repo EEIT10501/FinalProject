@@ -1,6 +1,5 @@
 package allPay.payment.integration;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -20,17 +20,19 @@ import allPay.payment.integration.domain.ATMRequestObj;
 import allPay.payment.integration.domain.AioChargebackObj;
 import allPay.payment.integration.domain.AioCheckOutALL;
 import allPay.payment.integration.domain.AioCheckOutATM;
+import allPay.payment.integration.domain.AioCheckOutAccountLink;
 import allPay.payment.integration.domain.AioCheckOutCVS;
 import allPay.payment.integration.domain.AioCheckOutDevide;
 import allPay.payment.integration.domain.AioCheckOutOneTime;
 import allPay.payment.integration.domain.AioCheckOutPeriod;
 import allPay.payment.integration.domain.AioCheckOutTenpay;
+import allPay.payment.integration.domain.AioCheckOutTopUpUsed;
 import allPay.payment.integration.domain.AioCheckOutWebATM;
+import allPay.payment.integration.domain.AioCheckOutWeiXinpay;
 import allPay.payment.integration.domain.CVSRequestObj;
 import allPay.payment.integration.domain.CaptureObj;
 import allPay.payment.integration.domain.DoActionObj;
 import allPay.payment.integration.domain.FundingReconDetailObj;
-import allPay.payment.integration.domain.InvoiceObj;
 import allPay.payment.integration.domain.QueryCreditCardPeriodInfoObj;
 import allPay.payment.integration.domain.QueryTradeInfoObj;
 import allPay.payment.integration.domain.QueryTradeObj;
@@ -60,12 +62,11 @@ public class AllInOne extends AllInOneBase{
 	 * AllInOne Constructor 
 	 * 參數帶入log4j.properties的路徑，若帶入空字串則預設不產生log
 	 * @param log4jPropertiesPath
-	 * @throws UnsupportedEncodingException 
 	 */
-	public AllInOne(String log4jPropertiesPath) throws UnsupportedEncodingException{
+	public AllInOne(String log4jPropertiesPath){
 		super();
 		if(log4jPropertiesPath != "" && log4jPropertiesPath != null){
-			if(log4jPropertiesPath.substring(log4jPropertiesPath.length()-1) == "/")
+			if(log4jPropertiesPath.substring(log4jPropertiesPath.length()-1).equals("/"))
 				PropertyConfigurator.configure(log4jPropertiesPath + "log4j.properties");
 			else
 				PropertyConfigurator.configure(log4jPropertiesPath + "/log4j.properties");
@@ -391,10 +392,9 @@ public class AllInOne extends AllInOneBase{
 	/**
 	 * 產生訂單Html Form的方法
 	 * @param obj AioCheckOut類型的物件
-	 * @param invoice
 	 * @return String
 	 */
-	public String aioCheckOut(Object obj, InvoiceObj invoice){
+	public String aioCheckOut(Object obj){
 		StringBuilder out = new StringBuilder();
 		String ignoreParam = "";
 		if(obj instanceof AioCheckOutALL){
@@ -405,7 +405,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutALL) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutALL) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			
 			if(ignorePayment.length > 0){
 				ignoreParam = Arrays.toString(ignorePayment);
 				ignoreParam = ignoreParam.replaceAll(", ", "#");
@@ -413,7 +413,45 @@ public class AllInOne extends AllInOneBase{
 				((AioCheckOutALL) obj).setIgnorePayment(ignoreParam);
 			}
 			log.info("aioCheckOutALL params: " + ((AioCheckOutALL) obj).toString());
-		} else if(obj instanceof AioCheckOutATM){
+		} else if(obj instanceof AioCheckOutAccountLink){
+			((AioCheckOutAccountLink) obj).setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && ((AioCheckOutAccountLink) obj).getMerchantID().isEmpty()){
+				((AioCheckOutAccountLink) obj).setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutAccountLink) obj).getMerchantID().isEmpty()){
+			} else {
+				((AioCheckOutAccountLink) obj).setMerchantID(MerchantID);
+			}
+//<<<<<<< HEAD
+			
+//=======
+//			((AioCheckOutAccountLink) obj).setInvoiceMark(invoice == null? "N" : "Y");
+//>>>>>>> c4232d7404d4ce3918d095abfc0dbf74f29dda88
+			log.info("aioCheckOutAccountLink params: " + ((AioCheckOutAccountLink) obj).toString());
+		} else if(obj instanceof AioCheckOutWeiXinpay){
+			((AioCheckOutWeiXinpay) obj).setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && ((AioCheckOutWeiXinpay) obj).getMerchantID().isEmpty()){
+				((AioCheckOutWeiXinpay) obj).setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutWeiXinpay) obj).getMerchantID().isEmpty()){
+			} else {
+				((AioCheckOutWeiXinpay) obj).setMerchantID(MerchantID);
+			}
+//<<<<<<< HEAD
+//			
+//=======
+//			((AioCheckOutWeiXinpay) obj).setInvoiceMark(invoice == null? "N" : "Y");
+//>>>>>>> c4232d7404d4ce3918d095abfc0dbf74f29dda88
+			log.info("aioCheckOutWeiXinpay params: " + ((AioCheckOutWeiXinpay) obj).toString());
+		}else if(obj instanceof AioCheckOutTopUpUsed){
+			((AioCheckOutTopUpUsed) obj).setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && ((AioCheckOutTopUpUsed) obj).getMerchantID().isEmpty()){
+				((AioCheckOutTopUpUsed) obj).setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !((AioCheckOutTopUpUsed) obj).getMerchantID().isEmpty()){
+			} else {
+				((AioCheckOutTopUpUsed) obj).setMerchantID(MerchantID);
+			}
+			
+			log.info("aioCheckOutTopUpUsed params: " + ((AioCheckOutTopUpUsed) obj).toString());
+		}else if(obj instanceof AioCheckOutATM){
 			((AioCheckOutATM) obj).setPlatformID(PlatformID);
 			if(!PlatformID.isEmpty() && ((AioCheckOutATM) obj).getMerchantID().isEmpty()){
 				((AioCheckOutATM) obj).setMerchantID(MerchantID);
@@ -421,8 +459,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutATM) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutATM) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			System.out.println(((AioCheckOutATM)obj).getRemark());
+			
 			log.info("aioCheckOutATM params: " + ((AioCheckOutATM) obj).toString());
 		} else if(obj instanceof AioCheckOutCVS){
 			((AioCheckOutCVS) obj).setPlatformID(PlatformID);
@@ -432,7 +469,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutCVS) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutCVS) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			
 			String TotalAmount = ((AioCheckOutCVS) obj).getTotalAmount();
 			if(Integer.parseInt(TotalAmount) < 27 || Integer.parseInt(TotalAmount) > 20000){
 				throw new AllPayException(ErrorMessage.CVS_TOTALAMT_ERROR);
@@ -446,7 +483,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutDevide) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutDevide) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			
 			log.info("aioCheckOutDevide params: " + ((AioCheckOutDevide) obj).toString());
 		} else if(obj instanceof AioCheckOutOneTime){
 			((AioCheckOutOneTime) obj).setPlatformID(PlatformID);
@@ -456,7 +493,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutOneTime) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutOneTime) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			
 			log.info("aioCheckOutOneTime params: " + ((AioCheckOutOneTime) obj).toString());
 		} else if(obj instanceof AioCheckOutPeriod){
 			((AioCheckOutPeriod) obj).setPlatformID(PlatformID);
@@ -466,7 +503,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutPeriod) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutPeriod) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			
 			log.info("aioCheckOutPeriod params: " + ((AioCheckOutPeriod) obj).toString());
 		} else if(obj instanceof AioCheckOutTenpay){
 			((AioCheckOutTenpay) obj).setPlatformID(PlatformID);
@@ -476,7 +513,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutTenpay) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutTenpay) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			
 			log.info("aioCheckOutTenpay params: " + ((AioCheckOutTenpay) obj).toString());
 		} else if(obj instanceof AioCheckOutWebATM){
 			((AioCheckOutWebATM) obj).setPlatformID(PlatformID);
@@ -486,7 +523,7 @@ public class AllInOne extends AllInOneBase{
 			} else {
 				((AioCheckOutWebATM) obj).setMerchantID(MerchantID);
 			}
-			((AioCheckOutWebATM) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			
 			log.info("aioCheckOutWebATM params: " + ((AioCheckOutWebATM) obj).toString());
 		} else{
 			throw new AllPayException(ErrorMessage.UNDIFINED_OBJECT);
@@ -495,18 +532,7 @@ public class AllInOne extends AllInOneBase{
 			VerifyAioCheckOut verify = new VerifyAioCheckOut();
 			aioCheckOutUrl = verify.getAPIUrl(operatingMode);
 			verify.verifyParams(obj);
-			if(invoice != null){
-				log.info("aioCheckOut invoice params: " + invoice.toString());
-				verify.verifyParams(invoice);
-				verify.verifyInvoice(invoice);
-				invoice.setCustomerName(AllPayFunction.urlEncode(invoice.getCustomerName()));
-				invoice.setCustomerAddr(AllPayFunction.urlEncode(invoice.getCustomerAddr()));
-				invoice.setCustomerEmail(AllPayFunction.urlEncode(invoice.getCustomerEmail()));
-				invoice.setInvoiceItemName(AllPayFunction.urlEncode(invoice.getInvoiceItemName()));
-				invoice.setInvoiceItemWord(AllPayFunction.urlEncode(invoice.getInvoiceItemWord()));
-				invoice.setInvoiceRemark(AllPayFunction.urlEncode(invoice.getInvoiceRemark()));
-			}
-			out.append(genCheckOutHtmlCode(obj, invoice));
+			out.append(genCheckOutHtmlCode(obj));
 		} catch (AllPayException e2) {
 			e2.ShowExceptionMessage();
 			log.error(e2.getNewExceptionMessage());
@@ -566,17 +592,11 @@ public class AllInOne extends AllInOneBase{
 	/**
 	 * 產生HTML code
 	 * @param aio object
-	 * @param invoice object
 	 * @return string
 	 */
-	private String genCheckOutHtmlCode(Object aio, InvoiceObj invoice) {
+	private String genCheckOutHtmlCode(Object aio) {
 		StringBuilder builder = new StringBuilder();
 		Hashtable<String, String> fieldValue = AllPayFunction.objToHashtable(aio);
-		Hashtable<String, String> invoiceField = new Hashtable<String, String>();
-		if(invoice != null){
-			invoiceField = AllPayFunction.objToHashtable(invoice);
-			fieldValue.putAll(invoiceField);
-		}
 		String CheckMacValue = AllPayFunction.genCheckMacValue(HashKey, HashIV, fieldValue);
 		log.info("aioCheckOut generate CheckMacValue: " + CheckMacValue);
 		fieldValue.put("CheckMacValue", CheckMacValue);

@@ -16,18 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ComplaintServiceImpl implements ComplaintService {
-
   @Autowired
   ComplaintDao complaintDao;
   @Autowired
   JobDao jobDao;
   @Autowired
   NotificationDao notificationDao;
-
-  @Override
-  public List<Complaint> getAllComplaints() {
-    return complaintDao.getAllComplaints();
-  }
 
   @Override
   public List<Complaint> getComplaintProcessList() {
@@ -62,7 +56,7 @@ public class ComplaintServiceImpl implements ComplaintService {
       notification.setType(2);
       notification.setUser(job.getJobOwner());
       notificationDao.insertNotification(notification);
-      
+
     } else if (isRemove.equals("close")) {
       cp = complaintDao.getComplaintById(cpId);
       cp.setProcessDescription(closeReason);
@@ -88,5 +82,4 @@ public class ComplaintServiceImpl implements ComplaintService {
   public List<Complaint> getComplaintHistoryList() {
     return complaintDao.getComplaintHistoryList();
   }
-
 }

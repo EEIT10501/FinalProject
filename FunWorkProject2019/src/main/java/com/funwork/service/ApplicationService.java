@@ -1,42 +1,27 @@
 package com.funwork.service;
 
-import java.util.Date;
-import java.util.List;
-
 import com.funwork.model.Application;
 import com.funwork.model.Job;
+import java.util.List;
 
 public interface ApplicationService {
-	Application findByPrimaryKey(int key);
+  Application findByPrimaryKey(int key);
 
-	Application findByDate(Date date);
-	
-	void insertApplication(Integer userId, Integer jobId,String question);
+  void insertApplication(Integer userId, Integer jobId, String question);
 
-	void saveApplication(Application application);
+  void updateApplication(Application application);
 
-	void updateApplication(Application application);
+  List<Application> getApplicationByUserId(Integer userId);
 
-	void deleteApplicationByPrimaryKey(int key);
+  void updateLatestMsg(Integer apId, String msg);
 
-	void deleteAllApplications();
+  List<Application> getApplicationByUserIdByTime(Integer userId);
 
-	public boolean isApplicationExist(Application application);
-	
-	List<Application> getApplicationByUserId(Integer userId);
-	
-	void updateLatestMsg(Integer apId, String msg);
+  List<Application> findAllApplicantsByJob(Job job);
 
+  void refuseUser(Integer apId);
 
-	List<Application> getApplicationByUserIdByTime(Integer userId);
+  List<Application> findByJobId(Integer jobId);
 
-	List<Application> findAllApplicantsByJob(Job job);
-	
-	void refuseUser(Integer apId);
-
-
-	public List<Application> findAllApplications(Integer userId);
-
-	List<Application> findByJobId(Integer jobId);
-
+  Application isApplicantExist(Integer userId, Integer jobId);
 }

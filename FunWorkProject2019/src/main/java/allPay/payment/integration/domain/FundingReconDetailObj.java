@@ -34,56 +34,62 @@ public class FundingReconDetailObj {
 	/********************* getters and setters *********************/
 	
 	/**
-	 * 取得MerchantID 會員編號(由allPay提供)
+	 * 取得MerchantID 會員編號(由O’Pay提供)
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
 		return MerchantID;
 	}
 	/**
-	 * 設定MerchantID 會員編號(由allPay提供)
+	 * 設定MerchantID 會員編號(由O’Pay提供)
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {
 		MerchantID = merchantID;
 	}
 	/**
-	 * 取得PayDateType 查詢日期類別
+	 * 取得PayDateType 查詢日期類別，要查詢的日期類別
+	 * 若為查詢撥款日期時，則參數請帶fund
+	 * 若為查詢關帳日期時，則參數請帶close
+	 * 若為查詢入帳日期時，則參數請帶enter
 	 * @return PayDateType
 	 */
 	public String getPayDateType() {
 		return PayDateType;
 	}
 	/**
-	 * 設定PayDateType 查詢日期類別
+	 * 設定PayDateType 查詢日期類別，要查詢的日期類別
+	 * 若為查詢撥款日期時，則參數請帶fund
+	 * 若為查詢關帳日期時，則參數請帶close
+	 * 若為查詢入帳日期時，則參數請帶enter
 	 * @param payDateType
 	 */
 	public void setPayDateType(String payDateType) {
 		PayDateType = payDateType;
 	}
 	/**
-	 * 取得StartDate 查詢開始日期
+	 * 取得StartDate 查詢開始日期，日期格式為「yyyy-MM-dd」
 	 * @return StartDate
 	 */
 	public String getStartDate() {
 		return StartDate;
 	}
 	/**
-	 * 設定StartDate 查詢開始日期
+	 * 設定StartDate 查詢開始日期，日期格式為「yyyy-MM-dd」
 	 * @param startDate
 	 */
 	public void setStartDate(String startDate) {
 		StartDate = startDate;
 	}
 	/**
-	 * 取得EndDate 查詢結束日期
+	 * 取得EndDate 查詢結束日期，日期格式為「yyyy-MM-dd」
 	 * @return EndDate
 	 */
 	public String getEndDate() {
 		return EndDate;
 	}
 	/**
-	 * 設定EndDate 查詢結束日期
+	 * 設定EndDate 查詢結束日期，日期格式為「yyyy-MM-dd」
 	 * @param endDate
 	 */
 	public void setEndDate(String endDate) {

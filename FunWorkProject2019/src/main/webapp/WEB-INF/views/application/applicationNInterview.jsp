@@ -144,7 +144,7 @@
 																			title="編輯" alt="編輯" width="150px"></a><br>
 																			<h2 style="text-align: center;">確定要取消此邀約?</h2><br>
 																			<form
-																				action="${pageContext.request.contextPath}/updateInterviewStatusOther"
+																				action="${pageContext.request.contextPath}/updateInterviewStatus"
 																				method="post">
 																				<div class="modal-body">
 																					<input type="hidden" name="interviewId"
@@ -673,8 +673,8 @@
 	</div>
 
 	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights
+		<div class="row no-gutter">
+			<div class="col text-center footerbackground">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>
 	</div>

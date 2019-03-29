@@ -49,6 +49,7 @@
 								<spring:message
 									code="spring.registerCompany.form.registerCompanyData.label" /></b>	
 							</h3>
+							<p style="color:red">${taxIdExist}</p>
 							<hr>
 							<div class="form-group row">
 								<label class="col-sm-2 col-form-label" for='name'>
@@ -66,12 +67,6 @@
 								<div class="col-sm-10">
 									<form:input id="taxId" path="taxId" type='number' placeholder='12345678'
 										class='form-control' min="10000000" max="99999999" required="required"/>
-									<c:if test="${empty errors}">
-									<span></span>
-									</c:if>
-									<c:if test="${errors != null}">
-									<span><c:out value="${errors.error_TaxId}"/></span>
-									</c:if>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -118,8 +113,8 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights
+		<div class="row no-gutter">
+			<div class="col text-center footerbackground">Copyright© 2019 趣打工 All rights
 				reserved.</div>
 		</div>
 	</div>

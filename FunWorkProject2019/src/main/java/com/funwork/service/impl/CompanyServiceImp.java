@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class CompanyServiceImp implements CompanyService {
-
   @Autowired
   CompanyDao companyDao;
   @Autowired
@@ -38,36 +37,6 @@ public class CompanyServiceImp implements CompanyService {
   }
 
   @Override
-  public void deleteCompanyByPrimaryKey(int key) {
-    companyDao.deleteCompanyByPrimaryKey(key);
-  }
-
-  @Override
-  public List<Company> findAllCompanys() {
-    return companyDao.findAllCompanys();
-  }
-  
-  @Override
-  public List<Company> findAllCompanys(String reviewStatus) {
-    return companyDao.getAllCompanysByReviewStatus(reviewStatus);
-  }
-
-  @Override
-  public void deleteAllCompanys() {
-    companyDao.deleteAllCompanys();
-  }
-
-  @Override
-  public boolean isCompanyExist(Company company) {
-    return companyDao.isCompanyExist(company);
-  }
-
-  @Override
-  public Company findByName(String name) {
-    return companyDao.findByName(name);
-  }
-
-  @Override
   public List<Company> findAllCompanyByUserId(Integer userId) {
     return companyDao.findAllCompanyByUserId(userId);
   }
@@ -75,11 +44,6 @@ public class CompanyServiceImp implements CompanyService {
   @Override
   public List<String> findAllCompanyByUser(User user) {
     return companyDao.findAllCompanyByUser(user);
-  }
-
-  @Override
-  public Company findCompanyByUserAndName(Integer userId, String companyName) {
-    return companyDao.findCompanyByUserAndName(userId, companyName);
   }
 
   @Override
@@ -111,7 +75,7 @@ public class CompanyServiceImp implements CompanyService {
     company.setReviewTime(new Timestamp(System.currentTimeMillis()));
     company.setFailReason(failReason);
     companyDao.updateCompany(company);
-    
+
     Notification notification = new Notification();
     notification.setContent("您的公司(" + company.getName() + ")審核失敗");
     notification.setTime(new Timestamp(System.currentTimeMillis()));
@@ -126,4 +90,8 @@ public class CompanyServiceImp implements CompanyService {
     return companyDao.getReviewHistory();
   }
 
+  @Override
+  public boolean isTaxIdExist(String taxId) {
+    return companyDao.isTaxIdExist(taxId);
+  }
 }

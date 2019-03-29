@@ -95,10 +95,6 @@
 
 
 <style>
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
 
 .btn-group {
 	margin-bottom: 5px;
@@ -107,6 +103,72 @@
 #map {
 	height: 400px;
 	margin-bottom: 5px;
+}
+
+#jobtable img{
+width:30px;
+margin:0px;
+padding:0px;
+
+}
+
+#jobtable {
+font-weight:700;
+color:#03353E;
+}
+
+.jobtitle{
+color:#0878A4;
+}
+
+.jobtitle:hover{
+color:#8A140E;
+font-weight:900;
+text-decoration:none;
+}
+
+.jobcompany{
+font-weight:700;
+color:#0294A5;
+}
+
+.jobcompany:hover{
+color:#003D73;
+text-decoration:none;
+}
+
+.citybutton{
+background-color:white;
+color:#0878A4;
+border:1px solid #0878A4;
+font-weight:700;
+
+}
+
+.citybutton:hover{
+background-color:#0878A4;
+color:white;
+}
+
+.citybutton:focus{
+background-color:#0878A4;
+color:white;
+}
+
+.cityname{
+color:#0878A4;
+font-weight:600;
+margin:7px;
+}
+
+.cityname:hover{
+background-color:#1ECFD6;
+color:white;
+text-decoration:none;
+}
+
+.dropdown-menu{
+width:200px;
 }
 </style>
 
@@ -120,28 +182,26 @@
 	<div class="container-fluid">
 		<div class="row m-3 justify-content-around align-items-center">
 
-			<div class="col-sm-7">
+			<div class="col-sm-7 text-center">
 				<!--             程式寫在這 -->
-
 				<div class="btn-group">
-					<button type="button" class="btn btn-secondary dropdown-toggle"
+					<button type="button" class="btn shadow-sm citybutton dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<c:if test="${citys!=null}">${citys[0].cityArea}</c:if><c:if test="${empty citys}">選擇縣市</c:if></button>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="<c:url value='/cityArea/5'/>">台北市</a>
-						<a class="dropdown-item" href="<c:url value='/cityArea/15'/>">新北市</a>
+						<a class="cityname" href="<c:url value='/cityArea/5'/>">台北市</a>
+						<a class="cityname" href="<c:url value='/cityArea/15'/>">新北市</a>
 
 					</div>
 				</div>
 
 				<div class="btn-group">
-					<button type="button" class="btn btn-secondary dropdown-toggle"
+					<button type="button" class="btn shadow-sm citybutton dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<c:if test="${city!=null}">${city.cityName}</c:if><c:if test="${empty city}">選擇行政區</c:if></button>
 					<div class="dropdown-menu">
 						<c:forEach var="city" items="${citys}">
-							<a class="dropdown-item"
-								href="<c:url value='/cityName/${city.cityId}'/>">${city.cityName}</a>
+							<a class="cityname" href="<c:url value='/cityName/${city.cityId}'/>">${city.cityName}</a>
 						</c:forEach>
 					</div>
 				</div>
@@ -152,71 +212,63 @@
 
 				<table class="table table-hover dataTable" id="jobtable">
 					<thead>
-						<tr>
-							<th>職缺名稱</th>
-							<th>所在地區</th>
-							<th>所屬公司</th>
+						<tr class="align-middle">
+						    <th>類別</th>
+							<th>名稱</th>
+							<th>地區</th>
+							<th>描述</th>
 							<th>聯絡人</th>
-							<th>截止時間</th>
-							<th>詳細內容</th>
+							<th>截止時間</th>		
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="job" items="${jobs}">
 							<c:if test="${job.isExposure==true}">
 								<tr>
-									<td><span class="text-info" style="margin-right: 5px">★推薦</span>${job.title}</td>
-									<td>${job.city.cityName}</td>
-									<td><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
-										class="glyphicon-info-sigh glyphicon">${job.jobCompany.name}</span></a>
-										<c:if test="${job.jobCompany.name==null}">個人</c:if>
-									</td>
-									<td>${job.jobOwner.userName}</td>
-									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
-									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
-										class="btn btn-primary"><span
-											class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+									<td class="align-middle"><img class="img-fluid" src="<c:url value='/image/staryellow.png'/>"></td>
+									<td class="text-left align-middle"><a class="jobtitle" href="<c:url value='/jobDetail/${job.jobId}'/>" class="">${job.title}</a>
+									<p style="font-size:12px">
+									<a class="jobcompany" href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'>${job.jobCompany.name}</a>
+										<c:if test="${job.jobCompany.name==null}">個人</c:if></p></td>
+									<td class="align-middle">${job.city.cityName}</td>
+									<td class="align-middle">${job.description}</td>
+									<td class="align-middle">${job.jobOwner.userName}</td>
+									<td class="align-middle"><fmt:formatDate type="both" value="${job.postEndDate}" /></td>					
 								</tr>
 							</c:if>
 						</c:forEach>
 						<c:forEach var="job" items="${jobs}">
 							<c:if test="${job.isExposure==false}">
 								<tr>
-									<td>${job.title}</td>
-									<td>${job.city.cityName}</td>
-									<td><a href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'><span
-										class="glyphicon-info-sigh glyphicon">${job.jobCompany.name}</span></a>
-										<c:if test="${job.jobCompany.name==null}">個人</c:if>
+								    <td class="align-middle">一般</td>
+									<td class="text-left align-middle"><a class="jobtitle" href="<c:url value='/jobDetail/${job.jobId}'/>" class="">${job.title}</a>
+									<p style="font-size:12px">
+									<a class="jobcompany" href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'>${job.jobCompany.name}</a>
+										<c:if test="${job.jobCompany.name==null}">個人</c:if></p>
 									</td>
-									<td>${job.jobOwner.userName}</td>
-									<td><fmt:formatDate type="both" value="${job.postEndDate}" /></td>
-									<td><a href="<c:url value='/jobDetail/${job.jobId}'/>"
-										class="btn btn-primary"><span
-											class="glyphicon-info-sigh glyphicon"></span> 詳細資料 </a></td>
+									<td class="align-middle">${job.city.cityName}</td>
+									<td class="align-middle">${job.description}</td>
+									<td class="align-middle">${job.jobOwner.userName}</td>
+									<td class="align-middle"><fmt:formatDate type="both" value="${job.postEndDate}" /></td>							
 								</tr>
 							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
-
 			</div>
 			<div class="col-sm-5">
-				<!-- 				<input type="button" class="btn btn-secondary" style="margin-bottom: 5px" onclick="addMarker()" value="在地圖上顯示工作"> -->
 				<div id="map"></div>
 			</div>
 		</div>
 	</div>
 
-	<div class="container-fluid footerbackground">
+	<div class="container-fluid">
 		<div class="row no-gutter">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights
-				reserved.</div>
+			<div class="col text-center footerbackground">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	<script type="text/javascript" src="<c:url value='/DataTables/datatables.min.js/'></c:url>"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
 	<script

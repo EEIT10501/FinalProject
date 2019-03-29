@@ -35,28 +35,28 @@ public class QueryTradeInfoObj {
 	
 	
 	/**
-	 * 取得MerchantID 會員編號(由allPay提供)
+	 * 取得MerchantID 會員編號(由O'Pay提供)，當此平台為特約合作平台欲建立訂單時，該欄位才有效。一般平台商請忽略此欄位
 	 * @return MerchantID
 	 */
 	public String getMerchantID() {
 		return MerchantID;
 	}
 	/**
-	 * 設定MerchantID 會員編號(由allPay提供)
+	 * 設定MerchantID 會員編號(由O'Pay提供)，當此平台為特約合作平台欲建立訂單時，該欄位才有效。一般平台商請忽略此欄位
 	 * @param merchantID
 	 */
 	public void setMerchantID(String merchantID) {
 		MerchantID = merchantID;
 	}
 	/**
-	 * 取得MerchantTradeNo 會員交易編號
+	 * 取得MerchantTradeNo 會員交易編號，訂單產生時傳送給O’Pay的會員交易編號。
 	 * @return MerchantTradeNo
 	 */
 	public String getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	/**
-	 * 設定MerchantTradeNo 會員交易編號
+	 * 設定MerchantTradeNo 會員交易編號，訂單產生時傳送給O’Pay的會員交易編號。
 	 * @param merchantTradeNo
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {
@@ -77,14 +77,14 @@ public class QueryTradeInfoObj {
 		TimeStamp = timeStamp;
 	}
 	/**
-	 * 取得PlatformID 特約合作平台商代號(由allPay提供)
+	 * 取得PlatformID 特約合作平台商代號(由O’Pay提供)
 	 * @return PlatformID
 	 */
 	public String getPlatformID() {
 		return PlatformID;
 	}
 	/**
-	 * 設定PlatformID 特約合作平台商代號(由allPay提供)
+	 * 設定PlatformID 特約合作平台商代號(由O’Pay提供)
 	 * @param platformID
 	 */
 	public void setPlatformID(String platformID) {

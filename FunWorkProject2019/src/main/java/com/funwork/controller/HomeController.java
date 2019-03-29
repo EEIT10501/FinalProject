@@ -118,13 +118,13 @@ public class HomeController {
       @RequestParam("password") String password, HttpServletRequest req) {
     User user = userService.loginCheck(email, password);
     if (user != null) {
-//			if (user.getIsOpen()) {
-      HttpSession session = req.getSession();
-      session.setAttribute(LOGIN_USER, user);
-      return "OK";
-//			} else {
-//				return "notOpen";
-//			}
+      if (user.getIsOpen()) {
+        HttpSession session = req.getSession();
+        session.setAttribute(LOGIN_USER, user);
+        return "OK";
+      } else {
+        return "notOpen";
+      }
     } else {
       return "fail";
     }
@@ -156,8 +156,8 @@ public class HomeController {
     if (password2 == null || password2.trim().length() == 0) {
       errorMsg.put("pwd2Empty", "密碼確認欄必須輸入");
     }
-    if ((password != null && password2 != null) 
-        && (password.trim().length() > 0 && password2.trim().length() > 0)
+    if ((password != null && password2 != null) && (password.trim().length() > 0 
+        && password2.trim().length() > 0)
         && !password.trim().equals(password2.trim())) {
       errorMsg.put("pwdEmpty", "密碼欄與密碼確認欄必須一致");
     }
@@ -172,10 +172,11 @@ public class HomeController {
       req.setAttribute("name", name);
     } else {
       Integer userId = userService.insertUser(email, name, password);
-//			googleService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
-//					"<h1>哈囉!" + name
-//							+ "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/"
-//							+ userId + "'><p>請點擊本連結進行帳號驗證</p></a>");
+
+      googleService.sendEmail(email, "sam810331@gmail.com", "趣打工會員註冊成功!",
+          "<h1>哈囉!" + name + "，歡迎您成為趣打工會員!</h1><br><a href='http://localhost:8080/FunWorkProject2019/userOpen/" + userId
+              + "'><p>請點擊本連結進行帳號驗證</p></a>");
+
       return REDIRECT_TO_INDEX;
     }
     return "/register";
@@ -217,8 +218,8 @@ public class HomeController {
    */
   @PostMapping(value = "/accountSetting")
   public String accountSetting(@RequestParam("password") String password, 
-      @RequestParam("password2") String password2, 
-      HttpServletRequest req,HttpSession session) {
+      @RequestParam("password2") String password2,
+      HttpServletRequest req, HttpSession session) {
     Map<String, String> errorMsg = new HashMap<String, String>();
     Map<String, String> rightMsg = new HashMap<String, String>();
     req.setAttribute("errorMsg", errorMsg);
