@@ -60,7 +60,7 @@
 						<label for="description" class="col-sm-2 col-form-label">描述</label>
 						<div class="col-sm-10">
 							<form:textarea path="description" rows="5" class="form-control" id="description" 
-							               placeholder="請填寫工作要做的事項" required="required" />
+							               placeholder="請填寫工作要做的事項" required="required" maxLength="255"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -211,7 +211,6 @@
           if (status === 'OK') {
         	  var lat = results[0].geometry.location.lat();
         	  var lng = results[0].geometry.location.lng();
-//         	  alert(lat+" "+lng)
         	  $("#lat").val(lat);
         	  $("#lng").val(lng);
          
@@ -293,7 +292,7 @@
             $("#addresssup").val("近臺北小巨蛋");
             $("#paidDate").val("每月五號");
             $("#rateByHour").val("150");
-            $("#companyName").val("財團法人國家實驗研究院");
+            $("#companyName").val("資策會");
             $("#comment").val("請盡快審核");
         });
 	</script>
