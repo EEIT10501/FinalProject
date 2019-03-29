@@ -286,6 +286,7 @@ public class EmployerController {
     return new ResponseEntity<>(media, headers, HttpStatus.OK);
   }
 
+
   private byte[] toByteArray(String filePath) {
     String root = context.getRealPath("/");
     root = root.substring(0, root.length() - 1);

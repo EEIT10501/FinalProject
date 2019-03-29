@@ -60,7 +60,7 @@ $(document).ready(function(){
 					<div class="card-body">
 						<h5 class="card-title text-center">${productList[0].productName}</h5>
 						<p class="card-text card-text-size">${productList[0].description}</p>
-						<p class="card-text card-text-size text-info">價格；${productList[0].price}</p>
+						<p class="card-text card-text-size text-info">價格：${productList[0].price}</p>
 					</div>
 				</div>
 				</div>
@@ -71,7 +71,7 @@ $(document).ready(function(){
 					<div class="card-body">
 						<h5 class="card-title text-center">${productList[1].productName}</h5>
 						<p class="card-text card-text-size">${productList[1].description}</p>
-						<p class="card-text card-text-size text-info">價格；${productList[1].price}</p>
+						<p class="card-text card-text-size text-info">價格：${productList[1].price}</p>
 					</div>
 				</div>
 				</div>
@@ -82,7 +82,7 @@ $(document).ready(function(){
 					<div class="card-body">
 						<h5 class="card-title text-center">${productList[2].productName}</h5>
 						<p class="card-text card-text-size">${productList[2].description}</p>
-						<p class="card-text card-text-size text-info">價格；${productList[2].price}</p>
+						<p class="card-text card-text-size text-info">價格：${productList[2].price}</p>
 					</div>
 				</div>
 				</div>

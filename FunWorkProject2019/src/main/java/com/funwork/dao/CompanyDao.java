@@ -23,5 +23,7 @@ public interface CompanyDao {
 
   List<Company> getReviewHistory();
 
+
   boolean isTaxIdExist(String taxId);
 }
+

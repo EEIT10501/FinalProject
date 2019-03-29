@@ -39,7 +39,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     Date date = new Date();
     return session.createQuery(hql).setParameter(END_TIME, date)
-        .setParameter(JOBID, userId).getResultList();
+        .setParameter("userId", userId).getResultList();
   }
 
   @SuppressWarnings("unchecked")
