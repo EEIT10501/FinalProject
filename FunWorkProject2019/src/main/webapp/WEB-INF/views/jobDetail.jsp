@@ -57,25 +57,7 @@
 
 		infoWindow = new google.maps.InfoWindow;
 
-		// Try HTML5 geolocation.
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				var pos = {
-					lat : position.coords.latitude,
-					lng : position.coords.longitude
-				};
-
-				infoWindow.setPosition(pos);
-				infoWindow.setContent("我的位置");
-				infoWindow.open(map);
-				map.setCenter(pos);
-			}, function() {
-				handleLocationError(true, infoWindow, map.getCenter());
-			});
-		} else {
-			// Browser doesn't support Geolocation
-			handleLocationError(false, infoWindow, map.getCenter());
-		}
+		
 		addMarker();	
 		
 	}
@@ -100,13 +82,6 @@
 
 		}
 
-	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-		infoWindow.setPosition(pos);
-		infoWindow
-				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
-						: 'Error: Your browser doesn\'t support geolocation.');
-		infoWindow.open(map);
-	}
 </script>
 <style>
 .showjobdetail h5 {
@@ -222,7 +197,7 @@ margin-bottom:10px;
 				</div>
 
 				<div class="row justify-content-center">
-				<div class="col-sm-4" style="margin-top:15px">
+				<div class="col-sm-4" style="margin-top:15px;margin-bottom:15px">
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-light" data-toggle="modal"
 						data-target="#reportModal" style="margin-right: 30px">檢舉</button>
