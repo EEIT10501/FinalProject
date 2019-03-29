@@ -10,22 +10,6 @@
 <title>首頁</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
-<style>
-.card-text-size {
-	font-size: 14px;
-}
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
-}
-.asideblock {
-	height: 600px;
-}
-</style>
 <script type="text/javascript">
 	$(document).ready(	  
 		var jobTitle = $("#jobTitleInput").val();
@@ -172,18 +156,18 @@
 																							<div class="row">
 																								<label class="col-form-label col-sm-3 pt-0">邀請類型：</label>
 																								<div class="col-sm-9">
+																								<div class="form-check form-check-inline">
+                                                                                                        <input class="form-check-input" type="radio"
+                                                                                                            name="interType" id="exampleRadios2"
+                                                                                                            value="錄取" checked required="required"> <label
+                                                                                                            class="form-check-label" for="exampleRadios2">錄取</label>
+                                                                                                    </div>
 																									<div class="form-check form-check-inline">
 																										<input class="form-check-input" type="radio"
 																											name="interType" id="exampleRadios1"
-																											value="面試" checked required="required">
+																											value="面試" >
 																										<label class="form-check-label"
 																											for="exampleRadios1">面試</label>
-																									</div>
-																									<div class="form-check form-check-inline">
-																										<input class="form-check-input" type="radio"
-																											name="interType" id="exampleRadios2"
-																											value="錄取"> <label
-																											class="form-check-label" for="exampleRadios2">錄取</label>
 																									</div>
 																								</div>
 																							</div>
@@ -223,6 +207,7 @@
 																								data-dismiss="modal">取消</button>
 																							<button type="submit"
 																								class="btn btn-primary addapplication">送出</button>
+																							<button id="fast" class="btn btn-primary">一鍵填入</button>
 																						</div>
 																					</c:if>
 																				</form>
@@ -278,6 +263,14 @@
 				趣打工 All rights reserved.</div>
 		</div>
 	</div>
+	<script>
+	$("#fast").click(function(){
+		$("#des").val("請穿白色布鞋及襯衫");
+		$("#place").val("資策會12樓");	
+		$("#time").val("2019-04-10T13:00");
+		
+	});
+	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
