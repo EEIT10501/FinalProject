@@ -55,7 +55,7 @@
 						<label for="description" class="col-sm-2 col-form-label">描述</label>
 						<div class="col-sm-10">
 							<form:textarea path="description" rows="5" class="form-control" id="description" 
-							               placeholder="請填寫工作要做的事項" required="required" />
+							               placeholder="請填寫工作要做的事項" required="required" maxLength="255"/>
 						</div>
 					</div>
 					<div class="form-group row">
