@@ -185,7 +185,8 @@ background-color:white;
 						</div>
 						<button id="login" type="button" class="btn btn-primary" 
 						        style="float: right">確認送出</button>
-						<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+						<button type="button" class="btn btn-primary"  onclick="keyinAll()">一鍵登入</button>
+						<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"  style="float: left"></div>
 					</form>
 				</div>
 			</div>
@@ -210,6 +211,7 @@ background-color:white;
 						<span class="navbar-text my-2 my-sm-0"> 
 							<a class="nav-link btn btn-outline-secondary" onclick="signOut();" 
 							   href="<c:url value='/logout'></c:url>">確認</a>
+							   
 						</span>
 					</div>
 				</div>
@@ -217,6 +219,13 @@ background-color:white;
 		</div>
 	</div>
 	<script>
+	
+	//一鍵登入
+	function keyinAll(){
+		document.getElementById("exampleInputEmail1").value="eeit10501@outlook.com";
+		document.getElementById("exampleInputPassword1").value="Asd321";
+	}
+	
 	$(document).ready(function(){
 		$(document).scroll(function(){
 			var top=$(document).scrollTop();
