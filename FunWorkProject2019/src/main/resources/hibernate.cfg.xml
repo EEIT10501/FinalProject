@@ -30,13 +30,11 @@
         <mapping class="com.funwork.model.Job" />
         <mapping class="com.funwork.model.Application" />
         <mapping class="com.funwork.model.Interview" />
-        <mapping class="com.funwork.model.Attendence" />
         <mapping class="com.funwork.model.City" />
         <mapping class="com.funwork.model.Message" />
         <mapping class="com.funwork.model.Notification" />
         <mapping class="com.funwork.model.Order" />
         <mapping class="com.funwork.model.Product" />
-        <mapping class="com.funwork.model.Salary" />
         <mapping class="com.funwork.model.Schedule" />
         <mapping class="com.funwork.model.Resume" />
         <mapping class="com.funwork.model.Complaint" />

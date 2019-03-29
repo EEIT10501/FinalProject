@@ -59,7 +59,7 @@ public class CompanyDaoImp implements CompanyDao {
   @Override
   public List<String> findAllCompanyByUser(User user) {
     String hql = "SELECT DISTINCT name FROM Company c WHERE c.user = :user "
-        + "AND c.reviewStatus = '已通過'";
+        + "AND c.reviewStatus = '審核通過'";
     Session session = factory.getCurrentSession();
     return session.createQuery(hql).setParameter("user", user).getResultList();
   }
