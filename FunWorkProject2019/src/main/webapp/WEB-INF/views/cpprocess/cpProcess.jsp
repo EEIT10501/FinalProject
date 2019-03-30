@@ -11,14 +11,6 @@
 <title>申訴處理</title>
 </head>
 <style>
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-
-.asideblock {
-	height: 600px;
-}
 
 .showjobdetail h5 {
 	font-weight: bolder;

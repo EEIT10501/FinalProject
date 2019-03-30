@@ -9,18 +9,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>註冊</title>
 <style>
-.card-text-size {
-	font-size: 14px;
-}
 
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-
-.asideblock {
-	height: 600px;
-}
 </style>
 </head>
 <body>

@@ -17,14 +17,7 @@
 
 <title>常見問題</title>
 <style>
-.card-text-size {
-	font-size: 14px;
-}
 
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
 </style>
 </head>
 

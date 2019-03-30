@@ -13,7 +13,6 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- <link rel="stylesheet" href="/eeit105finalterm/css/bootstrap.min.css"> -->
 <title>公司詳細資料頁面</title>
 </head>
 <script>
