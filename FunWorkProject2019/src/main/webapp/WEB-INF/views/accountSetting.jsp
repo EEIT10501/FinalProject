@@ -9,16 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <title>帳戶設定</title>
 <style>
-.card-text-size {
-	font-size: 14px;
-}
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-.asideblock {
-	height: 600px;
-}
+
 </style>
 </head>
 <body>

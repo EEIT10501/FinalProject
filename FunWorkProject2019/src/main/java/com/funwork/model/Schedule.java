@@ -96,7 +96,7 @@ public class Schedule implements Serializable {
     long end = simpleFormat.parse(simpleFormat.format(getEndTime())).getTime();
     long start = simpleFormat.parse(simpleFormat.format(getStartTime())).getTime();
     long diff = (end - start);
-    float days = diff / (1000 * 60 * 60.0f * 24);
+    float days = diff / (1000 * 60 * 60 * 24);
     float hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
     return hours - getRestHour();
   }

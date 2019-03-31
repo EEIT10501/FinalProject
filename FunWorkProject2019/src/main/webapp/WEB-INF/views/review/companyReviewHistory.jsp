@@ -11,14 +11,6 @@
 <title>公司審核紀錄</title>
 </head>
 <style>
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-
-.asideblock {
-	height: 600px;
-}
 
 .showjobdetail h5 {
 	font-weight: bolder;

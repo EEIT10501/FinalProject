@@ -27,14 +27,6 @@ $(document).ready(function(){
 
 </script>
 <style>
-.card-text-size {
-	font-size: 14px;
-}
-
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
 
 </style>
 </head>

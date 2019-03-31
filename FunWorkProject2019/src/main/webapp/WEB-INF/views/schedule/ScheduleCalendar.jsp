@@ -224,6 +224,7 @@ color:black;
 			<div class="col-sm-10 align-self-center">
 				<div class="row m-3 justify-content-around">
 					<div class="col-sm-2">
+					<c:if test="${empty jobs}">
 						<div id='external-events'>
 							<p>
 								<strong>員工名單</strong>
@@ -232,12 +233,15 @@ color:black;
 							<c:forEach var="interviewList" items="${interviewList}">
 							<div class='fc-event'>${interviewList.application.user.userName}</div>
 							</c:forEach>
+							
 <!-- 							<p> -->
 <!-- 								<input type='checkbox' id='drop-remove' /> <label -->
 <!-- 									for='drop-remove'>remove after drop</label> -->
 <!-- 							</p> -->
 						</div>
+						</c:if>				
 					</div>
+					
 					<div class="col-sm-10">
 					<c:if test="${jobs!=null}">	
 					<table class="table table-hover dataTable" id="jobtable">

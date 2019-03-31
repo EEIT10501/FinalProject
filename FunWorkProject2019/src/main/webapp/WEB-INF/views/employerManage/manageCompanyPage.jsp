@@ -34,29 +34,7 @@
 </head>
 
 <style>
-.card-text-size {
-	font-size: 14px;
-}
 
-.footerbackground {
-	background: #343a40;
-	color: white;
-}
-
-.nav-item:hover {
-	background-color: gray;
-	border-radius: 15px;
-}
-
-.asideblock {
-	height: 600px;
-}
-
-/* section:after { */
-/* 	content: ""; */
-/* 	display: table; */
-/* 	clear: both; */
-/* } */
 </style>
 <script>
 
