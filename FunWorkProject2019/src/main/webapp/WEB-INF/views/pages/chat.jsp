@@ -85,7 +85,7 @@ width:60px;
 	<script>
 		var userId = $("#userId").attr('value');
 		var userName = "${user.userName}";
-		var connWsStr = "http://eeit10507.southeastasia.cloudapp.azure.com:8080/${pageContext.request.contextPath}/chat/" + userId;
+		var connWsStr = "ws://eeit10507.southeastasia.cloudapp.azure.com:8080/${pageContext.request.contextPath}/chat/" + userId;
 		var toUserId = $("#toUserId").attr('value');
 		var toUserName = "${toUser.userName}";
 		var apId = $("#apId").attr('value');
