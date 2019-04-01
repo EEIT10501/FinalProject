@@ -94,6 +94,14 @@
 							</div>
 				</form:form>
 				<div id="content1"></div>
+				<div class="col-sm-2"><button class="btn btn-primary" id="fast">一鍵填入</button></div>
+				<script>
+				$("#fast").click(function(){
+		            $("#name").val("全面啟動科技有限公司");
+		            $("#taxId").val("12346666");
+		            $("#address").val("新北市文山區羅斯福斯一段8號");
+				});
+				</script>
 			</div>
 			<div class="col-sm-2">預留區塊</div>
 		</div>

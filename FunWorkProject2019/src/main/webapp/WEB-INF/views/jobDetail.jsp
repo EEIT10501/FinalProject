@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap" async defer></script>
 <link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
 <link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 <title>詳細工作頁面</title>
@@ -46,43 +45,6 @@
 			}
 			});
 	}
-	
-	var map, infoWindow;
-	function initMap() {
-		map = new google.maps.Map(document.getElementById("map"), {
-			center : {
-				lat : 25.052,
-				lng : 121.532
-			},
-			zoom : 12
-		});
-
-		infoWindow = new google.maps.InfoWindow;
-
-		
-		addMarker();	
-		
-	}
-
-	function addMarker() {
-
-			var latLng = new google.maps.LatLng(${jobBean.jobLat}, ${jobBean.jobLng});
-			var marker${jobBean.jobId} = new google.maps.Marker({
-				position : latLng,
-				map : map,
-				title: "${jobBean.title}"
-			});
-			
-			var contentString = "<div><h6>${jobBean.title}<h6></div><div style='margin-bottom:5px'>${jobBean.address}</div>"
-			var infowindow${jobBean.jobId} = new google.maps.InfoWindow({
-			    content: contentString
-			  });
-			
-			marker${jobBean.jobId}.addListener("click", function() {
-		          infowindow${jobBean.jobId}.open(map, marker${jobBean.jobId});
-		        });
-
-		}
 
 </script>
 <style>
@@ -356,6 +318,45 @@ margin-bottom:10px;
 			</div>
 			<div class="col-sm-4">			
 				<div id="map"></div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap" async defer></script>
+<script>
+var map, infoWindow;
+function initMap() {
+	map = new google.maps.Map(document.getElementById("map"), {
+		center : {
+			lat : 25.052,
+			lng : 121.532
+		},
+		zoom : 12
+	});
+
+	infoWindow = new google.maps.InfoWindow;
+
+	
+	addMarker();	
+	
+}
+
+function addMarker() {
+
+		var latLng = new google.maps.LatLng(${jobBean.jobLat}, ${jobBean.jobLng});
+		var marker${jobBean.jobId} = new google.maps.Marker({
+			position : latLng,
+			map : map,
+			title: "${jobBean.title}"
+		});
+		
+		var contentString = "<div><h6>${jobBean.title}<h6></div><div style='margin-bottom:5px'>${jobBean.address}</div>"
+		var infowindow${jobBean.jobId} = new google.maps.InfoWindow({
+		    content: contentString
+		  });
+		
+		marker${jobBean.jobId}.addListener("click", function() {
+	          infowindow${jobBean.jobId}.open(map, marker${jobBean.jobId});
+	        });
+
+	}
+</script>
 			</div>
 		</div>
 	</div>
