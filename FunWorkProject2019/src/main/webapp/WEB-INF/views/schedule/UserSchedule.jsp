@@ -21,7 +21,8 @@
 <link href="<c:url value='/css/fullcalendar.min.css'/>" rel="stylesheet" />
 <link href="<c:url value='/css/fullcalendar.print.css'/>"
 	rel="stylesheet" media='print' />
-
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 
 <title>班表</title>
 <script>

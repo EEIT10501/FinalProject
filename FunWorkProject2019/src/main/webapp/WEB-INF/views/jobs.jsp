@@ -17,6 +17,8 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
+	<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 
 <title>找工作</title>
 
@@ -212,7 +214,7 @@ width:200px;
 				<table class="table table-hover dataTable" id="jobtable">
 					<thead>
 						<tr class="align-middle">
-						    <th>類別</th>
+						    <th>推薦</th>
 							<th>行業</th>
 							<th>名稱</th>
 							<th>地區</th>
@@ -232,7 +234,7 @@ width:200px;
 										<c:if test="${job.jobCompany.name==null}">個人</c:if></p></td>
 									<td class="align-middle">${job.city.cityName}</td>
 									<td class="align-middle">${job.jobOwner.userName}</td>
-									<td class="align-middle"><fmt:formatDate type="both" value="${job.postEndDate}" /></td>					
+									<td class="align-middle"><fmt:formatDate type="DATE" value="${job.postEndDate}" /></td>					
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -248,7 +250,7 @@ width:200px;
 									</td>
 									<td class="align-middle">${job.city.cityName}</td>
 									<td class="align-middle">${job.jobOwner.userName}</td>
-									<td class="align-middle"><fmt:formatDate type="both" value="${job.postEndDate}" /></td>							
+									<td class="align-middle"><fmt:formatDate type="DATE" value="${job.postEndDate}" /></td>							
 								</tr>
 							</c:if>
 						</c:forEach>

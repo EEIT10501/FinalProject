@@ -8,6 +8,8 @@
 <meta name="google-signin-client_id" 
       content="784516300990-g9mc0al77s74lmmi0q6hb9777k3om0qj.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 <title>navbar</title>
 <style>
 html, body {
@@ -29,11 +31,7 @@ html, body {
 .navbarback{ 
  background-color:white; 
  opacity:0.8;
- } 
-
-.navbar-brand{
-color:#03353E;
-}
+ }
 
 .navbar-brand:hover{
 color:#03353E;
@@ -46,6 +44,7 @@ margin-left:5px;
 .navbar-brand{
 color:#04060F;
 font-weight:900;
+text-align:center
 }
 
 .nav-link{
@@ -87,7 +86,7 @@ background-color:white;
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top bg-gradient-info">
 		<a class="navbar-brand" href="<c:url value='/'/>"> 
-			<img src="<c:url value='/image/LOGO.jpg'/>" width="30" height="30" 
+			<img src="<c:url value='/image/LOGO.jpg'/>" width="50" height="40" 
 			     class="d-inline-block align-top">&nbsp;EEiT趣打工
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" 

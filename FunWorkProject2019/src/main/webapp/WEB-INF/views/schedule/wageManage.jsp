@@ -34,7 +34,8 @@
 <link type="text/css" rel="stylesheet"
 	href='<c:url value="/css/bootstrap-datetimepicker.css"/>'
 	media="screen, projection" />
-
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 
 <title>薪資概算</title>
 

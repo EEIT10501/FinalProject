@@ -29,21 +29,50 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-<title>側邊SideBar</title>
+<title>管理者SideBar</title>
 
 <style type="text/css">
-.card {
-background-color: #e3f2fd;
+#accordionExample {
+background-color:#594346;
+min-height:620px;
+height:100%;
+max-width:150px;
+margin-left:-50px;
+font-weight:700;
 }
 
-.card-header {
-background-color: #e3f2fd;
+#accordionExample button {
+background-color:#594346;
+font-weight:900;
+color:white;
+}
+
+#accordionExample button:hover{
+background-color:#8D2F23;
+color:white;
+}
+
+#accordionExample div {
+background-color:#594346;
+border:none;
+}
+
+#accordionExample a{
+font-weight:700;
+color:#EDD170;
+}
+
+#accordionExample a:hover{
+background-color:white;
+color:#F22F08;
+text-decoration:none;
+border-radius:15px;
 }
 
 </style>
 </head>
 <body>
-	<div class="accordion text-center" id="accordionExample">
+	<div class="accordion text-center shadow" id="accordionExample">
 		<div class="card">
 			<div class="card-header" id="heading1">
 				<h2 class="mb-0">

@@ -32,13 +32,6 @@
 <title>側邊SideBar</title>
 
 <style type="text/css">
-.card {
-background-color: #e3f2fd;
-}
-
-.card-header {
-background-color: #e3f2fd;
-}
 
 #accordionExample {
 background-color:#ecf5ff;
