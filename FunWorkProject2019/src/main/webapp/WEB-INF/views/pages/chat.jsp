@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,7 +85,7 @@ width:60px;
 	<script>
 		var userId = $("#userId").attr('value');
 		var userName = "${user.userName}";
-		var connWsStr = "ws://127.0.0.1:8080/${pageContext.request.contextPath}/chat/" + userId;
+		var connWsStr = "ws://eeit10507.southeastasia.cloudapp.azure.com:8080/${pageContext.request.contextPath}/chat/" + userId;
 		var toUserId = $("#toUserId").attr('value');
 		var toUserName = "${toUser.userName}";
 		var apId = $("#apId").attr('value');
