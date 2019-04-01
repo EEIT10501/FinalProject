@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-	<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
 <link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 
 <title>訂單</title>
@@ -110,7 +111,7 @@
 				</c:if>
 
 			</div>
-			<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-2"></div>
 		</div>
 	</div>
 	<div class="container-fluid">
