@@ -5,24 +5,74 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>adminnavbar</title>
+<title>管理者導覽列</title>
 <style>
-.nav-item:hover {
-	background-color: skyblue;
-	border-radius: 15px;
+.footerbackground {
+	background: #561E18;
+	color: white;
+	font-weight:700;
+	width:100%;
+	margin-top:-16px;
 }
 
 .btn {
 	margin-right: 5px;
 }
+
+.navbarback{ 
+ background-color:#561E18; 
+
+ } 
+
+.navbar-brand:hover{
+color:#F22F08;
+}
+
+.nav-item {
+margin-left:5px;
+}
+
+.navbar-brand{
+color:white;
+font-weight:900;
+}
+
+.nav-link{
+color:white;
+font-weight:900;
+}
+
+.nav-link:hover{
+color:#F22F08;
+}
+
+.navbutton{
+background-color:white;
+border:solid 1px #0878A4;
+margin-left:5px;
+border-radius:5px;
+}
+
+.navbutton:hover{
+background-color:#0878A4;
+color:white;
+}
+
+.navbuttonlogin{
+background-color:#594346;
+border:solid 1px #594346;
+margin-left:5px;
+border-radius:5px;
+color:#EDD170;
+}
+
 </style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: #e3f2fd;">
-		<a class="navbar-brand" href="<c:url value='/adminHome'></c:url>"> <img
-			src="<c:url value='/image/LOGO.jpg'></c:url>" width="30" height="30"
-			class="d-inline-block align-top"> EEIT趣打工管理
+	<nav class="navbar navbar-expand-lg fixed-top navbarback">
+		<a class="navbar-brand" href="<c:url value='/adminHome'/>"> <img
+			src="<c:url value='/image/LOGO.jpg'/>" width="50" height="40" class="d-inline-block align-top"> EEIT趣打工管理
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarTogglerDemo03"
@@ -32,26 +82,24 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link"
-					href="<c:url value='/adminHome'></c:url>">首頁 <span class="sr-only"></span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobsReview'></c:url>">職缺審核</a></li>			
-				<li class="nav-item"><a class="nav-link" href="<c:url value='/companysReview'></c:url>">公司審核</a></li>
+				<li class="nav-item active"><a class="nav-link" href="<c:url value='/adminHome'/>">首頁 <span class="sr-only"></span></a></li>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/jobsReview'/>">職缺審核</a></li>			
+				<li class="nav-item"><a class="nav-link" href="<c:url value='/companysReview'/>">公司審核</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/cpsProcess' />">問題回報</a></li>	
 				<li class="nav-item"><a class="nav-link" href="<c:url value='/queryMember' />">會員專區</a></li>
 			</ul>
 			
 			<c:if test="${empty loginUser}">
-				<span class="navbar-text my-2 my-sm-0" id="loginspan"> <a
-					class="nav-link btn btn-outline-secondary" data-toggle="modal"
-					data-target="#loginModal">登入</a>
+				<span class="navbar-text my-2 my-sm-0" id="loginspan"> <button
+					class="nav-link" data-toggle="modal"
+					data-target="#loginModal">登入</button>
 				</span>
 			</c:if>
 			<c:if test="${loginUser!=null}">
-				<span class="navbar-text my-2 my-sm-0" id="logoutspan"> <a
-					class="nav-link btn btn-outline-secondary" data-toggle="modal"
+				<span class="navbar-text my-2 my-sm-0" id="logoutspan"> <button
+					class="nav-link navbuttonlogin" data-toggle="modal"
 					data-target="#logoutModal"><c:out
-							value="${loginUser.userName} : 您好"></c:out></a>
+							value="${loginUser.userName} : 您好"></c:out></button>
 				</span>
 			</c:if>
 			
@@ -125,7 +173,7 @@
 			</div>
 		</div>
 	</div>
-	<script>
+	<script>	
 		function setCookie(cname, cvalue, exdays) {
 			var d = new Date();
 			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/DataTables/datatables.min.css/' />">
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 <title>加值紀錄</title>
 </head>
 <style>
@@ -60,12 +62,12 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="col-sm-2">預留區塊</div>
+			<div class="col-sm-2"></div>
 		</div>
 	</div> 
 	<div class="container-fluid">
-		<div class="row no-gutter footerbackground">
-			<div class="col text-center">Copyright© 2019 趣打工 All rights reserved.</div>
+		<div class="row no-gutter">
+			<div class="col text-center footerbackground">Copyright© 2019 趣打工 All rights reserved.</div>
 		</div>
 	</div>
 	<script>

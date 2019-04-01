@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>首頁</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 </head>
 <script type="text/javascript">
 	$(document).ready(	  
