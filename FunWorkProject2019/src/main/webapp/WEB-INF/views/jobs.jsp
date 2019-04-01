@@ -104,78 +104,7 @@ width:200px;
 </head>
 
 <body>
-<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap"
-	async defer></script>
-	<script>
-	$(document).ready(function() {
-		$("#jobtable").DataTable();
 
-	});
-
-	var map, infoWindow;
-	function initMap() {
-		map = new google.maps.Map(document.getElementById("map"), {
-			center : {
-				lat : 25.052,
-				lng : 121.532
-			},
-			zoom : 12
-		});
-
-		infoWindow = new google.maps.InfoWindow;
-
-		// Try HTML5 geolocation.
-// 		if (navigator.geolocation) {
-// 			navigator.geolocation.getCurrentPosition(function(position) {
-// 				var pos = {
-// 					lat : position.coords.latitude,
-// 					lng : position.coords.longitude
-// 				};
-
-// 				infoWindow.setPosition(pos);
-// 				infoWindow.setContent("我的位置");
-// 				infoWindow.open(map);
-// 				map.setCenter(pos);
-// 			}, function() {
-// 				handleLocationError(true, infoWindow, map.getCenter());
-// 			});
-// 		} else {
-// 			// Browser doesn't support Geolocation
-// 			handleLocationError(false, infoWindow, map.getCenter());
-// 		}
-		addMarker()
-	}
-
-	function addMarker() {
-		<c:forEach var="job" items="${jobs}"> 
-			var latLng = new google.maps.LatLng(${job.jobLat}, ${job.jobLng});
-			var marker${job.jobId} = new google.maps.Marker({
-				position : latLng,
-				map : map,
-				title: "${job.title}"
-			});
-			
-			var contentString = "<div><h6>${job.title}<h6></div><div style='margin-bottom:5px'>${job.address}</div><a href='<c:url value='/jobDetail/${job.jobId}'/>' class='btn btn-primary'><span class='glyphicon-info-sigh glyphicon'></span> 詳細資料 </a>"
-			var infowindow${job.jobId} = new google.maps.InfoWindow({
-			    content: contentString
-			  });
-			
-			marker${job.jobId}.addListener("click", function() {
-		          infowindow${job.jobId}.open(map, marker${job.jobId});
-		        });
-			</c:forEach>
-		}
-	
-
-// 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-// 		infoWindow.setPosition(pos);
-// 		infoWindow
-// 				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
-// 						: 'Error: Your browser doesn\'t support geolocation.');
-// 		infoWindow.open(map);
-// 	}
-</script>
 
 	<%@ include file="/WEB-INF/views/includes/navbar.jsp"%>
 
@@ -259,6 +188,74 @@ width:200px;
 			</div>
 			<div class="col-sm-5">
 				<div id="map"></div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw-HiRWQLCjwq6fWJ-tFBcxECgNjWZZus&callback=initMap" async defer></script>
+<script>
+	$(document).ready(function() {
+		$("#jobtable").DataTable();
+
+	});
+
+	var map, infoWindow;
+	function initMap() {
+		var latlng = new google.maps.LatLng(25.052,121.532);
+		map = new google.maps.Map(document.getElementById("map"), {
+			center : latlng,
+			zoom : 12
+		});
+
+		infoWindow = new google.maps.InfoWindow;
+
+		// Try HTML5 geolocation.
+// 		if (navigator.geolocation) {
+// 			navigator.geolocation.getCurrentPosition(function(position) {
+// 				var pos = {
+// 					lat : position.coords.latitude,
+// 					lng : position.coords.longitude
+// 				};
+
+// 				infoWindow.setPosition(pos);
+// 				infoWindow.setContent("我的位置");
+// 				infoWindow.open(map);
+// 				map.setCenter(pos);
+// 			}, function() {
+// 				handleLocationError(true, infoWindow, map.getCenter());
+// 			});
+// 		} else {
+// 			// Browser doesn't support Geolocation
+// 			handleLocationError(false, infoWindow, map.getCenter());
+// 		}
+		addMarker()
+	}
+
+	function addMarker() {
+		<c:forEach var="job" items="${jobs}"> 
+			var latLng = new google.maps.LatLng(${job.jobLat}, ${job.jobLng});
+			var marker${job.jobId} = new google.maps.Marker({
+				position : latLng,
+				map : map,
+				title: "${job.title}"
+			});
+			
+			var contentString = "<div><h6>${job.title}<h6></div><div style='margin-bottom:5px'>${job.address}</div><a href='<c:url value='/jobDetail/${job.jobId}'/>' class='btn btn-primary'><span class='glyphicon-info-sigh glyphicon'></span> 詳細資料 </a>"
+			var infowindow${job.jobId} = new google.maps.InfoWindow({
+			    content: contentString
+			  });
+			
+			marker${job.jobId}.addListener("click", function() {
+		          infowindow${job.jobId}.open(map, marker${job.jobId});
+		        });
+			</c:forEach>
+		}
+	
+
+// 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+// 		infoWindow.setPosition(pos);
+// 		infoWindow
+// 				.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
+// 						: 'Error: Your browser doesn\'t support geolocation.');
+// 		infoWindow.open(map);
+// 	}
+</script>
 			</div>
 		</div>
 	</div>
