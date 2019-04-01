@@ -14,7 +14,8 @@
 	media="screen, projection" />
 <script type="text/javascript"
 	src='<c:url value="/js/jquery.simple-color-picker.js"/>'></script>
-
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 
 <script>
 

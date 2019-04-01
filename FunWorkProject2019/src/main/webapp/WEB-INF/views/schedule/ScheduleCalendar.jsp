@@ -22,7 +22,8 @@
 <link href="<c:url value='/css/fullcalendar.min.css'/>" rel="stylesheet" />
 <link href="<c:url value='/css/fullcalendar.print.css'/>" rel="stylesheet" media='print' />
 <link rel="stylesheet" type="text/css" href="<c:url value='/DataTables/datatables.min.css/'></c:url>">
-
+<link rel="shortcut icon" href="<c:url value='/image/favicon.ico'/>">
+<link rel="icon" href="<c:url value='/image/favicon.ico'/>">
 
 <title>排班</title>
 <script>
