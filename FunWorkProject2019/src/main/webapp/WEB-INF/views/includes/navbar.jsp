@@ -219,6 +219,7 @@ background-color:white;
 	</div>
 	<script>
 	
+	
 	//一鍵登入
 	function keyinAll(){
 		document.getElementById("exampleInputEmail1").value="eeit10501@outlook.com";
