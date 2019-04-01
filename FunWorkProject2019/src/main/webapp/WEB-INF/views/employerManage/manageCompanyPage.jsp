@@ -101,37 +101,41 @@
 										<th>統編</th>
 										<th>地址</th>
 										<th>狀態</th>
-										<th>公司專頁</th>
+<!-- 										<th>公司專頁</th> -->
 										<th>功能</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="company" items="${companys}" varStatus="loop">
 										<tr>
-											<td>${company.name}</td>
+											<td>
+											<a href='<spring:url value="/company?id=${company.companyId}"/>'>
+												${company.name}
+											</a>
+											</td>
 											<td>${company.taxId}</td>
 											<td>${company.address}</td>
 											<td>${company.reviewStatus}</td>
 											
-											<c:choose>
-												<c:when test="${company.reviewStatus =='審核通過'}">
-													<td><a
-														href='<spring:url value="/addCorpProfile/${company.companyId}"/>'
-														class="btn btn-info btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔
-													</a></td>
-												</c:when>
-												<c:when test="${company.reviewStatus =='完成公司建檔'}">
-													<td><a
-														href='<spring:url value="/company?id=${company.companyId}"/>'
-														class="btn btn-info btn-sm"> <span
-															class="glyphicon-info-sigh glyphicon"></span> 公司專頁
-													</a></td>
-												</c:when>
-												<c:otherwise>
-													<td></td>
-												</c:otherwise>
-											</c:choose>
+<%-- 											<c:choose> --%>
+<%-- 												<c:when test="${company.reviewStatus =='審核通過'}"> --%>
+<!-- 													<td><a -->
+<%-- 														href='<spring:url value="/addCorpProfile/${company.companyId}"/>' --%>
+<!-- 														class="btn btn-info btn-sm"> <span -->
+<!-- 															class="glyphicon-info-sigh glyphicon"></span> 完成公司建檔 -->
+<!-- 													</a></td> -->
+<%-- 												</c:when> --%>
+<%-- 												<c:when test="${company.reviewStatus =='完成公司建檔'}"> --%>
+<!-- 													<td><a -->
+<%-- 														href='<spring:url value="/company?id=${company.companyId}"/>' --%>
+<!-- 														class="btn btn-info btn-sm"> <span -->
+<!-- 															class="glyphicon-info-sigh glyphicon"></span> 公司專頁 -->
+<!-- 													</a></td> -->
+<%-- 												</c:when> --%>
+<%-- 												<c:otherwise> --%>
+<!-- 													<td></td> -->
+<%-- 												</c:otherwise> --%>
+<%-- 											</c:choose> --%>
 											<c:choose>
 											<c:when test="${company.reviewStatus =='公司完成建檔'}">
 											<td><a href='<spring:url value="/addCorpProfile/${company.companyId}"/>'

@@ -37,7 +37,7 @@
 				<section>
 					<div>
 						<div class="container" style="text-align: center">
-							<h2>公司登錄資料</h2>
+							<h2><strong>公司登錄資料</strong></h2>
 						</div>
 					</div>
 				</section>
@@ -66,8 +66,8 @@
 							<strong>公司網址: </strong>${company.siteUrl}<p></p>
 							<%-- 				公司簡介:  <p>${company.description.}</p> --%>
 							<p>
-								<strong>公司license: </strong> <span class='label label-warning'>
-									<img width='150' height='300'
+								<strong>公司營業執照 /名片: </strong> <span class='label label-warning'>
+									<img width='300' height='200'
 									src="<c:url value='/getLicPicture/${company.companyId}'/>" />
 								</span>
 							</p>
@@ -82,11 +82,11 @@
 							<table class="table table-hover display" id="example">
 								<thead>
 									<tr>
-										<th>單位</th>
+<!-- 										<th>單位</th> -->
 										<th>職缺編號</th>
 										<th>職缺</th>
 										<th>狀態</th>
-										<th>額滿</th>
+<!-- 										<th>額滿</th> -->
 										<th>職缺內容</th>
 										<th>薪水</th>
 										<th>刊登截止</th>
@@ -95,11 +95,11 @@
 								<tbody>
 									<c:forEach var="job" items="${jobs}" varStatus="loop">
 										<tr>
-											<td>${job.jobCompany.name}</td>
+<%-- 											<td>${job.jobCompany.name}</td> --%>
 											<td>${job.jobId}</td>
 											<td>${job.title}</td>
 											<td>${job.reviewStatus}</td>
-											<td>${job.isFilled}</td>
+<%-- 											<td>${job.isFilled}</td> --%>
 											<td><a
 												href='<spring:url value="jobProfile?id=${job.jobId}"/>'
 												class="btn btn-primary"> <span
