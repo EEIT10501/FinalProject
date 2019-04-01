@@ -55,6 +55,7 @@
 								<a href='resumes.xls?jobId=${jobId}'><button>匯出Excel</button></a>&nbsp&nbsp
 								<a href='resumes.pdf?jobId=${jobId}'><button>匯出PDF</button></a>
 							</div>
+							<p></p>
 							<div class="col-sm-14">
 								<c:set var="pendingInviteCheck" value="1" />
 								<c:set var="invitedCheck" value="0" />
