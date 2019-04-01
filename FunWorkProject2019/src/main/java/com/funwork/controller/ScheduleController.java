@@ -114,10 +114,11 @@ public class ScheduleController {
 
   /**
    * Insert schedule.
+ * @throws ParseException 
    */
   @PostMapping(value = "/ScheduleCalendar/save/{jobId}")
   public String calendarIntoSql(Model model, @RequestParam("scheduleJSONArray") String scheduleJson,
-      @RequestParam("delString") String delString, @PathVariable("jobId") Integer jobId) {
+      @RequestParam("delString") String delString, @PathVariable("jobId") Integer jobId) throws ParseException {
     model.addAttribute("change", true);
     String[] delArray = delString.split(",");
     for (int i = 0; i < delArray.length; i++) {
@@ -140,10 +141,18 @@ public class ScheduleController {
       schedule.setStartTime(Timestamp.valueOf(starttime));
       String endtime = ((String) jsonObject.get("endTime")).replaceAll("[^(0-9),-:]", " ");
       schedule.setEndTime(Timestamp.valueOf(endtime));
-      float restTime = (float) ((Timestamp.valueOf(endtime).getTime() 
-          - Timestamp.valueOf(starttime).getTime())
-          / (1000 * 60 * 60.0) / 4.0 * 0.5);
-      schedule.setRestHour(restTime);
+      float whr = (float) ((Timestamp.valueOf(endtime).getTime() 
+            - Timestamp.valueOf(starttime).getTime())
+            / (1000 * 60 * 60.0) / 4.0 * 0.5);
+      if(whr<=1.0) {
+    	  schedule.setRestHour((float) 0.5);
+      }else {
+    	  schedule.setRestHour((float) 1.0);
+      }
+//      float restTime = (float) ((Timestamp.valueOf(endtime).getTime() 
+//          - Timestamp.valueOf(starttime).getTime())
+//          / (1000 * 60 * 60.0) / 4.0 * 0.5);
+//      schedule.setRestHour(restTime);
 
       Interview interview = interviewService
           .findByAdmitJobUserName(jobId, (String) jsonObject.get("scheduleName"));
