@@ -159,7 +159,7 @@ width:200px;
 									<td class="align-middle">${job.industry}</td>
 									<td class="text-left align-middle"><a class="jobtitle" href="<c:url value='/jobDetail/${job.jobId}'/>" class="">${job.title}</a>
 									<p style="font-size:12px">
-									<a class="jobcompany" href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'>${job.jobCompany.name}</a>
+									<a class="jobcompany" href="<c:url value='/company?id=${job.jobCompany.companyId}'/>">${job.jobCompany.name}</a>
 										<c:if test="${job.jobCompany.name==null}">個人</c:if></p></td>
 									<td class="align-middle">${job.city.cityName}</td>
 									<td class="align-middle">${job.jobOwner.userName}</td>
@@ -174,7 +174,7 @@ width:200px;
 								    <td class="align-middle">${job.industry}</td>
 									<td class="text-left align-middle"><a class="jobtitle" href="<c:url value='/jobDetail/${job.jobId}'/>" class="">${job.title}</a>
 									<p style="font-size:12px">
-									<a class="jobcompany" href='<spring:url value="company?id=${job.jobCompany.companyId}"/>'>${job.jobCompany.name}</a>
+									<a class="jobcompany" href="<c:url value='/company?id=${job.jobCompany.companyId}'/>">${job.jobCompany.name}</a>
 										<c:if test="${job.jobCompany.name==null}">個人</c:if></p>
 									</td>
 									<td class="align-middle">${job.city.cityName}</td>
