@@ -108,8 +108,8 @@ public class OrderController {
     aio.setTotalAmount(req.getParameter("TotalAmount"));
     aio.setTradeDesc(req.getParameter("TradeDesc"));
     aio.setItemName(req.getParameter("ItemName"));
-    aio.setReturnURL("http://eeit10507.southeastasia.cloudapp.azure.com:8080/FunWorkProject2019/orderReturn");
-    aio.setOrderResultURL("http://eeit10507.southeastasia.cloudapp.azure.com:8080/FunWorkProject2019/orderReturn");
+    aio.setReturnURL("http://funwork.southeastasia.cloudapp.azure.com:8080/FunWorkProject2019/orderReturn");
+    aio.setOrderResultURL("http://funwork.southeastasia.cloudapp.azure.com:8080/FunWorkProject2019/orderReturn");
 
     try {
       return all.aioCheckOut(aio);

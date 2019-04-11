@@ -25,16 +25,16 @@ public class RootAppConfig {
   @Bean
   public DataSource dataSource() {
     ComboPooledDataSource ds = new ComboPooledDataSource();
-    ds.setUser("memberuser@eeit105fk");   //遠端使用
+    ds.setUser("memberuser@eeit105funwork");   //遠端使用
     ds.setPassword("Eeit10507");
-//    ds.setUser("memberuser@eeit105fk"); //local使用
-//    ds.setPassword("Eeit10507");
+//    ds.setUser("sa); //local使用
+//    ds.setPassword("passw0rd");
     try {
       ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     } catch (PropertyVetoException e) {
       logger.warning(e.getMessage());
     }
-    ds.setJdbcUrl("jdbc:sqlserver://eeit105fk.database.windows.net:1433;databaseName=funwork");   //遠端
+    ds.setJdbcUrl("jdbc:sqlserver://eeit105funwork.database.windows.net:1433;database=funwork");   //遠端
 //  ds.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=funwork");                        //local
     ds.setInitialPoolSize(4);
     ds.setMaxPoolSize(8);
