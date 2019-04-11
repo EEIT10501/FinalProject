@@ -81,6 +81,7 @@ public class Application {
     this.job = job;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getLatestMsg() {
     return latestMsg;
   }

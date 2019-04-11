@@ -1,5 +1,6 @@
 package com.funwork.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class City {
     this.cityId = cityId;
   }
 
+  @Column(nullable = false, columnDefinition = "nvarchar(255)")
   public String getCityName() {
     return cityName;
   }
@@ -30,6 +32,7 @@ public class City {
     this.cityName = cityName;
   }
 
+  @Column(nullable = false, columnDefinition = "nvarchar(255)")
   public String getCityArea() {
     return cityArea;
   }

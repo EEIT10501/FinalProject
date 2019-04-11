@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -63,6 +64,7 @@ public class Schedule implements Serializable {
     this.workDate = workDate;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getScheduleName() {
     return scheduleName;
   }

@@ -70,6 +70,7 @@ public class Resume {
     this.birth = bitrh;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getEducationLevel() {
     return educationLevel;
   }
@@ -86,6 +87,7 @@ public class Resume {
     this.profilePic = profilePic;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getSelfIntro() {
     return selfIntro;
   }
@@ -112,6 +114,7 @@ public class Resume {
     this.fileName = fileName;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getGender() {
     return gender;
   }

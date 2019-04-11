@@ -55,6 +55,7 @@ public class Interview implements Serializable {
     this.interviewType = interviewType;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getInterviewPlace() {
     return interviewPlace;
   }
@@ -63,6 +64,7 @@ public class Interview implements Serializable {
     this.interviewPlace = interviewPlace;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getInterviewStatus() {
     return interviewStatus;
   }

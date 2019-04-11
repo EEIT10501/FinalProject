@@ -90,6 +90,7 @@ public class Job {
     this.postEndDate = postEndDate;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getReviewStatus() {
     return reviewStatus;
   }
@@ -178,6 +179,7 @@ public class Job {
     this.industry = industry;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getOther() {
     return other;
   }
@@ -186,6 +188,7 @@ public class Job {
     this.other = other;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getPaidDate() {
     return paidDate;
   }
@@ -254,6 +257,7 @@ public class Job {
     this.reviewTime = reviewTime;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getFailReason() {
     return failReason;
   }
@@ -278,6 +282,7 @@ public class Job {
     this.jobLng = jobLng;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getWorkDate() {
     return workDate;
   }
@@ -286,6 +291,7 @@ public class Job {
     this.workDate = workDate;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getWorkTime() {
     return workTime;
   }
@@ -294,6 +300,7 @@ public class Job {
     this.workTime = workTime;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   @Transient
   public String getCityArea() {
     return cityArea;
@@ -303,6 +310,7 @@ public class Job {
     this.cityArea = cityArea;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   @Transient
   public String getCityName() {
     return cityName;
@@ -312,6 +320,7 @@ public class Job {
     this.cityName = cityName;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   @Transient
   public String getCompanyName() {
     return companyName;
