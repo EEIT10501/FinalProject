@@ -58,6 +58,7 @@ public class Job {
     this.jobId = jobId;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getComment() {
     return comment;
   }
@@ -162,6 +163,7 @@ public class Job {
     this.description = description;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getJobEmail() {
     return jobEmail;
   }
@@ -197,6 +199,7 @@ public class Job {
     this.paidDate = paidDate;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getJobPhone() {
     return jobPhone;
   }

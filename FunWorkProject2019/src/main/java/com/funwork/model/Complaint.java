@@ -67,6 +67,7 @@ public class Complaint {
     this.type = type;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getStatus() {
     return status;
   }
@@ -85,6 +86,7 @@ public class Complaint {
     this.job = job;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getProcessDescription() {
     return processDescription;
   }

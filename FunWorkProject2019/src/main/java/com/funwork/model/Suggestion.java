@@ -42,6 +42,7 @@ public class Suggestion {
     this.comment = comment;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getEmail() {
     return email;
   }
@@ -67,6 +68,7 @@ public class Suggestion {
 
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getName() {
     return name;
   }
@@ -84,6 +86,7 @@ public class Suggestion {
     this.attachmentPart = attachmentPart;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getFileName() {
     return fileName;
   }

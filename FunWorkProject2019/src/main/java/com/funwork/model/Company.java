@@ -99,7 +99,7 @@ public class Company implements Serializable {
     this.name = name;
   }
 
-  @Column(nullable = false, unique = true)
+  @Column(nullable = false, unique = true,columnDefinition = "nvarchar(255)")
   public String getTaxId() {
     return taxId;
   }
@@ -108,7 +108,7 @@ public class Company implements Serializable {
     this.taxId = taxId;
   }
 
-  @Column(nullable = false)
+  @Column(nullable = false,columnDefinition = "nvarchar(255)")
   public String getAddress() {
     return address;
   }
@@ -167,6 +167,7 @@ public class Company implements Serializable {
     this.logo = logo;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getSiteUrl() {
     return siteUrl;
   }
@@ -175,6 +176,7 @@ public class Company implements Serializable {
     this.siteUrl = siteUrl;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getFileName() {
     return fileName;
   }
@@ -209,6 +211,7 @@ public class Company implements Serializable {
     this.reviewTime = reviewTime;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getFailReason() {
     return failReason;
   }

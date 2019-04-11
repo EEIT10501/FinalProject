@@ -73,6 +73,7 @@ public class Schedule implements Serializable {
     this.scheduleName = scheduleName;
   }
 
+  @Column(columnDefinition = "nvarchar(50)")
   public String getColor() {
     return color;
   }

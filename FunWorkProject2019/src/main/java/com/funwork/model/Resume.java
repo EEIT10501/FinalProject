@@ -54,6 +54,7 @@ public class Resume {
     this.name = name;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getPhoneNum() {
     return phoneNum;
   }
@@ -106,6 +107,7 @@ public class Resume {
     this.user = user;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getFileName() {
     return fileName;
   }
@@ -132,6 +134,7 @@ public class Resume {
     this.profilePart = profilePart;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getType1() {
     return type1;
   }
@@ -140,6 +143,7 @@ public class Resume {
     this.type1 = type1;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getPosition1() {
     return position1;
   }
@@ -148,6 +152,7 @@ public class Resume {
     this.position1 = position1;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getTerm1() {
     return term1;
   }
@@ -156,6 +161,7 @@ public class Resume {
     this.term1 = term1;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getType2() {
     return type2;
   }
@@ -164,6 +170,7 @@ public class Resume {
     this.type2 = type2;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getPosition2() {
     return position2;
   }
@@ -172,6 +179,7 @@ public class Resume {
     this.position2 = position2;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getTerm2() {
     return term2;
   }

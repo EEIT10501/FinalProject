@@ -68,6 +68,7 @@ public class User implements Serializable {
     this.password = password;
   }
 
+  @Column(columnDefinition = "nvarchar(50)")
   public String getPhoneNum() {
     return phoneNum;
   }
@@ -141,6 +142,7 @@ public class User implements Serializable {
     this.abscence = abscence;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getFacebook() {
     return facebook;
   }
@@ -149,6 +151,7 @@ public class User implements Serializable {
     this.facebook = facebook;
   }
 
+  @Column(columnDefinition = "nvarchar(255)")
   public String getGoogle() {
     return google;
   }
